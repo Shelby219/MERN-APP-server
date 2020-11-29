@@ -9,11 +9,11 @@
 
 Deployed App:
 
-Documentation Repository: https://github.com/Shelby219/MERN-Part-A-Docs
+##### Documentation Repository: https://github.com/CA-MERN/MERN-Part-A-Docs
 
-Client Repository: https://github.com/Shelby219/MERN-client
+##### Client Repository: https://github.com/CA-MERN/MERN-client
 
-Server Repository: https://github.com/Shelby219/MERN-server
+##### Server Repository: https://github.com/CA-MERN/MERN-server
 
 ---
 
