@@ -19,7 +19,7 @@ const getPosts = function (req, res) {
                 error: err.message
             });
         }
-        res.send(posts);
+        c
     });
 };
 

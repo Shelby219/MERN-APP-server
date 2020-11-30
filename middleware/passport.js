@@ -1,36 +1,47 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const UserModel = require("./../models/user");
-const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
+const JwtStrategy = require('passport-jwt').Strategy
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+require('dotenv').config();
+
 
 passport.serializeUser((user, done) => {
     done(null, user._id);
 });
 
-passport.deserializeUser(async (id, done) => {
-    try {
-        const user = await UserModel.findById(id);
-        done(null, user);
-    } catch (error) {
-        done(error);
+
+//start with ID end up with user
+passport.deserializeUser((userId, done) => {
+    UserModel.findById(userId)
+        .then((user) => done(null, user))
+        .catch(done)
+    })
+
+const canLogin = (user, password) => {
+    if(user){
+        return user.verifyPasswordSync(password) //mongoose bcrypt
+    } else {
+        return false
     }
-});
+}
 
-passport.use(new LocalStrategy({
-        usernameField: "email",
-        session: false
-    },
-    async (email, password, done) => {
-        const user = await UserModel.findOne({ email })
-            .catch(done);
+const verifyCallback = (email, password, done) => {
 
-        if (!user || !user.verifyPasswordSync(password)) {
-            return done(null, false);
+    UserModel.findOne({email})
+    .then((user) => {
+        if(canLogin(user, password)){
+            return done(null, user)
+        } else {
+            return done(null, false)
         }
+    })
+    .catch(done)
+}
+// this is setting passport username to email as passport local accepts username and password
+const fields = { usernameField: "email"}
 
-        return done(null, user);
-    }
-));
+passport.use(new LocalStrategy(fields, verifyCallback))
 
 
 
@@ -53,5 +64,6 @@ passport.use(new JwtStrategy(
         }
 
         return done(null, user);
+      
     }
 ));

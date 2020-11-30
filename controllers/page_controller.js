@@ -1,6 +1,11 @@
 function home(req, res) {
-    res.render("/home");
+    
+    res.send("This is Home");
+  
 }
+
+
+
 
 module.exports = {
     home
