@@ -7,11 +7,13 @@ const mongoose = require('mongoose');
 const passport = require("passport")
 //const cookieParser = require('cookie-parser')
 
-
-
 //const flash = require("connect-flash")
 
 const postRouter = require('./routes/posts_routes');
+const userRouter = require("./routes/user_routes");
+const pageRouter = require("./routes/page_routes");
+
+
 
 const port = process.env.port || 3000;
 // If we are not running in production, load our local .env
@@ -28,8 +30,7 @@ app.use(express.urlencoded({
     extended:true   
 }));
 
-
-//require("./middleware/passport");
+require("./middleware/passport");
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use(flash());
@@ -52,7 +53,6 @@ mongoose.connect(dbConn, {
         }
     });
 
-
 app.use(session({
         secret: "dogs",
         resave: false,
@@ -60,15 +60,16 @@ app.use(session({
         store: new MongoStore({ mongooseConnection: mongoose.connection })
     }));
     
-
-
-    
 // app.get('/', (req, res) => {
 //     console.log("get on /");
 //     res.send("got your request");
 // })
 
 app.use('/posts', postRouter);
+app.use('/user', userRouter);
+app.use('/', pageRouter);
+
+
 
 app.listen(port, () => {
     console.log(`Blog express app listening on port ${port}`);
