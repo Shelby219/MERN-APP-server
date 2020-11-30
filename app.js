@@ -1,18 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const passport = require("passport")
-const cookieParser = require('cookie-parser')
-const expressSession = require('express-session')
+//const cookieParser = require('cookie-parser')
 
-const MongoStore = require('connect-mongo')
-const flash = require("connect-flash")
 
+
+//const flash = require("connect-flash")
 
 const postRouter = require('./routes/posts_routes');
 
-const port = process.env.port || 3009;
+const port = process.env.port || 3000;
 // If we are not running in production, load our local .env
 if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
@@ -20,20 +21,18 @@ if(process.env.NODE_ENV !== 'production') {
 
 const app = express();
 app.use(cors());
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(express.json());
 app.use(express.urlencoded({
     extended:true   
 }));
 
-app.use(expressSession({
-    secret: "dogs",
-    resave: false,
-    saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
-}));
 
+//require("./middleware/passport");
+app.use(passport.initialize());
+app.use(passport.session());
+//app.use(flash());
 
 const dbConn =  process.env.MONGODB_URI ||  'mongodb://localhost/recipe_app'
 // Set three properties to avoid deprecation warnings:
@@ -53,10 +52,16 @@ mongoose.connect(dbConn, {
         }
     });
 
-    require("./middleware/passport");
-    app.use(passport.initialize());
-    app.use(passport.session());
-    app.use(flash());
+
+app.use(session({
+        secret: "dogs",
+        resave: false,
+        saveUninitialized: false,
+        store: new MongoStore({ mongooseConnection: mongoose.connection })
+    }));
+    
+
+
     
 // app.get('/', (req, res) => {
 //     console.log("get on /");
