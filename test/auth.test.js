@@ -6,6 +6,8 @@ const { registerNew,
         logOut,
         loginNew,
         loginCreate } = require('../controllers/auth_controller');
+const app = require('../app.js'); 
+const request = require('supertest');
 
 
  // set up connection for test database
@@ -20,17 +22,14 @@ after((done) => {
 })
 
 beforeEach(async function () {
-    await clearData().exec();
-    // Use await so we can access the postId, which is used by some tests
+    //await tearDownData().exec();
     let user = await setupData();
     UserId = user._id;
 });
 
-// // Delete test data after each test
-// afterEach((done) => {
-//     // Execute the deleteMany query
-//     tearDownData().exec(() => done());
-// });
+afterEach((done) => {
+  tearDownData().exec(() => done());
+});
 
 // Connect to the test database
 function connectToDb(done) {
@@ -52,7 +51,6 @@ function connectToDb(done) {
         });
 }
 
-
 function setupData() {
     let date = Date.now();
     let testUser = {};
@@ -64,7 +62,7 @@ function setupData() {
     return User.create(testUser);
 }
 
-describe('registerCreate', () => {
+describe('registering a user', () => {
 	let req = {
 		body: {
 			name: 'Test Name',
@@ -77,11 +75,50 @@ describe('registerCreate', () => {
 		await registerCreate(req);
 		const user = await User.find();
 		expect(user.length).toBe(1);
-        console.log('test here');
-        console.log(user);
+      
 	});
 });
 
-function clearData() {
+describe('testing Login function', function() {
+    // it('Should success if credential is valid', function(done) {
+    //   //console.log(user);
+    //     request(app)
+    //        .post('/user/login')
+    //       //  .set('Accept', 'application/json')
+    //       //  .set('Content-Type', 'application/json')
+    //        .send({
+    //          email: "tester@test.com", 
+    //          password: "123456"
+    //         })
+    //        //.expect(200)
+    //        //.expect('content-type': 'application/json')
+    //        .expect(function(res) {
+    //           console.log(res.session)
+    //           console.log("gggsdgsdg")
+    //          res.body.name.toEqual('Test User 1');
+    //          res.body.email.toEqual('tester@test.com');
+              
+    //        })
+    //        .end(done);
+           
+    // }); 
+    it('should succeed with correct credentials', async () => {
+  
+      const res = await request(app)
+        .post('/user/login')
+        .send({
+          email: "tester@test.com", 
+          password: "123456"
+        })
+        console.log(res)
+       expect(res.statusCode).toEqual(200) // this equals
+       expect(res.body).toEqual({ email: 'tester@test.com' })
+  
+    })
+});
+
+
+function tearDownData() {
     return User.deleteMany();
 }
+

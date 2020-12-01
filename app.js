@@ -74,8 +74,8 @@ mongoose.connect(dbConn, {
 app.get('/', (req, res) => {
     console.log("get on /");
     console.log(process.env)
-    console.log(req.session)
-    console.log(res)
+    console.log(req.session.jwt)
+    //console.log(res)
     res.send("got your request");
 })
 
@@ -85,6 +85,6 @@ app.use('/', pageRouter);
 
 
 
-app.listen(port, () => {
+module.exports = app.listen(port, () => {
     console.log(`Blog express app listening on port ${port}`);
 });

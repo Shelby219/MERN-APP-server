@@ -6,10 +6,10 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 require('dotenv').config();
 
 
+
 passport.serializeUser((user, done) => {
     done(null, user._id);
 });
-
 
 //start with ID end up with user
 passport.deserializeUser((userId, done) => {

@@ -1,14 +1,16 @@
 const UserModel = require("../models/user");
 const jwt = require("jsonwebtoken");
 
+
+// helper functions
+//const authenticate = passport.authenticate('local');
+
 function registerNew(req, res) {
-    console.log("test")
     res.send("this is register get");
 }
 
 function registerCreate(req, res, next) {
     const newUserHandler = (user) => {
-        console.log(req)
         req.login(user, (err) => {
         if(err){
             next(err)
@@ -24,6 +26,7 @@ function registerCreate(req, res, next) {
         .catch(x => console.log(x))
 }
 
+
 function logOut(req, res) {
     req.logout();
     res.redirect("/home");
@@ -36,7 +39,8 @@ function loginNew(req, res) {
 function loginCreate(req, res) {
     const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
     req.session.jwt = token;
-    res.redirect("/home");
+    console.log("token", token)
+    res.send("login create hit");
 }
 
 module.exports = {

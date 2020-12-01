@@ -3,11 +3,11 @@ const router = express.Router();
 const passport = require("passport");
 const {  Joi, celebrate, errors } = require('celebrate');
 const {registerCreate, registerNew , logOut, loginNew, loginCreate} = require('../controllers/auth_controller')
-
+const {authRedirect, checkAuthentication} = require("../middleware/auth_middleware")
 
 //authRedirect is middleware and can be run before any route function
 
-router.get('/register', registerNew);
+router.get('/register',authRedirect, registerNew);
 router.post('/register', registerCreate);
 
 
@@ -21,7 +21,7 @@ router.post("/login", celebrate({
     }
     }), 
     passport.authenticate('local', {
-        failureRedirect: '/login',
+        failureRedirect: '/user/login',
         session: false
 }), loginCreate);
 
