@@ -74,8 +74,7 @@ describe('registering a user', () => {
 	it('should add a new user', async () => {
 		await registerCreate(req);
 		const user = await User.find();
-		expect(user.length).toBe(1);
-      
+    expect(user.length).toBe(1);
 	});
 });
 
@@ -110,13 +109,24 @@ describe('testing Login function', function() {
           email: "tester@test.com", 
           password: "123456"
         })
-        console.log(res)
+        console.log(res.body)
        expect(res.statusCode).toEqual(200) // this equals
-       expect(res.body).toEqual({ email: 'tester@test.com' })
+       //expect(res.body).toEqual({ email: 'tester@test.com' })
   
     })
 });
 
+
+describe('Finding a user', function() {
+  it('find a user by username', function(done) {
+    User.findOne({ email: 'tester@test.com' }, function(err, user) {
+      expect(user.email).toBe('tester@test.com');
+      console.log("   email: ", user.email)
+      done();
+    });
+  });
+
+  });
 
 function tearDownData() {
     return User.deleteMany();

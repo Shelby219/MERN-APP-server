@@ -40,6 +40,7 @@ function loginCreate(req, res) {
     const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
     req.session.jwt = token;
     console.log("token", token)
+    console.log("login create hit");
     res.send("login create hit");
 }
 
