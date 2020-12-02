@@ -1,83 +1,113 @@
 const expect = require('expect');
-const mongoose = require('mongoose');
-const User = require('../models/user');
-const { registerNew,
-        registerCreate,
-        logOut,
-        loginNew,
-        loginCreate } = require('../controllers/auth_controller');
-const app = require('../app.js'); 
 const request = require('supertest');
 
- // set up connection for test database
-const dbConn = 'mongodb://localhost/recipe_app_test'
+const {
+  connectToDb,
+  disconnectFromDb
+} = require('./config');
 
-// Use done to deal with asynchronous code - done is called when the hooks completes
-before((done) => connectToDb(done));
+const User = require('../models/user');
+const {
+        registerCreate,
+       } = require('../controllers/auth_controller');
+
+const app = require('../app.js'); 
+
+
+
+before((done) => {
+  // Connect to the database (same as we do in app.js)
+  connectToDb(done);
+});
 
 // Disconnect from the test database after all tests run. Call done to indicate complete.
 after((done) => {
-    mongoose.disconnect(() => done())
+  disconnectFromDb(done);
 })
 
 beforeEach(async function () {
-    await tearDownData().exec();
+    //await tearDownData().exec();
+    
     let user = await setupData();
     UserId = user._id;
 });
 
-// afterEach((done) => {
-//   tearDownData().exec(() => done());
-// });
-
-// Connect to the test database
-function connectToDb(done) {
-    // Connect to the database (same as we do in app.js)
-    mongoose.connect(dbConn, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useFindAndModify: false,
-            useCreateIndex: true
-        },
-        (err) => {
-            if (err) {
-                console.log('Error connecting to database', err);
-                done();
-            } else {
-                console.log('Connected to FridgeMate Test database!');
-                done();
-            }
-        });
-}
-
-function setupData() {
-    let date = Date.now();
-    let testUser = {};
-   // testUser._ID = 'Test User 1';
-    testUser.name = 'Test User 1';
-    testUser.email = 'tester@test.com';
-    testUser.password = '123456';
-    testUser.create_date = date;
-    testUser.modified_date = date;
-    return User.create(testUser);
-}
-
-describe('registering a user', () => {
-	let req = {
-		body: {
-			name: 'Test Name',
-			email: 'hello@test.com',
-            password: '123456',
-            profile: 'test profile'
-		},
-	};
-	it('should add a new user', async () => {
-		await registerCreate(req);
-		const user = await User.find();
-    expect(user.length).toBe(1);
-	});
+afterEach((done) => {
+  tearDownData().exec(() => done());
 });
 
+
+// describe('registering a user', () => {
+// 	let req = {
+// 		body: {
+// 			name: 'Test Name',
+// 			email: 'hello@test.com',
+//             password: '123456',
+//             profile: 'test profile'
+// 		},
+// 	};
+// 	it('should add a new user', function ()  {
+//     let req = {
+//       body: {
+//         name: 'Test Name',
+//         email: 'hello@test.com',
+//               password: '123456',
+//               profile: 'test profile'
+//       },
+//     };
+// 		registerCreate(req);
+//     const user =  User.find();
+//     console.log(x)
+//     expect(user.length).toBe(1);
+// 	});
+// });
+
+describe('POST /user/register', function () {
+  let data = {
+     	name: 'Test Name',
+     	email: 'hello@test.com',
+      password: '123456',
+      profile: 'test profile'
+     	}
+  it('respond with 200 and matching email', function (done) {
+      request(app)
+          .post('/user/register')
+          .send(data)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .expect(function(res) {
+            res.body.email = "hello@test.com";
+          })
+          .end(function(err, res) {
+            //console.log(res);
+            if (err) return done(err);
+            //console.log(res.body);
+            done();
+          }) 
+  });
+});
+
+
+// describe('POST /user/register', function() {
+//   it('responds with json', function(done) {
+//     request(app)
+//       .post('/user/register')
+//       .send({
+//           name: 'Test Name',
+//           email: 'hello@test.com',
+//           password: '123456',
+//           profile: 'test profile'
+//         })
+//       .set('Accept', 'application/json')
+//       .expect('Content-Type', /json/)
+//       .expect(200)
+//       .end(function(err, res) {
+//         if (err) return done(err);
+//         done();
+//       });
+//   });
+// });
 
 describe('POST /user/login', function() {
   it('responds with json', function(done) {
@@ -114,7 +144,23 @@ describe('Finding a user', function() {
 
  });
 
+
+
+ function setupData() {
+  let date = Date.now();
+  let testUser = {};
+  testUser.name = 'Test User 1';
+  testUser.email = 'tester@test.com';
+  testUser.password = '123456';
+  testUser.create_date = date;
+  testUser.modified_date = date;
+  return User.create(testUser);
+}
+
+
+
 function tearDownData() {
     return User.deleteMany();
+
 }
 

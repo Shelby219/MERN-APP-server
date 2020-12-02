@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 //const authenticate = passport.authenticate('local');
 
 function registerNew(req, res) {
-    res.send("this is register get");
+    res.json("this is register get")
 }
 
 function registerCreate(req, res, next) {
@@ -15,7 +15,9 @@ function registerCreate(req, res, next) {
         if(err){
             next(err)
         } else {
-            res.redirect("/home")
+            //console.log(user)
+            res.send(user);
+            //res.redirect("/home")
         }
         })
     }
