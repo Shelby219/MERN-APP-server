@@ -29,19 +29,20 @@ function registerCreate(req, res, next) {
 
 function logOut(req, res) {
     req.logout();
+    //res.send("login create hit");
     res.redirect("/home");
 }
 
 function loginNew(req, res) {
-    res.send("this is login new ");
+    res.send("this is login new");
 }
 
 function loginCreate(req, res) {
     const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
     req.session.jwt = token;
-    console.log("token", token)
+    //console.log("token", token)
     console.log("login create hit");
-    res.send("login create hit");
+    res.json("login create hit");
 }
 
 module.exports = {

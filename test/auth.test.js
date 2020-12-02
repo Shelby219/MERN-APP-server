@@ -9,7 +9,6 @@ const { registerNew,
 const app = require('../app.js'); 
 const request = require('supertest');
 
-
  // set up connection for test database
 const dbConn = 'mongodb://localhost/recipe_app_test'
 
@@ -22,14 +21,14 @@ after((done) => {
 })
 
 beforeEach(async function () {
-    //await tearDownData().exec();
+    await tearDownData().exec();
     let user = await setupData();
     UserId = user._id;
 });
 
-afterEach((done) => {
-  tearDownData().exec(() => done());
-});
+// afterEach((done) => {
+//   tearDownData().exec(() => done());
+// });
 
 // Connect to the test database
 function connectToDb(done) {
@@ -54,6 +53,7 @@ function connectToDb(done) {
 function setupData() {
     let date = Date.now();
     let testUser = {};
+   // testUser._ID = 'Test User 1';
     testUser.name = 'Test User 1';
     testUser.email = 'tester@test.com';
     testUser.password = '123456';
@@ -78,42 +78,28 @@ describe('registering a user', () => {
 	});
 });
 
-describe('testing Login function', function() {
-    // it('Should success if credential is valid', function(done) {
-    //   //console.log(user);
-    //     request(app)
-    //        .post('/user/login')
-    //       //  .set('Accept', 'application/json')
-    //       //  .set('Content-Type', 'application/json')
-    //        .send({
-    //          email: "tester@test.com", 
-    //          password: "123456"
-    //         })
-    //        //.expect(200)
-    //        //.expect('content-type': 'application/json')
-    //        .expect(function(res) {
-    //           console.log(res.session)
-    //           console.log("gggsdgsdg")
-    //          res.body.name.toEqual('Test User 1');
-    //          res.body.email.toEqual('tester@test.com');
-              
-    //        })
-    //        .end(done);
-           
-    // }); 
-    it('should succeed with correct credentials', async () => {
-  
-      const res = await request(app)
-        .post('/user/login')
-        .send({
-          email: "tester@test.com", 
-          password: "123456"
-        })
-        console.log(res.body)
-       expect(res.statusCode).toEqual(200) // this equals
-       //expect(res.body).toEqual({ email: 'tester@test.com' })
-  
-    })
+
+describe('POST /user/login', function() {
+  it('responds with json', function(done) {
+    request(app)
+      .post('/user/login')
+      .send({
+            email: "tester@test.com", 
+            password: "123456"
+          })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      // .expect(function(res) {
+      //   res.body.id = 'some fixed id';
+      //   res.body.name = res.body.name.toLowerCase();
+      // })
+      //.expect(res.body).toEqual({ email: 'tester@test.com' })
+      .end(function(err, res) {
+        if (err) return done(err);
+        done();
+      });
+  });
 });
 
 
@@ -126,7 +112,7 @@ describe('Finding a user', function() {
     });
   });
 
-  });
+ });
 
 function tearDownData() {
     return User.deleteMany();
