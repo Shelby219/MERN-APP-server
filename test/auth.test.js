@@ -1,6 +1,6 @@
 const expect = require('expect');
 const request = require('supertest');
-
+const mongoose = require('mongoose');
 const {
   connectToDb,
   disconnectFromDb
@@ -12,7 +12,6 @@ const {
        } = require('../controllers/auth_controller');
 
 const app = require('../app.js'); 
-
 
 
 before((done) => {
@@ -32,36 +31,7 @@ beforeEach(async function () {
     UserId = user._id;
 });
 
-afterEach((done) => {
-  tearDownData().exec(() => done());
-});
-
-
-// describe('registering a user', () => {
-// 	let req = {
-// 		body: {
-// 			name: 'Test Name',
-// 			email: 'hello@test.com',
-//             password: '123456',
-//             profile: 'test profile'
-// 		},
-// 	};
-// 	it('should add a new user', function ()  {
-//     let req = {
-//       body: {
-//         name: 'Test Name',
-//         email: 'hello@test.com',
-//               password: '123456',
-//               profile: 'test profile'
-//       },
-//     };
-// 		registerCreate(req);
-//     const user =  User.find();
-//     console.log(x)
-//     expect(user.length).toBe(1);
-// 	});
-// });
-
+//REGISTER USER TEST
 describe('POST /user/register', function () {
   let data = {
      	name: 'Test Name',
@@ -89,16 +59,10 @@ describe('POST /user/register', function () {
 });
 
 
-// describe('POST /user/register', function() {
+// describe('GET /user/logout', function() {
 //   it('responds with json', function(done) {
 //     request(app)
-//       .post('/user/register')
-//       .send({
-//           name: 'Test Name',
-//           email: 'hello@test.com',
-//           password: '123456',
-//           profile: 'test profile'
-//         })
+//       .get('/user/logout')
 //       .set('Accept', 'application/json')
 //       .expect('Content-Type', /json/)
 //       .expect(200)
@@ -109,8 +73,9 @@ describe('POST /user/register', function () {
 //   });
 // });
 
+//LOGIN USER TEST
 describe('POST /user/login', function() {
-  it('responds with json', function(done) {
+  it('Test Login Route, get 200 and match email', function(done) {
     request(app)
       .post('/user/login')
       .send({
@@ -121,10 +86,9 @@ describe('POST /user/login', function() {
       .expect('Content-Type', /json/)
       .expect(200)
       // .expect(function(res) {
-      //   res.body.id = 'some fixed id';
-      //   res.body.name = res.body.name.toLowerCase();
+      //   console.log(res);
+      //   res.body.email = "tester@test.com";
       // })
-      //.expect(res.body).toEqual({ email: 'tester@test.com' })
       .end(function(err, res) {
         if (err) return done(err);
         done();
@@ -132,7 +96,7 @@ describe('POST /user/login', function() {
   });
 });
 
-
+//FIND USER TEST
 describe('Finding a user', function() {
   it('find a user by username', function(done) {
     User.findOne({ email: 'tester@test.com' }, function(err, user) {
@@ -141,9 +105,7 @@ describe('Finding a user', function() {
       done();
     });
   });
-
  });
-
 
 
  function setupData() {
@@ -159,8 +121,21 @@ describe('Finding a user', function() {
 
 
 
-function tearDownData() {
-    return User.deleteMany();
+afterEach(async function () {
+  const collections = await mongoose.connection.db.collections()
 
-}
+  for (let collection of collections) {
+    await collection.remove()
+  }
+})
+
+
+// function tearDownData() {
+//   return User.deleteMany()
+// }
+
+// afterEach((done) => {
+//   tearDownData().exec(() => done());
+// });
+
 

@@ -12,7 +12,6 @@ router.post('/register', registerCreate);
 
 
 router.get("/login", loginNew)
-//router.post("/login", loginCreate )
 
 router.post("/login", celebrate({
     body: {

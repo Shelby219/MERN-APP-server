@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 //const authenticate = passport.authenticate('local');
 
 function registerNew(req, res) {
-    res.json("this is register get")
+    //res.render("user/register");
 }
 
 function registerCreate(req, res, next) {
@@ -28,7 +28,6 @@ function registerCreate(req, res, next) {
         .catch(x => console.log(x))
 }
 
-
 function logOut(req, res) {
     req.logout();
     //res.send("login create hit");
@@ -36,6 +35,7 @@ function logOut(req, res) {
 }
 
 function loginNew(req, res) {
+    //res.render("user/login");
     res.send("this is login new");
 }
 
@@ -43,7 +43,7 @@ function loginCreate(req, res) {
     const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
     req.session.jwt = token;
     //console.log("token", token)
-    console.log("login create hit");
+    //res.send("Hello")
     res.json("login create hit");
 }
 
