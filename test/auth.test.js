@@ -26,7 +26,6 @@ after((done) => {
 
 beforeEach(async function () {
     //await tearDownData().exec();
-    
     let user = await setupData();
     UserId = user._id;
 });
@@ -120,10 +119,8 @@ describe('Finding a user', function() {
 }
 
 
-
 afterEach(async function () {
   const collections = await mongoose.connection.db.collections()
-
   for (let collection of collections) {
     await collection.remove()
   }
