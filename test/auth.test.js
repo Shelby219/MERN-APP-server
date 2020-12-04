@@ -28,6 +28,7 @@ beforeEach(async function () {
     //await tearDownData().exec();
     let user = await setupData();
     UserId = user._id;
+    //console.log(user)
 });
 
 //REGISTER USER TEST
@@ -106,6 +107,36 @@ describe('Finding a user', function() {
   });
  });
 
+ //EDIT ACCOUNT SETTINGS TEST
+describe('PATCH /user/:name/account-settings', function() {
+it('Test update account settings route', async () => {
+  //console.log(UserId)
+    let user = await User.findOne({ email: 'tester@test.com' }, function (err, user) {
+      //
+    });
+    const data = {
+      email: "updatetest@test.com", 
+      password: "abcdef"
+    }
+   
+	request(app)
+		.patch("/user/"+ user.name +"/account-settings")
+      .send(data)
+      .expect(200)
+      .then(response => {
+        // Check the response
+        expect(response.body._id).toBe(post.id)
+        expect(response.body.email).toBe(data.email)
+        expect(response.body.password).toBe(data.password)
+
+        // Check the data in the database
+        const newUpdateUser =  User.findOne({ _id: response.body._id })
+        expect(newUpdateUser).toBeTruthy()
+        expect(newnewUpdateUserPost.email).toBe(data.email)
+        expect(newUpdateUser.password).toBe(data.password)
+      })
+})
+});
 
  function setupData() {
   let date = Date.now();

@@ -41,7 +41,7 @@ const User = new Schema({
     },
     fridgeIngredients: {
         type:  Array,
-        default: undefined
+        default: []
     },
     pantryIngredients: {
         type:  Array,

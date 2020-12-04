@@ -1,6 +1,6 @@
 const UserModel = require("../models/user");
 const jwt = require("jsonwebtoken");
-
+const {updateUser, deleteUser} = require("../utils/auth_utilities")
 
 // helper functions
 //const authenticate = passport.authenticate('local');
@@ -47,10 +47,51 @@ function loginCreate(req, res) {
     res.json("login create hit");
 }
 
+//Account settings get ROUTE
+function editUser(req, res) {
+    //res.render("user/:name/account-settings")
+    res.send("this is account settings");
+}
+
+//Account settings PATCH ROUTE
+function editUserReq(req, res) {
+    console.log("hit contorls")
+    updateUser(req).exec((err, user) => {
+        if (err) {
+            res.status(500);
+            return res.json({
+                error: err.message
+            });
+        }
+        console.log(err.message)
+        //res.status(200);
+        res.json(user)
+        //res.redirect(`user/`${res.body.name}`/account-settings`);
+    })
+}
+
+// async function removeUser (req, res) {
+    
+//     try{deleteUser(req.session.passport.user).exec(async (err) => {
+//         if (err) {
+//             res.status(500);
+//             return res.json({
+//                 error: err.message
+//             });
+//         }
+//         else {res.redirect("/home")}
+//     })}
+//     catch(err) {console.log(err)}
+// }
+
+
+
 module.exports = {
     registerNew,
     registerCreate,
     logOut,
     loginNew,
-    loginCreate
+    loginCreate,
+    editUser,
+    editUserReq
 }
