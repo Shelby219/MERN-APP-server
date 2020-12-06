@@ -27,7 +27,6 @@ const canLogin = (user, password) => {
 }
 
 const verifyCallback = (email, password, done) => {
-
     UserModel.findOne({email})
     .then((user) => {
         if(canLogin(user, password)){

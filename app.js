@@ -11,10 +11,10 @@ const cookieParser = require('cookie-parser')
 
 
 //routes
-const postRouter = require('./routes/posts_routes');
+
 const authRouter = require("./routes/auth_routes");
 const pageRouter = require("./routes/page_routes");
-
+const prefRouter = require("./routes/pref_routes");
 
 
 const port = process.env.PORT || 3000;
@@ -80,10 +80,10 @@ app.get('/', (req, res) => {
     res.send("got your request");
 })
 
-app.use('/posts', postRouter);
+
 app.use('/user', authRouter);
 app.use('/', pageRouter);
-
+app.use('/preferences', prefRouter);
 
 
 module.exports = app.listen(port, () => {

@@ -68,6 +68,7 @@ function editUser(req, res) {
 
 //Account settings PATCH ROUTE
 function editUserReq(req, res) {
+    //console.log(res)
     //console.log("hit controls")
     updateUser(req).exec((err, user) => {
         if (err) {

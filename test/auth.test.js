@@ -118,6 +118,7 @@ describe('Finding a User', function() {
         .expect(200)
         .then((response) => {
           // Check the response
+          //console.log(response)
           expect(response.body._id).toBe(user.id)
           expect(response.body.email).toBe(user.email)
         })
@@ -131,7 +132,9 @@ it('Test update account settings route', async () => {
     let user = await User.findOne({ email: 'tester@test.com' }).exec();
     const data = {
       email: "updatetest@test.com", 
-      password: "abcdef"
+      password: "abcdef",
+      name: "change name",
+      fridgeIngredients: ["1","2"]
     }
    
     await request(app)
@@ -140,6 +143,7 @@ it('Test update account settings route', async () => {
       .expect(200)
       .then(async (response) => {
         // Check the response
+        //console.log(response)
         expect(response.body._id).toBe(user.id)
         expect(response.body.email).toBe(data.email)
 
@@ -180,3 +184,7 @@ afterEach(async function () {
 // });
 
 
+module.exports = {
+  setupData
+ 
+};
