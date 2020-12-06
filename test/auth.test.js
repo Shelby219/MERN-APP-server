@@ -39,7 +39,7 @@ describe('POST /user/register', function () {
       password: '123456',
       profile: 'test profile'
      	}
-  it('respond with 200 and matching email', function (done) {
+  it('Test register user endpoint respond with 200 and email', function (done) {
       request(app)
           .post('/user/register')
           .send(data)
@@ -97,7 +97,7 @@ describe('POST /user/login', function() {
 });
 
 //FIND USER TEST
-describe('Finding a user', function() {
+describe('Finding a User', function() {
   it('find a user by username', function(done) {
     User.findOne({ email: 'tester@test.com' }, function(err, user) {
       expect(user.email).toBe('tester@test.com');
@@ -106,6 +106,23 @@ describe('Finding a user', function() {
     });
   });
  });
+
+
+ //GET ACCOUNT SETTINGS PAGE
+ describe('GET /user/:name/account-settings', function() {
+  it('Test get account settings page to populate user info', async () => {
+      let user = await User.findOne({ email: 'tester@test.com' }).exec();
+
+      await request(app)
+      .get("/user/"+ user.name +"/account-settings")
+        .expect(200)
+        .then((response) => {
+          // Check the response
+          expect(response.body._id).toBe(user.id)
+          expect(response.body.email).toBe(user.email)
+        })
+     })
+  });
 
  //EDIT ACCOUNT SETTINGS TEST
 describe('PATCH /user/:name/account-settings', function() {
@@ -131,7 +148,7 @@ it('Test update account settings route', async () => {
         expect(newUpdateUser).toBeTruthy()
         expect(newUpdateUser.email).toBe(data.email)
       })
-})
+   })
 });
 
  function setupData() {
@@ -140,8 +157,8 @@ it('Test update account settings route', async () => {
   testUser.name = 'Test User 1';
   testUser.email = 'tester@test.com';
   testUser.password = '123456';
-  testUser.create_date = date;
-  testUser.modified_date = date;
+  testUser.createdDate = date;
+  testUser.lastLogin = date;
   return User.create(testUser);
 }
 

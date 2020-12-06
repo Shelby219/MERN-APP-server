@@ -24,9 +24,17 @@ const deleteUser = function (id) {
 //         new: true
 //     });
 // };
+
+// GET USER BY NAME PARAMS for ACCOUNT SETTINGS
+// returns a query
+const getUserByParam = function (req) {
+    //console.log("hit utils")
+    //console.log(req.params.name)
+    return  User.findOne({ name: req.params.name });
+};
  
 const updateUser = function (req) {
-    console.log("hit utils")
+    //console.log("hit utils")
     //console.log(req.session.passport.user)
     //console.log(req.params.name)   Test User 1
     //console.log(req.body)   { email: 'updatetest@test.com', password: 'abcdef' }
@@ -42,4 +50,4 @@ const updateUser = function (req) {
 
 
 
-module.exports = {updateUser, deleteUser}
+module.exports = {updateUser, deleteUser, getUserByParam}

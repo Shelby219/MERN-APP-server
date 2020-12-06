@@ -1,6 +1,6 @@
 const UserModel = require("../models/user");
 const jwt = require("jsonwebtoken");
-const {updateUser, deleteUser} = require("../utils/auth_utilities")
+const {updateUser, getUserByParam, deleteUser} = require("../utils/auth_utilities")
 
 // helper functions
 //const authenticate = passport.authenticate('local');
@@ -49,8 +49,21 @@ function loginCreate(req, res) {
 
 //Account settings get ROUTE
 function editUser(req, res) {
+    //console.log(req)
+     // execute the query from getPostById
+     getUserByParam(req).exec((err, user) => {
+        if (err) {
+            res.status(404);
+            //console.log(err)
+            return res.json({
+                error: err.message
+            });
+        }
+        res.status(200);
+        res.send(user);
+    });
     //res.render("user/:name/account-settings")
-    res.send("this is account settings");
+    //res.send("this is account settings");
 }
 
 //Account settings PATCH ROUTE
@@ -59,10 +72,10 @@ function editUserReq(req, res) {
     updateUser(req).exec((err, user) => {
         if (err) {
             res.status(500);
-            console.log(err)
-            // return res.json({
-            //     error: err.message
-            // });
+            //console.log(err)
+            return res.json({
+                error: err.message
+            });
         }
         //console.log(user)
         res.status(200);
@@ -71,10 +84,23 @@ function editUserReq(req, res) {
     });  
 }
 
+//DELETE USER
+const removeUser = function (req, res) {
+    // execute the query from deletePost
+    deleteUser(req.session.passport.user).exec((err) => {
+        if (err) {
+            res.status(500);
+            return res.json({
+                error: err.message
+            });
+        }
+        res.sendStatus(204);
+        //res.redirect("/home")
+    });
+};
 
 // async function removeUser (req, res) {
-    
-//     try{deleteUser(req.session.passport.user).exec(async (err) => {
+//     try {deleteUser(req.session.passport.user).exec(async (err) => {
 //         if (err) {
 //             res.status(500);
 //             return res.json({
