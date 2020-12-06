@@ -46,6 +46,14 @@ const User = new Schema({
     pantryIngredients: {
         type:  Array,
         default: ["water", "salt", "olive oil", "black pepper"]
+    },
+    createdDate: {
+        type: Date,
+        default: Date.now
+    },
+    lastLogin: {
+        type: Date,
+        default: Date.now
     }
 });
 

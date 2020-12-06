@@ -111,29 +111,25 @@ describe('Finding a user', function() {
 describe('PATCH /user/:name/account-settings', function() {
 it('Test update account settings route', async () => {
   //console.log(UserId)
-    let user = await User.findOne({ email: 'tester@test.com' }, function (err, user) {
-      //
-    });
+    let user = await User.findOne({ email: 'tester@test.com' }).exec();
     const data = {
       email: "updatetest@test.com", 
       password: "abcdef"
     }
    
-	request(app)
+    await request(app)
 		.patch("/user/"+ user.name +"/account-settings")
       .send(data)
       .expect(200)
-      .then(response => {
+      .then(async (response) => {
         // Check the response
-        expect(response.body._id).toBe(post.id)
+        expect(response.body._id).toBe(user.id)
         expect(response.body.email).toBe(data.email)
-        expect(response.body.password).toBe(data.password)
 
         // Check the data in the database
-        const newUpdateUser =  User.findOne({ _id: response.body._id })
+        const newUpdateUser =  await User.findOne({ _id: response.body._id })
         expect(newUpdateUser).toBeTruthy()
-        expect(newnewUpdateUserPost.email).toBe(data.email)
-        expect(newUpdateUser.password).toBe(data.password)
+        expect(newUpdateUser.email).toBe(data.email)
       })
 })
 });
@@ -153,7 +149,7 @@ it('Test update account settings route', async () => {
 afterEach(async function () {
   const collections = await mongoose.connection.db.collections()
   for (let collection of collections) {
-    await collection.remove()
+    await collection.drop({})
   }
 })
 

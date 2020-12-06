@@ -27,15 +27,14 @@ const deleteUser = function (id) {
  
 const updateUser = function (req) {
     console.log("hit utils")
-    console.log(req.session.passport.user)
+    //console.log(req.session.passport.user)
+    //console.log(req.params.name)   Test User 1
+    //console.log(req.body)   { email: 'updatetest@test.com', password: 'abcdef' }
     // use new:true to return the updated post rather than the original post when the query is executed
-    return User.findByIdAndUpdate(req.params.name, req.body, {
+    return User.findOneAndUpdate(req.params.name, req.body, {
         new: true
     });
 };
-
-
-
 
 
 

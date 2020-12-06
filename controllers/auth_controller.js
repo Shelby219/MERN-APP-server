@@ -55,20 +55,22 @@ function editUser(req, res) {
 
 //Account settings PATCH ROUTE
 function editUserReq(req, res) {
-    console.log("hit contorls")
+    //console.log("hit controls")
     updateUser(req).exec((err, user) => {
         if (err) {
             res.status(500);
-            return res.json({
-                error: err.message
-            });
+            console.log(err)
+            // return res.json({
+            //     error: err.message
+            // });
         }
-        console.log(err.message)
-        //res.status(200);
-        res.json(user)
+        //console.log(user)
+        res.status(200);
+        res.send(user);
         //res.redirect(`user/`${res.body.name}`/account-settings`);
-    })
+    });  
 }
+
 
 // async function removeUser (req, res) {
     

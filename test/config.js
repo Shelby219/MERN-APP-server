@@ -9,7 +9,7 @@ const connectToDb = function (done) {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: false,
-            userCreateIndex: true
+            useCreateIndex: true
         },
         (err) => {
             if (err) {
