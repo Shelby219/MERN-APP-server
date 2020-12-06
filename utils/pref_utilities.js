@@ -1,5 +1,5 @@
 const User = require('../models/user');
-
+const UserPref = require('../models/preferences');
 
 const updatePref = function (req) {
     //console.log("hit utils")
@@ -32,7 +32,7 @@ const updatePref = function (req) {
     updateHealthPrefs.wheat = req.body.wheat;
 
 //{_id: req.session.passport.user}
-    return User.findOneAndUpdate({name: req.params.name}, {$set: {dietPreferences: updateDietPrefs, healthPreferences: updateHealthPrefs}}, { overwrite: true }, function (err){
+    return UserPref.findOneAndUpdate({name: req.params.name}, {$set: {dietPreferences: updateDietPrefs, healthPreferences: updateHealthPrefs}}, { overwrite: true }, function (err){
              if (err) console.log(err);
           
           });

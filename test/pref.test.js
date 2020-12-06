@@ -4,24 +4,23 @@ const request = require('supertest');
 
 const User = require('../models/user');
 
+const UserPref = require('../models/preferences');
 
 const app = require('../app.js'); 
 
 
-
- //EDIT PREFERENCES TEST
+//EDIT PREFERENCES TEST
  describe('PATCH /preferences/:name/edit', function() {
     it('Test update account settings route', async () => {
       //console.log(UserId)
-        let user = await User.findOne({ email: 'tester@test.com' }).exec();
+        let user = await UserPref.findOne({ _id: UserId }).exec();
 
         const data = {
             dietPreferences: {vegan: true},
             healthPreferences: {dairy: true}
         }
-        
         await request(app)
-            .patch("/preferences/"+ user.name +"/edit")
+        .patch("/preferences/"+ user.name +"/edit")
           .send(data)
           .expect(200)
           .then(async (response) => {

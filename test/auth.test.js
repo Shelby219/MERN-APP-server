@@ -1,6 +1,7 @@
 const expect = require('expect');
 const request = require('supertest');
 const mongoose = require('mongoose');
+
 const {
   connectToDb,
   disconnectFromDb
@@ -167,24 +168,23 @@ it('Test update account settings route', async () => {
 }
 
 
-afterEach(async function () {
-  const collections = await mongoose.connection.db.collections()
-  for (let collection of collections) {
-    await collection.drop({})
-  }
-})
+// afterEach(async function () {
+//   const collections = await mongoose.connection.db.collections()
+//   for (let collection of collections) {
+//     await collection.bulkWrite()
+//   }
+// })
 
 
-// function tearDownData() {
-//   return User.deleteMany()
-// }
+function tearDownData() {
+  return User.deleteMany()
+}
 
-// afterEach((done) => {
-//   tearDownData().exec(() => done());
-// });
+afterEach((done) => {
+  tearDownData().exec(() => done());
+});
 
 
 module.exports = {
   setupData
- 
 };

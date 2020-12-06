@@ -1,6 +1,9 @@
 const UserModel = require("../models/user");
 const jwt = require("jsonwebtoken");
 const {updateUser, getUserByParam, deleteUser} = require("../utils/auth_utilities")
+const {autoNewPreferences} = require("../middleware/pref_middleware")
+
+
 
 // helper functions
 //const authenticate = passport.authenticate('local');
@@ -11,11 +14,14 @@ function registerNew(req, res) {
 
 function registerCreate(req, res, next) {
     const newUserHandler = (user) => {
+        console.log(user)
+       
         req.login(user, (err) => {
         if(err){
             next(err)
         } else {
-            //console.log(user)
+            autoNewPreferences(user)
+            console.log(user)
             res.send(user);
             //res.redirect("/home")
         }
@@ -25,6 +31,7 @@ function registerCreate(req, res, next) {
 
     UserModel.create({ email, password, name, profile})
         .then(newUserHandler)
+        //.then(autoNewPreferences(user))
         .catch(x => console.log(x))
 }
 
