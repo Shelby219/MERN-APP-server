@@ -5,31 +5,48 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const passport = require("passport")
-//const cookieParser = require('cookie-parser')
-
-
+const cookieParser = require('cookie-parser')
 
 //const flash = require("connect-flash")
 
-const postRouter = require('./routes/posts_routes');
 
-const port = process.env.port || 3000;
+//routes
+
+const authRouter = require("./routes/auth_routes");
+const pageRouter = require("./routes/page_routes");
+const prefRouter = require("./routes/pref_routes");
+
+
+const port = process.env.PORT || 3000;
+const app = express();
+
 // If we are not running in production, load our local .env
 if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-const app = express();
+app.use(session({
+    secret: 'Secret of The Recipe App',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1800000,
+        sameSite: 'none',
+        secure: true,
+        httpOnly: false,
+    },
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+}))
+
 app.use(cors());
-//app.use(cookieParser());
+app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(express.json());
 app.use(express.urlencoded({
     extended:true   
 }));
 
-
-//require("./middleware/passport");
+require("./middleware/passport");
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use(flash());
@@ -42,7 +59,8 @@ const dbConn =  process.env.MONGODB_URI ||  'mongodb://localhost/recipe_app'
 mongoose.connect(dbConn, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false
+        useFindAndModify: false,
+        useCreateIndex: true
     },
     (err) => {
         if (err) {
@@ -53,23 +71,21 @@ mongoose.connect(dbConn, {
     });
 
 
-app.use(session({
-        secret: "dogs",
-        resave: false,
-        saveUninitialized: false,
-        store: new MongoStore({ mongooseConnection: mongoose.connection })
-    }));
-    
+//test sessions
+app.get('/', (req, res) => {
+    console.log("get on /");
+    console.log(process.env)
+    console.log(req.session.jwt)
+    //console.log(res)
+    res.send("got your request");
+})
 
 
-    
-// app.get('/', (req, res) => {
-//     console.log("get on /");
-//     res.send("got your request");
-// })
+app.use('/user', authRouter);
+app.use('/', pageRouter);
+app.use('/preferences', prefRouter);
 
-app.use('/posts', postRouter);
 
-app.listen(port, () => {
+module.exports = app.listen(port, () => {
     console.log(`Blog express app listening on port ${port}`);
 });
