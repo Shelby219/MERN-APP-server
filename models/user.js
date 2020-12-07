@@ -14,12 +14,17 @@ const User = new Schema({
     name: {
         type: String,
     },
+    username: {
+        type: String,
+        unique: true,
+        require: true
+    },
     profile: {
         type: String,
     },
     preferences:{
         type: Schema.Types.ObjectId, 
-        ref: "Preferences" 
+        ref: "preferences" 
     },
     fridgeIngredients: {
         type:  Array,
@@ -40,5 +45,5 @@ const User = new Schema({
 });
 
 User.plugin(require('mongoose-bcrypt'));
-module.exports = mongoose.model('User', User);
+module.exports = mongoose.model('user', User);
 

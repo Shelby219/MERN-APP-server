@@ -18,7 +18,8 @@ router.get("/login", loginNew)
 router.post("/login", celebrate({
     body: {
         email: Joi.string().required(),
-        password: Joi.string().required()
+        password: Joi.string().required(),
+        username: Joi.string().required(),
     }
     }), 
     passport.authenticate('local', {
@@ -33,9 +34,9 @@ router.get('/logout', logOut);
 
 
 //GET Route for Account Settings Page
-router.get("/:name/account-settings", editUser)
+router.get("/:username/account-settings", editUser)
 //PATCH Route for Updating the user via account settings
-router.patch("/:name/account-settings", editUserReq)
+router.patch("/:username/account-settings", editUserReq)
 
 //router.delete("/:name/delete", removeUser)
 

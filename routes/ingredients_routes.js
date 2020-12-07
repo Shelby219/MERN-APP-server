@@ -10,13 +10,13 @@ const { getIngredients,
 
 
 //GET Route for Fridge Page
-router.get("/fridge", getIngredients)
+router.get("/:username/fridge", getIngredients)
 
 //POST Route for Updating the user via Preferences
-router.post("/fridge/new", createIngredient)
+router.post("/:username/fridge/new", createIngredient)
 
 //DELETE Route for Updating the user via Preferences
-router.patch("/fridge/delete", deleteIngredient)
+router.patch("/:username/fridge/delete", deleteIngredient)
 
 
 

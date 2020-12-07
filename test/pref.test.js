@@ -9,7 +9,7 @@ const {autoNewPreferences} = require("../middleware/pref_middleware")
 
 const app = require('../app.js'); 
 
- //GET PREFERENCESPAGE
+ //GET PREFERENCES PAGE
  describe('GET  /preferences/:name/', function() {
     it('Test get preference page to populate user info', async () => {
 

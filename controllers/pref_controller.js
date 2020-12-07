@@ -4,7 +4,7 @@ const {updatePref} = require("../utils/pref_utilities")
 
 //Preferences get ROUTE
 function editPref(req, res) {
-    console.log("hit pref")
+   // console.log("hit pref")
      getUserByParam(req).exec((err, user) => {
         if (err) {
             res.status(404);

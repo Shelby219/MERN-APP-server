@@ -1,33 +1,36 @@
-const User = require("../models/User");
-
-
+const User = require('../models/user');
 
 // get all Ingredients
 // return a query
 const getAllIngredients = function (req) {
-    let user = User.findById(req.user._id);
-    return user
+    //console.log(req.user._id)
+    return  User.findOne({ username:  req.params.username })
+   
 };
 
 
 // add Ingredient
 // returns a Post object
 const addIngredient = async function (req) {
-    let user = await User.findById(req.user._id);
-
-    const newItem = {req.body};
-
+  //console.log(req.params.username )
+    let user = await User.findOne({ username:  req.params.username }).exec();
+    //console.log(user._id)
+    
+    const newItem = req.body.item;
+    //console.log(newItem)
     user.fridgeIngredients.push(newItem);
-    return User.findByIdAndUpdate(req.params.name, user, {
+    //console.log(user)
+    return User.findByIdAndUpdate(user._id, user, {
         new: true //this is needed for updating
     });
 };
 
 // delete Ingredient
 // returns a query
-const removeIngredient = function (id) {
+const removeIngredient = function (req) {
+
     return  User.findOneAndUpdate(
-        { _id: req.user._id },
+        { username: req.params.username },
         { $pull: { fridgeIngredients: req.body} },
         { new: true }
     )

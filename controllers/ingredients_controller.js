@@ -2,12 +2,13 @@ const {
 	getAllIngredients,
 	addIngredient,
 	removeIngredient
-} = require("../utils/ingredient_utilities")
+} = require("../utils/ingredients_utilities")
 
 
 
 
 const getIngredients = function(req, res) {
+	//console.log("Hit controls")
 	  getAllIngredients(req)
 		// .sort({
 		// 	modified_date: -1
@@ -18,24 +19,27 @@ const getIngredients = function(req, res) {
 				res.json({
 					error: err.message
 				})
-			}
+            }
+	
+		   ///console.log(items)
 			res.send(items)
 		})
 }
 
 
 const createIngredient = function(req, res) {
-	addIngredient(req).then((err, user) => {
-		if(err){
-			res.status(500)
-			return res.json({
-				error: err.message
+	//console.log(req)
+	addIngredient(req)
+		.then((user) => {
+			//console.log(user)
+			res.status(201)
+			res.send(user)
+			//res.redirect("/ingredients/fridge")
 			})
-        }
-		res.status(201)
-        res.send(user)
-        //res.redirect("/ingredients/fridge")
-	})
+		.catch(err => 
+			//res.status(500)
+			res.json({error: err})
+			)
 }
 
 const deleteIngredient = function(req, res) {
@@ -45,11 +49,12 @@ const deleteIngredient = function(req, res) {
 		res.send(req.error.message)
 	} else {
 		// execute the query from deletePost
-		removeIngredient(req.user.id).exec(err => {
+		removeIngredient(req).exec(err => {
 			if (err) {
 				res.status(500)
+				
 				res.json({
-					error: err.message
+				error: err.message
 				})
 			}
             res.sendStatus(204)
