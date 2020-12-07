@@ -1,5 +1,3 @@
-//const UserModel = require("../models/user");
-
 const {getUserByParam} = require("../utils/auth_utilities")
 const {updatePref} = require("../utils/pref_utilities")
 
@@ -23,19 +21,19 @@ function editPref(req, res) {
 
 //Preferences PATCH ROUTE
 function editPrefReq(req, res) {
-    console.log("hit controls")
-    updatePref(req).exec((err, user) => {
+    //console.log("hit controls")
+    updatePref(req).exec((err, userPref) => {
         if (err) {
             
             res.status(500);
-            console.log(err)
-            // return res.json({
-            //     error: err.message
-            // });
+            //console.log(err)
+            return res.json({
+                error: err.message
+            });
         }
-        console.log(user)
+        //console.log(userPref)
         res.status(200);
-        res.send(user);
+        res.send(userPref);
         //res.redirect(`user/`${res.body.name}`/preferences`);
     });  
 }
