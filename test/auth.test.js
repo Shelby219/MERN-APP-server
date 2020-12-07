@@ -32,6 +32,17 @@ beforeEach(async function () {
     //console.log(user)
 });
 
+
+ //GET REGISTER USER PAGE
+ describe('GET /user/register', function() {
+  it('Test get register user',  () => {
+      request(app)
+      .get("/user/register")
+        .expect(200)
+        
+     })
+  });
+
 //REGISTER USER TEST
 describe('POST /user/register', function () {
   let data = {

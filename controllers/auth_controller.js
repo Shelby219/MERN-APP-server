@@ -6,6 +6,7 @@ const {autoNewPreferences} = require("../middleware/pref_middleware")
 
 function registerNew(req, res) {
     //res.render("user/register");
+    res.send("This is register Page");
 }
 
 function registerCreate(req, res, next) {
