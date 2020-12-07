@@ -1,6 +1,7 @@
 const {getUserByParam} = require("../utils/auth_utilities")
 const {updatePref} = require("../utils/pref_utilities")
 
+
 //Preferences get ROUTE
 function editPref(req, res) {
     console.log("hit pref")
@@ -24,7 +25,6 @@ function editPrefReq(req, res) {
     //console.log("hit controls")
     updatePref(req).exec((err, userPref) => {
         if (err) {
-            
             res.status(500);
             //console.log(err)
             return res.json({

@@ -1,6 +1,22 @@
+
+const authenticateJWT = (req, res, next) => {
+
+    if(req.isAuthenticated()){
+        //req.isAuthenticated() will return true if user is logged in
+        next();
+    } else{
+        console.log("test")
+        //res.redirect("/user/login");
+    }
+    passport.authenticate('jwt', {session: false})
+ 
+};
+
+
+
 function authRedirect(req, res, next) {
     if (req.user) {
-        return res.redirect("/home");
+        return res.redirect("/");
     }
     return next();
 }
@@ -17,7 +33,8 @@ function checkAuthentication(req,res,next){
         //req.isAuthenticated() will return true if user is logged in
         next();
     } else{
-        res.redirect("/user/login");
+        console.log("test")
+        //res.redirect("/user/login");
     }
 }
 

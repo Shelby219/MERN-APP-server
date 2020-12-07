@@ -88,6 +88,7 @@ describe('POST /user/login', function() {
       .expect(200)
       // .expect(function(res) {
       //   console.log(res);
+     
       //   res.body.email = "tester@test.com";
       // })
       .end(function(err, res) {
@@ -167,17 +168,8 @@ it('Test update account settings route', async () => {
   return User.create(testUser);
 }
 
-
-// afterEach(async function () {
-//   const collections = await mongoose.connection.db.collections()
-//   for (let collection of collections) {
-//     await collection.bulkWrite()
-//   }
-// })
-
-
-function tearDownData() {
-  return User.deleteMany()
+ function tearDownData() {
+  return  User.deleteMany()
 }
 
 afterEach((done) => {

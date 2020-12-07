@@ -4,10 +4,6 @@ const {updateUser, getUserByParam, deleteUser} = require("../utils/auth_utilitie
 const {autoNewPreferences} = require("../middleware/pref_middleware")
 
 
-
-// helper functions
-//const authenticate = passport.authenticate('local');
-
 function registerNew(req, res) {
     //res.render("user/register");
 }
@@ -51,12 +47,14 @@ function loginCreate(req, res) {
     req.session.jwt = token;
     //console.log("token", token)
     //res.send("Hello")
+   
     res.json("login create hit");
 }
 
 //Account settings get ROUTE
 function editUser(req, res) {
     //console.log(req)
+    //console.log(req.headers)
      // execute the query from getPostById
      getUserByParam(req).exec((err, user) => {
         if (err) {

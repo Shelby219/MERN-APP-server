@@ -1,7 +1,9 @@
+
+
+
 function home(req, res) {
-    
     res.send("This is Home");
-    res.json(req.user);
+    //res.json(req.user);
 }
 
 

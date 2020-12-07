@@ -24,8 +24,9 @@ const app = require('../app.js');
             // Check the response
             //console.log(response.body._id)
             //console.log(pref.user)
+            //console.log(user._id)
             expect(user._id).toStrictEqual(pref.user)
-            //expect(response.body._id).toStrictEqual(pref.user)
+            //expect(response.body._id).toEqual(pref.user)
 
           })
        })
