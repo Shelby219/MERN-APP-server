@@ -25,6 +25,18 @@ if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+
+// Use cors
+const whitelist = ['http://localhost:3000']
+app.use(cors({
+    credentials: true,
+    origin: function (origin,callback) {
+        // Check each url in whitelist and see if it includes the origin (instead of matching exact string)
+        const whitelistIndex = whitelist.findIndex((url) => url.includes(origin))
+        console.log("found whitelistIndex", whitelistIndex)
+        callback(null,whitelistIndex > -1)
+    }
+}));
 app.use(session({
     secret: 'Secret of The Recipe App',
     resave: false,
@@ -38,7 +50,7 @@ app.use(session({
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-app.use(cors());
+//app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(express.json());
