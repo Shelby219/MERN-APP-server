@@ -35,11 +35,14 @@ beforeEach(async function () {
 
  //GET REGISTER USER PAGE
  describe('GET /user/register', function() {
-  it('Test get register user',  () => {
+  it('Test get register user',  (done) => {
       request(app)
       .get("/user/register")
-        .expect(200)
-        
+      .expect(200)
+      .end(function(err, res) {
+        if (err) return done(err);
+        done();
+        });
      })
   });
 
@@ -71,19 +74,31 @@ describe('POST /user/register', function () {
 });
 
 
-// describe('GET /user/logout', function() {
-//   it('responds with json', function(done) {
-//     request(app)
-//       .get('/user/logout')
-//       .set('Accept', 'application/json')
-//       .expect('Content-Type', /json/)
-//       .expect(200)
-//       .end(function(err, res) {
-//         if (err) return done(err);
-//         done();
-//       });
-//   });
-// });
+describe('GET /user/logout', function() {
+  it('responds with json', function(done) {
+    request(app)
+      .get('/user/logout')
+      .expect(302) //redirecting to home page
+      .end(function(err, res) {
+        if (err) return done(err);
+        done();
+      });
+  });
+});
+
+
+ //GET LOGIN PAGE
+ describe('GET /user/login', function() {
+  it('Test get Login user',  (done) => {
+      request(app)
+      .get("/user/login")
+      .expect(200)
+      .end(function(err, res) {
+        if (err) return done(err);
+        done();
+        });
+     })
+  });
 
 //LOGIN USER TEST
 describe('POST /user/login', function() {

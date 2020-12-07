@@ -35,7 +35,7 @@ function registerCreate(req, res, next) {
 function logOut(req, res) {
     req.logout();
     //res.send("login create hit");
-    res.redirect("/home");
+    res.redirect("/");
 }
 
 function loginNew(req, res) {
