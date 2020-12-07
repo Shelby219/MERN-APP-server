@@ -43,6 +43,8 @@ const createIngredient = function(req, res) {
 }
 
 const deleteIngredient = function(req, res) {
+	console.log("hit controls")
+	//console.log(req)
 	// Check for error from middleware
 	if (req.error) {
 		res.status(req.error.status)

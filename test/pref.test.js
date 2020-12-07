@@ -33,7 +33,6 @@ const app = require('../app.js');
     });
 
 
-
 //EDIT PREFERENCES TEST
  describe('PATCH /preferences/:name/edit', function() {
     it('Test update preferences route', async () => {

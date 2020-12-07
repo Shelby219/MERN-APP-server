@@ -16,7 +16,7 @@ router.get("/:username/fridge", getIngredients)
 router.post("/:username/fridge/new", createIngredient)
 
 //DELETE Route for Updating the user via Preferences
-router.patch("/:username/fridge/delete", deleteIngredient)
+router.delete("/:username/fridge/delete", deleteIngredient)
 
 
 

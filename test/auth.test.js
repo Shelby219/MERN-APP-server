@@ -113,15 +113,15 @@ describe('POST /user/login', function() {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
-      // .expect(function(res) {
-      //   console.log(res);
-     
-      //   res.body.email = "tester@test.com";
-      // })
+      .expect(function(res) {
+        //console.log(res);
+        //res.body.email = "tester@test.com";
+      })
       .end(function(err, res) {
         if (err) return done(err);
         done();
       });
+      
   });
 });
 
@@ -191,6 +191,7 @@ it('Test update account settings route', async () => {
   testUser.email = 'tester@test.com';
   testUser.username = 'testusername';
   testUser.password = '123456';
+  testUser.fridgeIngredients = ["testing1", "testing2"];
   testUser.createdDate = date;
   testUser.lastLogin = date;
   return User.create(testUser);

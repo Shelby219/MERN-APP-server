@@ -28,10 +28,10 @@ const addIngredient = async function (req) {
 // delete Ingredient
 // returns a query
 const removeIngredient = function (req) {
-
+    console.log("hit utils")
     return  User.findOneAndUpdate(
         { username: req.params.username },
-        { $pull: { fridgeIngredients: req.body} },
+        { $pull: { fridgeIngredients: req.body.item} },
         { new: true }
     )
 };
