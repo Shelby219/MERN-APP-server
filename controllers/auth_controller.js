@@ -2,7 +2,7 @@ const UserModel = require("../models/user");
 const jwt = require("jsonwebtoken");
 const {updateUser, getUserByParam, deleteUser} = require("../utils/auth_utilities")
 const {autoNewPreferences} = require("../middleware/pref_middleware")
-
+const { validationResult } = require('express-validator')
 
 function registerNew(req, res) {
     //res.render("user/register");
@@ -10,15 +10,18 @@ function registerNew(req, res) {
 }
 
 function registerCreate(req, res, next) {
+
+    const errors = validationResult(req);
+    //console.log(errors) 
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
     const newUserHandler = (user) => {
-        //console.log(user)
-       
         req.login(user, (err) => {
         if(err){
             next(err)
         } else {
             autoNewPreferences(user)
-            ///console.log(user)
             res.send(user);
             //res.redirect("/home")
           }

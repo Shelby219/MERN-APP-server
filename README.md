@@ -17,20 +17,21 @@ Deployed App:
 
 ---
 
-### Daily Tasks
+### Tasks
 <details>
 <summary>Click to expand</summary>
 Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots</a>.
 &check;
 &cross; 
 
-| Date Completed | Tasks Allocated | Completed? |
-|:---:|:---:|:---:|
-| 07/12/2020 | User/Auth/Settings/Pref Back-end Code/Testing. | &check; |
-| 08/12/2020 | Ingredient/Fridge/Pantry Back-end Code/Testing. | &check; |
-|| Browse Recipe Back-end Code/Testing. | &cross; |
-|| Single Recipe Back-end Code/Testing. | &cross; |
-|| Saved Recipe Back-end Code/Testing. | &cross; |
+| Date Completed | Tasks Allocated | Completed? | Alocated to? |
+|:---:|:---:|:---:|:---:|
+|| Research Spoonacular API and test. | &cross; | Shelby |
+| 07/12/2020 | User/Auth/Settings/Pref Back-end Code/Testing. | &check; | Shelby |
+| 08/12/2020 | Ingredient/Fridge/Pantry Back-end Code/Testing. | &check; |Shelby |
+|| Browse Recipe Back-end Code/Testing. | &cross; | Shelby |
+|| Single Recipe Back-end Code/Testing. | &cross; | Shelby |
+|| Saved Recipe Back-end Code/Testing. | &cross; | Shelby |
 
 </details>
 
@@ -47,26 +48,28 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 
 ---
 ### Automated Testing Log - Development
+
 <details>
 <summary>Click to expand</summary>
 
-| Date | Feature | Test |
-|:---:|:---:|:---:|
-| 01/12/2020 | GET Register User | Passing |
-| 01/12/2020 | POST Register User | Passing |
-| 01/12/2020 | GET Login User | Passing |
-| 01/12/2020 | POST Login User | Passing |
-| 08/12/2020 | GET Logout User | Passing |
-| 01/12/2020 | Find a User from DB | Passing |
-| 06/12/2020 | GET User Settings | Passing |
-| 06/12/2020 | PATCH Edit User Settings | Passing |
-| 07/12/2020 | GET Fridge/Pantry Ingredients | Passing |
-| 07/12/2020 | POST New Fridge Ingredient | Passing |
-| 08/12/2020 | DELETE Fridge Ingredient | Passing |
-| 08/12/2020 | POST New Pantry Ingredient| Passing |
-| 01/12/2020 | DELETE Pantry Ingredient | Passing |
-| 07/12/2020 | GET User Preferences  | Passing |
-| 07/12/2020 | PATCH Edit User Preferences  | Passing |
+| Date | Feature | Test | Notes| 
+|:---:|:---:|:---:|:---:|
+| 01/12/2020 | GET Register User | Passing |   |
+| 01/12/2020 | POST Register User | Passing |   |
+| 01/12/2020 | GET Login User | Passing |   |
+| 01/12/2020 | POST Login User | Passing |   |
+| 08/12/2020 | GET Logout User | Passing |   |
+| 01/12/2020 | Find a User from DB | Passing |   |
+| 06/12/2020 | GET User Settings | Passing |  |
+| 06/12/2020 | PATCH Edit User Settings | Passing |   |
+| 07/12/2020 | GET User Preferences  | Passing |   |
+| 07/12/2020 | PATCH Edit User Preferences  | Passing | Ensure req.body.preference is updated in codebase  |
+| 07/12/2020 | GET Fridge/Pantry Ingredients | Passing |   |
+| 07/12/2020 | POST New Fridge Ingredient | Passing |   |
+| 08/12/2020 | DELETE Fridge Ingredient | Passing |   |
+| 08/12/2020 | POST New Pantry Ingredient| Passing |   |
+| 08/12/2020 | DELETE Pantry Ingredient | Passing |   |
+
 
 </details>
 
@@ -109,7 +112,7 @@ Additionally when it comes time to styling we will likely do a mixture of pair p
 
 </details>
 
-### Sprint 1
+#### Sprint 1- 30/11- 6/12
 
 <details>
 <summary>Click to expand</summary>
@@ -125,7 +128,7 @@ Some issues were the concern of updating the user via account settings page and 
 
 </details>
 
-### Sprint 2
+#### Sprint 2- 7/12- 13/12
 <details>
 <summary>Click to expand</summary>
 
@@ -138,7 +141,7 @@ Shelby managed to keep the codebase dry by not doing Fridge and Pantry CRUD, rat
 </details>
 
 
-### Sprint 3
+#### Sprint 3- 14/12-27/12
 <details>
 <summary>Click to expand</summary>
 

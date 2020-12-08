@@ -51,10 +51,12 @@ describe('POST /user/register', function () {
   let data = {
      	name: 'Test Name',
      	email: 'hello@test.com',
-      password: '123456',
+      password: 'TestPassword1$',
+      username: 'newtestuser',
       profile: 'test profile'
      	}
   it('Test register user endpoint respond with 200 and email', function (done) {
+   // this.timeout(10000) 
       request(app)
           .post('/user/register')
           .send(data)
@@ -62,15 +64,16 @@ describe('POST /user/register', function () {
           .expect('Content-Type', /json/)
           .expect(200)
           .expect(function(res) {
+            //console.log(res)
             res.body.email = "hello@test.com";
           })
           .end(function(err, res) {
-            //console.log(res);
             if (err) return done(err);
             //console.log(res.body);
             done();
-          }) 
-  });
+          })
+          
+      });
 });
 
 
@@ -108,7 +111,7 @@ describe('POST /user/login', function() {
       .send({
             email: "tester@test.com", 
             username: "usertester", 
-            password: "123456"
+            password: "TestPassword1$"
           })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -190,7 +193,7 @@ it('Test update account settings route', async () => {
   testUser.name = 'Test User 1';
   testUser.email = 'tester@test.com';
   testUser.username = 'testusername';
-  testUser.password = '123456';
+  testUser.password = 'TestPassword1$';
   testUser.fridgeIngredients = ["testing1", "testing2"];
   testUser.createdDate = date;
   testUser.lastLogin = date;
