@@ -110,7 +110,6 @@ describe('POST /user/login', function() {
       .post('/user/login')
       .send({
             email: "tester@test.com", 
-            username: "usertester", 
             password: "TestPassword1$"
           })
       .set('Accept', 'application/json')
@@ -165,8 +164,7 @@ it('Test update account settings route', async () => {
     const data = {
       email: "updatetest@test.com", 
       password: "abcdef",
-      name: "change name",
-      fridgeIngredients: ["1","2"]
+      name: "change name"
     }
    
     await request(app)

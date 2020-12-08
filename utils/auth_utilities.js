@@ -1,11 +1,6 @@
 const User = require('../models/user');
 
 
-// delete User
-// returns a query
-const deleteUser = function (id) {
-    return User.findByIdAndRemove(id);
-};
 
 // GET USER BY NAME PARAMS for ACCOUNT SETTINGS
 const getUserByParam = function (req) {
@@ -21,4 +16,12 @@ const updateUser = function (req) {
 
 
 
+
+
+
+// delete User
+// returns a query
+const deleteUser = function (id) {
+    return User.findByIdAndRemove(id);
+};
 module.exports = {updateUser, deleteUser, getUserByParam}
