@@ -6,7 +6,7 @@ const {
 
 
 
-
+//GET ALL FRIDGE INGREDIENTS
 const getIngredients = function(req, res) {
 	//console.log("Hit controls")
 	  getAllIngredients(req)
@@ -26,7 +26,7 @@ const getIngredients = function(req, res) {
 		})
 }
 
-
+//CREATE NEW FRIDGE INGREDIENT
 const createIngredient = function(req, res) {
 	//console.log(req)
 	addIngredient(req)
@@ -42,6 +42,7 @@ const createIngredient = function(req, res) {
 			)
 }
 
+//DELETE FRIDGE INGREDIENT
 const deleteIngredient = function(req, res) {
 	console.log("hit controls")
 	//console.log(req)
@@ -64,6 +65,8 @@ const deleteIngredient = function(req, res) {
 		})
 	}
 }
+
+
 
 
 module.exports = {

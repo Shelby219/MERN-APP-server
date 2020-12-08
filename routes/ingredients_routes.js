@@ -12,11 +12,23 @@ const { getIngredients,
 //GET Route for Fridge Page
 router.get("/:username/fridge", getIngredients)
 
-//POST Route for Updating the user via Preferences
+//POST Route for Updating the user via Fridge
 router.post("/:username/fridge/new", createIngredient)
 
-//DELETE Route for Updating the user via Preferences
+//DELETE Route for Updating the user via Fridge
 router.delete("/:username/fridge/delete", deleteIngredient)
+
+
+
+//GET Route for Pantry Page
+router.get("/:username/pantry", getIngredients)
+
+//POST Route for Updating the user via pantry
+router.post("/:username/pantry/new", createIngredient)
+
+//DELETE Route for Updating the user via pantry
+router.delete("/:username/pantry/delete", deleteIngredient)
+
 
 
 
