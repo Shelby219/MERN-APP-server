@@ -10,15 +10,13 @@ function registerNew(req, res) {
 }
 
 function registerCreate(req, res, next) {
+
     const newUserHandler = (user) => {
-        //console.log(user)
-       
         req.login(user, (err) => {
         if(err){
             next(err)
         } else {
             autoNewPreferences(user)
-            ///console.log(user)
             res.send(user);
             //res.redirect("/home")
           }

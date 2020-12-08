@@ -15,7 +15,7 @@ const cookieParser = require('cookie-parser')
 const authRouter = require("./routes/auth_routes");
 const pageRouter = require("./routes/page_routes");
 const prefRouter = require("./routes/pref_routes");
-
+const ingredientRouter = require("./routes/ingredients_routes");
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -96,6 +96,7 @@ app.get('/', (req, res) => {
 app.use('/user', authRouter);
 app.use('/', pageRouter);
 app.use('/preferences', prefRouter);
+app.use('/ingredients', ingredientRouter);
 
 
 module.exports = app.listen(port, () => {

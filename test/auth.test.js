@@ -51,10 +51,12 @@ describe('POST /user/register', function () {
   let data = {
      	name: 'Test Name',
      	email: 'hello@test.com',
-      password: '123456',
+      password: 'TestPassword1$',
+      username: 'newtestuser',
       profile: 'test profile'
      	}
   it('Test register user endpoint respond with 200 and email', function (done) {
+   // this.timeout(10000) 
       request(app)
           .post('/user/register')
           .send(data)
@@ -62,15 +64,16 @@ describe('POST /user/register', function () {
           .expect('Content-Type', /json/)
           .expect(200)
           .expect(function(res) {
+            //console.log(res)
             res.body.email = "hello@test.com";
           })
           .end(function(err, res) {
-            //console.log(res);
             if (err) return done(err);
             //console.log(res.body);
             done();
-          }) 
-  });
+          })
+          
+      });
 });
 
 
@@ -107,20 +110,20 @@ describe('POST /user/login', function() {
       .post('/user/login')
       .send({
             email: "tester@test.com", 
-            password: "123456"
+            password: "TestPassword1$"
           })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
-      // .expect(function(res) {
-      //   console.log(res);
-     
-      //   res.body.email = "tester@test.com";
-      // })
+      .expect(function(res) {
+        //console.log(res);
+        //res.body.email = "tester@test.com";
+      })
       .end(function(err, res) {
         if (err) return done(err);
         done();
       });
+      
   });
 });
 
@@ -137,12 +140,12 @@ describe('Finding a User', function() {
 
 
  //GET ACCOUNT SETTINGS PAGE
- describe('GET /user/:name/account-settings', function() {
+ describe('GET /user/:username/account-settings', function() {
   it('Test get account settings page to populate user info', async () => {
       let user = await User.findOne({ email: 'tester@test.com' }).exec();
 
       await request(app)
-      .get("/user/"+ user.name +"/account-settings")
+      .get("/user/"+ user.username +"/account-settings")
         .expect(200)
         .then((response) => {
           // Check the response
@@ -154,19 +157,18 @@ describe('Finding a User', function() {
   });
 
  //EDIT ACCOUNT SETTINGS TEST
-describe('PATCH /user/:name/account-settings', function() {
+describe('PATCH /user/:username/account-settings', function() {
 it('Test update account settings route', async () => {
   //console.log(UserId)
     let user = await User.findOne({ email: 'tester@test.com' }).exec();
     const data = {
       email: "updatetest@test.com", 
       password: "abcdef",
-      name: "change name",
-      fridgeIngredients: ["1","2"]
+      name: "change name"
     }
    
     await request(app)
-		.patch("/user/"+ user.name +"/account-settings")
+		.patch("/user/"+ user.username +"/account-settings")
       .send(data)
       .expect(200)
       .then(async (response) => {
@@ -188,7 +190,9 @@ it('Test update account settings route', async () => {
   let testUser = {};
   testUser.name = 'Test User 1';
   testUser.email = 'tester@test.com';
-  testUser.password = '123456';
+  testUser.username = 'testusername';
+  testUser.password = 'TestPassword1$';
+  testUser.fridgeIngredients = ["testing1", "testing2"];
   testUser.createdDate = date;
   testUser.lastLogin = date;
   return User.create(testUser);

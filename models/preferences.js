@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const Preferences = new Schema({
     user: {
         type: Schema.Types.ObjectId,
-        ref: "User" 
+        ref: "user" 
     },
     dietPreferences: {
         vegetarian: {type: Boolean,default: false},
@@ -37,5 +37,5 @@ const Preferences = new Schema({
 });
 
 
-module.exports = mongoose.model('Preferences', Preferences);
+module.exports = mongoose.model('preferences', Preferences);
 
