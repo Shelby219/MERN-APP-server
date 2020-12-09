@@ -45,10 +45,10 @@ router.patch("/:username/account-settings", editUserReq)
 const upload = require("../middleware/profile_aws.js");
 const singleUpload = upload.any('image');
 
-router.post("/:username/add-profile-picture", function (req, res) {
+router.post("/:username/add-profile-picture",  function (req, res) {
     const username = req.params.username;
     //console.log(username)
-    singleUpload(req, res, function (err) {
+     singleUpload(req, res, async function (err) {
       if (err) {
         return res.json({
           success: false,
@@ -61,7 +61,7 @@ router.post("/:username/add-profile-picture", function (req, res) {
       }
       let update = { profile: req.files[0].location };
       //console.log(update)
-      User.findOneAndUpdate(username, update, {new: true})
+      await User.findOneAndUpdate(username, update, {new: true})
         .then((user) => res.status(200).json({ success: true, user: user }) )
         .catch((err) => res.status(400).json({ success: false, error: err }));
     });

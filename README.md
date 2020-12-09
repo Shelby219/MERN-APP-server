@@ -52,6 +52,7 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 <details>
 <summary>Click to expand</summary>
 
+#### Expecting Tests
 | Date | Feature | Test | Notes| 
 |:---:|:---:|:---:|:---:|
 | 01/12/2020 | GET Register User | Passing |   |
@@ -70,6 +71,11 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 08/12/2020 | POST New Pantry Ingredient| Passing |   |
 | 08/12/2020 | DELETE Pantry Ingredient | Passing |   |
 | 09/12/2020 | POST Upload profile picture to s3 | Passing |   |
+
+#### Expect to Fail Tests
+| Date | Feature | Test | Notes| 
+|:---:|:---:|:---:|:---:|
+| 09/12/2020 | POST Login User- Incorrect Password  | Passing |   |
 
 </details>
 
@@ -132,13 +138,18 @@ Some issues were the concern of updating the user via account settings page and 
 <details>
 <summary>Click to expand</summary>
 
-FRIDGE/PANTRY BRANCH
-
 ##### Shelby:
+
+FRIDGE/PANTRY BRANCH
 
 Shelby managed to keep the codebase dry by not doing Fridge and Pantry CRUD, rather just implemented and Ingredient CRUD base and using conditionals checking the path name, which then determines which part of the user model gets updated. 
 
-When implemeting s3 and Multer for profile image upload, some blockers were incorrect set up of IAM policy, the use of .single with multer (use .any to ensure the image would upload.)
+USER BRANCH
+
+When implementing s3 and Multer for profile image upload, some blockers were incorrect set up of IAM policy, the use of .single with multer (use .any to ensure the image would upload.)
+
+Started writing passing fail tests to test the end points when errors arise. 
+
 
 </details>
 

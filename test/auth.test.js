@@ -127,6 +127,8 @@ describe('POST /user/login', function() {
   });
 });
 
+
+
 //FIND USER TEST
 describe('Finding a User', function() {
   it('find a user by username', function(done) {
@@ -185,27 +187,23 @@ it('Test update account settings route', async () => {
    })
 });
 
+
+//UPLOAD PROFILE IMAGE
+
 //console.log(__dirname) ///Users/shelbyd/CODING/CA/Assignments/T3A2_MERN/server/test
 const testImage = `${__dirname}/testimg.png`
-//UPLOAD PROFILE IMAGE
-describe('POST /user/:username/add-profile-picture', function() {
 
+describe('POST /user/:username/add-profile-picture', function() {
   it('Test upload profile image to s3', async function() {
     let user = await User.findOne({ email: 'tester@test.com' }).exec();
-
     await request(app)
       .post("/user/"+ user.username +"/add-profile-picture")
       .attach('file', testImage)
       .expect(200)
-      .then(async function(res) {
-      //console.log(err)        
-
-        // Check the data in the database
-  
+      .then(async function(res) { 
        expect(res.body.success).toBeTruthy()
-
+       //check db
        let user = await User.findOne({ email: 'tester@test.com' }).exec();
-
        expect(user.profile).toBe(res.body.user.profile)
        //check it did null other user model parts
        expect(user.name).toBe(res.body.user.name)
@@ -214,6 +212,63 @@ describe('POST /user/:username/add-profile-picture', function() {
     })  
   });
 });
+
+
+//FAIL TESTS
+
+//LOGIN USER TEST- FAIL TEST
+describe('FAIL TEST- POST /user/login', function() {
+  it('Test Login Route if wrong password supplied- failure redirect goes to login page again- should get 302 code', function(done) {
+    request(app)
+      .post('/user/login')
+      .send({
+            email: "tester@test.com", 
+            password: "wrongpasswordtest"
+          })
+      .expect(302)
+      .expect(function(res) {
+        console.log(res.text);
+        //res.body.email = "tester@test.com";
+        expect(res.text).toBe('Found. Redirecting to /user/login');
+      })
+      .end(function(err, res) {
+        if (err) return done(err);
+        done();
+      });
+      
+  });
+});
+
+//REGISTER USER TEST- FAIL TEST
+describe('FAIL TEST- POST /user/register', function () {
+  let data = {
+     	name: 'Test Name',
+     	email: 'wrongformatemail',
+      password: 'wrongformatpassword',
+      username: 'newtestuser',
+     	}
+  it('Test register user endpoint with non valid data', function (done) {
+   // this.timeout(10000) 
+      request(app)
+          .post('/user/register')
+          .send(data)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          //.expect(200)
+          .expect(function(res) {
+            //console.log(res.body.errors[0].email)
+           res.body.errors[0].email = 'Must be a valid email format';
+           res.body.errors[1].password = 'Password should not be empty, minimum eight characters, at least one letter, one number and one special character';
+          })
+          .end(function(err, res) {
+            if (err) return done(err);
+            //console.log(res.body);
+            done();
+          })
+          
+      });
+});
+
 
  function setupData() {
   let date = Date.now();
