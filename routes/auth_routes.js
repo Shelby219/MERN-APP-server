@@ -4,7 +4,7 @@ const passport = require("passport");
 const {  Joi, celebrate,  } = require('celebrate');
 const {registerCreate, registerNew , logOut, loginNew, loginCreate, editUser, editUserReq, removeUser} = require('../controllers/auth_controller')
 const {authRedirect} = require("../middleware/auth_middleware")
-const {userValidationRules, validate} = require("../middleware/validator")
+const {userValidationRules, validate, accountSettingValidationRules} = require("../middleware/validator")
 const User = require('../models/user');
 
 
@@ -37,7 +37,7 @@ router.get('/logout', logOut);
 //GET Route for Account Settings Page
 router.get("/:username/account-settings", editUser)
 //PATCH Route for Updating the user via account settings
-router.patch("/:username/account-settings", editUserReq)
+router.patch("/:username/account-settings", accountSettingValidationRules(), validate, editUserReq)
 
 //router.delete("/:name/delete", removeUser)
 

@@ -77,7 +77,7 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 |:---:|:---:|:---:|:---:|
 | 09/12/2020 | POST Login User- Incorrect Password  | Passing |   |
 | 09/12/2020 | POST Register User- Incorrect Email and Password Format  | Passing |   |
-| 09/12/2020 | Get User Settings- Incorrect Params | Passing |   |
+| 09/12/2020 | Get User Settings- Incorrect Params  | Passing |   |
 
 </details>
 

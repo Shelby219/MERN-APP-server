@@ -214,6 +214,9 @@ describe('POST /user/:username/add-profile-picture', function() {
 });
 
 
+
+
+
 //FAIL TESTS
 
 //LOGIN USER TEST- FAIL TEST
@@ -286,34 +289,35 @@ describe('FAIL TEST- POST /user/register', function () {
      })
   });
 
-//  //EDIT ACCOUNT SETTINGS TEST- FAIL TEST
-// describe('FAIL TEST- PATCH /user/:username/account-settings', function() {
-// it('Test update account settings route', async () => {
-//   //console.log(UserId)
-//     let user = await User.findOne({ email: 'tester@test.com' }).exec();
-//     const data = {
-//       email: "updatetest@test.com", 
-//       password: "abcdef",
-//       name: "change name"
-//     }
-  
-//     await request(app)
-// 		.patch("/user/"+ user.username +"/account-settings")
-//       .send(data)
-//       .expect(200)
-//       .then(async (response) => {
-//         // Check the response
-//         //console.log(response)
-//         expect(response.body._id).toBe(user.id)
-//         expect(response.body.email).toBe(data.email)
 
-//         // Check the data in the database
-//         const newUpdateUser =  await User.findOne({ _id: response.body._id })
-//         expect(newUpdateUser).toBeTruthy()
-//         expect(newUpdateUser.email).toBe(data.email)
-//       })
-//    })
-// });
+
+//EDIT ACCOUNT SETTINGS TEST- FAIL TEST
+describe.only('FAIL TEST- PATCH /user/:username/account-settings', function () {
+  it('Test update account settings user endpoint with non valid data', async function () {
+    let user = await User.findOne({ email: 'tester@test.com' }).exec();
+    let data = {
+      name: 'Test Name33',
+      email: 'wrongformatemail',
+     password: 'wrongformatpassword',
+     username: 'newtestuser',
+      }
+
+      await request(app)
+          .patch("/user/"+ user.username +"/account-settings")
+          .send(data)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(422)
+          .then( function(res) {
+            //console.log(res)
+            expect(res.body.errors[0].email).toBe('Must be a valid email format');
+            expect(res.body.errors[1].password).toBe('Password should not be empty, minimum eight characters, at least one letter, one number and one special character');
+            expect(res.body.errors[2].name).toBe('Must be text only');
+            
+          }) 
+      });
+});
+
 
 
 
