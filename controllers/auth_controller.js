@@ -52,20 +52,32 @@ function loginCreate(req, res) {
 
 //Account settings get ROUTE
 function editUser(req, res) {
-    //console.log(req)
-    //console.log(req.headers)
-     // execute the query from getPostById
+
      getUserByParam(req).exec((err, user) => {
         if (err) {
+            // handle error
             res.status(404);
             //console.log(err)
             return res.json({
                 error: err.message
             });
-        }
-        res.status(200);
-        res.send(user);
+          }
+          if (user !== null) {
+            // there is user
+            res.status(200);
+            res.send(user);
+            //res.redirect(`user/`${res.body.name}`/account-settings`);
+          } else {
+            // there is no user
+            res.status(404);
+            return res.json({
+               error: "there is no user found"
+            });
+          }
+         
     });
+   
+    
     //res.render("user/:name/account-settings")
     //res.send("this is account settings");
 }
@@ -75,6 +87,7 @@ function editUserReq(req, res) {
     //console.log(res)
     //console.log("hit controls")
     updateUser(req).exec((err, user) => {
+        
         if (err) {
             res.status(500);
             //console.log(err)

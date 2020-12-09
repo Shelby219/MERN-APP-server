@@ -1,4 +1,4 @@
-const { body, validationResult } = require('express-validator')
+const { body, validationResult, param } = require('express-validator')
 
 const userValidationRules = () => {
     return [
@@ -16,6 +16,16 @@ const accountSettingValidationRules = () => {
   }
 
 
+  const usernameParamsValidation = () => {
+    return [
+        param('username').isAlpha().withMessage('Must be a valid email format'),
+        param('username').customSanitizer((value, { req }) => {
+            return req.query.type === 'user' ? ObjectId(value) : Number(value);
+          })
+      ]
+  }
+
+ 
   const validate = (req, res, next) => {
     const errors = validationResult(req)
     if (errors.isEmpty()) {
@@ -30,7 +40,8 @@ const accountSettingValidationRules = () => {
   
   module.exports = {
     userValidationRules,
-    validate
+    validate,
+    usernameParamsValidation
   }
 
 

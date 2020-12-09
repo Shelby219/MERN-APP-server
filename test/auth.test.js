@@ -254,7 +254,7 @@ describe('FAIL TEST- POST /user/register', function () {
           .send(data)
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
-          //.expect(200)
+          .expect(422)
           .expect(function(res) {
             //console.log(res.body.errors[0].email)
            res.body.errors[0].email = 'Must be a valid email format';
@@ -268,6 +268,53 @@ describe('FAIL TEST- POST /user/register', function () {
           
       });
 });
+
+ //GET ACCOUNT SETTINGS PAGE- FAIL TEST
+ describe('FAIL TEST-GET /user/:username/account-settings', function() {
+  it('Test get account settings with wrong params', async () => {
+      let user = await User.findOne({ email: 'tester@test.com' }).exec();
+
+      await request(app)
+      .get("/user/"+ user.email +"/account-settings")
+        .expect(404)
+        .then((response) => {
+          // Check the response
+          //console.log(response)
+          expect(response.body.error).toBe("there is no user found")
+    
+        })
+     })
+  });
+
+//  //EDIT ACCOUNT SETTINGS TEST- FAIL TEST
+// describe('FAIL TEST- PATCH /user/:username/account-settings', function() {
+// it('Test update account settings route', async () => {
+//   //console.log(UserId)
+//     let user = await User.findOne({ email: 'tester@test.com' }).exec();
+//     const data = {
+//       email: "updatetest@test.com", 
+//       password: "abcdef",
+//       name: "change name"
+//     }
+  
+//     await request(app)
+// 		.patch("/user/"+ user.username +"/account-settings")
+//       .send(data)
+//       .expect(200)
+//       .then(async (response) => {
+//         // Check the response
+//         //console.log(response)
+//         expect(response.body._id).toBe(user.id)
+//         expect(response.body.email).toBe(data.email)
+
+//         // Check the data in the database
+//         const newUpdateUser =  await User.findOne({ _id: response.body._id })
+//         expect(newUpdateUser).toBeTruthy()
+//         expect(newUpdateUser.email).toBe(data.email)
+//       })
+//    })
+// });
+
 
 
  function setupData() {
