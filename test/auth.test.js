@@ -166,7 +166,7 @@ it('Test update account settings route', async () => {
       password: "abcdef",
       name: "change name"
     }
-   
+  
     await request(app)
 		.patch("/user/"+ user.username +"/account-settings")
       .send(data)
@@ -183,6 +183,36 @@ it('Test update account settings route', async () => {
         expect(newUpdateUser.email).toBe(data.email)
       })
    })
+});
+
+//console.log(__dirname) ///Users/shelbyd/CODING/CA/Assignments/T3A2_MERN/server/test
+const testImage = `${__dirname}/testimg.png`
+//UPLOAD PROFILE IMAGE
+describe('POST /user/:username/add-profile-picture', function() {
+
+  it('Test upload profile image to s3', async function() {
+    let user = await User.findOne({ email: 'tester@test.com' }).exec();
+
+    await request(app)
+      .post("/user/"+ user.username +"/add-profile-picture")
+      .attach('file', testImage)
+      .expect(200)
+      .then(async function(res) {
+      //console.log(err)        
+
+        // Check the data in the database
+  
+       expect(res.body.success).toBeTruthy()
+
+       let user = await User.findOne({ email: 'tester@test.com' }).exec();
+
+       expect(user.profile).toBe(res.body.user.profile)
+       //check it did null other user model parts
+       expect(user.name).toBe(res.body.user.name)
+       expect(user.email).toBe(res.body.user.email)
+        //done()
+    })  
+  });
 });
 
  function setupData() {

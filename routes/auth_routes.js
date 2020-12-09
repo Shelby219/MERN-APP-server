@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const passport = require("passport");
-const {  Joi, celebrate, errors, Segments } = require('celebrate');
+const {  Joi, celebrate,  } = require('celebrate');
 const {registerCreate, registerNew , logOut, loginNew, loginCreate, editUser, editUserReq, removeUser} = require('../controllers/auth_controller')
-const {authRedirect, checkAuthentication, authenticateJWT} = require("../middleware/auth_middleware")
+const {authRedirect} = require("../middleware/auth_middleware")
 const {userValidationRules, validate} = require("../middleware/validator")
-const { body } = require('express-validator');
+const User = require('../models/user');
 
 
 
@@ -42,6 +42,30 @@ router.patch("/:username/account-settings", editUserReq)
 //router.delete("/:name/delete", removeUser)
 
 
+const upload = require("../middleware/profile_aws.js");
+const singleUpload = upload.any('image');
+
+router.post("/:username/add-profile-picture", function (req, res) {
+    const username = req.params.username;
+    //console.log(username)
+    singleUpload(req, res, function (err) {
+      if (err) {
+        return res.json({
+          success: false,
+          errors: {
+            title: "Image Upload Error",
+            detail: err.message,
+            error: err,
+          },
+        });
+      }
+      let update = { profile: req.files[0].location };
+      //console.log(update)
+      User.findOneAndUpdate(username, update, {new: true})
+        .then((user) => res.status(200).json({ success: true, user: user }) )
+        .catch((err) => res.status(400).json({ success: false, error: err }));
+    });
+  });
 
 //passport.authenticate('jwt', {session: false})
 

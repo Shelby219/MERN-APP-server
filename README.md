@@ -69,7 +69,7 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 08/12/2020 | DELETE Fridge Ingredient | Passing |   |
 | 08/12/2020 | POST New Pantry Ingredient| Passing |   |
 | 08/12/2020 | DELETE Pantry Ingredient | Passing |   |
-
+| 09/12/2020 | POST Upload profile picture to s3 | Passing |   |
 
 </details>
 
@@ -137,6 +137,8 @@ FRIDGE/PANTRY BRANCH
 ##### Shelby:
 
 Shelby managed to keep the codebase dry by not doing Fridge and Pantry CRUD, rather just implemented and Ingredient CRUD base and using conditionals checking the path name, which then determines which part of the user model gets updated. 
+
+When implemeting s3 and Multer for profile image upload, some blockers were incorrect set up of IAM policy, the use of .single with multer (use .any to ensure the image would upload.)
 
 </details>
 
