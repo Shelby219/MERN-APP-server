@@ -65,11 +65,14 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 06/12/2020 | PATCH Edit User Settings | Passing |   |
 | 07/12/2020 | GET User Preferences  | Passing |   |
 | 07/12/2020 | PATCH Edit User Preferences  | Passing | Ensure req.body.preference is updated in codebase  |
-| 07/12/2020 | GET Fridge/Pantry Ingredients | Passing |   |
+| 07/12/2020 | GET Fridge Ingredients | Passing |   |
 | 07/12/2020 | POST New Fridge Ingredient | Passing |   |
 | 08/12/2020 | DELETE Fridge Ingredient | Passing |   |
+| 10/12/2020 | DELETE ALL Fridge Ingredients | Passing |   |
+| 08/12/2020 | GET Pantry Ingredients | Passing |   |
 | 08/12/2020 | POST New Pantry Ingredient| Passing |   |
 | 08/12/2020 | DELETE Pantry Ingredient | Passing |   |
+| 10/12/2020 | DELETE ALL Pantry Ingredients | Passing |   |
 | 09/12/2020 | POST Upload profile picture to s3 | Passing |   |
 
 #### Expect to Fail Tests
@@ -79,6 +82,7 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 09/12/2020 | POST Register User- Incorrect Email and Password Format  | Passing |   |
 | 09/12/2020 | Get User Settings- Incorrect Params  | Passing |   |
 | 09/12/2020 | PATCH User Settings- Incorrect  Email, Password, Name Format  | Passing |   |
+
 
 </details>
 
