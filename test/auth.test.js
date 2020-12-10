@@ -76,7 +76,7 @@ describe('POST /user/register', function () {
       });
 });
 
-
+ //GET LOGOUT PAGE
 describe('GET /user/logout', function() {
   it('responds with json', function(done) {
     request(app)
@@ -105,18 +105,18 @@ describe('GET /user/logout', function() {
 
 //LOGIN USER TEST
 describe('POST /user/login', function() {
-  it('Test Login Route, get 200 and match email', function(done) {
+  it('Test Login Route to redirect to home on success', function(done) {
     request(app)
       .post('/user/login')
       .send({
             email: "tester@test.com", 
             password: "TestPassword1$"
           })
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200)
+      //.expect('Content-Type', /json/)
+      .expect(302)
       .expect(function(res) {
         //console.log(res);
+        expect(res.text).toBe('Found. Redirecting to /home');
         //res.body.email = "tester@test.com";
       })
       .end(function(err, res) {
@@ -126,8 +126,6 @@ describe('POST /user/login', function() {
       
   });
 });
-
-
 
 //FIND USER TEST
 describe('Finding a User', function() {
@@ -140,18 +138,15 @@ describe('Finding a User', function() {
   });
  });
 
-
  //GET ACCOUNT SETTINGS PAGE
  describe('GET /user/:username/account-settings', function() {
   it('Test get account settings page to populate user info', async () => {
       let user = await User.findOne({ email: 'tester@test.com' }).exec();
-
       await request(app)
       .get("/user/"+ user.username +"/account-settings")
         .expect(200)
         .then((response) => {
           // Check the response
-          //console.log(response)
           expect(response.body._id).toBe(user.id)
           expect(response.body.email).toBe(user.email)
         })
@@ -168,14 +163,12 @@ it('Test update account settings route', async () => {
       password: "abcdef",
       name: "change name"
     }
-  
     await request(app)
 		.patch("/user/"+ user.username +"/account-settings")
       .send(data)
       .expect(200)
       .then(async (response) => {
         // Check the response
-        //console.log(response)
         expect(response.body._id).toBe(user.id)
         expect(response.body.email).toBe(data.email)
 
@@ -189,7 +182,6 @@ it('Test update account settings route', async () => {
 
 
 //UPLOAD PROFILE IMAGE
-
 //console.log(__dirname) ///Users/shelbyd/CODING/CA/Assignments/T3A2_MERN/server/test
 const testImage = `${__dirname}/testimg.png`
 
@@ -208,17 +200,11 @@ describe('POST /user/:username/add-profile-picture', function() {
        //check it did null other user model parts
        expect(user.name).toBe(res.body.user.name)
        expect(user.email).toBe(res.body.user.email)
-        //done()
     })  
   });
 });
 
-
-
-
-
 //FAIL TESTS
-
 //LOGIN USER TEST- FAIL TEST
 describe('FAIL TEST- POST /user/login', function() {
   it('Test Login Route if wrong password supplied- failure redirect goes to login page again- should get 302 code', function(done) {
@@ -230,8 +216,7 @@ describe('FAIL TEST- POST /user/login', function() {
           })
       .expect(302)
       .expect(function(res) {
-        console.log(res.text);
-        //res.body.email = "tester@test.com";
+        //console.log(res.text);
         expect(res.text).toBe('Found. Redirecting to /user/login');
       })
       .end(function(err, res) {
@@ -251,7 +236,6 @@ describe('FAIL TEST- POST /user/register', function () {
       username: 'newtestuser',
      	}
   it('Test register user endpoint with non valid data', function (done) {
-   // this.timeout(10000) 
       request(app)
           .post('/user/register')
           .send(data)
@@ -259,37 +243,31 @@ describe('FAIL TEST- POST /user/register', function () {
           .expect('Content-Type', /json/)
           .expect(422)
           .expect(function(res) {
-            //console.log(res.body.errors[0].email)
            res.body.errors[0].email = 'Must be a valid email format';
            res.body.errors[1].password = 'Password should not be empty, minimum eight characters, at least one letter, one number and one special character';
           })
           .end(function(err, res) {
             if (err) return done(err);
-            //console.log(res.body);
             done();
           })
           
       });
 });
 
- //GET ACCOUNT SETTINGS PAGE- FAIL TEST
+//GET ACCOUNT SETTINGS PAGE- FAIL TEST
  describe('FAIL TEST-GET /user/:username/account-settings', function() {
   it('Test get account settings with wrong params', async () => {
       let user = await User.findOne({ email: 'tester@test.com' }).exec();
-
       await request(app)
       .get("/user/"+ user.email +"/account-settings")
         .expect(404)
         .then((response) => {
-          // Check the response
-          //console.log(response)
+
           expect(response.body.error).toBe("there is no user found")
     
         })
      })
   });
-
-
 
 //EDIT ACCOUNT SETTINGS TEST- FAIL TEST
 describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
@@ -301,7 +279,6 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
      password: 'wrongformatpassword',
      username: 'newtestuser',
       }
-
       await request(app)
           .patch("/user/"+ user.username +"/account-settings")
           .send(data)
@@ -312,8 +289,7 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
             //console.log(res)
             expect(res.body.errors[0].email).toBe('Must be a valid email format');
             expect(res.body.errors[1].password).toBe('Password should not be empty, minimum eight characters, at least one letter, one number and one special character');
-            expect(res.body.errors[2].name).toBe('Must be text only');
-            
+            expect(res.body.errors[2].name).toBe('Must be text only'); 
           }) 
       });
 });

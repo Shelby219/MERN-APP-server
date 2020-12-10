@@ -46,8 +46,8 @@ function loginCreate(req, res) {
     req.session.jwt = token;
     //console.log("token", token)
     //res.send("Hello")
-   
-    res.json("login create hit");
+    res.redirect(`/home`);
+    //res.json("login create hit");
 }
 
 //Account settings get ROUTE
