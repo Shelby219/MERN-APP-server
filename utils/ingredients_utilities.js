@@ -3,7 +3,6 @@ const User = require('../models/user');
 // get all Ingredients
 // return a query
 const getAllIngredients = function (req) {
-   
     return  User.findOne({ username:  req.params.username })
 };
 
@@ -68,9 +67,40 @@ const removeIngredient = function (req) {
     }
 };
 
+// Clear ALL INGREDIENTS per fridge or pantry
+// returns a query
+const removeAllIngredients = function (req) {
+    let checker = req.path
+    let fridge = checker.includes("fridge")
+    let pantry = checker.includes("pantry")
+    console.log(fridge)
+    console.log(pantry)
+    if (fridge) {
+        console.log("delete All Fridge Items")
+        return  User.findOneAndUpdate(
+            { username: req.params.username },
+            { $set: { fridgeIngredients: []} },
+            { new: true }
+        )
+    } else if (pantry) {
+        console.log("delete All pantry Items")
+        return  User.findOneAndUpdate(
+            { username: req.params.username },
+            { $set: { pantryIngredients: []} },
+            { new: true }
+        )
+    } else {
+        console.log("error message")
+    }
+};
+
+
+
+
 
 module.exports = {
     getAllIngredients,
     addIngredient,
-    removeIngredient
+    removeIngredient,
+    removeAllIngredients
 }
