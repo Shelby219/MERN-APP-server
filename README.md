@@ -67,9 +67,10 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 07/12/2020 | GET Fridge/Pantry Ingredients | Passing |   |
 | 07/12/2020 | POST New Fridge Ingredient | Passing |   |
 | 08/12/2020 | DELETE Fridge Ingredient | Passing |   |
+| 10/12/2020 | DELETE ALL Fridge Ingredients | Passing |   |
 | 08/12/2020 | POST New Pantry Ingredient| Passing |   |
 | 08/12/2020 | DELETE Pantry Ingredient | Passing |   |
-
+| 10/12/2020 | DELETE ALL Pantry Ingredients | Passing |   |
 
 </details>
 

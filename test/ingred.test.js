@@ -71,6 +71,24 @@ const User = require('../models/user.js');
        })
     });
 
+
+//DELETE ALL Fridge Items TEST
+ describe('DELETE /ingredients/:username/fridge/clear-all', function() {
+  it('Test delete all fridge items', async () => {
+  let user = await User.findOne({ email: 'tester@test.com' }).exec();
+  console.log(user)
+  await request(app)
+      .delete("/ingredients/"+ user.username + "/fridge/clear-all")
+        .expect(204)
+        .then(async (response) => {
+          let user = await User.findOne({ email: 'tester@test.com' }).exec();
+          //console.log(response)
+          //console.log(user)
+          expect(user.fridgeIngredients.length).toBe(0);
+        })  
+     })
+  });
+
 //POST new PANTRY Item TEST
 describe('POST /ingredients/:username/pantry/new', function() {
     it('Test add new pantry item', async () => {
@@ -84,7 +102,7 @@ describe('POST /ingredients/:username/pantry/new', function() {
           .expect(201)
           .expect('Content-Type', /json/)
           .then(async (response) => {
-            console.log(response.body.pantryIngredients)
+            //console.log(response.body.pantryIngredients)
             expect(response.body.pantryIngredients.length).toBe(5);
             expect(response.body.pantryIngredients[4]).toBe("Test Pantry Item");
           
@@ -107,10 +125,27 @@ describe('POST /ingredients/:username/pantry/new', function() {
              .then(async (response) => {
                let user = await User.findOne({ email: 'tester@test.com' }).exec();
          
-               console.log(user.pantryIngredients)
+               //console.log(user.pantryIngredients)
                expect(user.pantryIngredients.length).toBe(3);
                expect(user.pantryIngredients[0]).toBe("salt");
              })  
           })
        });
    
+
+//DELETE ALL Pantry Items TEST
+ describe.only('DELETE /ingredients/:username/pantry/clear-all', function() {
+  it('Test delete all pantry items', async () => {
+  let user = await User.findOne({ email: 'tester@test.com' }).exec();
+  console.log(user)
+  await request(app)
+      .delete("/ingredients/"+ user.username + "/pantry/clear-all")
+        .expect(204)
+        .then(async (response) => {
+          let user = await User.findOne({ email: 'tester@test.com' }).exec();
+          //console.log(response)
+          //console.log(user)
+          expect(user.pantryIngredients.length).toBe(0);
+        })  
+     })
+  });

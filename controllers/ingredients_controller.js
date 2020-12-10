@@ -1,12 +1,13 @@
 const {
 	getAllIngredients,
 	addIngredient,
-	removeIngredient
+	removeIngredient,
+	removeAllIngredients
 } = require("../utils/ingredients_utilities")
 
 
 
-//GET ALL FRIDGE INGREDIENTS
+//GET ALL INGREDIENTS
 const getIngredients = function(req, res) {
 	//console.log("Hit controls")
 	  getAllIngredients(req)
@@ -26,7 +27,7 @@ const getIngredients = function(req, res) {
 		})
 }
 
-//CREATE NEW FRIDGE INGREDIENT
+//CREATE NEW INGREDIENT
 const createIngredient = function(req, res) {
 	//console.log(req)
 	addIngredient(req)
@@ -42,7 +43,7 @@ const createIngredient = function(req, res) {
 			)
 }
 
-//DELETE FRIDGE INGREDIENT
+//DELETE A INGREDIENT
 const deleteIngredient = function(req, res) {
 	console.log("hit controls")
 	//console.log(req)
@@ -66,11 +67,35 @@ const deleteIngredient = function(req, res) {
 	}
 }
 
+//DELETE ALL INGREDIENTS
+const deleteAllIngredients = function(req, res) {
+	console.log("hit controls")
+	// Check for error from middleware
+	if (req.error) {
+		res.status(req.error.status)
+		res.send(req.error.message)
+	} else {
+		// execute the query from deletePost
+		removeAllIngredients(req).exec(err => {
+			if (err) {
+				res.status(500)
+				
+				res.json({
+				error: err.message
+				})
+			}
+            res.sendStatus(204)
+            //res.redirect("/ingredients/fridge")
+		})
+	}
+}
+
 
 
 
 module.exports = {
 	getIngredients,
     createIngredient,
-    deleteIngredient
+	deleteIngredient,
+	deleteAllIngredients
 }
