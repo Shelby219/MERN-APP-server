@@ -78,6 +78,7 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 09/12/2020 | POST Login User- Incorrect Password  | Passing |   |
 | 09/12/2020 | POST Register User- Incorrect Email and Password Format  | Passing |   |
 | 09/12/2020 | Get User Settings- Incorrect Params  | Passing |   |
+| 09/12/2020 | PATCH User Settings- Incorrect  Email, Password, Name Format  | Passing |   |
 
 </details>
 
@@ -144,13 +145,15 @@ Some issues were the concern of updating the user via account settings page and 
 
 FRIDGE/PANTRY BRANCH
 
-Shelby managed to keep the codebase dry by not doing Fridge and Pantry CRUD, rather just implemented and Ingredient CRUD base and using conditionals checking the path name, which then determines which part of the user model gets updated. 
+During this sprint the CRUD for ingredients was implemented. Shelby managed to keep the codebase dry by not doing Fridge and Pantry CRUD, rather just implementing an Ingredient CRUD base and using conditionals checking the path name, which then determines which part of the user model gets updated. 
 
 USER BRANCH
 
 When implementing s3 and Multer for profile image upload, some blockers were incorrect set up of IAM policy, the use of .single with multer (use .any to ensure the image would upload.)
 
-Started writing passing fail tests to test the end points when errors arise. 
+Shelby also began implementing validation using express-validator starting with validation for the email, password and user information on registering, account settings page and login. 
+
+Started writing passing fail tests to test the end points when errors arise. This pair with using validation I was able to test the results of invalid data being input for the user model. 
 
 
 </details>

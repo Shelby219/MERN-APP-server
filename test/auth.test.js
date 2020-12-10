@@ -292,7 +292,7 @@ describe('FAIL TEST- POST /user/register', function () {
 
 
 //EDIT ACCOUNT SETTINGS TEST- FAIL TEST
-describe.only('FAIL TEST- PATCH /user/:username/account-settings', function () {
+describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
   it('Test update account settings user endpoint with non valid data', async function () {
     let user = await User.findOne({ email: 'tester@test.com' }).exec();
     let data = {
