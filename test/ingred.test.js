@@ -90,7 +90,7 @@ const User = require('../models/user.js');
   });
 
  //GET ALL INGREDIENTS FOR PANTRY 
- describe.only('GET /ingredients/:username/pantry', function() {
+ describe.('GET /ingredients/:username/pantry', function() {
   it('Test get all ingredients on Fridge page', async () => {
       //console.log(UserId)
       let user = await User.findOne({ email: 'tester@test.com' }).exec();
