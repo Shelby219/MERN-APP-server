@@ -3,7 +3,6 @@ const User = require('../models/user');
 // get all Ingredients
 // return a query
 const getAllIngredients = function (req) {
-   
     return  User.findOne({ username:  req.params.username })
 };
 

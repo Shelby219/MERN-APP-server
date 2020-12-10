@@ -9,7 +9,7 @@ const app = require('../app.js');
 const User = require('../models/user.js');
 
 
- //GET ALL INGREDIENTS FOR FRIDGE OR PANTRY PAGES
+ //GET ALL INGREDIENTS FOR FRIDGE 
  describe('GET /ingredients/:username/fridge', function() {
     it('Test get all ingredients on Fridge page', async () => {
         //console.log(UserId)
@@ -76,7 +76,7 @@ const User = require('../models/user.js');
  describe('DELETE /ingredients/:username/fridge/clear-all', function() {
   it('Test delete all fridge items', async () => {
   let user = await User.findOne({ email: 'tester@test.com' }).exec();
-  console.log(user)
+  //console.log(user)
   await request(app)
       .delete("/ingredients/"+ user.username + "/fridge/clear-all")
         .expect(204)
@@ -89,6 +89,23 @@ const User = require('../models/user.js');
      })
   });
 
+ //GET ALL INGREDIENTS FOR PANTRY 
+ describe.only('GET /ingredients/:username/pantry', function() {
+  it('Test get all ingredients on Fridge page', async () => {
+      //console.log(UserId)
+      let user = await User.findOne({ email: 'tester@test.com' }).exec();
+      //console.log(user.username)
+      await request(app)
+      .get("/ingredients/"+ user.username+ "/pantry")
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then( (response) => {
+          //console.log(response)
+          expect(response.body.username).toBe(user.username)
+
+        })
+     })
+  });
 //POST new PANTRY Item TEST
 describe('POST /ingredients/:username/pantry/new', function() {
     it('Test add new pantry item', async () => {
@@ -134,10 +151,10 @@ describe('POST /ingredients/:username/pantry/new', function() {
    
 
 //DELETE ALL Pantry Items TEST
- describe.only('DELETE /ingredients/:username/pantry/clear-all', function() {
+ describe('DELETE /ingredients/:username/pantry/clear-all', function() {
   it('Test delete all pantry items', async () => {
   let user = await User.findOne({ email: 'tester@test.com' }).exec();
-  console.log(user)
+  //console.log(user)
   await request(app)
       .delete("/ingredients/"+ user.username + "/pantry/clear-all")
         .expect(204)

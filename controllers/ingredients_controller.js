@@ -69,7 +69,7 @@ const deleteIngredient = function(req, res) {
 
 //DELETE ALL INGREDIENTS
 const deleteAllIngredients = function(req, res) {
-	console.log("hit controls")
+//	console.log("hit controls")
 	// Check for error from middleware
 	if (req.error) {
 		res.status(req.error.status)
