@@ -43,7 +43,6 @@ const fields = { usernameField: "email"}
 passport.use(new LocalStrategy(fields, verifyCallback))
 
 
-
 passport.use(new JwtStrategy(
     {
         jwtFromRequest: (req) => {

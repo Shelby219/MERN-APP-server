@@ -10,13 +10,14 @@ function registerNew(req, res) {
 }
 
 function registerCreate(req, res, next) {
-
+            
     const newUserHandler = (user) => {
         req.login(user, (err) => {
         if(err){
             next(err)
         } else {
             autoNewPreferences(user)
+            //console.log(req.session)
             res.send(user);
             //res.redirect("/home")
           }
@@ -27,7 +28,7 @@ function registerCreate(req, res, next) {
     UserModel.create({ email, password, name, profile})
         .then(newUserHandler)
         //.then(autoNewPreferences(user))
-        .catch(x => console.log(x))
+        .catch(x => console.log("error" + x))
 }
 
 function logOut(req, res) {
@@ -52,7 +53,7 @@ function loginCreate(req, res) {
 
 //Account settings get ROUTE
 function editUser(req, res) {
-
+    console.log(req)
      getUserByParam(req).exec((err, user) => {
         if (err) {
             // handle error

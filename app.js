@@ -25,6 +25,13 @@ if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+// //FOR TESTING PURPOSES
+// if(process.env.NODE_ENV == 'development') {
+// app.use(function testSession(req, res, next) { // lets stub session middleware
+//     req.session = {};
+//     next();
+//   })
+// }
 
 // Use cors
 const whitelist = ['http://localhost:3000']

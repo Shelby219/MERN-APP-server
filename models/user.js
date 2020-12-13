@@ -45,5 +45,12 @@ const User = new Schema({
 });
 
 User.plugin(require('mongoose-bcrypt'));
+
+// UserSchema.methods.isValidPassword = async function(password) {
+//     const user = this;
+//     const compare = await bcrypt.compare(password, user.password);
+  
+//     return compare;
+//   }
 module.exports = mongoose.model('user', User);
 
