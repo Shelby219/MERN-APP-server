@@ -61,15 +61,15 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 01/12/2020 | POST Login User | Passing |   |
 | 08/12/2020 | GET Logout User | Passing |   |
 | 01/12/2020 | Find a User from DB | Passing |   |
-| 06/12/2020 | GET User Settings | Passing |  |
+| 06/12/2020 | GET User Settings | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place |
 | 06/12/2020 | PATCH Edit User Settings | Passing |   |
-| 07/12/2020 | GET User Preferences  | Passing |   |
+| 07/12/2020 | GET User Preferences  | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place  |
 | 07/12/2020 | PATCH Edit User Preferences  | Passing | Ensure req.body.preference is updated in codebase  |
-| 07/12/2020 | GET Fridge Ingredients | Passing |   |
+| 07/12/2020 | GET Fridge Ingredients | Passing |  Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place |
 | 07/12/2020 | POST New Fridge Ingredient | Passing |   |
 | 08/12/2020 | DELETE Fridge Ingredient | Passing |   |
 | 10/12/2020 | DELETE ALL Fridge Ingredients | Passing |   |
-| 08/12/2020 | GET Pantry Ingredients | Passing |   |
+| 08/12/2020 | GET Pantry Ingredients | Passing |  Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place |
 | 08/12/2020 | POST New Pantry Ingredient| Passing |   |
 | 08/12/2020 | DELETE Pantry Ingredient | Passing |   |
 | 10/12/2020 | DELETE ALL Pantry Ingredients | Passing |   |
@@ -158,6 +158,12 @@ When implementing s3 and Multer for profile image upload, some blockers were inc
 Shelby also began implementing validation using express-validator starting with validation for the email, password and user information on registering, account settings page and login. 
 
 Started writing passing fail tests to test the end points when errors arise. This pair with using validation I was able to test the results of invalid data being input for the user model. 
+
+Current blockers are implementation of persisting cookies with mocha/supertest testing so tests can be run even with authenticated routes. eg. with the middleware of "passport.authenticate('jwt', {session: false})". Currently all  tests are based with this middleware not being implemented. Code that was tried includes, using superagent, setting headers, setting a beforeAll function of logging in the user and trying to manually set the cookies. The closest to success was using a beforeAll function of logging in the user, however accessing the cookies from that Http request response was not successful. This task will be moved to next sprint. 
+
+CLIENT
+
+Completed the intial styling for the home/nav/login/register to start the basis of styling, to enable easier implementation of the react client-side.
 
 
 </details>

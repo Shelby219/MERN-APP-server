@@ -28,20 +28,19 @@ beforeEach(async function () {
     UserId = user._id;
     //const cookie = " "
 
-    
-    agent.post('/user/login')
-     .send({
-               email: "tester@test.com", 
-               password: "TestPassword1$"
-             })
-       .redirects(1)  
-       .then(response => {
-         //console.log(response.request.cookies)
-        cookie = response.request.cookies
+  //   agent.post('/user/login')
+  //    .send({
+  //              email: "tester@test.com", 
+  //              password: "TestPassword1$"
+  //            })
+  //      .redirects(1)  
+  //      .then(response => {
+  //        //console.log(response.request.cookies)
+  //       cookie = response.request.cookies
        
-        //  const cookies = response.headers['set-cookie'][0].split(',').map(item => item.split(';')[0]);
-        //  cookie = cookies.join(';');
-   })
+  //       //  const cookies = response.headers['set-cookie'][0].split(',').map(item => item.split(';')[0]);
+  //       //  cookie = cookies.join(';');
+  //  })
 });
 
         
@@ -52,7 +51,6 @@ beforeEach(async function () {
       .get("/user/register")
       .expect(200)
       .end(function(err, res) {
-        console.log(res)
         if (err) return done(err);
         done();
         });
@@ -154,30 +152,16 @@ describe('Finding a User', function() {
 
  
  //GET ACCOUNT SETTINGS PAGE
- describe.only('GET /user/:username/account-settings', function() {
+ describe('GET /user/:username/account-settings', function() {
   it('Test get account settings page to populate user info', async () => {
      let user = await User.findOne({ email: 'tester@test.com' }).exec();
-      //const testToken = jwt.sign({ sub: UserId }, process.env.JWT_SECRET);
-
      await agent
       .get("/user/"+ user.username +"/account-settings")
-      //req.cookies
-     .set('Cookie',   this.currentTest.cookie)
-     //.set('set-cookie',[`jwt=${testToken}`])
-        //.set('session', testToken)
-        //agent.jar.setCookie(res.headers['set-cookie'][0]);
-        //.expect(200)
+        .expect(200)
         .then((response) => {
           // Check the response
-          //agent.setCookie(response.header.jwt)
-          //response.cookie("jwt", testToken);
-          //const access_info = CookieAccessInfo() 
-          //const cookies = agent.jar.getCookie('cookie', access_info)
-          //console.log(agent.jar)
-        console.log(response)
-          //expect(response.body._id).toBe(user.id)
-        
-          //expect(response.body.email).toBe(user.email)
+          expect(response.body._id).toBe(user.id)
+          expect(response.body.email).toBe(user.email)
         })
        
       })
@@ -216,7 +200,8 @@ it('Test update account settings route', async () => {
 const testImage = `${__dirname}/testimg.png`
 
 describe('POST /user/:username/add-profile-picture', function() {
-  it('Test upload profile image to s3', async function() {
+  it('Test upload profile image to s3', async () => {
+
     let user = await User.findOne({ email: 'tester@test.com' }).exec();
     await request(app)
       .post("/user/"+ user.username +"/add-profile-picture")
@@ -225,11 +210,6 @@ describe('POST /user/:username/add-profile-picture', function() {
       .then(async function(res) { 
        expect(res.body.success).toBeTruthy()
        //check db
-       let user = await User.findOne({ email: 'tester@test.com' }).exec();
-       expect(user.profile).toBe(res.body.user.profile)
-       //check it did null other user model parts
-       expect(user.name).toBe(res.body.user.name)
-       expect(user.email).toBe(res.body.user.email)
     })  
   });
 });

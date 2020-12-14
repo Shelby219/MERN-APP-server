@@ -59,8 +59,8 @@ router.post("/:username/add-profile-picture",  function (req, res) {
           },
         });
       }
-      let update = { profile: req.files[0].location };
-      //console.log(update)
+       let update =  { profile: req.files[0].location };
+     // console.log(update)
       await User.findOneAndUpdate(username, update, {new: true})
         .then((user) => res.status(200).json({ success: true, user: user }) )
         .catch((err) => res.status(400).json({ success: false, error: err }));
