@@ -1,9 +1,9 @@
 const User = require('../models/user');
 
 
-
 // GET USER BY NAME PARAMS for ACCOUNT SETTINGS
 const getUserByParam = function (req) {
+
     return  User.findOne({ username: req.params.username });
 };
  
@@ -13,9 +13,6 @@ const updateUser = function (req) {
         new: true
     });
 };
-
-
-
 
 
 

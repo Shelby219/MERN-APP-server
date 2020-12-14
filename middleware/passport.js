@@ -43,14 +43,24 @@ const fields = { usernameField: "email"}
 passport.use(new LocalStrategy(fields, verifyCallback))
 
 
-
 passport.use(new JwtStrategy(
+    // {
+    //     jwtFromRequest: (req) => {
+    //         if (req.session && req.session.jwt) {
+    //             return req.session.jwt;
+    //         }
+    //         return null;
+    //     },
+    //     secretOrKey: process.env.JWT_SECRET
     {
         jwtFromRequest: (req) => {
-            if (req.session && req.session.jwt) {
-                return req.session.jwt;
+            let token = null;
+            
+            if (req && req.cookies) {
+                token = req.cookies['jwt'];
             }
-            return null;
+
+            return token;
         },
         secretOrKey: process.env.JWT_SECRET
     },

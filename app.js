@@ -25,6 +25,13 @@ if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+// //FOR TESTING PURPOSES
+// if(process.env.NODE_ENV == 'development') {
+// app.use(function testSession(req, res, next) { // lets stub session middleware
+//     req.session = {};
+//     next();
+//   })
+// }
 
 // Use cors
 const whitelist = ['http://localhost:3000']
@@ -42,9 +49,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 1800000,
+        maxAge: 600000,
         sameSite: 'none',
-        secure: true,
+       // secure: true,
         httpOnly: false,
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
