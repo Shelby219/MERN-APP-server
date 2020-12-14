@@ -12,8 +12,8 @@ const getUser = function () {
        return user
     });
 
-    
-};
+
+};  
 
 
 const request = axios.create({

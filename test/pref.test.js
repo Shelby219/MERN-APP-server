@@ -1,9 +1,6 @@
 const expect = require('expect');
 const request = require('supertest');
-
-
 const User = require('../models/user');
-
 const app = require('../app.js'); 
 
 //GET PREFERENCES PAGE
