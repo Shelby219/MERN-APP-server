@@ -1,6 +1,6 @@
 const expect = require('expect');
 const request = require('supertest');
-
+const { CookieAccessInfo } = require('cookiejar')
 const jwt = require("jsonwebtoken");
 const {
   connectToDb,
@@ -10,7 +10,8 @@ const {
 const User = require('../models/user');
 
 const app = require('../app.js'); 
-
+//request = request('http://localhost:5555');
+const agent = request.agent(app);
 
 before((done) => {
   // Connect to the database (same as we do in app.js)
@@ -25,9 +26,25 @@ after((done) => {
 beforeEach(async function () {
     let user = await setupData();
     UserId = user._id;
+    //const cookie = " "
+
+    
+    agent.post('/user/login')
+     .send({
+               email: "tester@test.com", 
+               password: "TestPassword1$"
+             })
+       .redirects(1)  
+       .then(response => {
+         //console.log(response.request.cookies)
+        cookie = response.request.cookies
+       
+        //  const cookies = response.headers['set-cookie'][0].split(',').map(item => item.split(';')[0]);
+        //  cookie = cookies.join(';');
+   })
 });
 
-
+        
  //GET REGISTER USER PAGE
  describe('GET /user/register', function() {
   it('Test get register user',  (done) => {
@@ -111,7 +128,7 @@ describe('POST /user/login', function() {
       //.expect('Content-Type', /json/)
       .expect(302)
       .expect(function(res) {
-        console.log(res);
+      //  console.log(res.header);
         expect(res.text).toBe('Found. Redirecting to /home');
         //res.body.email = "tester@test.com";
       })
@@ -134,24 +151,36 @@ describe('Finding a User', function() {
   });
  });
 
+
+ 
  //GET ACCOUNT SETTINGS PAGE
  describe.only('GET /user/:username/account-settings', function() {
   it('Test get account settings page to populate user info', async () => {
-      let user = await User.findOne({ email: 'tester@test.com' }).exec();
-      const testToken = jwt.sign({ sub: UserId }, process.env.JWT_SECRET);
-      await request(app)
+     let user = await User.findOne({ email: 'tester@test.com' }).exec();
+      //const testToken = jwt.sign({ sub: UserId }, process.env.JWT_SECRET);
+
+     await agent
       .get("/user/"+ user.username +"/account-settings")
-        .set('jwt',testToken)
+      //req.cookies
+     .set('Cookie',   this.currentTest.cookie)
+     //.set('set-cookie',[`jwt=${testToken}`])
         //.set('session', testToken)
-      
+        //agent.jar.setCookie(res.headers['set-cookie'][0]);
         //.expect(200)
         .then((response) => {
           // Check the response
-      console.log(response)
+          //agent.setCookie(response.header.jwt)
+          //response.cookie("jwt", testToken);
+          //const access_info = CookieAccessInfo() 
+          //const cookies = agent.jar.getCookie('cookie', access_info)
+          //console.log(agent.jar)
+        console.log(response)
           //expect(response.body._id).toBe(user.id)
+        
           //expect(response.body.email).toBe(user.email)
         })
-     })
+       
+      })
   });
 
  //EDIT ACCOUNT SETTINGS TEST

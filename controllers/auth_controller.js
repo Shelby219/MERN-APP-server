@@ -33,7 +33,7 @@ function registerCreate(req, res, next) {
 
 function logOut(req, res) {
     req.logout();
-    //res.send("login create hit");
+    res.cookie("jwt", null, { maxAge: -1 });
     res.redirect("/");
 }
 
@@ -44,16 +44,21 @@ function loginNew(req, res) {
 
 function loginCreate(req, res) {
     const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
-    req.session.jwt = token;
-    //console.log("token", token)
-    //res.send("Hello")
-    res.redirect(`/home`);
-    //res.json("login create hit");
+    res.cookie("jwt", token);
+    res.redirect("/home");
+
+    // const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
+    // req.session.jwt = token;
+    // //console.log("token", token)
+    // //res.send("Hello")
+    // res.redirect(`/home`);
+    // //res.json("login create hit");
 }
 
 //Account settings get ROUTE
 function editUser(req, res) {
-    console.log(req)
+    
+    //console.log(req.session)
      getUserByParam(req).exec((err, user) => {
         if (err) {
             // handle error
