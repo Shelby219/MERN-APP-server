@@ -75,7 +75,7 @@ describe('POST /user/register', function () {
           .expect('Content-Type', /json/)
           .expect(200)
           .expect(function(res) {
-            //console.log(res)
+            console.log(res.body)
             res.body.email = "hello@test.com";
           })
           .end(function(err, res) {

@@ -16,7 +16,7 @@ function registerCreate(req, res, next) {
         if(err){
             next(err)
         } else {
-            autoNewPreferences(user)
+            //autoNewPreferences(user)
             //console.log(req.session)
             res.send(user);
             //res.redirect("/home")

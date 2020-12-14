@@ -16,6 +16,7 @@ const authRouter = require("./routes/auth_routes");
 const pageRouter = require("./routes/page_routes");
 const prefRouter = require("./routes/pref_routes");
 const ingredientRouter = require("./routes/ingredients_routes");
+const recipeRouter = require("./routes/recipe_routes");
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -104,7 +105,7 @@ app.use('/user', authRouter);
 app.use('/', pageRouter);
 app.use('/preferences', prefRouter);
 app.use('/ingredients', ingredientRouter);
-
+app.use('/recipes', recipeRouter);
 
 module.exports = app.listen(port, () => {
     console.log(`Blog express app listening on port ${port}`);
