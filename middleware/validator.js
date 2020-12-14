@@ -1,4 +1,4 @@
-const { body, validationResult } = require('express-validator')
+const { body, validationResult, param } = require('express-validator')
 
 const userValidationRules = () => {
     return [
@@ -6,7 +6,7 @@ const userValidationRules = () => {
         body('password').isStrongPassword({ minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).withMessage('Password should not be empty, minimum eight characters, at least one letter, one number and one special character')
       ]
   }
-
+ 
 const accountSettingValidationRules = () => {
     return [
         body('email').isEmail().normalizeEmail().withMessage('Must be a valid email format'),
@@ -30,7 +30,8 @@ const accountSettingValidationRules = () => {
   
   module.exports = {
     userValidationRules,
-    validate
+    validate,
+    accountSettingValidationRules
   }
 
 

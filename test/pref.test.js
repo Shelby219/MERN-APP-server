@@ -9,7 +9,7 @@ const {autoNewPreferences} = require("../middleware/pref_middleware")
 
 const app = require('../app.js'); 
 
- //GET PREFERENCES PAGE
+//GET PREFERENCES PAGE
  describe('GET  /preferences/:name/', function() {
     it('Test get preference page to populate user info', async () => {
 
@@ -22,11 +22,7 @@ const app = require('../app.js');
           .then(async (response) => {
             let pref = await UserPref.findOne({ user: user._id}).exec();
             // Check the response
-            //console.log(response.body._id)
-            //console.log(pref.user)
-            //console.log(user._id)
             expect(user._id).toStrictEqual(pref.user)
-            //expect(response.body._id).toEqual(pref.user)
 
           })
        })
@@ -51,11 +47,6 @@ const app = require('../app.js');
           .expect(200)
           .then(async (response) => {
             let pref = await UserPref.findOne({ user: user._id}).exec();
-            // Check the response
-            //console.log(response.body)
-            //console.log(user._id)
-            //console.log(pref.user)
-
             expect(user._id).toStrictEqual(pref.user)
             expect(response.body.dietPreferences.vegan).toBeTruthy()
             expect(pref).toBeTruthy()
