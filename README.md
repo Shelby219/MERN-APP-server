@@ -173,6 +173,9 @@ Completed the intial styling for the home/nav/login/register to start the basis 
 <details>
 <summary>Click to expand</summary>
 
+RECIPE BRANCH
+
+Began Work on this feature branch on the server client. Initial routes set up. The biggest challenge was the code required for the process of getting the user data from the DB (being ingredients and preferences), error handling, sanitising the data (functions checking if null, processing booleans into an array then finally a string), then sending the correct data to the Spoonacular API calls. During the code process of the helper functions a lot of manual testing done via the console was done with some dummy data, to ensure that the JS functions were working as intended. Additionally testing Spoonacular API via postman was done to determine with Http request URLs were the right ones to use for this application. 
 
 
 </details>

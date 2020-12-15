@@ -52,6 +52,7 @@ beforeEach(async function () {
       .expect(200)
       .end(function(err, res) {
         if (err) return done(err);
+        
         done();
         });
      })
@@ -75,7 +76,7 @@ describe('POST /user/register', function () {
           .expect('Content-Type', /json/)
           .expect(200)
           .expect(function(res) {
-            console.log(res.body)
+            console.log(res)
             res.body.email = "hello@test.com";
           })
           .end(function(err, res) {
@@ -126,7 +127,7 @@ describe('POST /user/login', function() {
       //.expect('Content-Type', /json/)
       .expect(302)
       .expect(function(res) {
-      //  console.log(res.header);
+      console.log(res);
         expect(res.text).toBe('Found. Redirecting to /home');
         //res.body.email = "tester@test.com";
       })
@@ -314,7 +315,7 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
   testUser.email = 'tester@test.com';
   testUser.username = 'testusername';
   testUser.password = 'TestPassword1$';
-  testUser.fridgeIngredients = ["testing1", "testing2"];
+  testUser.fridgeIngredients = ["chicken", "cheese"];
   testUser.createdDate = date;
   testUser.lastLogin = date;
   return User.create(testUser);

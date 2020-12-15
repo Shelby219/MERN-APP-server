@@ -18,7 +18,7 @@ const prefRouter = require("./routes/pref_routes");
 const ingredientRouter = require("./routes/ingredients_routes");
 const recipeRouter = require("./routes/recipe_routes");
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3009;
 const app = express();
 
 // If we are not running in production, load our local .env

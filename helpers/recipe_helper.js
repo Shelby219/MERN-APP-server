@@ -1,62 +1,52 @@
+//Need to add validation code for if objects are empty- ie false 
 
+//const request = 'https://api.spoonacular.com/recipes/complexSearch' 
+//+ `?query=fillIngredients=false&ingredients=${queryInfo[0]}&diet=${queryInfo[1]}&intolerances=${queryInfo[2]}&limitLicense=true&number=25`
 
-//const request = 'https://api.spoonacular.com/recipes/complexSearch' +
-
-//`?query=fillIngredients=false&ingredients=${queryIng}&limitLicense=true&number=25`
-
-let user = {
-    fridge: ["1", "2" ] ,
-    pantry: ["1", "2"] ,
-    diet: {dairy: true, egg: true} ,
-    health: {dairy: true, egg: true}
-}
+// let user = {
+//     fridge: ["1", "2" ] ,
+//     pantry: ["1", "2"] ,
+//     diet: {vegetarian: false, paleo: false} ,
+//     health: {dairy: true, egg: true}
+// }
 const ingredientJoiner = function (fridge, pantry) { 
     const ingredients = fridge.concat(pantry);
-    return ingredients.join(",")
+    return ingredients.join(",+")
 }
 
 const preferenceSeparator = function (preference) { 
-    let result = Object.values(preference)
-    return result.filter(Boolean);
+    let result = Object.keys(preference).filter((key) => preference[key])
+    return result
 }
 
-const queryEditor = function (p, preferenceSeparator) { 
-    let queryArray = preferenceSeparator(user.health)
-    const newString = queryArray.join(",")
+function queryEditor(p, preferenceSeparator) { 
+    let queryArray = preferenceSeparator(p)
+    const newString = queryArray.join(",+")
     return newString
 }
-
-console.log(queryEditor(user.health,  preferenceSeparator))
-
-
-const queryBuilder = function (user) {
-    
-    if (user) {
-        // let user = {
-        //     fridge: user.fridgeIngredients,
-        //     pantry: user.pantryIngredients,
-        //     diet: user.dietPreferences,
-        //     health:user.healthPreferences
-        // }
+   
+function userQueryBuilder(returnUser) {
+    if (returnUser) {
         let user = {
-            fridge: ["1", "2" ] ,
-            pantry: ["1", "2"] ,
-            diet: {dairy: false, egg: false} ,
-            health: {dairy: false, egg: false}
+            fridge: returnUser.fridgeIngredients,
+            pantry: returnUser.pantryIngredients,
+            diet: returnUser.dietPreferences,
+            health:returnUser.healthPreferences
         }
-    
       let queryIng = ingredientJoiner(user.fridge, user.pantry)
-      //let queryDiet = preferenceSeparator(user.diet) 
-      //let queryHealth = preferenceSeparator(user.health)
-      console.log(queryIng)
-
+      let queryHealth = queryEditor(user.health,  preferenceSeparator)
+      let queryDiet = queryEditor(user.diet,  preferenceSeparator)
+      let queryInfo = {ingredients: queryIng, health: queryHealth, diet: queryDiet}
+      //console.log(queryInfo)
+      return queryInfo
 
     } else  {
         console.log("No User Returned")
     }
 };  
 
-queryBuilder(user)
-//console.log(preferenceSeparator(user.health))
 
 
+module.exports = {
+    userQueryBuilder
+}
