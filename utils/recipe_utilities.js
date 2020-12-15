@@ -10,13 +10,13 @@ const {
 const getUser = async (req) => {
    await User.findOne({ username: req.user.username })
     .then(returnUser =>  userQueryBuilder(returnUser))
-    .then(query => console.log(query) /*ingredientAPISearch(query.ingredients)*/)
+    .then(query => ingredientAPISearch(query.ingredients))
     .catch(e => console.log(e))
 };  
 
-const ingredientAPISearch = function (ingredients) { 
+const ingredientAPISearch = async function (ingredients) { 
   //INTIAL FIND BY INGREDIENT CALL
-  axios.get(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=20&apiKey=${process.env.RECIPE_API_KEY}`)
+  await axios.get(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=20&apiKey=${process.env.RECIPE_API_KEY}`)
   .then(recipes =>  console.log(recipes.data)/*res.send(recipes.data)*/)
   .catch(e => console.log(e)/*res.status(400).json({
     message: 'Request to Spoonacular failed/unauthorized'
