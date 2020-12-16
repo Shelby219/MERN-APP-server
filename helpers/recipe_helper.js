@@ -45,8 +45,13 @@ function userQueryBuilder(returnUser) {
     }
 };  
 
-
+function recipeIdGetter(recipesObject) { 
+    const newArray= recipesObject.map(recipe => recipe.id);
+    console.log(newArray); 
+    return newArray
+}
 
 module.exports = {
-    userQueryBuilder
+    userQueryBuilder,
+    recipeIdGetter
 }

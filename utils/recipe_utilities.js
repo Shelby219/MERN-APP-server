@@ -3,14 +3,16 @@ const axios = require('axios');
 const User = require('../models/user');
 
 const {
-	userQueryBuilder
+  userQueryBuilder,
+  recipeIdGetter
 } = require("../helpers/recipe_helper")
 
 
 const returnRecipesToBrowse = async (req) => {
    await User.findOne({ username: req.user.username })
     .then(returnUser =>  userQueryBuilder(returnUser))
-    .then(sanitizeDataForQuery)
+    .then(queryItems =>  sanitizeDataForIngredientQuery(queryItems))
+    .then(recipesObject => recipeIdGetter(recipesObject.data))
     .catch(e => console.log(e))
 };  
 
@@ -21,11 +23,12 @@ const request = axios.create({
 
 const ingredientAPISearch = async function (ingredients) { 
   //INTIAL FIND BY INGREDIENT CALL
-  await request.get(`findByIngredients?ingredients=${ingredients}&number=20&apiKey=${process.env.RECIPE_API_KEY}`)
-  .then(recipes =>  console.log(recipes.data)/*res.send(recipes.data)*/)
-  .catch(e => console.log(e)/*res.status(400).json({
-    message: 'Request to Spoonacular failed/unauthorized'
-  })*/);
+  return await request.get(`findByIngredients?ingredients=${ingredients}&number=20&apiKey=${process.env.RECIPE_API_KEY}`)
+  //.then(recipes =>  recipes.data)
+  //.then(recipesObject => console.log(recipesObject)/*recipeIdGetter(recipesObject)*/)
+  //.catch(e => console.log(e)/*res.status(400).json({
+  //  message: 'Request to Spoonacular failed/unauthorized'
+  //})*/);
 }
 
 const randomRecipeAPISearch = async function (ingredients) { 
@@ -37,16 +40,25 @@ const randomRecipeAPISearch = async function (ingredients) {
   })*/);
 }
 
-const sanitizeDataForQuery = function(queryItems) {
-    if (queryItems.ingredients === "") {
-      return randomRecipeAPISearch(queryItems.ingredients)
+const detailedRecipeAPISearch = async function (ingredients) { 
+  //return random recipes if use has no ingredients
+  await request.get(`informationBulk?ids=${715538,716429}&=${process.env.RECIPE_API_KEY}`)
+  .then(recipes =>  console.log(recipes.data)/*res.send(recipes.data)*/)
+  .catch(e => console.log(e)/*res.status(400).json({
+    message: 'Request to Spoonacular failed/unauthorized'
+  })*/);
+}
+
+const sanitizeDataForIngredientQuery = function(queryItems) {
+    // If ingredients are empty
+    if (queryItems.ingredients === "" || null || undefined) {
+      return randomRecipeAPISearch(queryItems.ingredients) 
+      // then do an api call for random recipes display and put an alert like
+      // We see you have no ingredients! Here are some recipes you can check out
     } else {
+      //else do ingredient API search
       return ingredientAPISearch(queryItems.ingredients)
     }
-  // If ingredients are empty
-  // then do an api call for random recipes display and put an alert like
-  // We see you have no ingredients! Here are some recipes you can check out
-
   }
 
 //console.log(require('dotenv').config({path: __dirname + '/.env'}))
