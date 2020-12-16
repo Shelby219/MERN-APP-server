@@ -47,8 +47,9 @@ function userQueryBuilder(returnUser) {
 
 function recipeIdGetter(recipesObject) { 
     const newArray= recipesObject.map(recipe => recipe.id);
-    console.log(newArray); 
-    return newArray
+    const newString = newArray.join(",")
+    //console.log(newString)
+    return newString
 }
 
 module.exports = {
