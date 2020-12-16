@@ -7,21 +7,48 @@ const {
 } = require("../helpers/recipe_helper")
 
 
-const getUser = async (req) => {
+const returnRecipesToBrowse = async (req) => {
    await User.findOne({ username: req.user.username })
     .then(returnUser =>  userQueryBuilder(returnUser))
-    .then(query => ingredientAPISearch(query.ingredients))
+    .then(sanitizeDataForQuery)
     .catch(e => console.log(e))
 };  
 
+const request = axios.create({
+  baseURL: 'https://api.spoonacular.com/recipes/',
+  timeout: 5000
+});
+
 const ingredientAPISearch = async function (ingredients) { 
   //INTIAL FIND BY INGREDIENT CALL
-  await axios.get(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=20&apiKey=${process.env.RECIPE_API_KEY}`)
+  await request.get(`findByIngredients?ingredients=${ingredients}&number=20&apiKey=${process.env.RECIPE_API_KEY}`)
   .then(recipes =>  console.log(recipes.data)/*res.send(recipes.data)*/)
   .catch(e => console.log(e)/*res.status(400).json({
     message: 'Request to Spoonacular failed/unauthorized'
   })*/);
 }
+
+const randomRecipeAPISearch = async function (ingredients) { 
+  //return random recipes if use has no ingredients
+  await request.get(`/random?apiKey=${process.env.RECIPE_API_KEY}`)
+  .then(recipes =>  console.log(recipes.data)/*res.send(recipes.data)*/)
+  .catch(e => console.log(e)/*res.status(400).json({
+    message: 'Request to Spoonacular failed/unauthorized'
+  })*/);
+}
+
+const sanitizeDataForQuery = function(queryItems) {
+    if (queryItems.ingredients === "") {
+      return randomRecipeAPISearch(queryItems.ingredients)
+    } else {
+      return ingredientAPISearch(queryItems.ingredients)
+    }
+  // If ingredients are empty
+  // then do an api call for random recipes display and put an alert like
+  // We see you have no ingredients! Here are some recipes you can check out
+
+  }
+
 //console.log(require('dotenv').config({path: __dirname + '/.env'}))
 //ingredientAPISearch("chicken,+fish")
 
@@ -41,6 +68,6 @@ const ingredientAPISearch = async function (ingredients) {
 
 
 module.exports = {
-    getUser,
+  returnRecipesToBrowse,
     ingredientAPISearch
 }

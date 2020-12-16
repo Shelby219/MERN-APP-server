@@ -3,7 +3,7 @@ const request = require('supertest');
 
 const { displayRecipes} = require('../controllers/recipe_controller')
 const {
-	getUser
+	returnRecipesToBrowse
 } = require("../utils/recipe_utilities")
 const app = require('../app.js'); 
 
@@ -16,7 +16,7 @@ describe.only('Recipe Utils Display Recipes- API Call', () => {
                 username: "testusername"
             }
         };
-        getUser(req)
+        returnRecipesToBrowse(req)
     //    await getUser(req).then((post) => {
     //         expect(post.comments.length).toBe(1);
     //         expect(post.comments[0].username).toBe('tester2');
