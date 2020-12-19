@@ -14,9 +14,11 @@ const returnRecipesToBrowse = async (req) => {
     .then(queryItems =>  sanitizeDataForIngredientQuery(queryItems))
     .then(recipesObject => recipeIdGetter(recipesObject.data))
     .then(recipeIdsString => detailedRecipeAPISearch(recipeIdsString))
+    .then((recipes) => {return recipes})
     .catch(e => console.log(e.message) /*res.status(400).json({
       message: 'Request to Spoonacular failed/unauthorized'
-    })*/)
+   /})*/)
+  //console.log(recipes)
 };  
 
 const request = axios.create({
@@ -34,9 +36,10 @@ const randomRecipeAPISearch = async function (ingredients) {
   return await request.get(`/random?apiKey=${process.env.RECIPE_API_KEY}`)
 }
 
+//Utilmately returns the main recipe results to be displayed on the user browser
 const detailedRecipeAPISearch = async function (recipeIdsString) { 
   //return random recipes if use has no ingredients
-  await request.get(`informationBulk?ids=${recipeIdsString}&apiKey=${process.env.RECIPE_API_KEY}`)
+  return await request.get(`informationBulk?ids=${recipeIdsString}&apiKey=${process.env.RECIPE_API_KEY}`)
   .then(recipes =>  console.log(recipes.data)/*res.send(recipes.data)*/)
   .catch(e => console.log(e)/*res.status(400).json({
     message: 'Request to Spoonacular failed/unauthorized'
@@ -55,25 +58,14 @@ const sanitizeDataForIngredientQuery = function(queryItems) {
     }
   }
 
-//console.log(require('dotenv').config({path: __dirname + '/.env'}))
-//ingredientAPISearch("chicken,+fish")
 
-// const getRecipesFromAPI = function (req) {
-//     request.get(`?query=fillIngredients=false&ingredients=${queryInfo[0]}&diet=${queryInfo[1]}&intolerances=${queryInfo[2]}&limitLicense=true&number=25
-//     &apiKey=${process.env.RECIPE_API_KEY}`
-//     )
-//     .then(recipes => res.send(recipes.data))
-//     .catch(e => res.status(400).json({
-//       message: 'Request to Spoonacular failed/unauthorized'
-//     }));
-// };
-
-// const getSingleRecipe =  function (req) {
+const getSingleRecipe =  function (req) {
    
-// };
+};
 
 
 module.exports = {
   returnRecipesToBrowse,
-    ingredientAPISearch
+  ingredientAPISearch,
+  getSingleRecipe
 }

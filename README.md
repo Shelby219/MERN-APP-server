@@ -74,6 +74,7 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 08/12/2020 | DELETE Pantry Ingredient | Passing |   |
 | 10/12/2020 | DELETE ALL Pantry Ingredients | Passing |   |
 | 09/12/2020 | POST Upload profile picture to s3 | Passing |   |
+| 16/12/2020 | Recipe Utils  returnRecipesToBrowse(req) | Passing | This function tests finding a User in Db per params, builds the query info per the data from user, uses that data to axios request Spoonacular API for recipes based off ingredients, then collect those recipes IDs, sanitize the data, then use the IDS for another API call to get the detailed recipe information. |
 
 #### Expect to Fail Tests
 | Date | Feature | Test | Notes| 
@@ -176,6 +177,50 @@ Completed the intial styling for the home/nav/login/register to start the basis 
 RECIPE BRANCH
 
 Began Work on this feature branch on the server client. Initial routes set up. The biggest challenge was the code required for the process of getting the user data from the DB (being ingredients and preferences), error handling, sanitising the data (functions checking if null, processing booleans into an array then finally a string), then sending the correct data to the Spoonacular API calls. During the code process of the helper functions a lot of manual testing done via the console was done with some dummy data, to ensure that the JS functions were working as intended. Additionally testing Spoonacular API via postman was done to determine with Http request URLs were the right ones to use for this application. 
+
+Through Automatic testing coupled with some manual testing the main utility function for return recipe data for the browse page is:
+finding a User in Db per params, builds the query info per the data from user, uses that data to axios request Spoonacular API for recipes based off ingredients, then collect those recipes IDs, sanitize the data, then use the IDS for another API call to get the detailed recipe information. 
+
+In my testing of the main function in which makes all the API calls and data validation, I had some trouble testing with getting the data. I was trying to return it as a variable, then I used await outside the main async function (even though the test function was async). What you was needed was to wrap the await call inside an async function, and then call that async function in the top-level of your script. Immediately outputting the result just returned a promise pendings, then using the given code with another await to return the promise returned undefined. The below is the serious of options:
+
+In my first test call:
+
+````js
+const recipes = returnRecipesToBrowse(req);
+console.log(darecipesta); // will give you something like Promise {pending}
+
+````
+
+Then this was tried:
+
+````js
+const recipes = await returnRecipesToBrowse(req);; // will error
+console.log(recipes); //undefined
+
+````
+What was the final result was:
+
+````js
+const returnRecipesToBrowse = async (req) => {
+   await User.findOne({ username: req.user.username })
+    .then(returnUser =>  userQueryBuilder(returnUser))
+    .then(queryItems =>  sanitizeDataForIngredientQuery(queryItems))
+    .then(recipesObject => recipeIdGetter(recipesObject.data))
+    .then(recipeIdsString => detailedRecipeAPISearch(recipeIdsString))
+    .then((recipes) => {return recipes})
+    .catch(e => console.log(e.message) )
+};  
+//THIS IS THE LAST FUNCTION BEING CALLED IN THE ASYNC
+const detailedRecipeAPISearch = async function (recipeIdsString) { 
+  return await request.get(`informationBulk?ids=${recipeIdsString}&apiKey=${process.env.RECIPE_API_KEY}`)
+  .then(recipes =>  console.log(recipes.data)) /// THIS IS WHAT RETURNS THE DATA
+  .catch(e => console.log(e)); //OR RETURNS AN ERROR
+}
+
+returnRecipesToBrowse(req); // run the async function at the top-level, since top-level await is not currently supported in Node
+
+````
+I did not need to await on the final returnRecipesToBrowse(req) call, since Node won't exit until its event loop is empty.
 
 
 </details>

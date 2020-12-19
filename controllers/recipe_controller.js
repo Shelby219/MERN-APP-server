@@ -1,39 +1,34 @@
 const {
-	getRecipesFromAPI,
+	returnRecipesToBrowse,
 	getSingleRecipe,
-	getUser,
-	ingredientAPISearch
 } = require("../utils/recipe_utilities")
-const {
-	queryBuilder
-} = require("../helpers/recipe_helper")
-
 
 //DISPLAY SEARCH RESULTS- based on API CALL
 const displayRecipes = function(req, res) {
-	//console.log(req.user.username)
-    returnRecipesToBrowse(req).then((err, user) => {
+
+	try {
+		//start recipe results
+		returnRecipesToBrowse(req)
+
+	   //end recipe results
+
+	} catch (err) {
+		 if (err) {res.status(500)
+            res.json({
+                error: err.message
+            })
+		}
+	}
+    returnRecipesToBrowse(req).then((err, recipeData) => {
         if (err) {res.status(500)
             res.json({
                 error: err.message
             })
 		}
-		console.log(user)
+		console.log(recipeData.data)
 	   //return user  
 	})
-
 }
-const sanitizeQuery = function(queryItems) {
-// If ingredients are empty
-// then do an api call for random recipes display and put an alert like
-// We see you have no ingredients! Here are some recipes you can check out
-
-}
-
-
-
-
-
 
 //DISPLAY SINGLE RECIPE PAGE- based on either API call if it doesnt exist in user saved recipes
 const displaySingleRecipe = function(req, res) {

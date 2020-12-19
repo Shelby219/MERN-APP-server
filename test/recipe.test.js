@@ -10,19 +10,26 @@ const app = require('../app.js');
 
 //GET PREFERENCES PAGE
 describe.only('Recipe Utils Display Recipes- API Call', () => {
-    it('Test recipe utils', async () => {
+    it('Test recipe utils', async function () {
         const req = {
             user: {
                 username: "testusername"
             }
         };
-        returnRecipesToBrowse(req)
-    //    await getUser(req).then((post) => {
-    //         expect(post.comments.length).toBe(1);
-    //         expect(post.comments[0].username).toBe('tester2');
-            
-    //     })
-    });
+        try {
+            returnRecipesToBrowse(req)
+    
+        } catch (err) {
+            console.log(err)
+        }
+    
+        
+    //     returnRecipesToBrowse(req)
+    //     .then(recipes =>  console.log(recipes))
+    //     .catch(e => console.log(e.message) /*res.status(400).json({
+    //       message: 'Request to Spoonacular failed/unauthorized'
+    //    /})*/)
+    }).timeout(10000);
 })
     // describe.only('GET  /recipes/browse', function() {
     //     it('Test get browse recipe route for API CALLS', async function(done) {
