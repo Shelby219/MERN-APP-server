@@ -187,7 +187,7 @@ In my first test call:
 
 ````js
 const recipes = returnRecipesToBrowse(req);
-console.log(darecipesta); // will give you something like Promise {pending}
+console.log(recipes); // will give you something like Promise {pending}
 
 ````
 

@@ -8,8 +8,8 @@ const {
 const app = require('../app.js'); 
 
 
-//GET PREFERENCES PAGE
-describe.only('Recipe Utils Display Recipes- API Call', () => {
+
+describe('Recipe Utils Display Recipes- API Call Functions', () => {
     it('Test recipe utils', async function () {
         const req = {
             user: {
@@ -18,11 +18,12 @@ describe.only('Recipe Utils Display Recipes- API Call', () => {
         };
         try {
             returnRecipesToBrowse(req)
+            
     
         } catch (err) {
             console.log(err)
         }
-    
+        
         
     //     returnRecipesToBrowse(req)
     //     .then(recipes =>  console.log(recipes))
@@ -31,15 +32,24 @@ describe.only('Recipe Utils Display Recipes- API Call', () => {
     //    /})*/)
     }).timeout(10000);
 })
-    // describe.only('GET  /recipes/browse', function() {
-    //     it('Test get browse recipe route for API CALLS', async function(done) {
-    //         request(app)
-    //         .get("/recipes/browse" )
-    //           //.expect(200)
-    //           .then((response) => {
 
-    //             //console.log(response)
-    //             done()
-    //           })
-    //        })
-    //     });
+
+
+describe.only('Recipe Controller Display Recipes- API Call Functions', () => {
+    it('Test recipe controller', async function () {
+        const req = {
+            user: {
+                username: "testusername"
+            }
+        };
+        try {
+            displayRecipes(req)
+            
+    
+        } catch (err) {
+            console.log(err)
+        }
+        
+    
+    }).timeout(10000);
+})

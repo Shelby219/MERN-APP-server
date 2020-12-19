@@ -9,16 +9,16 @@ const {
 
 
 const returnRecipesToBrowse = async (req) => {
-   await User.findOne({ username: req.user.username })
-    .then(returnUser =>  userQueryBuilder(returnUser))
+   const recipes = await User.findOne({ username: req.user.username })
+    .then(recipes =>  userQueryBuilder(recipes))
     .then(queryItems =>  sanitizeDataForIngredientQuery(queryItems))
     .then(recipesObject => recipeIdGetter(recipesObject.data))
     .then(recipeIdsString => detailedRecipeAPISearch(recipeIdsString))
-    .then((recipes) => {return recipes})
-    .catch(e => console.log(e.message) /*res.status(400).json({
+    .then(recipes =>  {return recipes})
+    .catch(error => console.log(error) /*res.status(400).json({
       message: 'Request to Spoonacular failed/unauthorized'
    /})*/)
-  //console.log(recipes)
+  return recipes
 };  
 
 const request = axios.create({
@@ -40,10 +40,6 @@ const randomRecipeAPISearch = async function (ingredients) {
 const detailedRecipeAPISearch = async function (recipeIdsString) { 
   //return random recipes if use has no ingredients
   return await request.get(`informationBulk?ids=${recipeIdsString}&apiKey=${process.env.RECIPE_API_KEY}`)
-  .then(recipes =>  console.log(recipes.data)/*res.send(recipes.data)*/)
-  .catch(e => console.log(e)/*res.status(400).json({
-    message: 'Request to Spoonacular failed/unauthorized'
-  })*/);
 }
 
 const sanitizeDataForIngredientQuery = function(queryItems) {

@@ -4,13 +4,14 @@ const {
 } = require("../utils/recipe_utilities")
 
 //DISPLAY SEARCH RESULTS- based on API CALL
-const displayRecipes = function(req, res) {
+const displayRecipes =  async function(req, res) {
 
 	try {
 		//start recipe results
-		returnRecipesToBrowse(req)
-
-	   //end recipe results
+		 let recipes = await returnRecipesToBrowse(req)
+		 console.log(recipes)
+		 //res.status(200)
+		 //res.send(recipes)
 
 	} catch (err) {
 		 if (err) {res.status(500)
@@ -19,15 +20,6 @@ const displayRecipes = function(req, res) {
             })
 		}
 	}
-    returnRecipesToBrowse(req).then((err, recipeData) => {
-        if (err) {res.status(500)
-            res.json({
-                error: err.message
-            })
-		}
-		console.log(recipeData.data)
-	   //return user  
-	})
 }
 
 //DISPLAY SINGLE RECIPE PAGE- based on either API call if it doesnt exist in user saved recipes
