@@ -76,6 +76,9 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 09/12/2020 | POST Upload profile picture to s3 | Passing |   |
 | 16/12/2020 | Recipe Utils  returnRecipesToBrowse(req) | Passing | This function tests finding a User in Db per params, builds the query info per the data from user, uses that data to axios request Spoonacular API for recipes based off ingredients, then collect those recipes IDs, sanitize the data, then use the IDS for another API call to get the detailed recipe information. |
 | 20/12/2020 | Recipe Controller  displayRecipes(req) | Passing |  |
+| 21/12/2020 | GET All Saved Recipes | Passing |  |
+| 21/12/2020 | GET Single Saved Recipes if in DB | Passing |  |
+| 21/12/2020 | GET Single Saved Recipes if not in DB- use Spoonacular | Passing | Double check this- async promise |
 
 #### Expect to Fail Tests
 | Date | Feature | Test | Notes| 

@@ -327,7 +327,7 @@ function setUpRecipeData() {
   let date = Date.now();
   let testRecipe = {};
   testRecipe.username = 'testusername';
-  testRecipe.recipeID = 012345;
+  testRecipe._id = 3434;
   testRecipe.title = "Test Recipe Title";
   testRecipe.create_date = date;
   testRecipe.modified_date = date;
@@ -335,9 +335,19 @@ function setUpRecipeData() {
 }
 
 afterEach((done) => {
-  User.deleteMany().exec(() => done());
+  tearDownUsers().exec()
+  tearDownRecipes().exec()
+  done()
 });
 
+function tearDownUsers() {
+  return User.deleteMany();
+}
+
+
+function tearDownRecipes() {
+  return SavedRecipe.deleteMany();
+}
 
 module.exports = {
   setupData

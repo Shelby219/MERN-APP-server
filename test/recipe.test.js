@@ -1,6 +1,6 @@
 const expect = require('expect');
 const request = require('supertest');
-
+const SavedRecipe = require('../models/recipe');
 
 const {
 	returnRecipesToBrowse
@@ -41,14 +41,15 @@ describe('Testing filtering return recipes with preference filters', () => {
 
 
 //GET ALL SAVE RECIPES PAGE
-describe.only('GET /recipes/saved-recipes', function() {
+describe('GET /recipes/saved-recipes', function() {
     it('Test get all user saved-recipes',  (done) => {
         request(app)
         .get("/recipes/saved-recipes")
         .expect(200)
+        .expect('Content-Type', /json/)
         .end(function(err, res) {
           if (err) return done(err);
-          console.log(res)
+          //console.log(res)
           done();
           });
        })
@@ -56,19 +57,34 @@ describe.only('GET /recipes/saved-recipes', function() {
 
 
 
-//GET SINGLE RECIPE PAGE
+//GET SINGLE RECIPE PAGE- IF IN DB
 describe('GET /recipes/id', function() {
-    it('Test get all a single saved-recipes',  async (done) => {
-        let savedRecipe = await savedRecipe.findOne({ title: 'Test Recipe Title' }).exec();
-        request(app)
-        .get("/recipes/"+ savedRecipe.recipeId)
+    it('Test get a single saved-recipes calling DB',  async () => {
+        let savedRecipe = await SavedRecipe.findOne({ title: 'Test Recipe Title' }).exec();
+    await request(app)
+        .get("/recipes/"+ savedRecipe._id)
         .expect(200)
-        .end(function(err, res) {
-          if (err) return done(err);
-          console.log(res)
-          done();
-          });
-       })
+        .then(function(err, res) {
+            if (err)  console.log(err);
+            //console.log(res.body);
+            expect(response.body._id).toBe(savedRecipe._id)
+            expect(response.body.username).toBe(savedRecipe.username)
+          })
+        })
+    });
+
+//GET SINGLE RECIPE PAGE- IF NOT IN DB
+describe.only('GET /recipes/id', function() {
+    it('Test get a single saved-recipes calling Spoonacular API',   () => {
+     request(app)
+        .get("/recipes/"+ 1142012)
+        .expect(200)
+        .then(function(res) {
+            //console.log(res.body)
+            expect(res.body.id).toBe(1142012)
+            expect(res.body.title).toBe('Feta-Brined Roast Chicken')
+          })
+        }).timeout(10000);
     });
 
 
@@ -77,7 +93,7 @@ describe('POST /recipes/add', function() {
     it('Test add new saved recipe', async () => {
         let data = {
             username: 'Test Name',
-            recipeID: 34534,
+            recipeID: 1234,
             title: 'Test New Recipe',
             }
     await request(app)
@@ -95,7 +111,7 @@ describe('POST /recipes/add', function() {
 //DELETE  Saved Recipe 
  describe('DELETE /recipes/:id', function() {
     it('Test a saved recipe', async () => {
-    let savedRecipe = await savedRecipe.findOne({ title: 'Test Recipe Title' }).exec();
+    let savedRecipe = await SavedRecipe.findOne({ title: 'Test Recipe Title' }).exec();
     await request(app)
     .delete("/recipes/"+ savedRecipe.recipeId)
           .send(data)
