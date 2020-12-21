@@ -41,7 +41,7 @@ const User = require('../models/user.js');
     it('Test delete fridge item', async () => {
     let user = await User.findOne({ email: 'tester@test.com' }).exec();
 
-    const data = { item: "testing2" }
+    const data = { item: "cheese" }
 
     await request(app)
         .delete("/ingredients/"+ user.username + "/fridge/delete")
@@ -50,7 +50,7 @@ const User = require('../models/user.js');
           .then(async (response) => {
             let user = await User.findOne({ email: 'tester@test.com' }).exec();
             expect(user.fridgeIngredients.length).toBe(1);
-            expect(user.fridgeIngredients[0]).toBe("testing1");
+            expect(user.fridgeIngredients[0]).toBe("chicken");
           })  
        })
     });

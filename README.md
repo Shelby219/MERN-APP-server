@@ -75,6 +75,7 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 10/12/2020 | DELETE ALL Pantry Ingredients | Passing |   |
 | 09/12/2020 | POST Upload profile picture to s3 | Passing |   |
 | 16/12/2020 | Recipe Utils  returnRecipesToBrowse(req) | Passing | This function tests finding a User in Db per params, builds the query info per the data from user, uses that data to axios request Spoonacular API for recipes based off ingredients, then collect those recipes IDs, sanitize the data, then use the IDS for another API call to get the detailed recipe information. |
+| 20/12/2020 | Recipe Controller  displayRecipes(req) | Passing |  |
 
 #### Expect to Fail Tests
 | Date | Feature | Test | Notes| 

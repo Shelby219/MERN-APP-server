@@ -28,7 +28,7 @@ const request = axios.create({
 
 const ingredientAPISearch = async function (ingredients) { 
   //INTIAL FIND BY INGREDIENT CALL
-  return await request.get(`findByIngredients?ingredients=${ingredients}&number=20&apiKey=${process.env.RECIPE_API_KEY}`)
+  return await request.get(`findByIngredients?ingredients=${ingredients}&number=2&apiKey=${process.env.RECIPE_API_KEY}`)
 }
 
 const randomRecipeAPISearch = async function (ingredients) { 
@@ -39,7 +39,7 @@ const randomRecipeAPISearch = async function (ingredients) {
 //Utilmately returns the main recipe results to be displayed on the user browser
 const detailedRecipeAPISearch = async function (recipeIdsString) { 
   //return random recipes if use has no ingredients
-  return await request.get(`informationBulk?ids=${recipeIdsString}&apiKey=${process.env.RECIPE_API_KEY}`)
+  return await request.get(`informationBulk?ids=${recipeIdsString}&includeNutrition=true&apiKey=${process.env.RECIPE_API_KEY}`)
 }
 
 const sanitizeDataForIngredientQuery = function(queryItems) {

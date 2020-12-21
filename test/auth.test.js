@@ -76,7 +76,7 @@ describe('POST /user/register', function () {
           .expect('Content-Type', /json/)
           .expect(200)
           .expect(function(res) {
-            console.log(res)
+            //console.log(res)
             res.body.email = "hello@test.com";
           })
           .end(function(err, res) {
@@ -127,7 +127,7 @@ describe('POST /user/login', function() {
       //.expect('Content-Type', /json/)
       .expect(302)
       .expect(function(res) {
-      console.log(res);
+      //console.log(res);
         expect(res.text).toBe('Found. Redirecting to /home');
         //res.body.email = "tester@test.com";
       })
@@ -169,14 +169,14 @@ describe('Finding a User', function() {
   });
 
  //EDIT ACCOUNT SETTINGS TEST
-describe('PATCH /user/:username/account-settings', function() {
+describe.only('PATCH /user/:username/account-settings', function() {
 it('Test update account settings route', async () => {
   //console.log(UserId)
     let user = await User.findOne({ email: 'tester@test.com' }).exec();
     const data = {
       email: "updatetest@test.com", 
-      password: "abcdef",
-      name: "change name"
+      password: "TestPassword1$new",
+      name: "Change Name"
     }
     await request(app)
 		.patch("/user/"+ user.username +"/account-settings")
@@ -199,10 +199,8 @@ it('Test update account settings route', async () => {
 //UPLOAD PROFILE IMAGE
 //console.log(__dirname) ///Users/shelbyd/CODING/CA/Assignments/T3A2_MERN/server/test
 const testImage = `${__dirname}/testimg.png`
-
 describe('POST /user/:username/add-profile-picture', function() {
   it('Test upload profile image to s3', async () => {
-
     let user = await User.findOne({ email: 'tester@test.com' }).exec();
     await request(app)
       .post("/user/"+ user.username +"/add-profile-picture")
@@ -214,6 +212,12 @@ describe('POST /user/:username/add-profile-picture', function() {
     })  
   });
 });
+
+
+
+
+
+
 
 //FAIL TESTS
 //LOGIN USER TEST- FAIL TEST
@@ -233,8 +237,7 @@ describe('FAIL TEST- POST /user/login', function() {
       .end(function(err, res) {
         if (err) return done(err);
         done();
-      });
-      
+      });  
   });
 });
 
@@ -260,8 +263,7 @@ describe('FAIL TEST- POST /user/register', function () {
           .end(function(err, res) {
             if (err) return done(err);
             done();
-          })
-          
+          })  
       });
 });
 
@@ -273,9 +275,7 @@ describe('FAIL TEST- POST /user/register', function () {
       .get("/user/"+ user.email +"/account-settings")
         .expect(404)
         .then((response) => {
-
           expect(response.body.error).toBe("there is no user found")
-    
         })
      })
   });
@@ -288,7 +288,7 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
       name: 'Test Name33',
       email: 'wrongformatemail',
      password: 'wrongformatpassword',
-     username: 'newtestuser',
+     username: 'newtestuser44',
       }
       await request(app)
           .patch("/user/"+ user.username +"/account-settings")
@@ -297,15 +297,13 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
           .expect('Content-Type', /json/)
           .expect(422)
           .then( function(res) {
-            //console.log(res)
+           // console.log(res)
             expect(res.body.errors[0].email).toBe('Must be a valid email format');
             expect(res.body.errors[1].password).toBe('Password should not be empty, minimum eight characters, at least one letter, one number and one special character');
             expect(res.body.errors[2].name).toBe('Must be text only'); 
           }) 
       });
 });
-
-
 
 
  function setupData() {

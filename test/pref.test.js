@@ -35,6 +35,7 @@ const app = require('../app.js');
           .send(data)
           .expect(200)
           .then(async (response) => {
+             //console.log(response)
             let pref = await User.findOne({ email: 'tester@test.com' }).exec();
             expect(response.body.dietPreferences.vegan).toBeTruthy()
             expect(pref.dietPreferences.vegan).toBeTruthy()

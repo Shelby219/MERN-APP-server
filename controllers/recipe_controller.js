@@ -9,16 +9,18 @@ const displayRecipes =  async function(req, res) {
 	try {
 		//start recipe results
 		 let recipes = await returnRecipesToBrowse(req)
-		 console.log(recipes)
+		 //console.log(recipes)
+		 //return recipes
 		 //res.status(200)
-		 //res.send(recipes)
+		 res.send(recipes)
 
 	} catch (err) {
-		 if (err) {res.status(500)
-            res.json({
-                error: err.message
-            })
-		}
+		 if (err) //{res.status(500)
+           // res.json({
+               // error: err.message
+		   // })
+		   console.log(err.message)
+		//}
 	}
 }
 

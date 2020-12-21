@@ -71,7 +71,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 //app.use(flash());
 
-const dbConn =  process.env.MONGODB_URI ||  'mongodb://localhost/recipe_app'
+const dbConn =  /*process.env.MONGODB_URI ||*/  'mongodb://localhost/recipe_app'
 // Set three properties to avoid deprecation warnings:
 // useNewUrlParser: true
 // useUnifiedTopology: true
