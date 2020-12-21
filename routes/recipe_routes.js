@@ -2,8 +2,11 @@ const express = require('express');
 const router = express.Router();
 const {checkAuthentication} = require("../middleware/auth_middleware")
 
-const { displayRecipes,
-    displaySingleRecipe} = require('../controllers/recipe_controller')
+const {  displayRecipes,
+        displaySingleRecipe,
+        makeSavedRecipe,
+        removeSavedRecipes,
+        displayAllSavedRecipes} = require('../controllers/recipe_controller')
 
 
 
@@ -15,10 +18,17 @@ router.get("/browse", displayRecipes)
 // router.post("/browse", editPref)
 
 
+//GET All Saved Recipes
+router.get("/saved-recipes", displayAllSavedRecipes)
+
 //GET Route for Single Recipes Page
-router.get("/single-recipe", displaySingleRecipe)
+router.get("/:id", displaySingleRecipe)
 
+//CREATE Route for Saved Recipes
+router.post("/add", makeSavedRecipe)
 
+//DELETE Route for Saved Recipes
+router.delete("/:id", removeSavedRecipes)
 
 
 //passport.authenticate('jwt', {session: false})

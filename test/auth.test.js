@@ -9,6 +9,8 @@ const {
 
 const User = require('../models/user');
 
+const SavedRecipe = require('../models/recipe');
+
 const app = require('../app.js'); 
 //request = request('http://localhost:5555');
 const agent = request.agent(app);
@@ -26,6 +28,7 @@ after((done) => {
 
 beforeEach(async function () {
     let user = await setupData();
+    let savedRecipe = await setUpRecipeData();
     UserId = user._id;
     //const cookie = " "
 
@@ -320,6 +323,16 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
   return User.create(testUser);
 }
 
+function setUpRecipeData() {
+  let date = Date.now();
+  let testRecipe = {};
+  testRecipe.username = 'testusername';
+  testRecipe.recipeID = 012345;
+  testRecipe.title = "Test Recipe Title";
+  testRecipe.create_date = date;
+  testRecipe.modified_date = date;
+  return SavedRecipe.create(testRecipe);
+}
 
 afterEach((done) => {
   User.deleteMany().exec(() => done());

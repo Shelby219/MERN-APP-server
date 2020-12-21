@@ -1,14 +1,5 @@
-//Need to add validation code for if objects are empty- ie false 
 
-//const request = 'https://api.spoonacular.com/recipes/complexSearch' 
-//+ `?query=fillIngredients=false&ingredients=${queryInfo[0]}&diet=${queryInfo[1]}&intolerances=${queryInfo[2]}&limitLicense=true&number=25`
 
-// let user = {
-//     fridge: ["1", "2" ] ,
-//     pantry: ["1", "2"] ,
-//     diet: {vegetarian: false, paleo: false} ,
-//     health: {dairy: true, egg: true}
-// }
 const ingredientJoiner = function (fridge, pantry) { 
     const ingredients = fridge.concat(pantry);
     return ingredients.join(",+")
@@ -46,13 +37,19 @@ async function userQueryBuilder(returnUser) {
     }
 };  
 
-async function recipeIdGetter(recipesObject) { 
-    const newArray = await recipesObject.map(recipe => recipe.id);
-    const newString = newArray.join(",")
-    //console.log(newString)
-    return newString
-}
+// async function recipeIdGetter(recipesObject) { 
+//     const newArray = await recipesObject.map(recipe => recipe.id);
+//     const newString = newArray.join(",")
+//     //console.log(newString)
+//     return newString
+// }
 
+
+
+
+
+
+//This is for filtering based off preferences TBA
 function basedOnPreferenceExtractor(recipeDataArray) { 
    let newArray = recipeDataArray.filter(function(r) {
         return r.vegetarian === true ||
@@ -70,6 +67,5 @@ function basedOnPreferenceExtractor(recipeDataArray) {
 
 module.exports = {
     userQueryBuilder,
-    recipeIdGetter,
-    basedOnPreferenceExtractor
+    basedOnPreferenceExtractor,
 }
