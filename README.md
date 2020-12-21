@@ -64,7 +64,7 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 06/12/2020 | GET User Settings | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place |
 | 06/12/2020 | PATCH Edit User Settings | Passing |   |
 | 07/12/2020 | GET User Preferences  | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place  |
-| 07/12/2020 | PATCH Edit User Preferences  | Passing | Ensure req.body.preference is updated in codebase  |
+| 07/12/2020 | PATCH Edit User Preferences  | Passing when .only ? | Ensure req.body.preference is updated in codebase  |
 | 07/12/2020 | GET Fridge Ingredients | Passing |  Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place |
 | 07/12/2020 | POST New Fridge Ingredient | Passing |   |
 | 08/12/2020 | DELETE Fridge Ingredient | Passing |   |
@@ -203,25 +203,28 @@ What was the final result was:
 
 ````js
 const returnRecipesToBrowse = async (req) => {
-   await User.findOne({ username: req.user.username })
-    .then(returnUser =>  userQueryBuilder(returnUser))
+   const recipes = await User.findOne({ username: req.user.username })
+    .then(recipes =>  userQueryBuilder(recipes))
     .then(queryItems =>  sanitizeDataForIngredientQuery(queryItems))
     .then(recipesObject => recipeIdGetter(recipesObject.data))
     .then(recipeIdsString => detailedRecipeAPISearch(recipeIdsString))
-    .then((recipes) => {return recipes})
-    .catch(e => console.log(e.message) )
-};  
+    .then(recipes =>  {return recipes})
+    .catch(error => console.log(error) /*res.status(400).json({
+      message: 'Request to Spoonacular failed/unauthorized'
+   /})*/)
+  return recipes
+};   
 //THIS IS THE LAST FUNCTION BEING CALLED IN THE ASYNC
 const detailedRecipeAPISearch = async function (recipeIdsString) { 
   return await request.get(`informationBulk?ids=${recipeIdsString}&apiKey=${process.env.RECIPE_API_KEY}`)
-  .then(recipes =>  console.log(recipes.data)) /// THIS IS WHAT RETURNS THE DATA
-  .catch(e => console.log(e)); //OR RETURNS AN ERROR
 }
 
 returnRecipesToBrowse(req); // run the async function at the top-level, since top-level await is not currently supported in Node
 
 ````
 I did not need to await on the final returnRecipesToBrowse(req) call, since Node won't exit until its event loop is empty.
+
+When implementing the main code for displaying recipes for browsing, it was discovered that there were certain limitations with using the Spoonacular API. The 'search recipes' which enables a complex search with ingredients and other query parameters like diet and intolerances, proved not useful as it only displays recipes that have all the ingredients in the query not recipes that include one or more of the ingredients. This search was much too specific as we needed to return recipes with one or more of the query ingredients. To supplement the above option, it was decided to use the 'search recipes by ingredients', which will return recipes that include one or more the ingredients in the query, however the returned object is not detailed. Using the object returned above, the recipe ID's were extracted to then use in another query which is ' get recipe information bulk' which returns details recipe information using the recipe ID's as the parameters. The returned object from this query though I believe was limited by the paid tiers of the API. Which meant the preferences list was reduced down to just include vegetarian, vegan, gluten-free, dairy-free, very healthy, cheap, popular, sustainable, and low-fod-map. In future the payment tier may not opted to increase which would enable more preference options. 
 
 
 </details>

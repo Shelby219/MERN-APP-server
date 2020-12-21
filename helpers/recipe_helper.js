@@ -53,7 +53,23 @@ async function recipeIdGetter(recipesObject) {
     return newString
 }
 
+function basedOnPreferenceExtractor(recipeDataArray) { 
+   let newArray = recipeDataArray.filter(function(r) {
+        return r.vegetarian === true ||
+        r.vegan === true ||
+        r.glutenFree=== true ||
+        r.dairyFree === true ||
+        r.veryHealthy === true ||
+        r.cheap === true ||
+        r.veryPopular === true ||
+        r.sustainable === true ||
+        r.lowFodmap === true 
+   });
+   return newArray
+}
+
 module.exports = {
     userQueryBuilder,
-    recipeIdGetter
+    recipeIdGetter,
+    basedOnPreferenceExtractor
 }

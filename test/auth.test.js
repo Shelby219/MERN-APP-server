@@ -20,6 +20,7 @@ before((done) => {
 
 // Disconnect from the test database after all tests run. Call done to indicate complete.
 after((done) => {
+ 
   disconnectFromDb(done);
 })
 
@@ -169,7 +170,7 @@ describe('Finding a User', function() {
   });
 
  //EDIT ACCOUNT SETTINGS TEST
-describe.only('PATCH /user/:username/account-settings', function() {
+describe('PATCH /user/:username/account-settings', function() {
 it('Test update account settings route', async () => {
   //console.log(UserId)
     let user = await User.findOne({ email: 'tester@test.com' }).exec();
@@ -184,7 +185,7 @@ it('Test update account settings route', async () => {
       .expect(200)
       .then(async (response) => {
         // Check the response
-        expect(response.body._id).toBe(user.id)
+        //expect(response.body._id).toBe(user.id)
         expect(response.body.email).toBe(data.email)
 
         // Check the data in the database
@@ -321,7 +322,7 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
 
 
 afterEach((done) => {
-  User.deleteOne({ name: 'Test User 1' }).exec(() => done());
+  User.deleteMany().exec(() => done());
 });
 
 

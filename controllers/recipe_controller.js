@@ -5,21 +5,20 @@ const {
 
 //DISPLAY SEARCH RESULTS- based on API CALL
 const displayRecipes =  async function(req, res) {
-
 	try {
 		//start recipe results
 		 let recipes = await returnRecipesToBrowse(req)
 		 //console.log(recipes)
 		 //return recipes
-		 //res.status(200)
+		 res.status(200)
 		 res.send(recipes)
 
 	} catch (err) {
 		 if (err) //{res.status(500)
-           // res.json({
+            res.json({
                // error: err.message
-		   // })
-		   console.log(err.message)
+		 })
+		   //console.log(err.message)
 		//}
 	}
 }
