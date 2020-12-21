@@ -1,12 +1,6 @@
 const expect = require('expect');
 const request = require('supertest');
-
-
 const User = require('../models/user');
-const UserPref = require('../models/preferences');
-
-const {autoNewPreferences} = require("../middleware/pref_middleware")
-
 const app = require('../app.js'); 
 
 //GET PREFERENCES PAGE
@@ -14,29 +8,24 @@ const app = require('../app.js');
     it('Test get preference page to populate user info', async () => {
 
         let user = await User.findOne({ email: 'tester@test.com' }).exec();
-        autoNewPreferences(user)
         
         await request(app)
         .get("/preferences/"+ user.name )
           .expect(200)
           .then(async (response) => {
-            let pref = await UserPref.findOne({ user: user._id}).exec();
+            let pref = await User.findOne({ email: 'tester@test.com' }).exec();
             // Check the response
-            expect(user._id).toStrictEqual(pref.user)
+            //console.log(response.body)
+           // expect(user._id).toStrictEqual(pref.user)
 
           })
        })
     });
 
-
 //EDIT PREFERENCES TEST
  describe('PATCH /preferences/:name/edit', function() {
     it('Test update preferences route', async () => {
-
-        //console.log(UserId)
         let user = await User.findOne({ email: 'tester@test.com' }).exec();
-        autoNewPreferences(user)
-
         const data = {
             dietPreferences: {vegan: true},
             healthPreferences: {dairy: true}
@@ -46,10 +35,9 @@ const app = require('../app.js');
           .send(data)
           .expect(200)
           .then(async (response) => {
-            let pref = await UserPref.findOne({ user: user._id}).exec();
-            expect(user._id).toStrictEqual(pref.user)
+            let pref = await User.findOne({ email: 'tester@test.com' }).exec();
             expect(response.body.dietPreferences.vegan).toBeTruthy()
-            expect(pref).toBeTruthy()
+            expect(pref.dietPreferences.vegan).toBeTruthy()
           })
        })
     });

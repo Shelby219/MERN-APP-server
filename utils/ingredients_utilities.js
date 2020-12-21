@@ -10,12 +10,6 @@ const getAllIngredients = function (req) {
 // add Ingredient
 // returns a Post object
 const addIngredient = async function (req) {
-    // console.log(req.originalUrl)
-    // console.log(req.url)
-    // console.log(req.path)
-    // console.log(typeof req.url)
-    // console.log(typeof req.path)
-    // console.log(typeof req.originalUrl)
     let checker = req.path
     let fridge = checker.includes("fridge")
     let pantry = checker.includes("pantry")

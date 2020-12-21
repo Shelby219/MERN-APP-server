@@ -9,14 +9,13 @@ function registerNew(req, res) {
     res.send("This is register Page");
 }
 
-function registerCreate(req, res, next) {
-            
+function registerCreate(req, res, next) { 
     const newUserHandler = (user) => {
         req.login(user, (err) => {
         if(err){
             next(err)
         } else {
-            autoNewPreferences(user)
+            //autoNewPreferences(user)
             //console.log(req.session)
             res.send(user);
             //res.redirect("/home")
@@ -82,8 +81,6 @@ function editUser(req, res) {
           }
          
     });
-   
-    
     //res.render("user/:name/account-settings")
     //res.send("this is account settings");
 }

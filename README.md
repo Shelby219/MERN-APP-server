@@ -64,7 +64,7 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 06/12/2020 | GET User Settings | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place |
 | 06/12/2020 | PATCH Edit User Settings | Passing |   |
 | 07/12/2020 | GET User Preferences  | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place  |
-| 07/12/2020 | PATCH Edit User Preferences  | Passing | Ensure req.body.preference is updated in codebase  |
+| 07/12/2020 | PATCH Edit User Preferences  | Passing when .only ? | Ensure req.body.preference is updated in codebase  |
 | 07/12/2020 | GET Fridge Ingredients | Passing |  Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place |
 | 07/12/2020 | POST New Fridge Ingredient | Passing |   |
 | 08/12/2020 | DELETE Fridge Ingredient | Passing |   |
@@ -74,6 +74,8 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 08/12/2020 | DELETE Pantry Ingredient | Passing |   |
 | 10/12/2020 | DELETE ALL Pantry Ingredients | Passing |   |
 | 09/12/2020 | POST Upload profile picture to s3 | Passing |   |
+| 16/12/2020 | Recipe Utils  returnRecipesToBrowse(req) | Passing | This function tests finding a User in Db per params, builds the query info per the data from user, uses that data to axios request Spoonacular API for recipes based off ingredients, then collect those recipes IDs, sanitize the data, then use the IDS for another API call to get the detailed recipe information. |
+| 20/12/2020 | Recipe Controller  displayRecipes(req) | Passing |  |
 
 #### Expect to Fail Tests
 | Date | Feature | Test | Notes| 
@@ -173,6 +175,56 @@ Completed the intial styling for the home/nav/login/register to start the basis 
 <details>
 <summary>Click to expand</summary>
 
+RECIPE BRANCH
+
+Began Work on this feature branch on the server client. Initial routes set up. The biggest challenge was the code required for the process of getting the user data from the DB (being ingredients and preferences), error handling, sanitising the data (functions checking if null, processing booleans into an array then finally a string), then sending the correct data to the Spoonacular API calls. During the code process of the helper functions a lot of manual testing done via the console was done with some dummy data, to ensure that the JS functions were working as intended. Additionally testing Spoonacular API via postman was done to determine with Http request URLs were the right ones to use for this application. 
+
+Through Automatic testing coupled with some manual testing the main utility function for return recipe data for the browse page is:
+finding a User in Db per params, builds the query info per the data from user, uses that data to axios request Spoonacular API for recipes based off ingredients, then collect those recipes IDs, sanitize the data, then use the IDS for another API call to get the detailed recipe information. 
+
+In my testing of the main function in which makes all the API calls and data validation, I had some trouble testing with getting the data. I was trying to return it as a variable, then I used await outside the main async function (even though the test function was async). What you was needed was to wrap the await call inside an async function, and then call that async function in the top-level of your script. Immediately outputting the result just returned a promise pendings, then using the given code with another await to return the promise returned undefined. The below is the serious of options:
+
+In my first test call:
+
+````js
+const recipes = returnRecipesToBrowse(req);
+console.log(recipes); // will give you something like Promise {pending}
+
+````
+
+Then this was tried:
+
+````js
+const recipes = await returnRecipesToBrowse(req);; // will error
+console.log(recipes); //undefined
+
+````
+What was the final result was:
+
+````js
+const returnRecipesToBrowse = async (req) => {
+   const recipes = await User.findOne({ username: req.user.username })
+    .then(recipes =>  userQueryBuilder(recipes))
+    .then(queryItems =>  sanitizeDataForIngredientQuery(queryItems))
+    .then(recipesObject => recipeIdGetter(recipesObject.data))
+    .then(recipeIdsString => detailedRecipeAPISearch(recipeIdsString))
+    .then(recipes =>  {return recipes})
+    .catch(error => console.log(error) /*res.status(400).json({
+      message: 'Request to Spoonacular failed/unauthorized'
+   /})*/)
+  return recipes
+};   
+//THIS IS THE LAST FUNCTION BEING CALLED IN THE ASYNC
+const detailedRecipeAPISearch = async function (recipeIdsString) { 
+  return await request.get(`informationBulk?ids=${recipeIdsString}&apiKey=${process.env.RECIPE_API_KEY}`)
+}
+
+returnRecipesToBrowse(req); // run the async function at the top-level, since top-level await is not currently supported in Node
+
+````
+I did not need to await on the final returnRecipesToBrowse(req) call, since Node won't exit until its event loop is empty.
+
+When implementing the main code for displaying recipes for browsing, it was discovered that there were certain limitations with using the Spoonacular API. The 'search recipes' which enables a complex search with ingredients and other query parameters like diet and intolerances, proved not useful as it only displays recipes that have all the ingredients in the query not recipes that include one or more of the ingredients. This search was much too specific as we needed to return recipes with one or more of the query ingredients. To supplement the above option, it was decided to use the 'search recipes by ingredients', which will return recipes that include one or more the ingredients in the query, however the returned object is not detailed. Using the object returned above, the recipe ID's were extracted to then use in another query which is ' get recipe information bulk' which returns details recipe information using the recipe ID's as the parameters. The returned object from this query though I believe was limited by the paid tiers of the API. Which meant the preferences list was reduced down to just include vegetarian, vegan, gluten-free, dairy-free, very healthy, cheap, popular, sustainable, and low-fod-map. In future the payment tier may not opted to increase which would enable more preference options. 
 
 
 </details>

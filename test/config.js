@@ -13,9 +13,9 @@ const connectToDb = function (done) {
         },
         (err) => {
             if (err) {
-                console.log('Error connecting to database', err);
+                console.log('Error connecting to test database', err);
             } else {
-                console.log('Connected to database!');
+                console.log('Connected to test database!');
             }
             done();
         });

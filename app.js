@@ -16,8 +16,9 @@ const authRouter = require("./routes/auth_routes");
 const pageRouter = require("./routes/page_routes");
 const prefRouter = require("./routes/pref_routes");
 const ingredientRouter = require("./routes/ingredients_routes");
+const recipeRouter = require("./routes/recipe_routes");
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3009;
 const app = express();
 
 // If we are not running in production, load our local .env
@@ -70,7 +71,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 //app.use(flash());
 
-const dbConn =  process.env.MONGODB_URI ||  'mongodb://localhost/recipe_app'
+const dbConn =  /*process.env.MONGODB_URI ||*/  'mongodb://localhost/recipe_app'
 // Set three properties to avoid deprecation warnings:
 // useNewUrlParser: true
 // useUnifiedTopology: true
@@ -104,7 +105,7 @@ app.use('/user', authRouter);
 app.use('/', pageRouter);
 app.use('/preferences', prefRouter);
 app.use('/ingredients', ingredientRouter);
-
+app.use('/recipes', recipeRouter);
 
 module.exports = app.listen(port, () => {
     console.log(`Blog express app listening on port ${port}`);
