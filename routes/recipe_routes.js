@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {checkAuthentication} = require("../middleware/auth_middleware")
-
+const {recipeParamValidationRules,validate} = require("../middleware/validator")
 const {  displayRecipes,
         displaySingleRecipe,
         makeSavedRecipe,
@@ -22,7 +22,7 @@ router.get("/browse", displayRecipes)
 router.get("/saved-recipes", displayAllSavedRecipes)
 
 //GET Route for Single Recipes Page
-router.get("/:id", displaySingleRecipe)
+router.get("/:id",recipeParamValidationRules(),validate, displaySingleRecipe)
 
 //CREATE Route for Saved Recipes
 router.post("/add", makeSavedRecipe)

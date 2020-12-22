@@ -64,17 +64,15 @@ describe('GET /recipes/id', function() {
     await request(app)
         .get("/recipes/"+ savedRecipe._id)
         .expect(200)
-        .then(function(err, res) {
-            if (err)  console.log(err);
-            //console.log(res.body);
-            expect(response.body._id).toBe(savedRecipe._id)
-            expect(response.body.username).toBe(savedRecipe.username)
+        .then(function(res) {
+            expect(res.body._id).toBe(savedRecipe._id)
+            expect(res.body.username).toBe(savedRecipe.username)
           })
         })
     });
 
 //GET SINGLE RECIPE PAGE- IF NOT IN DB
-describe.only('GET /recipes/id', function() {
+describe('GET /recipes/id', function() {
     it('Test get a single saved-recipes calling Spoonacular API',   () => {
      request(app)
         .get("/recipes/"+ 1142012)
@@ -123,3 +121,23 @@ describe('POST /recipes/add', function() {
 });
 
 
+
+
+//add validation
+
+//FAIL TEST
+//GET SINGLE RECIPE PAGE- IF NOT IN DB
+describe.only('FAIL TEST- GET /recipes/id ', function() {
+    it('Fail test- Test get a single saved-recipes calling Spoonacular API',   (done) => {
+     request(app)
+        .get("/recipes/"+ "abc")
+        .expect(422)
+        .end(function(err, res) {
+            //console.log(res)
+            expect(res.body.errors[0].id).toBe("Recipe ID Not Found");
+            if (err) return done(err);
+
+            done();
+          });
+        }).timeout(10000);
+    });

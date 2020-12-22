@@ -15,6 +15,11 @@ const accountSettingValidationRules = () => {
       ]
   }
 
+const recipeParamValidationRules = () => {
+    return [
+        param('id').exists().isInt().withMessage('Recipe ID Not Found'),
+      ]
+  }
 
   const validate = (req, res, next) => {
     const errors = validationResult(req)
@@ -31,7 +36,8 @@ const accountSettingValidationRules = () => {
   module.exports = {
     userValidationRules,
     validate,
-    accountSettingValidationRules
+    accountSettingValidationRules,
+    recipeParamValidationRules,
   }
 
 

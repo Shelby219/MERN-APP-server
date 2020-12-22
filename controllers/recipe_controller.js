@@ -39,7 +39,7 @@ const displaySingleRecipe =  function(req, res) {
 		} 
 	}).catch(function(err){
 		if (err) {
-			console.log(err);
+			//console.log(err);
 			res.status(500)
 			res.json({
 				error: err.message
