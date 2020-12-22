@@ -68,6 +68,9 @@ const User = new Schema({
 
 User.plugin(require('mongoose-bcrypt'));
 
+User.statics.findByUsername = function (user) {
+    return this.find({username: user});
+}
 
 // UserSchema.methods.isValidPassword = async function(password) {
 //     const user = this;

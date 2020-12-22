@@ -49,8 +49,6 @@ const displaySingleRecipe =  function(req, res) {
 	})
 }
 
-
-
 const displayAllSavedRecipes = function(req, res) {
     getAllSavedRecipes(req)
 		.exec((err, savedRecipes) => {

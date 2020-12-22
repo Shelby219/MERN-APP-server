@@ -18,7 +18,7 @@ const accountSettingValidationRules = () => {
 
 const usernameParamValidationRules = () => {
     return [
-        param('username').exists().custom(username => usernameExists(username)).withMessage('User not found, invalid request'),
+        param('username').exists().withMessage("Invalid request"),
       ]
   }
 const recipeParamValidationRules = () => {
@@ -26,13 +26,6 @@ const recipeParamValidationRules = () => {
         param('id').exists().isInt().withMessage('Recipe ID Not Found'),
       ]
   }
-
-const usernameExists = (inputUsername) => {
-    let isfound =  User.findOne({ username: inputUsername }, function (err, user) {
-      if (err) throw new Error('User not found, invalid request')
-      return user});
-    if (isfound === undefined) throw new Error('User not found, invalid request');
-  } 
 
   const validate = (req, res, next) => {
     const errors = validationResult(req)
