@@ -25,22 +25,22 @@ describe('Recipe Utils Display Recipes- API Call Functions', () => {
     }).timeout(10000);
 })
 
-describe('Testing filtering return recipes with preference filters', () => {
-    it('Should return filter recipes', async function () {
-        const req = {
-            user: {
-                username: "testusername"
-            }
-        };
-        let recipes = await returnRecipesToBrowse(req)
-        let filteredRecipes = basedOnPreferenceExtractor(recipes.data)
-        console.log(filteredRecipes)
-    }).timeout(10000);
-})
+// describe('Testing filtering return recipes with preference filters', () => {
+//     it('Should return filter recipes', async function () {
+//         const req = {
+//             user: {
+//                 username: "testusername"
+//             }
+//         };
+//         let recipes = await returnRecipesToBrowse(req)
+//         let filteredRecipes = basedOnPreferenceExtractor(recipes.data)
+//         console.log(filteredRecipes)
+//     }).timeout(10000);
+// })
 
 
 
-//GET ALL SAVE RECIPES PAGE
+//GET ALL SAVE RECIPES PAGE - Note that this test works because of line 27 of recipe Utils 
 describe('GET /recipes/saved-recipes', function() {
     it('Test get all user saved-recipes',  (done) => {
         request(app)
@@ -86,13 +86,13 @@ describe('GET /recipes/id', function() {
     });
 
 
-//POST new Saved Recipe
+//POST new Saved Recipe - Note that this test works because of line 74 of recipe controller
 describe('POST /recipes/add', function() {
     it('Test add new saved recipe', async () => {
         let data = {
-            username: 'Test Name',
-            recipeID: 1234,
-            title: 'Test New Recipe',
+            username: 'testusername',
+            _id: 1234,
+            title: 'Add Test New Recipe',
             }
     await request(app)
         .post("/recipes/add")
@@ -100,7 +100,10 @@ describe('POST /recipes/add', function() {
           .expect(201)
           .expect('Content-Type', /json/)
           .then(async (response) => {
-            console.log(response.body)
+            //console.log(response)
+            expect(response.body.title).toBe('Add Test New Recipe')
+            expect(response.body. _id).toBe(1234)
+            expect(response.body. username).toBe('testusername')
           })   
        })
     });
@@ -108,14 +111,15 @@ describe('POST /recipes/add', function() {
 
 //DELETE  Saved Recipe 
  describe('DELETE /recipes/:id', function() {
-    it('Test a saved recipe', async () => {
+    it('Test delete from saved recipe', async () => {
     let savedRecipe = await SavedRecipe.findOne({ title: 'Test Recipe Title' }).exec();
     await request(app)
-    .delete("/recipes/"+ savedRecipe.recipeId)
-          .send(data)
+    .delete("/recipes/"+ savedRecipe._id)
           .expect(204)
           .then(async (response) => {
-            console.log(response)
+            let checkDeleted = await SavedRecipe.find({}).exec();
+            //console.log(checkDeleted)
+            expect(checkDeleted.length).toBe(0);
           })  
        })
 });
@@ -127,8 +131,8 @@ describe('POST /recipes/add', function() {
 
 //FAIL TEST
 //GET SINGLE RECIPE PAGE- IF NOT IN DB
-describe.only('FAIL TEST- GET /recipes/id ', function() {
-    it('Fail test- Test get a single saved-recipes calling Spoonacular API',   (done) => {
+describe('FAIL TEST- GET /recipes/:id ', function() {
+    it('Fail test- Test get a single saved-recipes with incorrect ID',   (done) => {
      request(app)
         .get("/recipes/"+ "abc")
         .expect(422)

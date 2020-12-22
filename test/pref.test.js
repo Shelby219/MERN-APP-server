@@ -42,3 +42,21 @@ const app = require('../app.js');
        })
     });
 
+//FAIL TESTS
+
+
+//GET PREFERENCES PAGE
+describe.only('FAIL TEST- GET  /preferences/:name/', function() {
+   it('Test get preference page with username params invalid', async () => {
+
+       await request(app)
+       .get("/preferences/"+ "wrongusernamenotfound")
+         .expect(422)
+         .then(async (response) => {
+   
+          // console.log(response)
+           expect(response.body.errors[0].username).toBe("User not found, invalid request"); 
+
+         })
+      })
+   });

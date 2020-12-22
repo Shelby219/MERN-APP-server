@@ -64,7 +64,7 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 06/12/2020 | GET User Settings | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place |
 | 06/12/2020 | PATCH Edit User Settings | Passing |   |
 | 07/12/2020 | GET User Preferences  | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place  |
-| 07/12/2020 | PATCH Edit User Preferences  | Passing when .only ? | Ensure req.body.preference is updated in codebase  |
+| 07/12/2020 | PATCH Edit User Preferences  | Passing  | Ensure req.body.preference is updated in codebase  |
 | 07/12/2020 | GET Fridge Ingredients | Passing |  Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place |
 | 07/12/2020 | POST New Fridge Ingredient | Passing |   |
 | 08/12/2020 | DELETE Fridge Ingredient | Passing |   |
@@ -74,11 +74,13 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 08/12/2020 | DELETE Pantry Ingredient | Passing |   |
 | 10/12/2020 | DELETE ALL Pantry Ingredients | Passing |   |
 | 09/12/2020 | POST Upload profile picture to s3 | Passing |   |
-| 16/12/2020 | Recipe Utils  returnRecipesToBrowse(req) | Passing | This function tests finding a User in Db per params, builds the query info per the data from user, uses that data to axios request Spoonacular API for recipes based off ingredients, then collect those recipes IDs, sanitize the data, then use the IDS for another API call to get the detailed recipe information. |
+| 16/12/2020 | GET - Browse Recipes- via Recipe Utils  returnRecipesToBrowse(req) | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place | This function tests finding a User in Db per params, builds the query info per the data from user, uses that data to axios request Spoonacular API for recipes based off ingredients, then collect those recipes IDs, sanitize the data, then use the IDS for another API call to get the detailed recipe information. |
 | 20/12/2020 | Recipe Controller  displayRecipes(req) | Passing |  |
-| 21/12/2020 | GET All Saved Recipes | Passing |  |
-| 21/12/2020 | GET Single Saved Recipes if in DB | Passing |  |
-| 21/12/2020 | GET Single Saved Recipes if not in DB- use Spoonacular | Passing | Double check this- async promise |
+| 21/12/2020 | GET All Saved Recipes | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place && Line 27 of recipe utils allowed me to test it using test user |
+| 21/12/2020 | GET Single Saved Recipes if in DB | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place |
+| 21/12/2020 | GET Single Saved Recipes if not in DB- use Spoonacular | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place && Double check this- async promise |
+| 22/12/2020 | POST Add new saved recipe | Passing | Line 74 of recipe controller allowed me to test using test user |
+| 22/12/2020 | DELETE A saved recipe | Passing |  |
 
 #### Expect to Fail Tests
 | Date | Feature | Test | Notes| 

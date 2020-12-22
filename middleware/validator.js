@@ -1,4 +1,5 @@
 const { body, validationResult, param } = require('express-validator')
+const User = require('../models/user');
 
 const userValidationRules = () => {
     return [
@@ -15,11 +16,23 @@ const accountSettingValidationRules = () => {
       ]
   }
 
+const usernameParamValidationRules = () => {
+    return [
+        param('username').exists().custom(username => usernameExists(username)).withMessage('User not found, invalid request'),
+      ]
+  }
 const recipeParamValidationRules = () => {
     return [
         param('id').exists().isInt().withMessage('Recipe ID Not Found'),
       ]
   }
+
+const usernameExists = (inputUsername) => {
+    let isfound =  User.findOne({ username: inputUsername }, function (err, user) {
+      if (err) throw new Error('User not found, invalid request')
+      return user});
+    if (isfound === undefined) throw new Error('User not found, invalid request');
+  } 
 
   const validate = (req, res, next) => {
     const errors = validationResult(req)
@@ -38,6 +51,7 @@ const recipeParamValidationRules = () => {
     validate,
     accountSettingValidationRules,
     recipeParamValidationRules,
+    usernameParamValidationRules,
   }
 
 
