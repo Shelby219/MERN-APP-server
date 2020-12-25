@@ -17,14 +17,11 @@ const User = new Schema({
     username: {
         type: String,
         unique: true,
-        require: true
+        require: true,
+        default: "user"
     },
     profile: {
         type: String,
-    },
-    preferences:{
-        type: Schema.Types.ObjectId, 
-        ref: "preferences" 
     },
     fridgeIngredients: {
         type:  Array,
@@ -63,6 +60,16 @@ const User = new Schema({
         sulphite: {type: Boolean,default: false},
         treeNut: {type: Boolean,default: false},
         wheat: {type: Boolean,default: false}
+    },
+    preferences: {
+        vegetarian: {type: Boolean,default: false},
+        vegan: {type: Boolean,default: false},
+        glutenFree: {type: Boolean,default: false},
+        dairyFree: {type: Boolean,default: false},
+        veryHealthy: {type: Boolean,default: false},
+        cheap: {type: Boolean,default: false},
+        veryPopular: {type: Boolean,default: false},
+        sustainable: {type: Boolean,default: false},
     }
 });
 
@@ -70,6 +77,10 @@ User.plugin(require('mongoose-bcrypt'));
 
 User.statics.findByUsername = function (user) {
     return this.find({username: user});
+}
+
+User.statics.findByEmail = function (user) {
+    return this.find({email: user});
 }
 
 // UserSchema.methods.isValidPassword = async function(password) {

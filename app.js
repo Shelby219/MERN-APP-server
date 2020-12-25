@@ -26,37 +26,8 @@ if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-// //FOR TESTING PURPOSES
-// if(process.env.NODE_ENV == 'development') {
-// app.use(function testSession(req, res, next) { // lets stub session middleware
-//     req.session = {};
-//     next();
-//   })
-// }
 
-// Use cors
-const whitelist = ['http://localhost:3000']
-app.use(cors({
-    credentials: true,
-    origin: function (origin,callback) {
-        // Check each url in whitelist and see if it includes the origin (instead of matching exact string)
-        const whitelistIndex = whitelist.findIndex((url) => url.includes(origin))
-        console.log("found whitelistIndex", whitelistIndex)
-        callback(null,whitelistIndex > -1)
-    }
-}));
-app.use(session({
-    secret: 'Secret of The Recipe App',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 600000,
-        sameSite: 'none',
-       // secure: true,
-        httpOnly: false,
-    },
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
-}))
+
 
 //app.use(cors());
 app.use(cookieParser());
@@ -66,16 +37,37 @@ app.use(express.urlencoded({
     extended:true   
 }));
 
+app.use(session({
+    secret: 'Secret of The Recipe App',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 600000,
+        sameSite: 'none',
+      // secure: true,
+        httpOnly: false,
+    },
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+}))
+
 require("./middleware/passport");
 app.use(passport.initialize());
-app.use(passport.session());
-//app.use(flash());
+
+
+// Use cors
+const whitelist = ['http://localhost:3000']
+app.use(cors({
+    credentials: true,
+    origin: function (origin,callback) {
+        // Check each url in whitelist and see if it includes the origin (instead of matching exact string)
+        const whitelistIndex = whitelist.findIndex((url) => url.includes(origin))
+        //console.log("found whitelistIndex", whitelistIndex)
+        callback(null,whitelistIndex > -1)
+    }
+}));
+
 
 const dbConn =  /*process.env.MONGODB_URI ||*/  'mongodb://localhost/recipe_app'
-// Set three properties to avoid deprecation warnings:
-// useNewUrlParser: true
-// useUnifiedTopology: true
-// useFileAndModify: false
 mongoose.connect(dbConn, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -89,17 +81,6 @@ mongoose.connect(dbConn, {
             console.log('Connected to database!');
         }
     });
-
-
-//test sessions
-app.get('/', (req, res) => {
-    console.log("get on /");
-    console.log(process.env)
-    console.log(req.session.jwt)
-    //console.log(res)
-    res.send("got your request");
-})
-
 
 app.use('/user', authRouter);
 app.use('/', pageRouter);

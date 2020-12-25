@@ -246,10 +246,10 @@ describe('FAIL TEST- POST /user/login', function() {
 });
 
 //REGISTER USER TEST- FAIL TEST
-describe('FAIL TEST- POST /user/register', function () {
+describe.only('FAIL TEST- POST /user/register', function () {
   let data = {
      	name: 'Test Name',
-     	email: 'wrongformatemail',
+     	email: 'tester@test.com',
       password: 'wrongformatpassword',
       username: 'newtestuser',
      	}
@@ -261,7 +261,8 @@ describe('FAIL TEST- POST /user/register', function () {
           .expect('Content-Type', /json/)
           .expect(422)
           .expect(function(res) {
-           res.body.errors[0].email = 'Must be a valid email format';
+           //console.log(res.body)
+           res.body.errors[0].email = 'E-mail already in use' ;
            res.body.errors[1].password = 'Password should not be empty, minimum eight characters, at least one letter, one number and one special character';
           })
           .end(function(err, res) {
