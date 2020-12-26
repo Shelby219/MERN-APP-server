@@ -35,12 +35,15 @@ const request = axios.create({
 
  
 
-
-
-  // //Utilmately returns the main recipe results to be displayed on the user browser
-  // const detailedRecipeAPISearch = async function (recipeIdsString) { 
-  //   return await request.get(`informationBulk?ids=${recipeIdsString}&includeNutrition=true&apiKey=${process.env.RECIPE_API_KEY}`)
-  // }
+  //Utilmately returns the main recipe results to be displayed on the user browser
+  const detailedRecipeAPISearch = async function (data) { 
+    console.log("hit here")
+    //console.log(data)
+    let recipeData = await request.get(`informationBulk?ids=${data.ids}&includeNutrition=true&apiKey=${process.env.RECIPE_API_KEY}`)
+    let recipes = await [ data.usedAndMissedIng, bulkRecipes = recipeData.data];
+    //console.log(recipes)
+    return recipes
+  }
 
 
 module.exports = {
@@ -48,4 +51,5 @@ module.exports = {
     randomRecipeAPISearch,
     sanitizeDataForIngredientQuery,
     singleRecipeAPISearch,
+    detailedRecipeAPISearch
 }

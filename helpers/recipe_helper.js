@@ -28,7 +28,7 @@ async function userQueryBuilder(returnUser) {
       let queryHealth = await queryEditor(user.health,  preferenceSeparator)
       let queryDiet = await queryEditor(user.diet,  preferenceSeparator)
       let queryInfo = {ingredients: queryIng, health: queryHealth, diet: queryDiet}
-      //console.log(queryInfo)
+      console.log(queryInfo)
       return queryInfo
 
     } else  {
@@ -37,18 +37,58 @@ async function userQueryBuilder(returnUser) {
     }
 };  
 
-// async function recipeIdGetter(recipesObject) { 
-//     const newArray = await recipesObject.map(recipe => recipe.id);
-//     const newString = newArray.join(",")
-//     //console.log(newString)
-//     return newString
-// }
+async function recipeIdGetter(recipesObject) { 
+    //const newArray = await recipesObject.map(recipe => recipe.id);
+    //const newString = newArray.join(",")
+    //console.log(newString)
+    //return newString
+
+    //before executing this do an if else to determine if random recipes were returned or not- if they were then just return recipes
+    const idArray = []
+    const filtered = []
+
+   await recipesObject.map(recipe => {
+    idArray.push(recipe.id)
+    filtered.push({
+      id: recipe.id,
+      usedIngred: recipe.usedIngredientCount, 
+      missedIngred: recipe.missedIngredientCount
+      })
+    });
+    const newString = idArray.join(",")
+      
+    const data = {ids: newString, usedAndMissedIng: filtered }
+    //console.log(data)
+   return data
+}
 
 
-
-
-
-
+// console.log(recipeIdGetter([
+//     {
+//       id: 1142012,
+//       title: 'Feta-Brined Roast Chicken',
+//       image: 'https://spoonacular.com/recipeImages/1142012-312x231.jpg',
+//       imageType: 'jpg',
+//       usedIngredientCount: 3,
+//       missedIngredientCount: 4,
+//       missedIngredients: [ [Object], [Object], [Object], [Object] ],
+//       usedIngredients: [ [Object], [Object], [Object] ],
+//       unusedIngredients: [ [Object] ],
+//       likes: 1
+//     },
+//     {
+//       id: 38606,
+//       title: 'Chicken Stewed In Garlic And Cinnamon',
+//       image: 'https://spoonacular.com/recipeImages/38606-312x231.jpg',
+//       imageType: 'jpg',
+//       usedIngredientCount: 2,
+//       missedIngredientCount: 5,
+//       missedIngredients: [ [Object], [Object], [Object], [Object], [Object] ],
+//       usedIngredients: [ [Object], [Object] ],
+//       unusedIngredients: [],
+//       likes: 19
+//     }
+//   ]))
 //This is for filtering based off preferences TBA
 function basedOnPreferenceExtractor(recipeDataArray) { 
    let newArray = recipeDataArray.filter(function(r) {
@@ -68,4 +108,5 @@ function basedOnPreferenceExtractor(recipeDataArray) {
 module.exports = {
     userQueryBuilder,
     basedOnPreferenceExtractor,
+    recipeIdGetter
 }

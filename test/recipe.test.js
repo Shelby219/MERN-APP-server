@@ -9,7 +9,7 @@ const { basedOnPreferenceExtractor} = require('../helpers/recipe_helper')
 const app = require('../app.js'); 
 
 
-describe('Recipe Utils Display Recipes- API Call Functions', () => {
+describe.only('Recipe Utils Display Recipes- API Call Functions', () => {
     it('Test recipe utils with returns recipes for browsing', async function () {
         const req = {
             user: {
@@ -18,7 +18,7 @@ describe('Recipe Utils Display Recipes- API Call Functions', () => {
         };
         let recipes = await returnRecipesToBrowse(req)
        // console.log(recipes.data[0])//this was due to change the result limit to 2 for testing only
-      // console.log(recipes.data)
+        console.log(recipes)
         expect(recipes.status).toBe(200) 
         expect(recipes.data.length).toBe(2); //this was due to change the result limit to 2 for testing only
         expect(recipes).toBeTruthy()

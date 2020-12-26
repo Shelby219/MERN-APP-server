@@ -246,7 +246,7 @@ describe('FAIL TEST- POST /user/login', function() {
 });
 
 //REGISTER USER TEST- FAIL TEST
-describe.only('FAIL TEST- POST /user/register', function () {
+describe('FAIL TEST- POST /user/register', function () {
   let data = {
      	name: 'Test Name',
      	email: 'tester@test.com',

@@ -1,11 +1,13 @@
 const User = require('../models/user');
 const SavedRecipe = require('../models/recipe');
 const {
-  userQueryBuilder
+  userQueryBuilder,
+  recipeIdGetter
 } = require("../helpers/recipe_helper")
 const {
   sanitizeDataForIngredientQuery,
   singleRecipeAPISearch,
+  detailedRecipeAPISearch
 } = require("../helpers/api_search_helpers.js")
 
 
@@ -13,8 +15,8 @@ const returnRecipesToBrowse = async (req) => {
    const recipes = await User.findOne({ username: req.user.username })
     .then(recipes =>  userQueryBuilder(recipes))
     .then(queryItems =>  sanitizeDataForIngredientQuery(queryItems))
-    //.then(recipesObject => recipeIdGetter(recipesObject.data))
-    //.then(recipeIdsString => detailedRecipeAPISearch(recipeIdsString))
+    .then(recipesObject => recipeIdGetter(recipesObject.data))
+    .then(data => detailedRecipeAPISearch(data))
     .then(recipes =>  {return recipes})
     .catch(error => console.log(error) /*res.status(400).json({
       message: 'Request to Spoonacular failed/unauthorized'
