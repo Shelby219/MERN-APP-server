@@ -19,8 +19,7 @@ describe.only('Recipe Utils Display Recipes- API Call Functions', () => {
         let recipes = await returnRecipesToBrowse(req)
        // console.log(recipes.data[0])//this was due to change the result limit to 2 for testing only
         console.log(recipes)
-        expect(recipes.status).toBe(200) 
-        expect(recipes.data.length).toBe(2); //this was due to change the result limit to 2 for testing only
+        expect(recipes.length).toBe(2); //this was due to change the result limit to 2 for testing only
         expect(recipes).toBeTruthy()
     }).timeout(10000);
 })

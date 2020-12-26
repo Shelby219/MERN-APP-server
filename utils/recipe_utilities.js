@@ -18,16 +18,14 @@ const returnRecipesToBrowse = async (req) => {
     .then(recipesObject => recipeIdGetter(recipesObject.data))
     .then(data => detailedRecipeAPISearch(data))
     .then(recipes =>  {return recipes})
-    .catch(error => console.log(error) /*res.status(400).json({
-      message: 'Request to Spoonacular failed/unauthorized'
-   /})*/)
+    .catch(error => {return error})
   return recipes
 };  
 
 
 const getAllSavedRecipes = function (req) {
-  return SavedRecipe.find({ username: 'testusername'})  //for testing purposes only
-  //return SavedRecipe.find({ username: req.user.username })
+ // return SavedRecipe.find({ username: 'testusername'})  //for testing purposes only
+  return SavedRecipe.find({ username: req.user.username })
 }
 
 const getSingleRecipe =  function (req) {

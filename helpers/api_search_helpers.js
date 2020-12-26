@@ -33,16 +33,25 @@ const request = axios.create({
      return recipe
   }
 
- 
 
   //Utilmately returns the main recipe results to be displayed on the user browser
   const detailedRecipeAPISearch = async function (data) { 
     console.log("hit here")
     //console.log(data)
+    let ingInfo = await data.usedAndMissedIng
     let recipeData = await request.get(`informationBulk?ids=${data.ids}&includeNutrition=true&apiKey=${process.env.RECIPE_API_KEY}`)
-    let recipes = await [ data.usedAndMissedIng, bulkRecipes = recipeData.data];
-    //console.log(recipes)
-    return recipes
+    //let recipes = await [ data.usedAndMissedIng, bulkRecipes = recipeData.data];
+
+    
+   let arr3 = ingInfo.map((item, i) => Object.assign({}, item, recipeData.data[i]));
+   console.log(arr3)
+  //  const mergeById = (a1, a2) =>
+  //   a1.map(itm => ({
+  //       ...a2.find((item) => (item.id === itm.id) && item),
+  //       ...itm
+  //   }));
+
+  // console.log(mergeById(ingInfo, recipeData.data));
   }
 
 
