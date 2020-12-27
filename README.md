@@ -24,14 +24,19 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 &check;
 &cross; 
 
-| Date Completed | Tasks Allocated | Completed? | Alocated to? |
+| Date Completed | Tasks Allocated | Completed? | Allocated to? |
 |:---:|:---:|:---:|:---:|
-|| Research Spoonacular API and test. | &cross; | Shelby |
+|16/12/2020| Research Spoonacular API and test. | &check; | Shelby |
 | 07/12/2020 | User/Auth/Settings/Pref Back-end Code/Testing. | &check; | Shelby |
 | 08/12/2020 | Ingredient/Fridge/Pantry Back-end Code/Testing. | &check; |Shelby |
-|| Browse Recipe Back-end Code/Testing. | &cross; | Shelby |
-|| Single Recipe Back-end Code/Testing. | &cross; | Shelby |
-|| Saved Recipe Back-end Code/Testing. | &cross; | Shelby |
+|24/12/2020 | Browse Recipe Back-end Code/Testing. |  &check; | Shelby |
+|24/12/2020 | Single Recipe Back-end Code/Testing. |  &check; | Shelby |
+|17/12/2020 | Saved Recipe Back-end Code/Testing. |  &check; | Shelby |
+|24/12/2020 | Connecting of Back and Front End. |  &cross;  | Shelby |
+|24/12/2020 | Browse Recipe Components React Front-end . |  &cross; | Shelby |
+|24/12/2020 | Saved Recipe Components React Front-end . |  &cross; | Shelby |
+|24/12/2020 | Single Recipe Components React Front-end . |  &cross; | Shelby |
+|24/12/2020 | Single Recipe Components React Front-end . |  &cross; | Shelby |
 
 </details>
 
