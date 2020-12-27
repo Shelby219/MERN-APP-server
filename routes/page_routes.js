@@ -4,6 +4,6 @@ const passport = require("passport");
 
 const {home} = require('../controllers/page_controller');
 
-router.get('/home', passport.authenticate('jwt', {session: false}), home);
+router.get('/home',passport.authenticate('jwt', {session: false}), home);
 
 module.exports = router;

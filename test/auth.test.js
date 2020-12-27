@@ -9,6 +9,8 @@ const {
 
 const User = require('../models/user');
 
+const SavedRecipe = require('../models/recipe');
+
 const app = require('../app.js'); 
 //request = request('http://localhost:5555');
 const agent = request.agent(app);
@@ -26,6 +28,7 @@ after((done) => {
 
 beforeEach(async function () {
     let user = await setupData();
+    let savedRecipe = await setUpRecipeData();
     UserId = user._id;
     //const cookie = " "
 
@@ -246,7 +249,7 @@ describe('FAIL TEST- POST /user/login', function() {
 describe('FAIL TEST- POST /user/register', function () {
   let data = {
      	name: 'Test Name',
-     	email: 'wrongformatemail',
+     	email: 'tester@test.com',
       password: 'wrongformatpassword',
       username: 'newtestuser',
      	}
@@ -258,7 +261,8 @@ describe('FAIL TEST- POST /user/register', function () {
           .expect('Content-Type', /json/)
           .expect(422)
           .expect(function(res) {
-           res.body.errors[0].email = 'Must be a valid email format';
+           //console.log(res.body)
+           res.body.errors[0].email = 'E-mail already in use' ;
            res.body.errors[1].password = 'Password should not be empty, minimum eight characters, at least one letter, one number and one special character';
           })
           .end(function(err, res) {
@@ -315,16 +319,38 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
   testUser.username = 'testusername';
   testUser.password = 'TestPassword1$';
   testUser.fridgeIngredients = ["chicken", "cheese"];
+  //testUser.fridgeIngredients = [];
+  //testUser.pantryIngredients = [];
   testUser.createdDate = date;
   testUser.lastLogin = date;
   return User.create(testUser);
 }
 
+function setUpRecipeData() {
+  let date = Date.now();
+  let testRecipe = {};
+  testRecipe.username = 'testusername';
+  testRecipe._id = 3434;
+  testRecipe.title = "Test Recipe Title";
+  testRecipe.create_date = date;
+  testRecipe.modified_date = date;
+  return SavedRecipe.create(testRecipe);
+}
 
 afterEach((done) => {
-  User.deleteMany().exec(() => done());
+  tearDownUsers().exec()
+  tearDownRecipes().exec()
+  done()
 });
 
+function tearDownUsers() {
+  return User.deleteMany();
+}
+
+
+function tearDownRecipes() {
+  return SavedRecipe.deleteMany();
+}
 
 module.exports = {
   setupData

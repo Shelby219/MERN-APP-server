@@ -9,6 +9,7 @@ const User = require('../models/user');
 
 
 
+
 //GET Route for Register Page
 router.get('/register',authRedirect, registerNew);
 //POST Route for registering and creating a user
@@ -16,17 +17,18 @@ router.post('/register', userValidationRules(), validate, registerCreate);
 
  
 //GET Route for Login page
-router.get("/login", loginNew)
+//router.get("/login", loginNew)
 //POST Route for finding the user and logging them in
 router.post("/login", celebrate({
     body: {
         email: Joi.string().required(),
         password: Joi.string().required(),
-    }}), 
+    }}), /*
     passport.authenticate('local', {
+       // successRedirect: "/home",
         failureRedirect: '/user/login',
         session: false
-}), loginCreate);
+}),*/ loginCreate);
 
 
 //GET Route for Logout function
@@ -35,7 +37,7 @@ router.get('/logout', logOut);
 
 
 //GET Route for Account Settings Page
-router.get("/:username/account-settings", editUser)
+router.get("/:username/account-settings", passport.authenticate('jwt', {session: false}),editUser)
 //PATCH Route for Updating the user via account settings
 router.patch("/:username/account-settings", accountSettingValidationRules(), validate, editUserReq)
 
