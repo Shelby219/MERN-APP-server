@@ -319,6 +319,8 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
   testUser.username = 'testusername';
   testUser.password = 'TestPassword1$';
   testUser.fridgeIngredients = ["chicken", "cheese"];
+  //testUser.fridgeIngredients = [];
+  //testUser.pantryIngredients = [];
   testUser.createdDate = date;
   testUser.lastLogin = date;
   return User.create(testUser);
