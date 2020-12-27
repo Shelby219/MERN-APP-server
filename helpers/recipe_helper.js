@@ -64,6 +64,8 @@ async function recipeIdGetter(recipesObject) {
 }
 
 
+//TESTING
+
 // console.log(recipeIdGetter([
 //     {
 //       id: 1142012,
@@ -90,6 +92,8 @@ async function recipeIdGetter(recipesObject) {
 //       likes: 19
 //     }
 //   ]))
+
+
 //This is for filtering based off preferences TBA
 function basedOnPreferenceExtractor(recipeDataArray) { 
    let newArray = recipeDataArray.filter(function(r) {

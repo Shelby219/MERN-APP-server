@@ -41,9 +41,24 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 <details>
 <summary>Click to expand</summary>
 
-| Date | Feature | Test |
-|:---:|:---:|:---:|
-| test | test | test |
+| Date | Feature | Test | Notes| 
+|:---:|:---:|:---:|:---:|
+| 16/12/2020 | https://api.spoonacular.com/recipes/findByIngredients?ingredients=chicken,+cheese&number=25&apiKey={API KEY HERE} | Correct | Spooancular FIND BY INGREDIENTS API Endpoint test via Postman |
+| 16/12/2020 | https://api.spoonacular.com/recipes/complexSearch?includeIngredients=lemon,strawberries&fillIngredients=true&intolerances=gluten&number=25&apiKey={API KEY HERE}| Correct | Spooancular COMPLEX SEARCH API Endpoint test via Postman |
+| 16/12/2020 | https://api.spoonacular.com/recipes/716429/information?includeNutrition=false
+&apiKey={API KEY HERE}| Correct | Spooancular API Endpoint test via Postman |
+| 16/12/2020 | https://api.spoonacular.com/recipes/informationBulk?ids=715538,716429&apiKey={API KEY HERE} | Correct | Spooancular BULK RECIPE SEARCH VIA ID API Endpoint test via Postman |
+| 16/12/2020 | https://api.spoonacular.com/recipes/random?number=2&apiKey={API KEY HERE} | test | Spooancular RANDOM RECIPE SEARCH API Endpoint test via Postman |
+| 16/12/2020 | FUNCTION -  ingredientJoiner() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
+| 16/12/2020 | FUNCTION -  preferenceSeparator() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing| 
+| 16/12/2020 | FUNCTION -  queryEditor() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
+| 16/12/2020 | FUNCTION -  userQueryBuilder() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
+| 24/12/2020 | FUNCTION -  recipeIdGetter() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
+| 24/12/2020 | FUNCTION -  basedOnPreferenceExtractor() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
+| Date | Feature | Test | Notes| 
+| Date | Feature | Test | Notes| 
+| Date | Feature | Test | Notes| 
+
 </details>
 
 ---
@@ -195,36 +210,25 @@ In my first test call:
 ````js
 const recipes = returnRecipesToBrowse(req);
 console.log(recipes); // will give you something like Promise {pending}
-
 ````
-
 Then this was tried:
-
 ````js
 const recipes = await returnRecipesToBrowse(req);; // will error
 console.log(recipes); //undefined
-
 ````
 What was the final result was:
-
 ````js
 const returnRecipesToBrowse = async (req) => {
    const recipes = await User.findOne({ username: req.user.username })
     .then(recipes =>  userQueryBuilder(recipes))
     .then(queryItems =>  sanitizeDataForIngredientQuery(queryItems))
     .then(recipesObject => recipeIdGetter(recipesObject.data))
-    .then(recipeIdsString => detailedRecipeAPISearch(recipeIdsString))
+    .then(data => detailedRecipeAPISearch(data))
     .then(recipes =>  {return recipes})
-    .catch(error => console.log(error) /*res.status(400).json({
-      message: 'Request to Spoonacular failed/unauthorized'
-   /})*/)
+    .catch(error => {return error})
   return recipes
-};   
-//THIS IS THE LAST FUNCTION BEING CALLED IN THE ASYNC
-const detailedRecipeAPISearch = async function (recipeIdsString) { 
-  return await request.get(`informationBulk?ids=${recipeIdsString}&apiKey=${process.env.RECIPE_API_KEY}`)
-}
-
+};  
+ 
 returnRecipesToBrowse(req); // run the async function at the top-level, since top-level await is not currently supported in Node
 
 ````
@@ -238,6 +242,19 @@ CLIENT-SIDE
 
 The initial connecting of the front-end and back-end was started. This started a learning curve with how having the JWT in a cookie works. To begin with registering a user was connected, and logging in a user, this followed some blockers including the register user function on the back-end not signing a JWT, and on the front-end determining how to keep a user logged in. Local storage was implemented for this issue with the storage housing the username and at the moment the JWT (which is not necessary, but just in place for manual testing). Along with local storage is the state manager being redux. 
 
+</details>
+
+
+
+#### Sprint 3- 28/12/20 - 3/1/21
+
+
+<details>
+<summary>Click to expand</summary>
+
 
 
 </details>
+
+
+
