@@ -24,14 +24,19 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 &check;
 &cross; 
 
-| Date Completed | Tasks Allocated | Completed? | Alocated to? |
+| Date Completed | Tasks Allocated | Completed? | Allocated to? |
 |:---:|:---:|:---:|:---:|
-|| Research Spoonacular API and test. | &cross; | Shelby |
+|16/12/2020| Research Spoonacular API and test. | &check; | Shelby |
 | 07/12/2020 | User/Auth/Settings/Pref Back-end Code/Testing. | &check; | Shelby |
 | 08/12/2020 | Ingredient/Fridge/Pantry Back-end Code/Testing. | &check; |Shelby |
-|| Browse Recipe Back-end Code/Testing. | &cross; | Shelby |
-|| Single Recipe Back-end Code/Testing. | &cross; | Shelby |
-|| Saved Recipe Back-end Code/Testing. | &cross; | Shelby |
+|24/12/2020 | Browse Recipe Back-end Code/Testing. |  &check; | Shelby |
+|24/12/2020 | Single Recipe Back-end Code/Testing. |  &check; | Shelby |
+|17/12/2020 | Saved Recipe Back-end Code/Testing. |  &check; | Shelby |
+|24/12/2020 | Connecting of Back and Front End. |  &cross;  | Shelby |
+|24/12/2020 | Browse Recipe Components React Front-end . |  &cross; | Shelby |
+|24/12/2020 | Saved Recipe Components React Front-end . |  &cross; | Shelby |
+|24/12/2020 | Single Recipe Components React Front-end . |  &cross; | Shelby |
+|24/12/2020 | Single Recipe Components React Front-end . |  &cross; | Shelby |
 
 </details>
 
@@ -41,9 +46,24 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 <details>
 <summary>Click to expand</summary>
 
-| Date | Feature | Test |
-|:---:|:---:|:---:|
-| test | test | test |
+| Date | Feature | Test | Notes| 
+|:---:|:---:|:---:|:---:|
+| 16/12/2020 | https://api.spoonacular.com/recipes/findByIngredients?ingredients=chicken,+cheese&number=25&apiKey={API KEY HERE} | Correct | Spooancular FIND BY INGREDIENTS API Endpoint test via Postman |
+| 16/12/2020 | https://api.spoonacular.com/recipes/complexSearch?includeIngredients=lemon,strawberries&fillIngredients=true&intolerances=gluten&number=25&apiKey={API KEY HERE}| Correct | Spooancular COMPLEX SEARCH API Endpoint test via Postman |
+| 16/12/2020 | https://api.spoonacular.com/recipes/716429/information?includeNutrition=false
+&apiKey={API KEY HERE}| Correct | Spooancular API Endpoint test via Postman |
+| 16/12/2020 | https://api.spoonacular.com/recipes/informationBulk?ids=715538,716429&apiKey={API KEY HERE} | Correct | Spooancular BULK RECIPE SEARCH VIA ID API Endpoint test via Postman |
+| 16/12/2020 | https://api.spoonacular.com/recipes/random?number=2&apiKey={API KEY HERE} | test | Spooancular RANDOM RECIPE SEARCH API Endpoint test via Postman |
+| 16/12/2020 | FUNCTION -  ingredientJoiner() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
+| 16/12/2020 | FUNCTION -  preferenceSeparator() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing| 
+| 16/12/2020 | FUNCTION -  queryEditor() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
+| 16/12/2020 | FUNCTION -  userQueryBuilder() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
+| 24/12/2020 | FUNCTION -  recipeIdGetter() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
+| 24/12/2020 | FUNCTION -  basedOnPreferenceExtractor() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
+| Date | Feature | Test | Notes| 
+| Date | Feature | Test | Notes| 
+| Date | Feature | Test | Notes| 
+
 </details>
 
 ---
@@ -64,7 +84,7 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 06/12/2020 | GET User Settings | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place |
 | 06/12/2020 | PATCH Edit User Settings | Passing |   |
 | 07/12/2020 | GET User Preferences  | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place  |
-| 07/12/2020 | PATCH Edit User Preferences  | Passing when .only ? | Ensure req.body.preference is updated in codebase  |
+| 07/12/2020 | PATCH Edit User Preferences  | Passing  | Ensure req.body.preference is updated in codebase  |
 | 07/12/2020 | GET Fridge Ingredients | Passing |  Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place |
 | 07/12/2020 | POST New Fridge Ingredient | Passing |   |
 | 08/12/2020 | DELETE Fridge Ingredient | Passing |   |
@@ -74,16 +94,22 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 08/12/2020 | DELETE Pantry Ingredient | Passing |   |
 | 10/12/2020 | DELETE ALL Pantry Ingredients | Passing |   |
 | 09/12/2020 | POST Upload profile picture to s3 | Passing |   |
-| 16/12/2020 | Recipe Utils  returnRecipesToBrowse(req) | Passing | This function tests finding a User in Db per params, builds the query info per the data from user, uses that data to axios request Spoonacular API for recipes based off ingredients, then collect those recipes IDs, sanitize the data, then use the IDS for another API call to get the detailed recipe information. |
+| 16/12/2020 | GET - Browse Recipes- via Recipe Utils  returnRecipesToBrowse(req) | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place | This function tests finding a User in Db per params, builds the query info per the data from user, uses that data to axios request Spoonacular API for recipes based off ingredients, then collect those recipes IDs, sanitize the data, then use the IDS for another API call to get the detailed recipe information. |
 | 20/12/2020 | Recipe Controller  displayRecipes(req) | Passing |  |
+| 21/12/2020 | GET All Saved Recipes | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place && Line 27 of recipe utils allowed me to test it using test user |
+| 21/12/2020 | GET Single Saved Recipes if in DB | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place |
+| 21/12/2020 | GET Single Saved Recipes if not in DB- use Spoonacular | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place && Double check this- async promise |
+| 22/12/2020 | POST Add new saved recipe | Passing | Line 74 of recipe controller allowed me to test using test user |
+| 22/12/2020 | DELETE A saved recipe | Passing |  |
 
 #### Expect to Fail Tests
 | Date | Feature | Test | Notes| 
 |:---:|:---:|:---:|:---:|
 | 09/12/2020 | POST Login User- Incorrect Password  | Passing |   |
 | 09/12/2020 | POST Register User- Incorrect Email and Password Format  | Passing |   |
-| 09/12/2020 | Get User Settings- Incorrect Params  | Passing |   |
+| 09/12/2020 | GET User Settings- Incorrect Params  | Passing |   |
 | 09/12/2020 | PATCH User Settings- Incorrect  Email, Password, Name Format  | Passing |   |
+| 22/12/2020 | GET Single Saved Recipes- Recipe ID not found  | Passing |  |
 
 
 </details>
@@ -189,36 +215,25 @@ In my first test call:
 ````js
 const recipes = returnRecipesToBrowse(req);
 console.log(recipes); // will give you something like Promise {pending}
-
 ````
-
 Then this was tried:
-
 ````js
 const recipes = await returnRecipesToBrowse(req);; // will error
 console.log(recipes); //undefined
-
 ````
 What was the final result was:
-
 ````js
 const returnRecipesToBrowse = async (req) => {
    const recipes = await User.findOne({ username: req.user.username })
     .then(recipes =>  userQueryBuilder(recipes))
     .then(queryItems =>  sanitizeDataForIngredientQuery(queryItems))
     .then(recipesObject => recipeIdGetter(recipesObject.data))
-    .then(recipeIdsString => detailedRecipeAPISearch(recipeIdsString))
+    .then(data => detailedRecipeAPISearch(data))
     .then(recipes =>  {return recipes})
-    .catch(error => console.log(error) /*res.status(400).json({
-      message: 'Request to Spoonacular failed/unauthorized'
-   /})*/)
+    .catch(error => {return error})
   return recipes
-};   
-//THIS IS THE LAST FUNCTION BEING CALLED IN THE ASYNC
-const detailedRecipeAPISearch = async function (recipeIdsString) { 
-  return await request.get(`informationBulk?ids=${recipeIdsString}&apiKey=${process.env.RECIPE_API_KEY}`)
-}
-
+};  
+ 
 returnRecipesToBrowse(req); // run the async function at the top-level, since top-level await is not currently supported in Node
 
 ````
@@ -226,5 +241,25 @@ I did not need to await on the final returnRecipesToBrowse(req) call, since Node
 
 When implementing the main code for displaying recipes for browsing, it was discovered that there were certain limitations with using the Spoonacular API. The 'search recipes' which enables a complex search with ingredients and other query parameters like diet and intolerances, proved not useful as it only displays recipes that have all the ingredients in the query not recipes that include one or more of the ingredients. This search was much too specific as we needed to return recipes with one or more of the query ingredients. To supplement the above option, it was decided to use the 'search recipes by ingredients', which will return recipes that include one or more the ingredients in the query, however the returned object is not detailed. Using the object returned above, the recipe ID's were extracted to then use in another query which is ' get recipe information bulk' which returns details recipe information using the recipe ID's as the parameters. The returned object from this query though I believe was limited by the paid tiers of the API. Which meant the preferences list was reduced down to just include vegetarian, vegan, gluten-free, dairy-free, very healthy, cheap, popular, sustainable, and low-fod-map. In future the payment tier may not opted to increase which would enable more preference options. 
 
+To overcome the blocker of needing the information from the ingredient search query, but also the information from the get recipe bulk query, the used and missed ingredients were filtered out from the first lot of returned data, then passed onto the next function, so that after the bulk recipe query was returned the two objects could be joined and returned. 
+
+CLIENT-SIDE
+
+The initial connecting of the front-end and back-end was started. This started a learning curve with how having the JWT in a cookie works. To begin with registering a user was connected, and logging in a user, this followed some blockers including the register user function on the back-end not signing a JWT, and on the front-end determining how to keep a user logged in. Local storage was implemented for this issue with the storage housing the username and at the moment the JWT (which is not necessary, but just in place for manual testing). Along with local storage is the state manager being redux. 
 
 </details>
+
+
+
+#### Sprint 3- 28/12/20 - 3/1/21
+
+
+<details>
+<summary>Click to expand</summary>
+
+
+
+</details>
+
+
+

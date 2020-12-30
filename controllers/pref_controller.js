@@ -14,7 +14,7 @@ function editPref(req, res) {
             });
         }
         res.status(200);
-        res.send(user);
+        res.send(user.preferences);
     });
     //res.render("user/:name/preferences")
     //res.send("this is account settings");
@@ -31,9 +31,9 @@ function editPrefReq(req, res) {
                 error: err.message
             });
         }
-        //console.log(userPref)
+        console.log(userPref)
         res.status(200);
-        res.send(userPref);
+        res.send(userPref.preferences);
         //res.redirect(`user/`${res.body.name}`/preferences`);
     });  
 }
