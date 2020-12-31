@@ -13,17 +13,17 @@ const addIngredient = async function (req) {
     let checker = req.path
     let fridge = checker.includes("fridge")
     let pantry = checker.includes("pantry")
-    console.log(fridge)
-    console.log(pantry)
+    //console.log(fridge)
+    //console.log(pantry)
     let user = await User.findOne({ username:  req.params.username }).exec();
  
     const newItem = req.body.item;
   
     if (fridge) {
-        user.fridgeIngredients.push(newItem);
+        user.fridgeIngredients.push(...newItem);
         console.log("new Fridge Item")
     } else if (pantry)  {
-        user.pantryIngredients.push(newItem);
+        user.pantryIngredients.push(...newItem);
         console.log("new Pantry Item")
     } else {
         console.log("error message")
