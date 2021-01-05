@@ -253,6 +253,10 @@ The initial connecting of the front-end and back-end was started. This started a
 
 #### Sprint 3- 28/12/20 - 10/1/21
 
+<details>
+<summary>Click to expand</summary>
+
+
 STYLING
 
 Foundational styling was done as I went to ensure easy readability of the pages being worked on. This involved implementing a Grid layout from Material UI for styling. The main components used from Material UI include the autocomplete component, Grid, Paper and Buttons. Additional usage will be put in place once the final in depth styling is completed. 
@@ -325,9 +329,6 @@ Password being hashed on hash.
 Local storage holding JSON file, needed to pass string and then parse back our to JSON for render
 
 
-
-<details>
-<summary>Click to expand</summary>
 
 
 
