@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Bcrypt = require('mongoose-bcrypt')
 
 const User = new Schema({
     email: {
@@ -74,6 +75,14 @@ const User = new Schema({
 });
 
 User.plugin(require('mongoose-bcrypt'));
+
+User.pre("findOneAndUpdate", function(next) {
+    if(!this.isModified("password")) {
+        return next();
+    }
+    this.password = Bcrypt.hashSync(this.password, 10);
+    next();
+});
 
 User.statics.findByUsername = function (user) {
     return this.find({username: user});
