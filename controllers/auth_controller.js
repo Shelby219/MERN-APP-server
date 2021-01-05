@@ -46,10 +46,17 @@ function loginNew(req, res) {
 }
 
 // helper functions
-const authenticate = passport.authenticate('local');
+//const authenticate = passport.authenticate('local');
+
+ 
+const authenticate = passport.authenticate('local', {
+        session: false
+})
 
 function loginCreate(req, res) {
+   
     authenticate(req, res, function () {
+        console.log("hit here")
         const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
         res.cookie("jwt", token);
         console.log('authenticated', req.user.username);
@@ -59,15 +66,16 @@ function loginCreate(req, res) {
         console.log('session jwt:', req.cookies);
         res.status(200);
         res.json({user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
-        //res.redirect(`/home`);
-        //es.json({user: req.user, sessionID: req.sessionID, cookie: res.cookie});
     });
+
+
+
 }
 
 
 //Account settings get ROUTE
 function editUser(req, res) {
-    //console.log(req.session)
+    console.log(req.user.username)
      getUserByParam(req).exec((err, user) => {
         if (err) {
             // handle error
@@ -97,7 +105,7 @@ function editUser(req, res) {
 
 //Account settings PATCH ROUTE
 function editUserReq(req, res) {
-    //console.log(res)
+    console.log(req.body)
     //console.log("hit controls")
     updateUser(req).exec((err, user) => {
         

@@ -14,8 +14,8 @@ const displayRecipes =  async function(req, res) {
 	try {
 		 let recipes = await returnRecipesToBrowse(req)
 		 res.status(200)
-		 res.send(recipes)
-
+		 res.json(recipes)
+		console.log(recipes)
 	} catch (err) {
 		 if (err) {res.status(500)
             res.json({
