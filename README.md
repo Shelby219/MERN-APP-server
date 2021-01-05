@@ -251,7 +251,79 @@ The initial connecting of the front-end and back-end was started. This started a
 
 
 
-#### Sprint 3- 28/12/20 - 3/1/21
+#### Sprint 3- 28/12/20 - 10/1/21
+
+STYLING
+
+Foundational styling was done as I went to ensure easy readability of the pages being worked on. This involved implementing a Grid layout from Material UI for styling. The main components used from Material UI include the autocomplete component, Grid, Paper and Buttons. Additional usage will be put in place once the final in depth styling is completed. 
+Initial set up React Toastify for Notifications was put in place for later use. 
+Some refining of a basic footer and the top logo for linking back to the home page was completed. 
+Adjusted the user profile image styling as Adrienne was going to be implementing this code. 
+Not found page was implementing and styled.
+
+Loading screen was implemented with React Loading to enable a loading time frame for browse recipes, fridge, pantry and eventually saved recipes. To ensure the data has loaded correctly. 
+
+BROWSE RECIPES
+
+Browse Recipe component was created and some test data was put in place via a JSON file to enable to initially styling of the recipe cards. Like the separate ingredient component, using a separate recipe card component means it can be reused when it comes to displaying the saved recipes pages. 
+
+Then the start of the coding process for calling the backend to return the recipes for browsing. The services code for calling the DB route was implementing quite quickly, initially with the idea that the DB would be called by clicking the search recipe button. This may be changed back to this. However right now it was changed that that button takes you to the browse recipe page, then a useEffect calls the DB and returns the browse data IF the local storage is empty. If the local storage has browse recipes in it. A major blocker during this project was the object coming up with [object, object]. This was discovered that local storage, in order to pass it around from page to page, requires the data to be stringified then parsed back. Once this was implementing the data displayed from local storage no issue.
+
+The next step is being able to refactor the code to allow for if the user was to do a refresh search, that the browse recipe DB route will  be called again and then update local storage. Also to make it obvious to the user that if it was a search with no ingredients, that a random search was made just to show some random recipes. 
+
+Issue: check if the server code is working correctly with taking fridge and pantry ingredients for the recipe search.
+
+FRIDGE PANTRY
+
+Adrienne implemented the foundational code for the fridge and pantry components and the functions for connecting to the back end, alongside was some great code for being able to save the state of multiple ingredients for adding to the DB. I just did some refactoring as instead of manually coding the add multiple ingredients, Material UI has this available in the autocomplete component. Additional I was able to incorporate the ingredient services methods.
+
+The connecting of the backend to the frontend was completed for the fridge and pantry for adding, deleting and deleting all ingredients. Some issues along the way were being able to take the array of ingredients from autocomplete and adding them to the array in the DB. Initially it was adding the array to the array in DB, this was able to be resolved by updating on the server side the following:  
+
+````js
+from (newItem)
+
+to (...newItem)
+
+````
+
+Then was the issue of duplicates being able to be added to the list. Adrienne is currently working on a fix for this issue, because as it stands you can add duplicates, but when you delete one, it deletes all as that is the server method of deleting. So to overcome this, a function for stopping duplicates is needed. 
+
+USER
+
+A blocker which was causing issues when finding by username and updating for settings and preferences, was this:
+
+````js
+//ISSUE
+User.findOneAndUpdate(req.params.username)
+
+//FIXED
+User.findOneAndUpdate({ username:  req.params.username })
+
+````
+
+This above caused issue with for example it would update the wrong users profile image, and I believe it was updating the first user in the DB. 
+
+A fix was made for the Regex for registering a user and the username, this was fixed so as to allow for usernames of 5 letters or more. 
+
+A major blocker was the user password being rehashed each log in/update. This was able to be fixed with a model pre function which checked if the password was modified, and hashes the new one, as opposed to rehashing the hashed one. This code fixed the issue, but that are some ongoing problems with updating the user settings from client, which may need some loading time for this back end code to operate successfully.
+
+INGREDIENTS
+
+A conditional was implementing that if no ingredients for fridge or pantry were present it would render a white space filler letting the user know that there are no ingredients present. 
+
+DEPLOYMENT
+
+Server code was successfully deployed to Heroku. The client code however was deployed to netlify, but some issues are remaining. Keep working on deployment. 
+
+APP
+
+A private route function was set up so that it could be utilised with any routes that require logging in. This then redirects the user to the home page. 
+
+Blockers:
+
+Password being hashed on hash.
+Local storage holding JSON file, needed to pass string and then parse back our to JSON for render
+
 
 
 <details>

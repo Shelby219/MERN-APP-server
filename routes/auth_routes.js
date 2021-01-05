@@ -23,12 +23,10 @@ router.post("/login", celebrate({
     body: {
         email: Joi.string().required(),
         password: Joi.string().required(),
-    }}), /*
+    }}), 
     passport.authenticate('local', {
-  
-        failureRedirect: '/user/login',
         session: false
-}),*/ loginCreate);
+}),loginCreate);
 
 
 //GET Route for Logout function
