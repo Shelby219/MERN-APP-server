@@ -23,6 +23,7 @@ function editPref(req, res) {
 //Preferences PATCH ROUTE
 function editPrefReq(req, res) {
     //console.log("hit controls")
+    console.log(req.body)
     updatePref(req).exec((err, userPref) => {
         if (err) {
             res.status(500);

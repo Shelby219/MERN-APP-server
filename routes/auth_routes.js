@@ -25,7 +25,7 @@ router.post("/login", celebrate({
         password: Joi.string().required(),
     }}), /*
     passport.authenticate('local', {
-       // successRedirect: "/home",
+  
         failureRedirect: '/user/login',
         session: false
 }),*/ loginCreate);
@@ -49,7 +49,8 @@ const singleUpload = upload.any('image');
 
 router.post("/:username/add-profile-picture",  function (req, res) {
     const username = req.params.username;
-    //console.log(username)
+    console.log(username)
+    const filter = {username: req.params.username}
      singleUpload(req, res, async function (err) {
       if (err) {
         return res.json({
@@ -61,9 +62,10 @@ router.post("/:username/add-profile-picture",  function (req, res) {
           },
         });
       }
+   
        let update =  { profile: req.files[0].location };
-     // console.log(update)
-      await User.findOneAndUpdate(username, update, {new: true})
+       console.log(update)
+      await User.findOneAndUpdate(filter, update, {new: true})
         .then((user) => res.status(200).json({ success: true, user: user }) )
         .catch((err) => res.status(400).json({ success: false, error: err }));
     });
