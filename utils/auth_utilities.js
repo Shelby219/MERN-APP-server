@@ -9,7 +9,7 @@ const getUserByParam = function (req) {
  
 const updateUser = function (req) {
  //can pass req.body through as update as the body gets prefilled with data from DB
-    return User.findOneAndUpdate(req.params.username, req.body, {
+    return User.findOneAndUpdate({username: req.params.username}, req.body, {
         new: true
     });
 };
