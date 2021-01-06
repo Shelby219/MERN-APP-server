@@ -35,9 +35,12 @@ function registerCreate(req, res, next) {
 }
 
 function logOut(req, res) {
+    console.log("here ")
     req.logout();
     res.cookie("jwt", null, { maxAge: -1 });
-    res.redirect("/");
+    //res.redirect("/");
+    console.log("heraae ")
+    console.log(res)
 }
 
 function loginNew(req, res) {
