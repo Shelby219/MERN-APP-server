@@ -76,16 +76,16 @@ const User = new Schema({
 
 User.plugin(require('mongoose-bcrypt'));
 
-User.pre("save", function(next) {
-    console.log('pre save password: ' + this.password);
-    if(!this._update.password) {
-        return next();
-    } else {
-    this.password = Bcrypt.hashSync(this.password, 10);
+// User.pre("save", function(next) {
+//     console.log('pre save password: ' + this.password);
+//     if(!this._update.password) {
+//         return next();
+//     } else {
+//     this.password = Bcrypt.hashSync(this.password, 10);
 
-        next();
-    }
-});
+//         next();
+//     }
+// });
 
 // User.pre('findOneAndUpdate', function(next) {
 //     console.log('pre save password: ' + this.password);
