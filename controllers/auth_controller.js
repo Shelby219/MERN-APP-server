@@ -35,9 +35,15 @@ function registerCreate(req, res, next) {
 }
 
 function logOut(req, res) {
+  
     req.logout();
     res.cookie("jwt", null, { maxAge: -1 });
-    res.redirect("/");
+    console.log('logged out user');
+    console.log('session object:', req.session);
+    console.log('req.user:', req.user);
+    res.sendStatus(200);
+    console.log("heraae ")
+    
 }
 
 function loginNew(req, res) {
@@ -49,33 +55,41 @@ function loginNew(req, res) {
 //const authenticate = passport.authenticate('local');
 
  
-const authenticate = passport.authenticate('local', {
-        session: false
-})
+// const authenticate = passport.authenticate('local', {
+//         session: false
+// })
 
+// function loginCreate(req, res) {
+//    console.log("hit here")
+//     authenticate(req, res, function () {
+//         console.log("hit here")
+//         const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
+//         res.cookie("jwt", token);
+//         //console.log('authenticated', req.user.username);
+//         //console.log('session object:', req.session);
+//         //console.log('req.user:', req.user);
+//         //console.log('session ID:', req.sessionID);
+//         //console.log('session jwt:', req.cookies);
+//         res.status(200);
+//         res.json({user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
+//     });
+
+// }
 function loginCreate(req, res) {
-   
-    authenticate(req, res, function () {
-        console.log("hit here")
-        const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
-        res.cookie("jwt", token);
-        console.log('authenticated', req.user.username);
-        console.log('session object:', req.session);
-        console.log('req.user:', req.user);
-        console.log('session ID:', req.sessionID);
-        console.log('session jwt:', req.cookies);
-        res.status(200);
-        res.json({user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
-    });
+    console.log("hit here")
+    const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
+    res.cookie("jwt", token);
+       
+    res.status(200);
+    res.json({user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
 
-
-
-}
-
+ 
+ }
+ 
 
 //Account settings get ROUTE
 function editUser(req, res) {
-    console.log(req.user.username)
+    
      getUserByParam(req).exec((err, user) => {
         if (err) {
             // handle error
@@ -105,7 +119,7 @@ function editUser(req, res) {
 
 //Account settings PATCH ROUTE
 function editUserReq(req, res) {
-    console.log(req.body)
+   
     //console.log("hit controls")
     updateUser(req).exec((err, user) => {
         

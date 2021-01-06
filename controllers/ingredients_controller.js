@@ -9,11 +9,8 @@ const {
 
 //GET ALL INGREDIENTS
 const getIngredients = function(req, res) {
-	//console.log("Hit controls")
+
 	  getAllIngredients(req)
-		// .sort({
-		// 	modified_date: -1
-		// })
 		.exec((err, items) => {
 			if (err) {
 				res.status(500)
@@ -21,25 +18,28 @@ const getIngredients = function(req, res) {
 					error: err.message
 				})
             }
-	
-		   ///console.log(items)
+		   items.fridgeIngredients.sort()
+		   items.pantryIngredients.sort()
+		   
 			res.send(items)
 		})
 }
 
 //CREATE NEW INGREDIENT
 const createIngredient = function(req, res) {
-	//console.log(req)
+
 	addIngredient(req)
 		.then((user) => {
 			//console.log(user)
+			//console.log(user)
 			res.status(201)
 			res.send(user)
+			
 			//res.redirect("/ingredients/fridge")
 			})
 		.catch(err => 
 			//res.status(500)
-			res.json({error: err})
+			res.json({error: err.message})
 			)
 }
 

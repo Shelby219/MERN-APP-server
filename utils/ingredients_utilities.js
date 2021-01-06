@@ -16,7 +16,7 @@ const addIngredient = async function (req) {
     //console.log(fridge)
     //console.log(pantry)
     let user = await User.findOne({ username:  req.params.username }).exec();
- 
+    
     const newItem = req.body.item;
   
     if (fridge) {
@@ -28,10 +28,17 @@ const addIngredient = async function (req) {
     } else {
         console.log("error message")
     }
-  
-    return User.findByIdAndUpdate(user._id, user, {
-        new: true //this is needed for updating
-    });
+    //console.log("hit here")
+    //console.log(user)
+    // return User.findByIdAndUpdate(user._id, user, {
+    //     new: true //this is needed for updating
+    // });
+    return  User.findOneAndUpdate(
+        { username: user.username },
+        { fridgeIngredients: user.fridgeIngredients,
+        pantryIngredients: user.pantryIngredients, } ,
+        { new: true }
+    )
 };
 
 // delete Ingredient

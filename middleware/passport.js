@@ -13,25 +13,33 @@ passport.serializeUser((user, done) => {
 
 //start with ID end up with user
 passport.deserializeUser((userId, done) => {
+    console.log("hit deserializeUser")
     UserModel.findById(userId)
         .then((user) => done(null, user))
         .catch(done)
     })
 
 const canLogin = (user, password) => {
+
     if(user){
-        return user.verifyPasswordSync(password) //mongoose bcrypt
+        return user.verifyPasswordSync(password)
+      
     } else {
+        
         return false
     }
+    
 }
 
 const verifyCallback = (email, password, done) => {
     UserModel.findOne({email})
     .then((user) => {
+       
         if(canLogin(user, password)){
+            
             return done(null, user)
         } else {
+           
             return done(null, false)
         }
     })
