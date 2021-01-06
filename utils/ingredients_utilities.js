@@ -30,10 +30,15 @@ const addIngredient = async function (req) {
     }
     //console.log("hit here")
     //console.log(user)
-    return User.findByIdAndUpdate(user._id, user, {
-        new: true //this is needed for updating
-    });
-  
+    // return User.findByIdAndUpdate(user._id, user, {
+    //     new: true //this is needed for updating
+    // });
+    return  User.findOneAndUpdate(
+        { username: user.username },
+        { fridgeIngredients: user.fridgeIngredients,
+        pantryIngredients: user.pantryIngredients, } ,
+        { new: true }
+    )
 };
 
 // delete Ingredient
