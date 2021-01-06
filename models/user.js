@@ -76,13 +76,23 @@ const User = new Schema({
 
 User.plugin(require('mongoose-bcrypt'));
 
-User.pre("findOneAndUpdate", function(next) {
-    if(!this.isModified("password")) {
+User.pre("save", function(next) {
+    console.log('pre save password: ' + this.password);
+    if(!this._update.password) {
         return next();
-    }
+    } else {
     this.password = Bcrypt.hashSync(this.password, 10);
-    next();
+
+        next();
+    }
 });
+
+// User.pre('findOneAndUpdate', function(next) {
+//     console.log('pre save password: ' + this.password);
+//     if (this.isModified('password')) // If the pw has been modified, then encrypt it again
+//         this.password = Bcrypt.hashSync(this.password, 10);
+//     next();
+// });
 
 User.statics.findByUsername = function (user) {
     return this.find({username: user});
@@ -92,11 +102,12 @@ User.statics.findByEmail = function (user) {
     return this.find({email: user});
 }
 
-// UserSchema.methods.isValidPassword = async function(password) {
-//     const user = this;
-//     const compare = await bcrypt.compare(password, user.password);
+User.methods.isValidPassword = async function(password) {
+    const user = this;
+    const compare = await bcrypt.compare(password, user.password);
   
-//     return compare;
-//   }
+    return compare;
+}
+
 module.exports = mongoose.model('user', User);
 
