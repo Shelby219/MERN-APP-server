@@ -23,7 +23,7 @@ function editPref(req, res) {
 //Preferences PATCH ROUTE
 function editPrefReq(req, res) {
     //console.log("hit controls")
-    console.log(req.body)
+    //console.log(req.body)
     updatePref(req).exec((err, userPref) => {
         if (err) {
             res.status(500);
@@ -32,7 +32,7 @@ function editPrefReq(req, res) {
                 error: err.message
             });
         }
-        console.log(userPref)
+        //console.log(userPref)
         res.status(200);
         res.send(userPref.preferences);
         //res.redirect(`user/`${res.body.name}`/preferences`);

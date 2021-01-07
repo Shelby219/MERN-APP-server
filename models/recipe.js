@@ -17,9 +17,6 @@ const SavedRecipe = new Schema({
     servings: {
         type: Number
     },
-    servings: {
-        type: Number
-    },
     sourceUrl: {
         type: String
     },
