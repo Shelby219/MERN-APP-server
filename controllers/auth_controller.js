@@ -81,7 +81,7 @@ function loginCreate(req, res) {
     res.cookie("jwt", token);
        
     res.status(200);
-    res.json({user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
+    res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
 
  
  }

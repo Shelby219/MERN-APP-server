@@ -23,6 +23,7 @@ const User = new Schema({
     },
     profile: {
         type: String,
+        default: ""
     },
     fridgeIngredients: {
         type:  Array,
