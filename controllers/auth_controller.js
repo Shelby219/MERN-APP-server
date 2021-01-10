@@ -1,6 +1,11 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const {updateUser, getUserByParam, deleteUser} = require("../utils/auth_utilities")
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+
+const {updateUser, getUserByParam, updateForForgotPassword, findForResetPassword,
+    findForUpdatePassword,
+    insertPasswordToken} = require("../utils/auth_utilities")
 const passport = require('passport');
 
 function registerNew(req, res) {
@@ -51,30 +56,9 @@ function loginNew(req, res) {
     res.send("this is login new");
 }
 
-// helper functions
-//const authenticate = passport.authenticate('local');
 
- 
-// const authenticate = passport.authenticate('local', {
-//         session: false
-// })
 
-// function loginCreate(req, res) {
-//    console.log("hit here")
-//     authenticate(req, res, function () {
-//         console.log("hit here")
-//         const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
-//         res.cookie("jwt", token);
-//         //console.log('authenticated', req.user.username);
-//         //console.log('session object:', req.session);
-//         //console.log('req.user:', req.user);
-//         //console.log('session ID:', req.sessionID);
-//         //console.log('session jwt:', req.cookies);
-//         res.status(200);
-//         res.json({user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
-//     });
 
-// }
 function loginCreate(req, res) {
     console.log("hit here")
     const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
@@ -137,20 +121,124 @@ function editUserReq(req, res) {
     });  
 }
 
-//DELETE USER
-const removeUser = function (req, res) {
-    // execute the query from deletePost
-    deleteUser(req.session.passport.user).exec((err) => {
+
+
+
+function forgotPassword (req, res) {
+    if(req.body.email ===''){
+        res.status(400).send('email required');
+    }
+    console.error(req.body.email)
+    updateForForgotPassword(req).then((user)=>{
+        if(user === null){
+            console.error('email not in database')
+            res.status(403).send('email not in db')
+        } else {
+            const token = crypto.randomBytes(20).toString('hex');
+           
+            insertPasswordToken(user, token).exec((err, user) => {
+                if (err) {
+                    console.log(err)
+                    // res.status(500);
+                    // return res.json({error: err.message});
+                }
+                //console.log(user)
+                return user
+                //res.status(200);
+                //res.send(user);
+             
+            });  
+
+            //console.log(user)
+            //console.log("updated", u)
+            const transporter = nodemailer.createTransport({
+              service: 'gmail',
+              auth: {
+                user: `${process.env.EMAIL_ADDRESS}`,
+                pass: `${process.env.EMAIL_PASSWORD}`,
+              },
+            });
+
+          const mailOptions = {
+              from: 'fridgemate2020@gmail.com',
+              to: `${user.email}`,
+              subject: 'Link To Reset Password',
+              text:
+                'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n'
+                + 'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n'
+                + `http://localhost:3000/user/reset-password/${token}\n\n`
+                + 'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+            };
+
+             console.log('sending mail');
+
+              transporter.sendMail(mailOptions, (err, response) => {
+              if (err) {
+                  console.error('there was an error: ', err);
+              } else {
+                  console.log('here is the res: ', response);
+                  res.status(200).json('recovery email sent');
+              }
+              });
+        }
+    })
+
+}
+
+//Reset password GET ROUTE
+function resetPassword (req, res) {
+    //console.log(req)
+  //  console.log(req.query.resetPasswordToken)
+    findForResetPassword(req).then((user) => {
+        //console.log(user)
+        if (user == null) {
+          console.error('password reset link is invalid or has expired');
+          res.status(403).send('password reset link is invalid or has expired');
+        } else {
+          res.status(200).send({
+            username: user.username,
+            message: 'password reset link a-ok',
+          });
+        }
+       });
+     }
+
+
+//Update password PATCH ROUTE
+function sendResetPassword(req, res) {
+   
+    console.log("hit controls")
+    findForUpdatePassword(req).exec((err, user) => {
         if (err) {
             res.status(500);
+            console.log(err)
             return res.json({
-                error: err.message
+                error: err
             });
         }
-        res.sendStatus(204);
-        //res.redirect("/home")
-    });
-};
+        console.log("check", user)
+        res.status(200);
+        res.send({
+            username: user.username,
+            message: 'password updated',
+          });
+  
+    });  
+}
+// //DELETE USER
+// const removeUser = function (req, res) {
+//     // execute the query from deletePost
+//     deleteUser(req.session.passport.user).exec((err) => {
+//         if (err) {
+//             res.status(500);
+//             return res.json({
+//                 error: err.message
+//             });
+//         }
+//         res.sendStatus(204);
+//         //res.redirect("/home")
+//     });
+// };
 
 // async function removeUser (req, res) {
 //     try {deleteUser(req.session.passport.user).exec(async (err) => {
@@ -175,4 +263,7 @@ module.exports = {
     loginCreate,
     editUser,
     editUserReq,
+    forgotPassword,
+    resetPassword,
+    sendResetPassword
 }

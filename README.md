@@ -329,6 +329,13 @@ Password being hashed on hash.
 Local storage holding JSON file, needed to pass string and then parse back our to JSON for render
 
 
+RESET PASSWORD:
+
+Node.js has a built in module called Crypto, which provides cryptographic functionality, which is a fancy way of saying, I can generate a unique hash token easily using the command .
+
+
+
+
 
 
 
