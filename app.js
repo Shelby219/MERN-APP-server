@@ -55,7 +55,7 @@ app.use(passport.initialize());
 
 
 // Use cors
-const whitelist = ['http://localhost:3000','https://tender-goldwasser-38ed40.netlify.com/']
+const whitelist = ['http://localhost:3000','https://fridgemate.netlify.app/']
 app.use(cors({
     credentials: true,
     origin: function (origin,callback) {
