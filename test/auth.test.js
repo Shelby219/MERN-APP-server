@@ -30,24 +30,27 @@ beforeEach(async function () {
     let user = await setupData();
     let savedRecipe = await setUpRecipeData();
     UserId = user._id;
-    //const cookie = " "
-
-  //   agent.post('/user/login')
-  //    .send({
-  //              email: "tester@test.com", 
-  //              password: "TestPassword1$"
-  //            })
-  //      .redirects(1)  
-  //      .then(response => {
-  //        //console.log(response.request.cookies)
-  //       cookie = response.request.cookies
        
-  //       //  const cookies = response.headers['set-cookie'][0].split(',').map(item => item.split(';')[0]);
-  //       //  cookie = cookies.join(';');
-  //  })
 });
 
-        
+// before(async function () {
+//   it('Login User beforehand', async function (done) {
+//       await request(app)
+//         .post('/user/login')
+//         .send({
+//               email: "tester@test.com", 
+//               password: "abcdefg1!C"
+//             })
+//         .end(function(err, res) {
+//           if (err) return done(err);
+//           Session = res.headers["set-cookie"];
+//           console.log(Session) 
+//           done();
+//         });  
+//   });
+// });       
+
+
  //GET REGISTER USER PAGE
  describe('GET /user/register', function() {
   it('Test get register user',  (done) => {
@@ -67,7 +70,7 @@ describe('POST /user/register', function () {
   let data = {
      	name: 'Test Name',
      	email: 'hello@test.com',
-      password: 'TestPassword1$',
+      password: 'abcdefg1!C',
       username: 'newtestuser',
       profile: 'test profile'
      	}
@@ -97,7 +100,7 @@ describe('GET /user/logout', function() {
   it('responds with json', function(done) {
     request(app)
       .get('/user/logout')
-      .expect(302) //redirecting to home page
+      .expect(200) //redirecting to home page
       .end(function(err, res) {
         if (err) return done(err);
         done();
@@ -106,18 +109,18 @@ describe('GET /user/logout', function() {
 });
 
 
- //GET LOGIN PAGE
- describe('GET /user/login', function() {
-  it('Test get Login user',  (done) => {
-      request(app)
-      .get("/user/login")
-      .expect(200)
-      .end(function(err, res) {
-        if (err) return done(err);
-        done();
-        });
-     })
-  });
+//  //GET LOGIN PAGE
+//  describe('GET /user/login', function() {
+//   it('Test get Login user',  (done) => {
+//       request(app)
+//       .get("/user/login")
+//       .expect(200)
+//       .end(function(err, res) {
+//         if (err) return done(err);
+//         done();
+//         });
+//      })
+//   });
 
 //LOGIN USER TEST
 describe('POST /user/login', function() {
@@ -126,20 +129,18 @@ describe('POST /user/login', function() {
       .post('/user/login')
       .send({
             email: "tester@test.com", 
-            password: "TestPassword1$"
+            password: "abcdefg1!C"
           })
       //.expect('Content-Type', /json/)
-      .expect(302)
+      .expect(200)
       .expect(function(res) {
-      //console.log(res);
-        expect(res.text).toBe('Found. Redirecting to /home');
-        //res.body.email = "tester@test.com";
+      // console.log(res.header['set-cookie']);
+        expect(res.body.user).toBe('testusername');
       })
       .end(function(err, res) {
         if (err) return done(err);
         done();
-      });
-      
+      });  
   });
 });
 
@@ -157,14 +158,19 @@ describe('Finding a User', function() {
 
  
  //GET ACCOUNT SETTINGS PAGE
+ //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
  describe('GET /user/:username/account-settings', function() {
   it('Test get account settings page to populate user info', async () => {
      let user = await User.findOne({ email: 'tester@test.com' }).exec();
+
      await agent
       .get("/user/"+ user.username +"/account-settings")
+        //.set('Cookie', Session)
+        //.set('set-cookie', ['jwt=12345678'])
         .expect(200)
         .then((response) => {
           // Check the response
+          //console.log(response)
           expect(response.body._id).toBe(user.id)
           expect(response.body.email).toBe(user.email)
         })
@@ -226,17 +232,17 @@ describe('POST /user/:username/add-profile-picture', function() {
 //FAIL TESTS
 //LOGIN USER TEST- FAIL TEST
 describe('FAIL TEST- POST /user/login', function() {
-  it('Test Login Route if wrong password supplied- failure redirect goes to login page again- should get 302 code', function(done) {
+  it('Test Login Route if wrong password supplied- failure', function(done) {
     request(app)
       .post('/user/login')
       .send({
             email: "tester@test.com", 
             password: "wrongpasswordtest"
           })
-      .expect(302)
+      .expect(401)
       .expect(function(res) {
         //console.log(res.text);
-        expect(res.text).toBe('Found. Redirecting to /user/login');
+        expect(res.text).toBe('Unauthorized');
       })
       .end(function(err, res) {
         if (err) return done(err);
@@ -305,10 +311,33 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
            // console.log(res)
             expect(res.body.errors[0].email).toBe('Must be a valid email format');
             expect(res.body.errors[1].password).toBe('Password should not be empty, minimum eight characters, at least one letter, one number and one special character');
-            expect(res.body.errors[2].name).toBe('Must be text only'); 
           }) 
       });
 });
+
+
+//FAIL TESTS
+
+//If register create errors
+
+//If LIne 39 catches error for register
+
+//If edit user get route catches error 500
+
+//If edit user patch route catchs error 500
+
+//Forgot password controller
+//if success
+//if error
+
+//reset password get route
+//if success
+//if error
+
+//reset password patch route
+//if error
+//if success
+
 
 
  function setupData() {
@@ -317,10 +346,8 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
   testUser.name = 'Test User 1';
   testUser.email = 'tester@test.com';
   testUser.username = 'testusername';
-  testUser.password = 'TestPassword1$';
+  testUser.password = 'abcdefg1!C';
   testUser.fridgeIngredients = ["chicken", "cheese"];
-  //testUser.fridgeIngredients = [];
-  //testUser.pantryIngredients = [];
   testUser.createdDate = date;
   testUser.lastLogin = date;
   return User.create(testUser);

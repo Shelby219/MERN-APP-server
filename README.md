@@ -64,6 +64,7 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | Date | Feature | Test | Notes| 
 | Date | Feature | Test | Notes| 
 
+
 </details>
 
 ---
@@ -102,6 +103,15 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 22/12/2020 | POST Add new saved recipe | Passing | Line 74 of recipe controller allowed me to test using test user |
 | 22/12/2020 | DELETE A saved recipe | Passing |  |
 
+
+| 11/01/2020 | POST Forgot Password | &cross; | Notes| 
+| 11/01/2020 | GET Reset Password with token | &cross; | Notes| 
+| 11/01/2020 | PUT Reset Password in DB | &cross; | Notes| 
+| 11/01/2020 | Feature | &cross; | Notes| 
+| Date | Feature | &cross; | Notes| 
+
+
+
 #### Expect to Fail Tests
 | Date | Feature | Test | Notes| 
 |:---:|:---:|:---:|:---:|
@@ -110,7 +120,22 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 09/12/2020 | GET User Settings- Incorrect Params  | Passing |   |
 | 09/12/2020 | PATCH User Settings- Incorrect  Email, Password, Name Format  | Passing |   |
 | 22/12/2020 | GET Single Saved Recipes- Recipe ID not found  | Passing |  |
-
+| 11/01/2020 | POST Register Create- if Error is thrown when req.login| &cross; | Notes| 
+| 11/01/2020 | POST Register Create- if Error is thrown when creating user | &cross; | Notes| 
+| 11/01/2020 | GET User Settings- if Error is thrown  404 | &cross; | Notes| 
+| 11/01/2020 | PATCH User Settings- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | POST Forgot Password- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | GET Reset Password with token- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | PUT Reset Password in DB- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | GET All Ingredients- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | POST New Ingredient- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | DELETE A Ingredient- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | DELETE All Ingredients- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | GET Browse Recipes- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | GET Saved Recipes- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | GET A Recipe- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | DELETE A Recipe- if Error is initially thrown | &cross; | Notes| 
+| 11/01/2020 | DELETE A Recipe- if Error is thrown 500 | &cross; | Notes| 
 
 </details>
 
@@ -251,7 +276,7 @@ The initial connecting of the front-end and back-end was started. This started a
 
 
 
-#### Sprint 3- 28/12/20 - 10/1/21
+#### Sprint 4- 28/12/20 - 10/1/21
 
 <details>
 <summary>Click to expand</summary>
@@ -265,7 +290,7 @@ Some refining of a basic footer and the top logo for linking back to the home pa
 Adjusted the user profile image styling as Adrienne was going to be implementing this code. 
 Not found page was implementing and styled.
 
-Loading screen was implemented with React Loading to enable a loading time frame for browse recipes, fridge, pantry and eventually saved recipes. To ensure the data has loaded correctly. 
+Loading screen was implemented with React Loading to enable a loading time frame for browse recipes, fridge, pantry and eventually saved recipes. To ensure the data has loaded correctly. The initial of adding transitions and effects for better user experience was started. 
 
 BROWSE RECIPES
 
@@ -309,7 +334,9 @@ This above caused issue with for example it would update the wrong users profile
 
 A fix was made for the Regex for registering a user and the username, this was fixed so as to allow for usernames of 5 letters or more. 
 
-A major blocker was the user password being rehashed each log in/update. This was able to be fixed with a model pre function which checked if the password was modified, and hashes the new one, as opposed to rehashing the hashed one. This code fixed the issue, but that are some ongoing problems with updating the user settings from client, which may need some loading time for this back end code to operate successfully.
+A major blocker was the user password being rehashed each log in/update. It was thought that this was fixed with a pre mongoose model method, however it was discovered it was just the ingredients adding and saving that was overriding the current users information and rehashing the password. When they was changed to findOneAndUpdate instead of FindByID this issue was fixed.  
+
+Another issue was on initial login the users current profile image was not loaded until navigating to the settings page, this was due to the DB not loading the profile on initial home page render. This was fixed by doing a single DB call to get the profile image and save in redux so that it would load on first login. 
 
 INGREDIENTS
 
@@ -328,18 +355,37 @@ Blockers:
 Password being hashed on hash.
 Local storage holding JSON file, needed to pass string and then parse back our to JSON for render
 
+HOME:
+
+A json file with random food jokes was created and utilised on the home page to display random food jokes. This was done as a JSON file to enable new jokes to be added later.
 
 RESET PASSWORD:
 
-Node.js has a built in module called Crypto, which provides cryptographic functionality, which is a fancy way of saying, I can generate a unique hash token easily using the command .
+For a fuller user experience, I implementing a reset password feature via nodemailer and a built in module in Node.js called crypto which will hash a unique token.
+This was implemented relatively quickly with an initial post route for clicking reset password, which opens a modal in React with a form which the user enters their email, then on submit it fires a function on the server which will check if the user is in the DB, sending back errors if not, then created a random token via crypto, then inserting this and a token expiring into the users document in MongoDB. Then via Nodemailer using a gmail accounted created for this application, it sends a basic template outlining the instructions for resetting their password with a link that will take the user to a reset password form. The get request for this form involves checking that the token in the link is in the users DB first before allowing the user to see the page. This subsequently the user can enter their new password in the form, which then submits a request to the DB to update the password, using the username, token and date less then expiring to ensure the correct user's password is updated. The main blockers during the process was determining the correct was the insert a field into a document, upsert was not working so after some research and trial and error the below was the correct code:
 
-
-
-
-
+````js
+{ 
+            returnNewDocument: true,
+            new: true,
+            strict: false
+          }
+````
+The strict: false allowed me to insert a field that was not in the current schema. 
+Additionally some other blockers, were ensuring there was enough time on the loading screen to make sure the server can fulfill the request, the function which sends the nodemailer can load slow at times, so ensuring there were enough seconds to allow for this was key. 
 
 
 </details>
 
 
+#### Sprint 5- 10/01- 19/01
+<details>
+<summary>Click to expand</summary>
 
+REVIEWING TESTING
+
+![Image of tests](./docs/testimage.png)
+
+Following a review using Istanbul of the server side test coverage, it was determined at least another 21 tests, most of them testing for errors would need to be written to increase test coverage. 
+
+</details>

@@ -5,7 +5,7 @@
     "main": "app.js",
     "scripts": {
         "test": "mocha",
-        "test-coverage": "nyc --reporter=text mocha",
+        "cover": "nyc --reporter=html --reporter=text mocha --exit",
         "start": "nodemon app.js"
     },
     "author": "Adrienne and Shelby",

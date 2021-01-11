@@ -52,7 +52,7 @@ const deleteIngredient = function(req, res) {
 		res.status(req.error.status)
 		res.send(req.error.message)
 	} else {
-		// execute the query from deletePost
+		// execute the query from deleteIngr
 		removeIngredient(req).exec(err => {
 			if (err) {
 				res.status(500)

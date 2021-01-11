@@ -19,11 +19,11 @@ function registerCreate(req, res, next) {
         if(err){
            console.log(err)
             next(err)
-            
+
         } else {
             //autoNewPreferences(user)
             console.log("User registered")
-            console.log(req.user)
+           // console.log(req.user)
             const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
             res.cookie("jwt", token);
             res.send(user);
@@ -44,29 +44,30 @@ function logOut(req, res) {
     req.logout();
     res.cookie("jwt", null, { maxAge: -1 });
     console.log('logged out user');
-    console.log('session object:', req.session);
-    console.log('req.user:', req.user);
+    //console.log('session object:', req.session);
+    //console.log('req.user:', req.user);
     res.sendStatus(200);
-    console.log("heraae ")
+    //console.log("heraae ")
     
 }
 
-function loginNew(req, res) {
-    //res.render("user/login");
-    res.send("this is login new");
-}
+// function loginNew(req, res) {
+//     //res.render("user/login");
+//     res.send("this is login new");
+// }
 
 
 
 
 function loginCreate(req, res) {
     console.log("hit here")
+   
     const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
     res.cookie("jwt", token);
        
     res.status(200);
     res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
-
+    //console.log(res)
  
  }
  
@@ -225,6 +226,9 @@ function sendResetPassword(req, res) {
   
     });  
 }
+
+
+
 // //DELETE USER
 // const removeUser = function (req, res) {
 //     // execute the query from deletePost
@@ -239,19 +243,6 @@ function sendResetPassword(req, res) {
 //         //res.redirect("/home")
 //     });
 // };
-
-// async function removeUser (req, res) {
-//     try {deleteUser(req.session.passport.user).exec(async (err) => {
-//         if (err) {
-//             res.status(500);
-//             return res.json({
-//                 error: err.message
-//             });
-//         }
-//         else {res.redirect("/home")}
-//     })}
-//     catch(err) {console.log(err)}
-// }
 
 
 

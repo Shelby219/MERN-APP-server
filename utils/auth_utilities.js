@@ -20,6 +20,7 @@ const updateForForgotPassword = function (req) {
        return User.findOne({email: req.body.email})
 };
 
+
 //Inserting the token into user
 const insertPasswordToken= function (user, token) {
     return  User.findOneAndUpdate({

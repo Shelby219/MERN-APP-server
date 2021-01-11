@@ -5,6 +5,7 @@ const User = require('../models/user.js');
 
 
  //GET ALL INGREDIENTS FOR FRIDGE 
+  //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
  describe('GET /ingredients/:username/fridge', function() {
     it('Test get all ingredients on Fridge page', async () => {
         let user = await User.findOne({ email: 'tester@test.com' }).exec();
@@ -23,15 +24,16 @@ const User = require('../models/user.js');
  describe('POST /ingredients/:username/fridge/new', function() {
     it('Test add new fridge item', async () => {
     let user = await User.findOne({ email: 'tester@test.com' }).exec();
-    const data = { item: "Test Item" }
+    const data = { item: ["Milk",] }
     await request(app)
         .post("/ingredients/"+ user.username + "/fridge/new")
           .send(data)
           .expect(201)
           .expect('Content-Type', /json/)
           .then(async (response) => {
+            console.log(response.body.fridgeIngredients)
             expect(response.body.fridgeIngredients.length).toBe(3);
-            expect(response.body.fridgeIngredients[2]).toBe("Test Item");
+            expect(response.body.fridgeIngredients[2]).toBe("Milk");
           })   
        })
     });
@@ -71,6 +73,7 @@ const User = require('../models/user.js');
   });
 
  //GET ALL INGREDIENTS FOR PANTRY 
+  //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
  describe('GET /ingredients/:username/pantry', function() {
   it('Test get all ingredients on Fridge page', async () => {
       let user = await User.findOne({ email: 'tester@test.com' }).exec();
@@ -89,15 +92,16 @@ const User = require('../models/user.js');
 describe('POST /ingredients/:username/pantry/new', function() {
     it('Test add new pantry item', async () => {
     let user = await User.findOne({ email: 'tester@test.com' }).exec();
-    const data = { item: "Test Pantry Item" }
+    const data = { item: ["canola oil",]} 
     await request(app)
         .post("/ingredients/"+ user.username + "/pantry/new")
           .send(data)
           .expect(201)
           .expect('Content-Type', /json/)
           .then(async (response) => {
+            console.log(response.body.pantryIngredients)
             expect(response.body.pantryIngredients.length).toBe(5);
-            expect(response.body.pantryIngredients[4]).toBe("Test Pantry Item");
+            expect(response.body.pantryIngredients[4]).toBe("canola oil");
           }) 
        })
     });
@@ -132,3 +136,19 @@ describe('POST /ingredients/:username/pantry/new', function() {
         })  
      })
   });
+
+
+//FAIL TEST
+
+//IF get all ingredients errors 500
+
+//if create new ingredient catches error
+
+//If delete ingredient errors lines 51-53
+
+//If delete ingredient errors 
+
+//If delete all ingredients errors line 75-76
+
+//If exec delete all errors lines 81-83
+

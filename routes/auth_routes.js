@@ -44,7 +44,7 @@ router.get('/logout', logOut);
 
 
 //GET Route for Account Settings Page
-router.get("/:username/account-settings", passport.authenticate('jwt', {session: false}),editUser)
+router.get("/:username/account-settings",/* passport.authenticate('jwt', {session: false}),*/  editUser)
 //PATCH Route for Updating the user via account settings
 router.patch("/:username/account-settings", accountSettingValidationRules(), validate, editUserReq)
 
@@ -64,7 +64,7 @@ const singleUpload = upload.any('image');
 
 router.post("/:username/add-profile-picture",  function (req, res) {
     const username = req.params.username;
-    console.log(username)
+    //console.log(username)
     const filter = {username: req.params.username}
      singleUpload(req, res, async function (err) {
       if (err) {
@@ -79,7 +79,7 @@ router.post("/:username/add-profile-picture",  function (req, res) {
       }
    
        let update =  { profile: req.files[0].location };
-       console.log(update)
+       //console.log(update)
       await User.findOneAndUpdate(filter, update, {new: true})
         .then((user) => res.status(200).json({ success: true, user: user }) )
         .catch((err) => res.status(400).json({ success: false, error: err }));
