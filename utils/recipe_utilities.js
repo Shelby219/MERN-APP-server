@@ -13,6 +13,7 @@ const {
 
 
 const returnRecipesToBrowse = async (req) => {
+  //console.log(req.user)
    const recipes = await User.findOne({ username: req.user.username })
     .then(recipes =>  userQueryBuilder(recipes))
     .then(queryItems =>  sanitizeDataForIngredientQuery(queryItems))
@@ -25,8 +26,8 @@ const returnRecipesToBrowse = async (req) => {
 
 
 const getAllSavedRecipes = function (req) {
- return SavedRecipe.find({ username: 'testusername'})  //for testing purposes only
-  //return SavedRecipe.find({ username: req.user.username })
+ //return SavedRecipe.find({ username: 'testusername'})  //for testing purposes only
+  return SavedRecipe.find({ username: req.user.username })
 }
 
 const getSingleRecipe =  function (req) {

@@ -69,28 +69,28 @@ async function recipeIdGetter(recipesObject) {
 
 
 
-let test = [{
-   id: 1,
-   vegetarian: false,
-   vegan: false,
-   glutenFree: true,
-   dairyFree: false,
-   veryHealthy: true,
-   cheap: false,
-   veryPopular: false,
-   sustainable: false
-},
-   {
-   id: 2,
-   vegetarian: true,
-   vegan: false,
-   glutenFree: true,
-   dairyFree: false,
-   veryHealthy: false,
-   cheap: false,
-   veryPopular: false,
-   sustainable: false
-}]
+// let test = [{
+//    id: 1,
+//    vegetarian: false,
+//    vegan: false,
+//    glutenFree: true,
+//    dairyFree: false,
+//    veryHealthy: true,
+//    cheap: false,
+//    veryPopular: false,
+//    sustainable: false
+// },
+//    {
+//    id: 2,
+//    vegetarian: true,
+//    vegan: false,
+//    glutenFree: true,
+//    dairyFree: false,
+//    veryHealthy: false,
+//    cheap: false,
+//    veryPopular: false,
+//    sustainable: false
+// }]
 
 // async function recipeFilterFromPref(recipes, preferences) { 
 //     const filteredPerson = await recipes.filter(function(r) {

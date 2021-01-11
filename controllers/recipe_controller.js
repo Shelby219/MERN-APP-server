@@ -68,8 +68,8 @@ const makeSavedRecipe = function (req, res) {
 	const date = new Date()
 	req.body.modified_date = date
 	// add the username from req.user
-	//req.body.username = req.user.username
-	req.body.username = "testusername"  //THIS IS only for test purposes
+	req.body.username = req.user.username
+	//req.body.username = "testusername"  //THIS IS only for test purposes
 	addSavedRecipe(req).save((err, savedRecipe) => {
 		if (err) {
 			res.status(500)
