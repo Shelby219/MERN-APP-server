@@ -8,6 +8,7 @@ const {
 const { basedOnPreferenceExtractor} = require('../helpers/recipe_helper')
 const app = require('../app.js'); 
 
+
  //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
 describe('Recipe Utils Display Recipes- API Call Functions', () => {
     it('Test recipe utils with returns recipes for browsing', async function () {
@@ -58,6 +59,7 @@ describe('GET /recipes/id', function() {
         })
     });
 
+    
 //GET SINGLE RECIPE PAGE- IF NOT IN DB
 describe('GET /recipes/id', function() {
     it('Test get a single saved-recipes calling Spoonacular API',   () => {

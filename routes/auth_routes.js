@@ -44,7 +44,7 @@ router.get('/logout', logOut);
 
 
 //GET Route for Account Settings Page
-router.get("/:username/account-settings",/* passport.authenticate('jwt', {session: false}),*/  editUser)
+router.get("/:username/account-settings", passport.authenticate('jwt', {session: false}),  editUser)
 //PATCH Route for Updating the user via account settings
 router.patch("/:username/account-settings", accountSettingValidationRules(), validate, editUserReq)
 

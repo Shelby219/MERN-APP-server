@@ -1,5 +1,6 @@
 const expect = require('expect');
 const request = require('supertest');
+const authRequest = require('superagent');
 const { CookieAccessInfo } = require('cookiejar')
 const jwt = require("jsonwebtoken");
 const crypto = require('crypto');
@@ -18,6 +19,7 @@ const SavedRecipe = require('../models/recipe');
 const app = require('../app.js'); 
 //request = request('http://localhost:5555');
 const agent = request.agent(app);
+//const user1 = request.agent(app);
 
 before((done) => {
   // Connect to the database (same as we do in app.js)
@@ -34,26 +36,26 @@ beforeEach(async function () {
     let user = await setupData();
     let savedRecipe = await setUpRecipeData();
     UserId = user._id;
-       
 });
 
-// before(async function () {
-//   it('Login User beforehand', async function (done) {
-//       await request(app)
-//         .post('/user/login')
-//         .send({
-//               email: "tester@test.com", 
-//               password: "abcdefg1!C"
-//             })
-//         .end(function(err, res) {
-//           if (err) return done(err);
-//           Session = res.headers["set-cookie"];
-//           console.log(Session) 
-//           done();
-//         });  
-//   });
-// });       
-
+var SetCookie = null;
+beforeEach( function () {
+ agent
+  .post('/user/login')
+  .send({email: "tester@test.com", password: "abcdefg1!C"})
+  .end( function(err, res) {
+    // user1 will manage its own cookies
+    // res.redirects contains an Array of redirects
+    //console.log(res)
+  
+    if (err) {
+      throw err;
+    }
+   console.log(res.headers['set-cookie'])
+    SetCookie = res.headers['set-cookie']
+    
+  });  
+});
 
  //GET REGISTER USER PAGE
  describe('GET /user/register', function() {
@@ -135,10 +137,9 @@ describe('POST /user/login', function() {
             email: "tester@test.com", 
             password: "abcdefg1!C"
           })
-      //.expect('Content-Type', /json/)
+      .expect('Content-Type', /json/)
       .expect(200)
       .expect(function(res) {
-      // console.log(res.header['set-cookie']);
         expect(res.body.user).toBe('testusername');
       })
       .end(function(err, res) {
@@ -163,18 +164,17 @@ describe('Finding a User', function() {
  
  //GET ACCOUNT SETTINGS PAGE
  //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
- describe('GET /user/:username/account-settings', function() {
+ describe.only('GET /user/:username/account-settings', function() {
   it('Test get account settings page to populate user info', async () => {
      let user = await User.findOne({ email: 'tester@test.com' }).exec();
 
      await agent
       .get("/user/"+ user.username +"/account-settings")
-        //.set('Cookie', Session)
-        //.set('set-cookie', ['jwt=12345678'])
-        .expect(200)
+        //.set('Cookie', SetCookie)
+        //.expect(200)
         .then((response) => {
           // Check the response
-          //console.log(response)
+          console.log(response.header)
           expect(response.body._id).toBe(user.id)
           expect(response.body.email).toBe(user.email)
         })
@@ -229,7 +229,7 @@ describe('POST /user/:username/add-profile-picture', function() {
 
 
 //EXPIRED LINK TEST- GET PASSWORD RESET
- describe.only('GET /user/reset-password', function() {
+ describe('GET /user/reset-password', function() {
   it('Test get reset password page ', async () => {
      const token = crypto.randomBytes(20).toString('hex');
      let user = await User.findOne({ email: 'tester@test.com' }).exec();

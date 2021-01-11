@@ -109,9 +109,6 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 11/01/2020 | GET Reset Password with token- expired link| Passing | Notes| 
 | 11/01/2020 | PUT Reset Password in DB | &cross; | Notes| 
 | 11/01/2020 | Feature | &cross; | Notes| 
-| Date | Feature | &cross; | Notes| 
-
-
 
 #### Expect to Fail Tests
 | Date | Feature | Test | Notes| 
