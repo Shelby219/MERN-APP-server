@@ -17,9 +17,10 @@ function registerCreate(req, res, next) {
     const newUserHandler = (user) => {
         req.login(user, (err) => {
         if(err){
-           console.log(err)
+            console.log(err)
+            //console.log('error');
             next(err)
-
+           // res.send(err);
         } else {
             //autoNewPreferences(user)
             console.log("User registered")
@@ -36,7 +37,8 @@ function registerCreate(req, res, next) {
     User.create({ email, password, username})
         .then(newUserHandler)
         //.then(autoNewPreferences(user))
-        .catch(x => console.log("error" + x))
+        .catch(x => 
+            console.log("error" + x))
 }
 
 function logOut(req, res) {
@@ -51,10 +53,10 @@ function logOut(req, res) {
     
 }
 
-// function loginNew(req, res) {
-//     //res.render("user/login");
-//     res.send("this is login new");
-// }
+function loginNew(req, res) {
+    //res.render("user/login");
+    res.send("this is login new");
+}
 
 
 

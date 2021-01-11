@@ -291,6 +291,7 @@ describe('FAIL TEST- POST /user/register', function () {
      })
   });
 
+
 //EDIT ACCOUNT SETTINGS TEST- FAIL TEST
 describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
   it('Test update account settings user endpoint with non valid data', async function () {
@@ -320,6 +321,34 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
 
 //If register create errors
 
+//REGISTER USER TEST- FAIL TEST
+describe.only('FAIL TEST- POST /user/register', function () {
+  let data = {
+     	name: 'Fail Test Name',
+     	email: 'failtest@test.com',
+      password: 'abcdefg1!C',
+      username: 'Failnewuser',
+     	}
+  it('Test register user with email already existing respond with 500 server error', function (done) {
+   // this.timeout(10000) 
+      request(app)
+          .post('/user/register')
+          .send(data)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          //.expect(422)
+          .expect(function(res) {
+            //console.log(res)
+            res.body.errors.email = "E-mail already in use";
+          })
+          .end(function(err, res) {
+            if (err) return done(err);
+            //console.log(res.body);
+            done();
+          })
+          
+      });
+});
 //If LIne 39 catches error for register
 
 //If edit user get route catches error 500
