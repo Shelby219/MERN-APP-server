@@ -18,7 +18,22 @@ const userValidationRules = () => {
             });
           });
         }),
-        body('password').isStrongPassword({ minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).withMessage('Password should not be empty, minimum eight characters, at least one letter, one number and one special character')
+        body('password').isStrongPassword({ minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}).withMessage('Password should not be empty, minimum eight characters, at least one letter, one number and one special character'),
+        body('username').isLength({ min: 5 }).withMessage('Must be 5 or more characters').custom(value => {
+          return new Promise((resolve, reject) => {
+            User.findOne({username:value}, function(err, user){
+              if(err) {
+                reject(new Error('Server Error'))
+              }
+              if(Boolean(user)) {
+               
+                reject(new Error('Username already in use'))
+              }
+    
+              resolve(true)
+            });
+          });
+        }),
       ]
   }
  

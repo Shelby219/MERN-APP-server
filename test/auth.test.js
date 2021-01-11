@@ -2,11 +2,15 @@ const expect = require('expect');
 const request = require('supertest');
 const { CookieAccessInfo } = require('cookiejar')
 const jwt = require("jsonwebtoken");
+const crypto = require('crypto');
 const {
   connectToDb,
   disconnectFromDb
 } = require('./config');
 
+const {
+  insertPasswordToken
+} = require('../utils/auth_utilities');
 const User = require('../models/user');
 
 const SavedRecipe = require('../models/recipe');
@@ -224,6 +228,59 @@ describe('POST /user/:username/add-profile-picture', function() {
 });
 
 
+//EXPIRED LINK TEST- GET PASSWORD RESET
+ describe.only('GET /user/reset-password', function() {
+  it('Test get reset password page ', async () => {
+     const token = crypto.randomBytes(20).toString('hex');
+     let user = await User.findOne({ email: 'tester@test.com' }).exec();
+     await insertPasswordToken(user, token)
+     
+     let checkuser = await User.findOne({ email: 'tester@test.com' }).exec();
+     // console.log(checkuser)
+     await request(app)
+      .get("/user/reset-password", {
+        params: {
+          resetPasswordToken: checkuser.resetPasswordToken,
+        }})
+        .expect(403)
+        .then(async (response) => {
+          // Check the response
+          //console.log(response)
+          expect(response.text).toBe('password reset link is invalid or has expired')
+        })
+       
+      })
+  });
+
+
+
+
+ //EDIT ACCOUNT SETTINGS TEST
+describe('PATCH /user/:username/account-settings', function() {
+it('Test update account settings route', async () => {
+  //console.log(UserId)
+    let user = await User.findOne({ email: 'tester@test.com' }).exec();
+    const data = {
+      email: "updatetest@test.com", 
+      password: "TestPassword1$new",
+      name: "Change Name"
+    }
+    await request(app)
+		.patch("/user/"+ user.username +"/account-settings")
+      .send(data)
+      .expect(200)
+      .then(async (response) => {
+        // Check the response
+        //expect(response.body._id).toBe(user.id)
+        expect(response.body.email).toBe(data.email)
+
+        // Check the data in the database
+        const newUpdateUser =  await User.findOne({ _id: response.body._id })
+        expect(newUpdateUser).toBeTruthy()
+        expect(newUpdateUser.email).toBe(data.email)
+      })
+   })
+});
 
 
 
@@ -299,8 +356,8 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
     let data = {
       name: 'Test Name33',
       email: 'wrongformatemail',
-     password: 'wrongformatpassword',
-     username: 'newtestuser44',
+      password: 'wrongformatpassword',
+      username: 'newtestuser44',
       }
       await request(app)
           .patch("/user/"+ user.username +"/account-settings")
@@ -319,27 +376,27 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
 
 //FAIL TESTS
 
-//If register create errors
 
 //REGISTER USER TEST- FAIL TEST
-describe.only('FAIL TEST- POST /user/register', function () {
+describe('FAIL TEST- POST /user/register', function () {
   let data = {
      	name: 'Fail Test Name',
      	email: 'failtest@test.com',
       password: 'abcdefg1!C',
-      username: 'Failnewuser',
+      username: 'testusername',
      	}
-  it('Test register user with email already existing respond with 500 server error', function (done) {
+  it('Test register user with username already existing respond with 422 server error', function (done) {
    // this.timeout(10000) 
       request(app)
           .post('/user/register')
           .send(data)
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
-          //.expect(422)
+          .expect(422)
           .expect(function(res) {
             //console.log(res)
-            res.body.errors.email = "E-mail already in use";
+            expect(res.body.errors[0].username).toBe("Username already in use");
+            //res.body.errors.email = "E-mail already in use";
           })
           .end(function(err, res) {
             if (err) return done(err);
@@ -349,11 +406,31 @@ describe.only('FAIL TEST- POST /user/register', function () {
           
       });
 });
-//If LIne 39 catches error for register
 
-//If edit user get route catches error 500
+//REGISTER USER TEST- FAIL TEST
+describe('FAIL TEST- POST /user/register', function () {
+  let data = {
+     	baddata: 'blahblah',
+     	}
+  it('Test register user with bad data respond with 422 server error', function (done) {
+   // this.timeout(10000) 
+      request(app)
+          .post('/user/register')
+          .send(data)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(422)
+          .end(function(err, res) {
+            if (err) return done(err);
+            //console.log(res.body);
+            done();
+          })
+          
+      });
+});
 
-//If edit user patch route catchs error 500
+
+
 
 //Forgot password controller
 //if success

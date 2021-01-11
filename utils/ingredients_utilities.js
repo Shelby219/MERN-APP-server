@@ -18,6 +18,11 @@ const addIngredient = async function (req) {
     let user = await User.findOne({ username:  req.params.username }).exec();
     
     const newItem = req.body.item;
+    if (newItem) {
+        
+    } else {
+        throw new Error('Error adding ingredient');
+    }
   
     if (fridge) {
         user.fridgeIngredients.push(...newItem);
@@ -28,11 +33,7 @@ const addIngredient = async function (req) {
     } else {
         console.log("error message")
     }
-    //console.log("hit here")
-    //console.log(user)
-    // return User.findByIdAndUpdate(user._id, user, {
-    //     new: true //this is needed for updating
-    // });
+   
     return  User.findOneAndUpdate(
         { username: user.username },
         { fridgeIngredients: user.fridgeIngredients,
@@ -47,8 +48,13 @@ const removeIngredient = function (req) {
     let checker = req.path
     let fridge = checker.includes("fridge")
     let pantry = checker.includes("pantry")
-    console.log(fridge)
-    console.log(pantry)
+    //console.log(fridge)
+    //console.log(pantry)
+    if (req.body.item) {
+        
+    } else {
+        throw ('Error deleting ingredient');
+    }
     if (fridge) {
         console.log("delete Fridge Item")
         return  User.findOneAndUpdate(
@@ -64,7 +70,7 @@ const removeIngredient = function (req) {
             { new: true }
         )
     } else {
-        console.log("error message")
+        throw ('Error deleting ingredient');
     }
 };
 
@@ -74,24 +80,29 @@ const removeAllIngredients = function (req) {
     let checker = req.path
     let fridge = checker.includes("fridge")
     let pantry = checker.includes("pantry")
-    console.log(fridge)
-    console.log(pantry)
-    if (fridge) {
-        console.log("delete All Fridge Items")
-        return  User.findOneAndUpdate(
-            { username: req.params.username },
-            { $set: { fridgeIngredients: []} },
-            { new: true }
-        )
-    } else if (pantry) {
-        console.log("delete All pantry Items")
-        return  User.findOneAndUpdate(
-            { username: req.params.username },
-            { $set: { pantryIngredients: []} },
-            { new: true }
-        )
-    } else {
-        console.log("error message")
+    //console.log(fridge)
+    //console.log(pantry)
+   
+    try {
+        if (fridge) {
+            console.log("delete All Fridge Items")
+            return  User.findOneAndUpdate(
+                { username: req.params.username },
+                { $set: { fridgeIngredients: []} },
+                { new: true }
+            )
+        } else if (pantry) {
+            console.log("delete All pantry Items")
+            return  User.findOneAndUpdate(
+                { username: req.params.username },
+                { $set: { pantryIngredients: []} },
+                { new: true }
+            )
+        } else {
+            throw new Error('Error deleting all ingredients');
+        }
+    } catch (err) {	
+        throw new Error ('Error deleting all ingredients');
     }
 };
 

@@ -138,17 +138,139 @@ describe('POST /ingredients/:username/pantry/new', function() {
   });
 
 
-//FAIL TEST
+//FAIL TESTS
 
-//IF get all ingredients errors 500
+ // FAIL TEST-GET ALL INGREDIENTS FOR FRIDGE 
+//NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
+  describe('FAIL TEST - GET /ingredients/:username/fridge', function() {
+    it('Test get all ingredients on Fridge page with unknown user', async () => {
+        await request(app)
+        .get("/ingredients/"+ "sfdsf"+ "/fridge")
+          .expect(500)
+          .expect('Content-Type', /json/)
+          .then( (response) => {
+            //console.log(response)
+            expect(response.body.error).toBe("Error retrieving ingredients")
 
-//if create new ingredient catches error
+          })
+       })
+    });
 
-//If delete ingredient errors lines 51-53
 
-//If delete ingredient errors 
+ //FAIL TEST- GET ALL INGREDIENTS FOR PANTRY 
+  //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
+  describe('FAIL TEST- GET /ingredients/:username/pantry', function() {
+    it('Test get all ingredients on Pantry page with unknown user', async () => {
+        await request(app)
+        .get("/ingredients/"+ "sfsdf"+ "/pantry")
+          .expect(500)
+          .expect('Content-Type', /json/)
+          .then( (response) => {
+            expect(response.body.error).toBe("Error retrieving ingredients")
+  
+          })
+       })
+    });
 
-//If delete all ingredients errors line 75-76
 
-//If exec delete all errors lines 81-83
+
+
+
+//FAIL TEST- POST new Fridge Item TEST
+ describe('FAIL TEST- POST /ingredients/:username/fridge/new', function() {
+    it('Fail Test add new fridge item- invalid data', async () => {
+    let user = await User.findOne({ email: 'tester@test.com' }).exec();
+    const data = { rr: ["Milk",] }
+    await request(app)
+        .post("/ingredients/"+ user.username + "/fridge/new")
+          .send(data)
+          .expect(500)
+          .expect('Content-Type', /json/)
+          .then(async (response) => {
+            //console.log(response)
+            expect(response.body.error).toBe("Error adding ingredient");
+          })   
+       })
+    });
+
+
+//FAIL TEST - POST new PANTRY Item TEST
+describe('FAIL TEST- POST /ingredients/:username/pantry/new', function() {
+  it('Test add new pantry item- invalid data', async () => {
+  let user = await User.findOne({ email: 'tester@test.com' }).exec();
+  const data = { rrrrr: ["canola oil",]} 
+  await request(app)
+      .post("/ingredients/"+ user.username + "/pantry/new")
+        .send(data)
+        .expect(500)
+        .expect('Content-Type', /json/)
+        .then(async (response) => {
+          expect(response.body.error).toBe("Error adding ingredient");
+        }) 
+     })
+  });
+
+
+//FAIL TEST- DELETE  Fridge Item TEST
+ describe('FAIL TEST- DELETE /ingredients/:username/fridge/delete', function() {
+    it('Fail Test with bad data delete fridge item', async () => {
+    let user = await User.findOne({ email: 'tester@test.com' }).exec();
+    const data = { rrr: "cheese" }
+    await request(app)
+        .delete("/ingredients/"+ user.username + "/fridge/delete")
+          .send(data)
+          .expect(500)
+          .then(async (response) => {
+         
+          })  
+       })
+    });
+
+
+  //FAIL TEST- DELETE  Pantry Item TEST
+  describe('FAIL TEST- DELETE /ingredients/:username/pantry/delete', function() {
+    it('Fail Test with bad data  delete pantry item ', async () => {
+    let user = await User.findOne({ email: 'tester@test.com' }).exec();
+    const data = { rrr: "water" }
+    await request(app)
+        .delete("/ingredients/"+ user.username + "/pantry/delete")
+          .send(data)
+          .expect(500)
+          .then((response) => {
+         
+          })  
+       })
+    });
+
+
+
+//FAIL TEST - DELETE ALL Fridge Items TEST
+ describe('FAIL TEST- DELETE /ingredients/:username/fridge/clear-all', function() {
+  it('Fail Test with bad params delete all fridge items', async () => {
+
+  await request(app)
+      .delete("/ingredients/"+ "adsadsaf" + "/fridge/clear-all")
+        .expect(500)
+        .then(async (response) => {
+          expect(response.body.error).toBe("Error deleting ingredients");
+        })  
+     })
+  });
+
+
+
+//FAIL TEST- DELETE ALL Pantry Items TEST
+ describe('FAIL TEST- DELETE /ingredients/:username/pantry/clear-all', function() {
+  it('Fail Test with bad params delete all pantry items', async () => {
+  
+  await request(app)
+      .delete("/ingredients/"+ "adasdasd" + "/pantry/clear-all")
+        .expect(500) 
+        .then(async (response) => {
+          expect(response.body.error).toBe("Error deleting ingredients");
+        })  
+     })
+  });
+
+
 

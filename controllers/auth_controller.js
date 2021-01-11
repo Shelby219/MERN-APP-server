@@ -38,7 +38,7 @@ function registerCreate(req, res, next) {
         .then(newUserHandler)
         //.then(autoNewPreferences(user))
         .catch(x => 
-            console.log("error" + x))
+            res.send(x))
 }
 
 function logOut(req, res) {
@@ -80,7 +80,7 @@ function editUser(req, res) {
      getUserByParam(req).exec((err, user) => {
         if (err) {
             // handle error
-            res.status(404);
+            res.status(500);
             //console.log(err)
             return res.json({
                 error: err.message
@@ -126,7 +126,7 @@ function editUserReq(req, res) {
 
 
 
-
+//Forgot password POST ROUTE
 function forgotPassword (req, res) {
     if(req.body.email ===''){
         res.status(400).send('email required');
@@ -191,7 +191,7 @@ function forgotPassword (req, res) {
 //Reset password GET ROUTE
 function resetPassword (req, res) {
     //console.log(req)
-  //  console.log(req.query.resetPasswordToken)
+   //console.log("cec", req.query)
     findForResetPassword(req).then((user) => {
         //console.log(user)
         if (user == null) {

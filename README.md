@@ -106,6 +106,7 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 
 | 11/01/2020 | POST Forgot Password | &cross; | Notes| 
 | 11/01/2020 | GET Reset Password with token | &cross; | Notes| 
+| 11/01/2020 | GET Reset Password with token- expired link| Passing | Notes| 
 | 11/01/2020 | PUT Reset Password in DB | &cross; | Notes| 
 | 11/01/2020 | Feature | &cross; | Notes| 
 | Date | Feature | &cross; | Notes| 
@@ -120,17 +121,23 @@ Collaboratively tracked in Trello, see <a href="#trellologs">Trello Screen Shots
 | 09/12/2020 | GET User Settings- Incorrect Params  | Passing |   |
 | 09/12/2020 | PATCH User Settings- Incorrect  Email, Password, Name Format  | Passing |   |
 | 22/12/2020 | GET Single Saved Recipes- Recipe ID not found  | Passing |  |
-| 11/01/2020 | POST Register Create- if Error is thrown when req.login| &cross; | Notes| 
-| 11/01/2020 | POST Register Create- if Error is thrown when creating user | &cross; | Notes| 
-| 11/01/2020 | GET User Settings- if Error is thrown  404 | &cross; | Notes| 
-| 11/01/2020 | PATCH User Settings- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | POST Register Create- username already existing| Passing | Notes| 
+| 11/01/2020 | POST Register Create- if Error is thrown when creating user | Passing | Notes| 
+ 
 | 11/01/2020 | POST Forgot Password- if Error is thrown 500 | &cross; | Notes| 
 | 11/01/2020 | GET Reset Password with token- if Error is thrown 500 | &cross; | Notes| 
 | 11/01/2020 | PUT Reset Password in DB- if Error is thrown 500 | &cross; | Notes| 
-| 11/01/2020 | GET All Ingredients- if Error is thrown 500 | &cross; | Notes| 
-| 11/01/2020 | POST New Ingredient- if Error is thrown 500 | &cross; | Notes| 
-| 11/01/2020 | DELETE A Ingredient- if Error is thrown 500 | &cross; | Notes| 
-| 11/01/2020 | DELETE All Ingredients- if Error is thrown 500 | &cross; | Notes| 
+
+| 11/01/2020 | GET All Ingredients-Fridge- if Error is thrown 500 | Passing | Notes| 
+| 11/01/2020 | GET All Ingredients-Pantry- if Error is thrown 500 | Passing | Notes| 
+| 11/01/2020 | POST New Ingredient-Fridge-- if Error is thrown 500 | Passing | Notes| 
+| 11/01/2020 | POST New Ingredient-Pantry-- if Error is thrown 500 | Passing | Notes| 
+| 11/01/2020 | DELETE A Ingredient-Fridge- if Error is thrown 500 | Passing | Notes| 
+| 11/01/2020 | DELETE A Ingredient-Pantry- if Error is thrown 500 | Passing | Notes| 
+| 11/01/2020 | DELETE All Ingredients-Pantry- if Error is thrown 500 | Passing | Notes| 
+| 11/01/2020 | DELETE All Ingredients-Fridge- if Error is thrown 500 | Passing | Notes| 
+
+
 | 11/01/2020 | GET Browse Recipes- if Error is thrown 500 | &cross; | Notes| 
 | 11/01/2020 | GET Saved Recipes- if Error is thrown 500 | &cross; | Notes| 
 | 11/01/2020 | GET A Recipe- if Error is thrown 500 | &cross; | Notes| 
