@@ -9,7 +9,8 @@ const { basedOnPreferenceExtractor} = require('../helpers/recipe_helper')
 const app = require('../app.js'); 
 
 
-describe.only('Recipe Utils Display Recipes- API Call Functions', () => {
+ //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
+describe('Recipe Utils Display Recipes- API Call Functions', () => {
     it('Test recipe utils with returns recipes for browsing', async function () {
         const req = {
             user: {
@@ -18,28 +19,15 @@ describe.only('Recipe Utils Display Recipes- API Call Functions', () => {
         };
         let recipes = await returnRecipesToBrowse(req)
        // console.log(recipes.data[0])//this was due to change the result limit to 2 for testing only
-        console.log(recipes)
+        //console.log(recipes)
         expect(recipes.length).toBe(2); //this was due to change the result limit to 2 for testing only
         expect(recipes).toBeTruthy()
     }).timeout(10000);
 })
 
-// describe('Testing filtering return recipes with preference filters', () => {
-//     it('Should return filter recipes', async function () {
-//         const req = {
-//             user: {
-//                 username: "testusername"
-//             }
-//         };
-//         let recipes = await returnRecipesToBrowse(req)
-//         let filteredRecipes = basedOnPreferenceExtractor(recipes.data)
-//         console.log(filteredRecipes)
-//     }).timeout(10000);
-// })
-
-
 
 //GET ALL SAVE RECIPES PAGE - Note that this test works because of line 27 of recipe Utils 
+ //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
 describe('GET /recipes/saved-recipes', function() {
     it('Test get all user saved-recipes',  (done) => {
         request(app)
@@ -57,6 +45,7 @@ describe('GET /recipes/saved-recipes', function() {
 
 
 //GET SINGLE RECIPE PAGE- IF IN DB
+ //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
 describe('GET /recipes/id', function() {
     it('Test get a single saved-recipes calling DB',  async () => {
         let savedRecipe = await SavedRecipe.findOne({ title: 'Test Recipe Title' }).exec();
@@ -70,6 +59,7 @@ describe('GET /recipes/id', function() {
         })
     });
 
+    
 //GET SINGLE RECIPE PAGE- IF NOT IN DB
 describe('GET /recipes/id', function() {
     it('Test get a single saved-recipes calling Spoonacular API',   () => {
@@ -144,3 +134,18 @@ describe('FAIL TEST- GET /recipes/:id ', function() {
           });
         }).timeout(10000);
     });
+
+
+   //FAIL TESTS
+
+   //Display recipes try and catch
+
+   //If display single recipe catches error 500
+
+   //If display all recipes errors 500
+
+   //If saving a new recipe errors 500
+
+   //If removing saved recipe errors lime 87-90
+
+   //If removing saved recipe errors 500

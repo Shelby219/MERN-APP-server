@@ -7,12 +7,56 @@ const getUserByParam = function (req) {
     return  User.findOne({ username: req.params.username });
 };
  
+//For update settings
 const updateUser = function (req) {
- //can pass req.body through as update as the body gets prefilled with data from DB
     return User.findOneAndUpdate({username: req.params.username}, req.body, {
         new: true
     });
 };
+
+
+//For sending reset link
+const updateForForgotPassword = function (req) {
+       return User.findOne({email: req.body.email})
+};
+
+
+//Inserting the token into user
+const insertPasswordToken= function (user, token) {
+    return  User.findOneAndUpdate({
+         email: user.email}, 
+        {resetPasswordToken: token,
+        resetPasswordExpires: Date.now() + 3600000,}, 
+        { //options
+            returnNewDocument: true,
+            new: true,
+            strict: false
+          } );
+};
+
+//For checking password page get request
+const findForResetPassword = function (req) {
+    return User.findOne({ 
+        resetPasswordToken: req.query.resetPasswordToken,
+        resetPasswordExpires: {$gt: Date.now(),
+        },},)
+};
+  
+
+//For updating the new password
+const findForUpdatePassword = function (req) {
+    console.log("hit here")
+    console.log(req)
+        return User.findOneAndUpdate({ 
+            username: req.body.username,
+            resetPasswordToken: req.body.resetPasswordToken,
+            resetPasswordExpires: {$gt: Date.now(),
+            },}, {password: req.body.password}, {
+            new: true
+        });
+};
+
+
 
 
 
@@ -21,4 +65,11 @@ const updateUser = function (req) {
 const deleteUser = function (id) {
     return User.findByIdAndRemove(id);
 };
-module.exports = {updateUser, deleteUser, getUserByParam}
+
+module.exports = {updateUser, 
+    deleteUser, 
+    getUserByParam, 
+    updateForForgotPassword,
+    findForResetPassword,
+    findForUpdatePassword,
+    insertPasswordToken}

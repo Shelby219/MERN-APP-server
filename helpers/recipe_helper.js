@@ -64,54 +64,63 @@ async function recipeIdGetter(recipesObject) {
 }
 
 
-//TESTING
-
-// console.log(recipeIdGetter([
-//     {
-//       id: 1142012,
-//       title: 'Feta-Brined Roast Chicken',
-//       image: 'https://spoonacular.com/recipeImages/1142012-312x231.jpg',
-//       imageType: 'jpg',
-//       usedIngredientCount: 3,
-//       missedIngredientCount: 4,
-//       missedIngredients: [ [Object], [Object], [Object], [Object] ],
-//       usedIngredients: [ [Object], [Object], [Object] ],
-//       unusedIngredients: [ [Object] ],
-//       likes: 1
-//     },
-//     {
-//       id: 38606,
-//       title: 'Chicken Stewed In Garlic And Cinnamon',
-//       image: 'https://spoonacular.com/recipeImages/38606-312x231.jpg',
-//       imageType: 'jpg',
-//       usedIngredientCount: 2,
-//       missedIngredientCount: 5,
-//       missedIngredients: [ [Object], [Object], [Object], [Object], [Object] ],
-//       usedIngredients: [ [Object], [Object] ],
-//       unusedIngredients: [],
-//       likes: 19
-//     }
-//   ]))
 
 
-//This is for filtering based off preferences TBA
-function basedOnPreferenceExtractor(recipeDataArray) { 
-   let newArray = recipeDataArray.filter(function(r) {
-        return r.vegetarian === true ||
-        r.vegan === true ||
-        r.glutenFree=== true ||
-        r.dairyFree === true ||
-        r.veryHealthy === true ||
-        r.cheap === true ||
-        r.veryPopular === true ||
-        r.sustainable === true ||
-        r.lowFodmap === true 
-   });
-   return newArray
-}
+
+
+
+let test = [{
+   id: 1,
+   vegetarian: false,
+   vegan: false,
+   glutenFree: true,
+   dairyFree: false,
+   veryHealthy: true,
+   cheap: false,
+   veryPopular: false,
+   sustainable: false
+},
+   {
+   id: 2,
+   vegetarian: true,
+   vegan: false,
+   glutenFree: true,
+   dairyFree: false,
+   veryHealthy: false,
+   cheap: false,
+   veryPopular: false,
+   sustainable: false
+}]
+
+// async function recipeFilterFromPref(recipes, preferences) { 
+//     const filteredPerson = await recipes.filter(function(r) {
+//       r.vegetarian === preferences[vegetarian] ||
+//       r.vegan === preferences[vegan] ||
+//       r.glutenFree  === preferences[glutenFree] ||
+//       r.dairyFree === preferences[dairyFree] ||
+//       r.veryHealthy === preferences[veryHealthy] ||
+//       r.cheap === preferences[cheap] ||
+//       r.veryPopular === preferences[veryPopular] ||
+//       r.sustainable === preferences[sustainable] 
+//    });
+
+//    console.log(filteredPerson)
+// }
+
+// let testPref = {
+//     vegetarian: true,
+//     vegan: true,
+//     glutenFree: true,
+//     dairyFree: true,
+//     veryHealthy: true,
+//     cheap: true,
+//     veryPopular: true,
+//     sustainable: true,
+// }
+// recipeFilterFromPref(test, testPref) 
+
 
 module.exports = {
     userQueryBuilder,
-    basedOnPreferenceExtractor,
     recipeIdGetter
 }

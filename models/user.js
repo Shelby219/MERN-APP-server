@@ -19,7 +19,7 @@ const User = new Schema({
         type: String,
         unique: true,
         require: true,
-        default: "user"
+        default: ""
     },
     profile: {
         type: String,

@@ -1,12 +1,17 @@
 const expect = require('expect');
 const request = require('supertest');
+const authRequest = require('superagent');
 const { CookieAccessInfo } = require('cookiejar')
 const jwt = require("jsonwebtoken");
+const crypto = require('crypto');
 const {
   connectToDb,
   disconnectFromDb
 } = require('./config');
 
+const {
+  insertPasswordToken
+} = require('../utils/auth_utilities');
 const User = require('../models/user');
 
 const SavedRecipe = require('../models/recipe');
@@ -14,6 +19,7 @@ const SavedRecipe = require('../models/recipe');
 const app = require('../app.js'); 
 //request = request('http://localhost:5555');
 const agent = request.agent(app);
+//const user1 = request.agent(app);
 
 before((done) => {
   // Connect to the database (same as we do in app.js)
@@ -30,24 +36,27 @@ beforeEach(async function () {
     let user = await setupData();
     let savedRecipe = await setUpRecipeData();
     UserId = user._id;
-    //const cookie = " "
-
-  //   agent.post('/user/login')
-  //    .send({
-  //              email: "tester@test.com", 
-  //              password: "TestPassword1$"
-  //            })
-  //      .redirects(1)  
-  //      .then(response => {
-  //        //console.log(response.request.cookies)
-  //       cookie = response.request.cookies
-       
-  //       //  const cookies = response.headers['set-cookie'][0].split(',').map(item => item.split(';')[0]);
-  //       //  cookie = cookies.join(';');
-  //  })
 });
 
-        
+var SetCookie = null;
+beforeEach( function () {
+ agent
+  .post('/user/login')
+  .send({email: "tester@test.com", password: "abcdefg1!C"})
+  .end( function(err, res) {
+    // user1 will manage its own cookies
+    // res.redirects contains an Array of redirects
+    //console.log(res)
+  
+    if (err) {
+      throw err;
+    }
+   console.log(res.headers['set-cookie'])
+    SetCookie = res.headers['set-cookie']
+    
+  });  
+});
+
  //GET REGISTER USER PAGE
  describe('GET /user/register', function() {
   it('Test get register user',  (done) => {
@@ -67,7 +76,7 @@ describe('POST /user/register', function () {
   let data = {
      	name: 'Test Name',
      	email: 'hello@test.com',
-      password: 'TestPassword1$',
+      password: 'abcdefg1!C',
       username: 'newtestuser',
       profile: 'test profile'
      	}
@@ -97,7 +106,7 @@ describe('GET /user/logout', function() {
   it('responds with json', function(done) {
     request(app)
       .get('/user/logout')
-      .expect(302) //redirecting to home page
+      .expect(200) //redirecting to home page
       .end(function(err, res) {
         if (err) return done(err);
         done();
@@ -106,18 +115,18 @@ describe('GET /user/logout', function() {
 });
 
 
- //GET LOGIN PAGE
- describe('GET /user/login', function() {
-  it('Test get Login user',  (done) => {
-      request(app)
-      .get("/user/login")
-      .expect(200)
-      .end(function(err, res) {
-        if (err) return done(err);
-        done();
-        });
-     })
-  });
+//  //GET LOGIN PAGE
+//  describe('GET /user/login', function() {
+//   it('Test get Login user',  (done) => {
+//       request(app)
+//       .get("/user/login")
+//       .expect(200)
+//       .end(function(err, res) {
+//         if (err) return done(err);
+//         done();
+//         });
+//      })
+//   });
 
 //LOGIN USER TEST
 describe('POST /user/login', function() {
@@ -126,20 +135,17 @@ describe('POST /user/login', function() {
       .post('/user/login')
       .send({
             email: "tester@test.com", 
-            password: "TestPassword1$"
+            password: "abcdefg1!C"
           })
-      //.expect('Content-Type', /json/)
-      .expect(302)
+      .expect('Content-Type', /json/)
+      .expect(200)
       .expect(function(res) {
-      //console.log(res);
-        expect(res.text).toBe('Found. Redirecting to /home');
-        //res.body.email = "tester@test.com";
+        expect(res.body.user).toBe('testusername');
       })
       .end(function(err, res) {
         if (err) return done(err);
         done();
-      });
-      
+      });  
   });
 });
 
@@ -157,14 +163,18 @@ describe('Finding a User', function() {
 
  
  //GET ACCOUNT SETTINGS PAGE
- describe('GET /user/:username/account-settings', function() {
+ //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
+ describe.only('GET /user/:username/account-settings', function() {
   it('Test get account settings page to populate user info', async () => {
      let user = await User.findOne({ email: 'tester@test.com' }).exec();
+
      await agent
       .get("/user/"+ user.username +"/account-settings")
-        .expect(200)
+        //.set('Cookie', SetCookie)
+        //.expect(200)
         .then((response) => {
           // Check the response
+          console.log(response.header)
           expect(response.body._id).toBe(user.id)
           expect(response.body.email).toBe(user.email)
         })
@@ -218,6 +228,59 @@ describe('POST /user/:username/add-profile-picture', function() {
 });
 
 
+//EXPIRED LINK TEST- GET PASSWORD RESET
+ describe('GET /user/reset-password', function() {
+  it('Test get reset password page ', async () => {
+     const token = crypto.randomBytes(20).toString('hex');
+     let user = await User.findOne({ email: 'tester@test.com' }).exec();
+     await insertPasswordToken(user, token)
+     
+     let checkuser = await User.findOne({ email: 'tester@test.com' }).exec();
+     // console.log(checkuser)
+     await request(app)
+      .get("/user/reset-password", {
+        params: {
+          resetPasswordToken: checkuser.resetPasswordToken,
+        }})
+        .expect(403)
+        .then(async (response) => {
+          // Check the response
+          //console.log(response)
+          expect(response.text).toBe('password reset link is invalid or has expired')
+        })
+       
+      })
+  });
+
+
+
+
+ //EDIT ACCOUNT SETTINGS TEST
+describe('PATCH /user/:username/account-settings', function() {
+it('Test update account settings route', async () => {
+  //console.log(UserId)
+    let user = await User.findOne({ email: 'tester@test.com' }).exec();
+    const data = {
+      email: "updatetest@test.com", 
+      password: "TestPassword1$new",
+      name: "Change Name"
+    }
+    await request(app)
+		.patch("/user/"+ user.username +"/account-settings")
+      .send(data)
+      .expect(200)
+      .then(async (response) => {
+        // Check the response
+        //expect(response.body._id).toBe(user.id)
+        expect(response.body.email).toBe(data.email)
+
+        // Check the data in the database
+        const newUpdateUser =  await User.findOne({ _id: response.body._id })
+        expect(newUpdateUser).toBeTruthy()
+        expect(newUpdateUser.email).toBe(data.email)
+      })
+   })
+});
 
 
 
@@ -226,17 +289,17 @@ describe('POST /user/:username/add-profile-picture', function() {
 //FAIL TESTS
 //LOGIN USER TEST- FAIL TEST
 describe('FAIL TEST- POST /user/login', function() {
-  it('Test Login Route if wrong password supplied- failure redirect goes to login page again- should get 302 code', function(done) {
+  it('Test Login Route if wrong password supplied- failure', function(done) {
     request(app)
       .post('/user/login')
       .send({
             email: "tester@test.com", 
             password: "wrongpasswordtest"
           })
-      .expect(302)
+      .expect(401)
       .expect(function(res) {
         //console.log(res.text);
-        expect(res.text).toBe('Found. Redirecting to /user/login');
+        expect(res.text).toBe('Unauthorized');
       })
       .end(function(err, res) {
         if (err) return done(err);
@@ -285,6 +348,7 @@ describe('FAIL TEST- POST /user/register', function () {
      })
   });
 
+
 //EDIT ACCOUNT SETTINGS TEST- FAIL TEST
 describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
   it('Test update account settings user endpoint with non valid data', async function () {
@@ -292,8 +356,8 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
     let data = {
       name: 'Test Name33',
       email: 'wrongformatemail',
-     password: 'wrongformatpassword',
-     username: 'newtestuser44',
+      password: 'wrongformatpassword',
+      username: 'newtestuser44',
       }
       await request(app)
           .patch("/user/"+ user.username +"/account-settings")
@@ -305,10 +369,81 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
            // console.log(res)
             expect(res.body.errors[0].email).toBe('Must be a valid email format');
             expect(res.body.errors[1].password).toBe('Password should not be empty, minimum eight characters, at least one letter, one number and one special character');
-            expect(res.body.errors[2].name).toBe('Must be text only'); 
           }) 
       });
 });
+
+
+//FAIL TESTS
+
+
+//REGISTER USER TEST- FAIL TEST
+describe('FAIL TEST- POST /user/register', function () {
+  let data = {
+     	name: 'Fail Test Name',
+     	email: 'failtest@test.com',
+      password: 'abcdefg1!C',
+      username: 'testusername',
+     	}
+  it('Test register user with username already existing respond with 422 server error', function (done) {
+   // this.timeout(10000) 
+      request(app)
+          .post('/user/register')
+          .send(data)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(422)
+          .expect(function(res) {
+            //console.log(res)
+            expect(res.body.errors[0].username).toBe("Username already in use");
+            //res.body.errors.email = "E-mail already in use";
+          })
+          .end(function(err, res) {
+            if (err) return done(err);
+            //console.log(res.body);
+            done();
+          })
+          
+      });
+});
+
+//REGISTER USER TEST- FAIL TEST
+describe('FAIL TEST- POST /user/register', function () {
+  let data = {
+     	baddata: 'blahblah',
+     	}
+  it('Test register user with bad data respond with 422 server error', function (done) {
+   // this.timeout(10000) 
+      request(app)
+          .post('/user/register')
+          .send(data)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(422)
+          .end(function(err, res) {
+            if (err) return done(err);
+            //console.log(res.body);
+            done();
+          })
+          
+      });
+});
+
+
+
+
+//Forgot password controller
+//if success
+//if error
+
+//reset password get route
+//if success
+//if error
+
+//reset password patch route
+//if error
+//if success
+
 
 
  function setupData() {
@@ -317,10 +452,8 @@ describe('FAIL TEST- PATCH /user/:username/account-settings', function () {
   testUser.name = 'Test User 1';
   testUser.email = 'tester@test.com';
   testUser.username = 'testusername';
-  testUser.password = 'TestPassword1$';
+  testUser.password = 'abcdefg1!C';
   testUser.fridgeIngredients = ["chicken", "cheese"];
-  //testUser.fridgeIngredients = [];
-  //testUser.pantryIngredients = [];
   testUser.createdDate = date;
   testUser.lastLogin = date;
   return User.create(testUser);

@@ -17,11 +17,16 @@ const getIngredients = function(req, res) {
 				res.json({
 					error: err.message
 				})
-            }
-		   items.fridgeIngredients.sort()
-		   items.pantryIngredients.sort()
+			}
+			try {
+				items.fridgeIngredients.sort()
+				items.pantryIngredients.sort()
+				res.send(items)
+			} catch (err) {	
+				res.status(500).json({error: "Error retrieving ingredients"})
+			}
 		   
-			res.send(items)
+	
 		})
 }
 
@@ -38,8 +43,7 @@ const createIngredient = function(req, res) {
 			//res.redirect("/ingredients/fridge")
 			})
 		.catch(err => 
-			//res.status(500)
-			res.json({error: err.message})
+			res.status(500).json({error: err.message})
 			)
 }
 
@@ -49,10 +53,12 @@ const deleteIngredient = function(req, res) {
 	//console.log(req)
 	// Check for error from middleware
 	if (req.error) {
+		//console.log(req.error.message)
+		//res.status(500).json({error: req.error.message})
 		res.status(req.error.status)
 		res.send(req.error.message)
 	} else {
-		// execute the query from deletePost
+		// execute the query from deleteIngr
 		removeIngredient(req).exec(err => {
 			if (err) {
 				res.status(500)
@@ -76,7 +82,7 @@ const deleteAllIngredients = function(req, res) {
 		res.send(req.error.message)
 	} else {
 		// execute the query from deletePost
-		removeAllIngredients(req).exec(err => {
+		removeAllIngredients(req).exec((err, user) => {
 			if (err) {
 				res.status(500)
 				
@@ -84,8 +90,17 @@ const deleteAllIngredients = function(req, res) {
 				error: err.message
 				})
 			}
-            res.sendStatus(204)
-            //res.redirect("/ingredients/fridge")
+			if (user) {
+				res.sendStatus(204)
+			} else {
+				res.status(500)
+				
+				res.json({
+				error: 'Error deleting ingredients'
+				})
+			}
+			//console.log(user)
+           
 		})
 	}
 }

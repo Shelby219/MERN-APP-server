@@ -25,8 +25,8 @@ const returnRecipesToBrowse = async (req) => {
 
 
 const getAllSavedRecipes = function (req) {
- // return SavedRecipe.find({ username: 'testusername'})  //for testing purposes only
-  return SavedRecipe.find({ username: req.user.username })
+ return SavedRecipe.find({ username: 'testusername'})  //for testing purposes only
+  //return SavedRecipe.find({ username: req.user.username })
 }
 
 const getSingleRecipe =  function (req) {

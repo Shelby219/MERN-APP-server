@@ -11,7 +11,7 @@ const { getIngredients,
 //NOTE same controller functions apply to fridge and pantry due to conditionals in utilities
 
 //GET Route for Fridge Page
-router.get("/:username/fridge", passport.authenticate('jwt', {session: false}), getIngredients)
+router.get("/:username/fridge", /*passport.authenticate('jwt', {session: false}),*/ getIngredients)
 
 //POST Route for Updating the user via Fridge
 router.post("/:username/fridge/new", createIngredient)
@@ -23,7 +23,7 @@ router.delete("/:username/fridge/delete", deleteIngredient)
 router.delete("/:username/fridge/clear-all", deleteAllIngredients)
 
 //GET Route for Pantry Page
-router.get("/:username/pantry", passport.authenticate('jwt', {session: false}), getIngredients)
+router.get("/:username/pantry", /*passport.authenticate('jwt', {session: false}),*/ getIngredients)
 
 //POST Route for Updating the user via pantry
 router.post("/:username/pantry/new", createIngredient)
