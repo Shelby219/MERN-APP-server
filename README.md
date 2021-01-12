@@ -20,6 +20,7 @@
 
 ### Libraries & Dependencies
 
+
 #### Server
 
 - "express": "^4.17.1"
@@ -136,12 +137,23 @@
 
 -  "jest-transform-stub": "^2.0.0"
 
+
 ---
 
 ### API Endpoints
 
-| User | Fridge Ingredients | Pantry Staples | Preferences|  Saved Recipes| Single Recipe| 
-|:---:|:---:|:---:|:---:|:---:|:---:|
+| User | Ingredients | Preferences| Recipes| 
+|:---:|:---:|:---:|:---:|
+|POST user/register |GET ingredients/:username/fridge| GET preferences/:username| GET recipes/browse|
+|POST user/login |POST ingredients/:username/fridge/new|PATCH preferences/:username/edit|GET recipes/saved-recipes|
+|GET user/logout |DELETE ingredients/:username/fridge/delete|   |GET recipes/:id|
+|GET user/:username/account-settings |DELETE ingredients/:username/fridge/clear-all|   |POST recipes/add|
+|PATCH user/:username/account-settings |GET ingredients/:username/pantry|    |DELETE recipes/:id|
+|POST user/forgot-password|POST ingredients/:username/pantry/new|||
+|GET user/reset-password|DELETE ingredients/:username/pantry/delete|||
+|PUT user/update-password|DELETE ingredients/:username/pantry/clear-all|||
+|POST user/:username/add-profile-picture||| |
+
 
 ---
 
@@ -319,7 +331,7 @@ As shown below we organised our planning based cards showing the rubric, testing
 
 We determined that setting weekly/fortnightly sprints was an ideal format for our project. We created a card in Trello that organised them by date and we were able to form checklists of what we wanted to have completed at the end of each sprint for the front-end and back-end. Whilst working we have a current doing card and then a completed card which we are able to distinguish each feature/component being worked on and what is completed. Additionally a card for revision proved helpful as we would have tasks completed, but they would in turn need revising/additional testing later on.
 
-<img src="./docs/trello/sprintplanning.png" alt="sprint planning" width="500" height="400"/>
+<img src="./docs/trello/sprintplanning.png" alt="sprint planning" width="80%" />
 
 In the initial planning stages we planned our Trello for the server/client based off features which would be the names of the branches. Our first feature for server/client was the user and during the first Sprint it was decided Shelby would complete the back-end code and testing and Adrienne would complete the front-end code and testing.  Each morning we begin with our own stand up in which we show what we have worked on, explained our code, listed any challenges and also any wins. Since we are working on back-end and front-end separate, this ensures we are both know what is happening on each feature. 
 

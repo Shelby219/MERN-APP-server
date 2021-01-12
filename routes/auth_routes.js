@@ -20,7 +20,9 @@ const User = require('../models/user');
 
 
 //GET Route for Register Page
-router.get('/register',authRedirect, registerNew);
+//router.get('/register',authRedirect, registerNew);
+
+
 //POST Route for registering and creating a user
 router.post('/register', userValidationRules(), validate, registerCreate);
 
