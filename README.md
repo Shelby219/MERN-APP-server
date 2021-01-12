@@ -213,6 +213,9 @@ Our application has gone through comprehensive testing with Mocha for the Server
 <details>
 <summary>Click to expand</summary>
 
+  
+![Image of tests](./docs/testhtml.png)
+
 #### Expecting Tests
 | Date | Feature | Test | Notes| 
 |:---:|:---:|:---:|:---:|
