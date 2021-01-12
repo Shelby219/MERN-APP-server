@@ -38,24 +38,24 @@ beforeEach(async function () {
     UserId = user._id;
 });
 
-var SetCookie = null;
-beforeEach( function () {
- agent
-  .post('/user/login')
-  .send({email: "tester@test.com", password: "abcdefg1!C"})
-  .end( function(err, res) {
-    // user1 will manage its own cookies
-    // res.redirects contains an Array of redirects
-    //console.log(res)
+// var SetCookie = null;
+// beforeEach( function () {
+//  agent
+//   .post('/user/login')
+//   .send({email: "tester@test.com", password: "abcdefg1!C"})
+//   .end( function(err, res) {
+//     // user1 will manage its own cookies
+//     // res.redirects contains an Array of redirects
+//     //console.log(res)
   
-    if (err) {
-      throw err;
-    }
-   console.log(res.headers['set-cookie'])
-    SetCookie = res.headers['set-cookie']
+//     if (err) {
+//       throw err;
+//     }
+//    console.log(res.headers['set-cookie'])
+//     SetCookie = res.headers['set-cookie']
     
-  });  
-});
+//   });  
+// });
 
  //GET REGISTER USER PAGE
  describe('GET /user/register', function() {
@@ -164,7 +164,7 @@ describe('Finding a User', function() {
  
  //GET ACCOUNT SETTINGS PAGE
  //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
- describe.only('GET /user/:username/account-settings', function() {
+ describe('GET /user/:username/account-settings', function() {
   it('Test get account settings page to populate user info', async () => {
      let user = await User.findOne({ email: 'tester@test.com' }).exec();
 

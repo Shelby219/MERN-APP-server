@@ -24,7 +24,7 @@ function editPref(req, res) {
 function editPrefReq(req, res) {
     //console.log("hit controls")
     //console.log(req.body)
-    updatePref(req).exec((err, userPref) => {
+    updatePref(req).exec((err, user) => {
         if (err) {
             res.status(500);
             //console.log(err)
@@ -32,9 +32,9 @@ function editPrefReq(req, res) {
                 error: err.message
             });
         }
-        //console.log(userPref)
+        console.log(user)
         res.status(200);
-        res.send(userPref.preferences);
+        res.send(user.preferences);
         //res.redirect(`user/`${res.body.name}`/preferences`);
     });  
 }

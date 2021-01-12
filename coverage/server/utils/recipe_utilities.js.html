@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/25</span>
+                <span class='fraction'>20/25</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.73% </span>
+                <span class="strong">81.82% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/11</span>
+                <span class='fraction'>9/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/25</span>
+                <span class='fraction'>20/25</span>
             </div>
         
             
@@ -112,7 +112,8 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,21 +127,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -148,11 +150,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -182,32 +184,33 @@ const {
 &nbsp;
 &nbsp;
 const returnRecipesToBrowse = async (req) =&gt; {
+  //console.log(req.user)
    const recipes = await User.findOne({ username: req.user.username })
     .then(recipes =&gt;  userQueryBuilder(recipes))
     .then(queryItems =&gt;  sanitizeDataForIngredientQuery(queryItems))
-    .then(<span class="fstat-no" title="function not covered" >re</span>cipesObject =&gt; <span class="cstat-no" title="statement not covered" >recipeIdGetter(recipesObject.data))</span>
-    .then(<span class="fstat-no" title="function not covered" >da</span>ta =&gt; <span class="cstat-no" title="statement not covered" >detailedRecipeAPISearch(data))</span>
-    .then(<span class="fstat-no" title="function not covered" >re</span>cipes =&gt;  {<span class="cstat-no" title="statement not covered" >return recipes}</span>)
-    .catch(error =&gt; {return error})
+    .then(recipesObject =&gt; recipeIdGetter(recipesObject.data))
+    .then(data =&gt; detailedRecipeAPISearch(data))
+    .then(recipes =&gt;  {return recipes})
+    .catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; {<span class="cstat-no" title="statement not covered" >return error}</span>)
   return recipes
 };  
 &nbsp;
 &nbsp;
 const getAllSavedRecipes = function (req) {
- return SavedRecipe.find({ username: 'testusername'})  //for testing purposes only
-  //return SavedRecipe.find({ username: req.user.username })
+ //return SavedRecipe.find({ username: 'testusername'})  //for testing purposes only
+  return SavedRecipe.find({ username: req.user.username })
 }
 &nbsp;
 const getSingleRecipe =  function (req) {
   return SavedRecipe.findById(req.params.id);
 }
 &nbsp;
-const addSavedRecipe = function (req) {
-   let date = Date.now();
+const addSavedRecipe = <span class="fstat-no" title="function not covered" >fu</span>nction (req) {
+   let date = <span class="cstat-no" title="statement not covered" >Date.now();</span>
     // Set date for this new recipe
-    req.body.create_date = date
-    req.body.modified_date = date
-  return new SavedRecipe(req.body);
+<span class="cstat-no" title="statement not covered" >    req.body.create_date = date</span>
+<span class="cstat-no" title="statement not covered" >    req.body.modified_date = date</span>
+<span class="cstat-no" title="statement not covered" >  return new SavedRecipe(req.body);</span>
 }
 &nbsp;
 const deleteFromSavedRecipes = function (id) {
@@ -229,7 +232,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jan 11 2021 15:44:57 GMT+1000 (Australian Eastern Standard Time)
+                at Tue Jan 12 2021 10:32:50 GMT+1000 (Australian Eastern Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

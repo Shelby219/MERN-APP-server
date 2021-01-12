@@ -17,7 +17,7 @@ function registerCreate(req, res, next) {
     const newUserHandler = (user) => {
         req.login(user, (err) => {
         if(err){
-            console.log(err)
+            //console.log(err)
             //console.log('error');
             next(err)
            // res.send(err);

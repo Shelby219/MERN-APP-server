@@ -11,11 +11,12 @@ const {
   
 //DISPLAY SEARCH RESULTS- based on API CALL
 const displayRecipes =  async function(req, res) {
+	console.log("hit here")
 	try {
 		 let recipes = await returnRecipesToBrowse(req)
 		 res.status(200)
 		 res.json(recipes)
-		console.log(recipes)
+		 console.log("recipes worked")
 	} catch (err) {
 		 if (err) {res.status(500)
             res.json({
@@ -65,11 +66,11 @@ const displayAllSavedRecipes = function(req, res) {
 
 const makeSavedRecipe = function (req, res) {
 	// Add date
-	const date = new Date()
-	req.body.modified_date = date
+	//console.log("cehck", req.body)
 	// add the username from req.user
 	//req.body.username = req.user.username
-	req.body.username = "testusername"  //THIS IS only for test purposes
+	
+	//req.body.username = "testusername"  //THIS IS only for test purposes
 	addSavedRecipe(req).save((err, savedRecipe) => {
 		if (err) {
 			res.status(500)
@@ -77,13 +78,15 @@ const makeSavedRecipe = function (req, res) {
 				error: err.message
 			})
 		}
+		console.log("cehck", savedRecipe)
 		res.status(201)
 		res.send(savedRecipe)
 	})
 };
 
 const removeSavedRecipes = function(req, res) {
-    // Check for error from middleware
+	// Check for error from middleware
+	console.log(req.params)
 	if (req.error) {
 		res.status(req.error.status)
 		res.send(req.error.message)
@@ -97,6 +100,7 @@ const removeSavedRecipes = function(req, res) {
 				})
 			}
 			res.sendStatus(204)
+			console.log("success")
 		})
 	}
 };

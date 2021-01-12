@@ -80,7 +80,7 @@ describe('POST /recipes/add', function() {
     it('Test add new saved recipe', async () => {
         let data = {
             username: 'testusername',
-            _id: 1234,
+            recipeID: 1234,
             title: 'Add Test New Recipe',
             }
     await request(app)
