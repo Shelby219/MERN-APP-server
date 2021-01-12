@@ -85,7 +85,8 @@ const makeSavedRecipe = function (req, res) {
 };
 
 const removeSavedRecipes = function(req, res) {
-    // Check for error from middleware
+	// Check for error from middleware
+	console.log(req.params)
 	if (req.error) {
 		res.status(req.error.status)
 		res.send(req.error.message)
@@ -99,6 +100,7 @@ const removeSavedRecipes = function(req, res) {
 				})
 			}
 			res.sendStatus(204)
+			console.log("success")
 		})
 	}
 };

@@ -32,6 +32,7 @@ const getAllSavedRecipes = function (req) {
 
 const getSingleRecipe =  function (req) {
   return SavedRecipe.findById(req.params.id);
+  //return SavedRecipe.find({ recipeID: req.params.id})
 }
 
 const addSavedRecipe = function (req) {
