@@ -15,10 +15,6 @@ const {  displayRecipes,
 //GET Route for Search Recipes Page
 router.get("/browse", passport.authenticate('jwt', {session: false}), displayRecipes)
 
-// //POST Route for Search Recipes 
-// router.post("/browse", editPref)
-
-
 //GET All Saved Recipes
 router.get("/saved-recipes", passport.authenticate('jwt', {session: false}), displayAllSavedRecipes)
 

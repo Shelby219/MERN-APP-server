@@ -52,14 +52,6 @@ passport.use(new LocalStrategy(fields, verifyCallback))
 
 
 passport.use(new JwtStrategy(
-    // {
-    //     jwtFromRequest: (req) => {
-    //         if (req.session && req.session.jwt) {
-    //             return req.session.jwt;
-    //         }
-    //         return null;
-    //     },
-    //     secretOrKey: process.env.JWT_SECRET
     {
         jwtFromRequest: (req) => {
             let token = null;
