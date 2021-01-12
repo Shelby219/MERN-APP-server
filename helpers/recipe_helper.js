@@ -43,11 +43,12 @@ async function userQueryBuilder(returnUser) {
 
 async function recipeIdGetter(recipesObject) { 
     // if the object returned first value is recipes then the random recipe API query was called- so just return the data
+  
     if (Object.keys(recipesObject)[0] === "recipes") {
            return recipesObject
     } else {
-
-    //before executing this do an if else to determine if random recipes were returned or not- if they were then just return recipes
+        //console.log(recipesObject)
+   
     const idArray = []
     const filtered = []
 
@@ -56,13 +57,15 @@ async function recipeIdGetter(recipesObject) {
     filtered.push({
       id: recipe.id,
       usedIngred: recipe.usedIngredientCount, 
-      missedIngred: recipe.missedIngredientCount
+      missedIngred: recipe.missedIngredientCount,
+      usedIngredItems: recipe.usedIngredients, 
+      missedIngredItems: recipe.missedIngredients
       })
     });
     const newString = idArray.join(",")
       
     const data = {ids: newString, usedAndMissedIng: filtered }
-    //console.log(data)
+   // console.log(data)
    return data
   }
 }

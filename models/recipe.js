@@ -6,7 +6,7 @@ const SavedRecipe = new Schema({
         type: String,
         required: true
     },
-    _id : { type : Number, required : true },
+    recipeID : { type : Number, required : true },
     title: {
         type: String,
         required: true

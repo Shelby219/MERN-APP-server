@@ -316,6 +316,10 @@ Our application has gone through comprehensive testing with Mocha for the Server
 
 </details>
 
+---
+
+### Planning & Project Management
+
 
 ---
 
@@ -338,7 +342,7 @@ We determined that setting weekly/fortnightly sprints was an ideal format for ou
 
 In the initial planning stages we planned our Trello for the server/client based off features which would be the names of the branches. Our first feature for server/client was the user and during the first Sprint it was decided Shelby would complete the back-end code and testing and Adrienne would complete the front-end code and testing.  Each morning we begin with our own stand up in which we show what we have worked on, explained our code, listed any challenges and also any wins. Since we are working on back-end and front-end separate, this ensures we are both know what is happening on each feature. 
 
-Initially we were going to switch front-end and back-end for each feature, but we decided for the MVP product that Shelby would stick to the back-end and Adrienne on the front-end to ensure we delivered a great MVP product on time. This plan tailored to each of our strengths. This being said, once the MVP is completed all our nice to have features that we want to implement, we will switch roles for the implementation of these features. Mid-way during the projects timeline, Shelby did start completing the client side styling code along with the code in which connects the front-end and the back-end, this allowed for Adrienne to continue completing the client-side testing and main react code for the features. 
+Initially we were going to switch front-end and back-end for each feature, but we decided for the MVP product that Shelby would stick to the back-end and Adrienne on the front-end to ensure we delivered a great MVP product on time. This plan tailored to each of our strengths. This being said, once the MVP is completed all our nice to have features that we want to implement, we will switch roles for the implementation of these features. Mid-way during the projects timeline, Shelby did start completing the client side styling code along with the code which connects the front-end and the back-end, this allowed for Adrienne to continue completing the client-side testing and main react code for the features. 
 
 
 </details>

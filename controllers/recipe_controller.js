@@ -66,10 +66,10 @@ const displayAllSavedRecipes = function(req, res) {
 
 const makeSavedRecipe = function (req, res) {
 	// Add date
-	const date = new Date()
-	req.body.modified_date = date
+	//console.log("cehck", req.body)
 	// add the username from req.user
-	req.body.username = req.user.username
+	//req.body.username = req.user.username
+	
 	//req.body.username = "testusername"  //THIS IS only for test purposes
 	addSavedRecipe(req).save((err, savedRecipe) => {
 		if (err) {
@@ -78,6 +78,7 @@ const makeSavedRecipe = function (req, res) {
 				error: err.message
 			})
 		}
+		console.log("cehck", savedRecipe)
 		res.status(201)
 		res.send(savedRecipe)
 	})
