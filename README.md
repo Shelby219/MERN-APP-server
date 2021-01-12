@@ -182,7 +182,7 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 16/12/2020 | FUNCTION -  queryEditor() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
 | 16/12/2020 | FUNCTION -  userQueryBuilder() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
 | 24/12/2020 | FUNCTION -  recipeIdGetter() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
-| 24/12/2020 | FUNCTION -  basedOnPreferenceExtractor() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
+
 | Date | Feature | Test | Notes| 
 | Date | Feature | Test | Notes| 
 | Date | Feature | Test | Notes| 
@@ -555,6 +555,7 @@ Additionally some other blockers, were ensuring there was enough time on the loa
 
 Current sitting at 75% test coverage. 
 ![Image of tests](./docs/testimage.png)
+![Image of tests](./docs/testhtml.png)
 
 Following a review using Istanbul of the server side test coverage, it was determined at about another 20 tests, most of them testing for errors would need to be written to increase test coverage. 
 

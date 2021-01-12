@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/24</span>
+                <span class='fraction'>20/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>5/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.17% </span>
+                <span class="strong">82.61% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/23</span>
+                <span class='fraction'>19/23</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -162,7 +162,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,21 +170,21 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -235,29 +235,29 @@ const request = axios.create({
   const singleRecipeAPISearch = async function (recipeID) { 
     //return single recipe based on ID if user does not have it saved
      let recipe = await request.get(`${recipeID}/information?includeNutrition=true&amp;apiKey=${process.env.RECIPE_API_KEY}`)
-<span class="cstat-no" title="statement not covered" >     return recipe</span>
+     return recipe
   }
 &nbsp;
 &nbsp;
   //Utilmately returns the main recipe results to be displayed on the user browser
-  const detailedRecipeAPISearch = <span class="fstat-no" title="function not covered" >as</span>ync function (data) { 
+  const detailedRecipeAPISearch = async function (data) { 
     // if the object returned first value is recipes then the random recipe API query was called- so just return the data
     //refactor to break the promise chain instead?
-<span class="cstat-no" title="statement not covered" >    if (Object.keys(data)[0] === "recipes") {</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (Object.keys(data)[0] === "recipes") {
 <span class="cstat-no" title="statement not covered" >      console.log("hit random recipe returned")</span>
 <span class="cstat-no" title="statement not covered" >      return data.recipes</span>
 &nbsp;
     } else {
-<span class="cstat-no" title="statement not covered" >        console.log("hit here")</span>
+        console.log("hit here")
         //console.log(data)
-        let ingInfo = <span class="cstat-no" title="statement not covered" >await data.usedAndMissedIng</span>
-        let recipeData = <span class="cstat-no" title="statement not covered" >await request.get(`informationBulk?ids=${data.ids}&amp;includeNutrition=true&amp;apiKey=${process.env.RECIPE_API_KEY}`)</span>
+        let ingInfo = await data.usedAndMissedIng
+        let recipeData = await request.get(`informationBulk?ids=${data.ids}&amp;includeNutrition=true&amp;apiKey=${process.env.RECIPE_API_KEY}`)
         //let recipes = await [ data.usedAndMissedIng, bulkRecipes = recipeData.data];
 &nbsp;
         //this returns a combined array of objects putting the used and missing ingredients with all the other recipe data, as this data was needed 
-      let arr3 = <span class="cstat-no" title="statement not covered" >await ingInfo.map(<span class="fstat-no" title="function not covered" >(i</span>tem, i) =&gt; <span class="cstat-no" title="statement not covered" >Object.assign({}, item, recipeData.data[i]))</span>;</span>
+      let arr3 = await ingInfo.map((item, i) =&gt; Object.assign({}, item, recipeData.data[i]));
       //console.log(arr3)
-<span class="cstat-no" title="statement not covered" >      return arr3</span>
+      return arr3
       }
    //THIS ALSO WORKS
   //  const mergeById = (a1, a2) =&gt;
@@ -283,7 +283,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jan 11 2021 15:44:57 GMT+1000 (Australian Eastern Standard Time)
+                at Tue Jan 12 2021 10:32:50 GMT+1000 (Australian Eastern Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

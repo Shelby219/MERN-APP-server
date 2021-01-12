@@ -17,17 +17,21 @@ function queryEditor(p, preferenceSeparator) {
 }
    
 async function userQueryBuilder(returnUser) {
+   // console.log(returnUser)
     if (returnUser) {
         let user = {
             fridge: returnUser.fridgeIngredients,
             pantry: returnUser.pantryIngredients,
-            diet: returnUser.dietPreferences,
-            health:returnUser.healthPreferences
+            //diet: returnUser.dietPreferences,
+            //health:returnUser.healthPreferences
+            pref: returnUser.preferences
         }
       let queryIng = await ingredientJoiner(user.fridge, user.pantry)
-      let queryHealth = await queryEditor(user.health,  preferenceSeparator)
-      let queryDiet = await queryEditor(user.diet,  preferenceSeparator)
-      let queryInfo = {ingredients: queryIng, health: queryHealth, diet: queryDiet}
+      let querypref = await queryEditor(user.pref,  preferenceSeparator)
+      //let queryHealth = await queryEditor(user.health,  preferenceSeparator)
+      //let queryDiet = await queryEditor(user.diet,  preferenceSeparator)
+      //let queryInfo = {ingredients: queryIng, health: queryHealth, diet: queryDiet}
+      let queryInfo = {ingredients: queryIng, pref: querypref }
       console.log(queryInfo)
       return queryInfo
 

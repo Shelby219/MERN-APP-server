@@ -11,11 +11,12 @@ const {
   
 //DISPLAY SEARCH RESULTS- based on API CALL
 const displayRecipes =  async function(req, res) {
+	console.log("hit here")
 	try {
 		 let recipes = await returnRecipesToBrowse(req)
 		 res.status(200)
 		 res.json(recipes)
-		console.log(recipes)
+		 console.log("recipes worked")
 	} catch (err) {
 		 if (err) {res.status(500)
             res.json({

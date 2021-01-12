@@ -32,9 +32,6 @@ router.post("/add", makeSavedRecipe)
 router.delete("/:id", removeSavedRecipes)
 
 
-//passport.authenticate('jwt', {session: false})
-
-
 
 
 module.exports = router;
