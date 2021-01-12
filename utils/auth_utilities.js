@@ -45,8 +45,8 @@ const findForResetPassword = function (req) {
 
 //For updating the new password
 const findForUpdatePassword = function (req) {
-    console.log("hit here")
-    console.log(req)
+    //console.log("hit here")
+    //console.log(req)
         return User.findOneAndUpdate({ 
             username: req.body.username,
             resetPasswordToken: req.body.resetPasswordToken,

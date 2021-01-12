@@ -134,8 +134,8 @@ function forgotPassword (req, res) {
     console.error(req.body.email)
     updateForForgotPassword(req).then((user)=>{
         if(user === null){
-            console.error('email not in database')
-            res.status(403).send('email not in db')
+           // console.error('email not in database')
+            res.status(403).send("Sorry, we can't send you a link to reset your password.")
         } else {
             const token = crypto.randomBytes(20).toString('hex');
            
