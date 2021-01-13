@@ -118,7 +118,7 @@ The overall goal of this application is a search application based on user ingre
 ![Screen Shots of Website ](./docs/screenshot7.png)
 
 
-<details>
+</details>
 ---
 
 ### Tech stack
