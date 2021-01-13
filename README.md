@@ -305,6 +305,7 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 12/01/2021 | Delete Saved Recipe | Manual Testing via the console. |
 
 </details>
+
 ---
 
 ### Automated Testing Log - Development
@@ -442,7 +443,7 @@ As shown below we organised our planning based cards showing the rubric, testing
 
 We determined that setting weekly/fortnightly sprints was an ideal format for our project. We created a card in Trello that organised them by date and we were able to form checklists of what we wanted to have completed at the end of each sprint for the front-end and back-end. Whilst working we have a current doing card and then a completed card which we are able to distinguish each feature/component being worked on and what is completed. Additionally a card for revision proved helpful as we would have tasks completed, but they would in turn need revising/additional testing later on.
 
-<img src="./docs/trello/sprintplanning.png" alt="sprint planning" width="80%" />
+<img src="./docs/trello/sprintplanning.png" alt="sprint planning" width="60%" />
 
 In the initial planning stages we planned our Trello for the server/client based off features which would be the names of the branches. Our first feature for server/client was the user and during the first Sprint it was decided Shelby would complete the back-end code and testing and Adrienne would complete the front-end code and testing.  Each morning we begin with our own stand up in which we show what we have worked on, explained our code, listed any challenges and also any wins. Since we are working on back-end and front-end separate, this ensures we are both know what is happening on each feature. 
 
