@@ -54,7 +54,7 @@ const usernameParamValidationRules = () => {
   
 const recipeParamValidationRules = () => {
     return [
-        param('id').exists().isInt().withMessage('Recipe ID Not Found'),
+        param('id').exists().withMessage('Recipe ID Not Found'),
       ]
   }
 

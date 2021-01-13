@@ -27,12 +27,17 @@ const displayRecipes =  async function(req, res) {
 
 //DISPLAY SINGLE RECIPE PAGE- based on either API call if it doesnt exist in user saved recipes
 const displaySingleRecipe =  function(req, res) {
+	//console.log(req)
 	getSingleRecipe(req).then(async function(singleRecipe){
+		//console.log(singleRecipe)
 		if (singleRecipe) {
+			res.status(200)
 			res.send(singleRecipe)
 		} else {
-		    let resp = await singleRecipeAPISearch(req.params.id)
-			res.json(resp.data);
+			res.status(404)
+			res.json({
+				error: err.message
+			})
 		} 
 	}).catch(function(err){
 		if (err) {
