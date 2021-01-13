@@ -28,7 +28,7 @@ const displayRecipes =  async function(req, res) {
 //DISPLAY SINGLE RECIPE PAGE- based on either API call if it doesnt exist in user saved recipes
 const displaySingleRecipe =  function(req, res) {
 	//console.log(req)
-	getSingleRecipe(req).then(async function(singleRecipe){
+	getSingleRecipe(req).then( function(singleRecipe){
 		//console.log(singleRecipe)
 		if (singleRecipe) {
 			res.status(200)
