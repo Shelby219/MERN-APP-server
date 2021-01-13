@@ -12,7 +12,6 @@ const {registerCreate,
   forgotPassword,
   resetPassword,
   sendResetPassword} = require('../controllers/auth_controller')
-const {authRedirect} = require("../middleware/auth_middleware")
 const {userValidationRules, validate, accountSettingValidationRules} = require("../middleware/validator")
 
 const User = require('../models/user');
@@ -22,11 +21,9 @@ const User = require('../models/user');
 //GET Route for Register Page
 //router.get('/register',authRedirect, registerNew);
 
-
 //POST Route for registering and creating a user
 router.post('/register', userValidationRules(), validate, registerCreate);
 
- 
 //GET Route for Login page
 //router.get("/login", loginNew)
 
@@ -43,7 +40,6 @@ router.post("/login", celebrate({
 
 //GET Route for Logout function
 router.get('/logout', logOut);
-
 
 //GET Route for Account Settings Page
 router.get("/:username/account-settings", passport.authenticate('jwt', {session: false}),  editUser)
@@ -87,9 +83,6 @@ router.post("/:username/add-profile-picture",  function (req, res) {
         .catch((err) => res.status(400).json({ success: false, error: err }));
     });
   });
-
-//passport.authenticate('jwt', {session: false})
-
 
 
 module.exports = router

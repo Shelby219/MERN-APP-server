@@ -38,9 +38,6 @@ const userValidationRules = () => {
   }
  
  
-
-
-
 const accountSettingValidationRules = () => {
     return [
         body('email').isEmail().normalizeEmail().withMessage('Must be a valid email format'),
@@ -57,7 +54,7 @@ const usernameParamValidationRules = () => {
   
 const recipeParamValidationRules = () => {
     return [
-        param('id').exists().isInt().withMessage('Recipe ID Not Found'),
+        param('id').exists().withMessage('Recipe ID Not Found'),
       ]
   }
 
@@ -81,17 +78,3 @@ const recipeParamValidationRules = () => {
     usernameParamValidationRules,
   }
 
-
-//JOI
-
-// const pattern = "/(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[$@$!#.])[A-Za-zd$@$!%*?&.]{8,20}/";
-// celebrate({
-//     [Segments.BODY]: Joi.object().keys({
-//      email: Joi.string().email({ minDomainSegments: 2 }).required(),
-//       username: Joi.string().alphanum().min(3).max(30).required(), 
-//       password: Joi.string().regex(RegExp(pattern)).required().min(8)
-//     }),
-//     [Segments.QUERY]: {
-//       token: Joi.string().token().required()
-//     }
-//   })

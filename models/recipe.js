@@ -11,11 +11,14 @@ const SavedRecipe = new Schema({
         type: String,
         required: true
     },
+    servings: {
+        type: Number
+    },
     readyInMinutes: {
         type: Number
     },
-    servings: {
-        type: Number
+    extendedIngredients: {
+        type: Array
     },
     sourceUrl: {
         type: String

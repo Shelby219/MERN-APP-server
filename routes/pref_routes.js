@@ -17,9 +17,5 @@ router.get("/:username",  passport.authenticate('jwt', {session: false}), userna
 router.patch("/:username/edit", editPrefReq)
 
 
-//passport.authenticate('jwt', {session: false})
-
-
-
 
 module.exports = router;

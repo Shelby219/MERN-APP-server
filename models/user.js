@@ -41,28 +41,6 @@ const User = new Schema({
         type: Date,
         default: Date.now
     },
-    // dietPreferences: {
-    //     vegetarian: {type: Boolean,default: false},
-    //     glutenFree: {type: Boolean,default: false},
-    //     ketogenic: {type: Boolean,default: false},
-    //     vegan: {type: Boolean,default: false},
-    //     pescetarian: {type: Boolean,default: false},
-    //     paleo: {type: Boolean,default: false},
-    // },
-    // healthPreferences: {
-    //     dairy: {type: Boolean,default: false},
-    //     egg: {type: Boolean,default: false},
-    //     gluten: {type: Boolean,default: false},
-    //     grain: {type: Boolean,default: false},
-    //     peanut: {type: Boolean,default: false},
-    //     seafood: {type: Boolean,default: false},
-    //     sesame: {type: Boolean,default: false},
-    //     shellfish: {type: Boolean,default: false},
-    //     soy: {type: Boolean,default: false},
-    //     sulphite: {type: Boolean,default: false},
-    //     treeNut: {type: Boolean,default: false},
-    //     wheat: {type: Boolean,default: false}
-    // },
     preferences: {
         vegetarian: {type: Boolean,default: false},
         vegan: {type: Boolean,default: false},
@@ -76,24 +54,6 @@ const User = new Schema({
 });
 
 User.plugin(require('mongoose-bcrypt'));
-
-// User.pre("save", function(next) {
-//     console.log('pre save password: ' + this.password);
-//     if(!this._update.password) {
-//         return next();
-//     } else {
-//     this.password = Bcrypt.hashSync(this.password, 10);
-
-//         next();
-//     }
-// });
-
-// User.pre('findOneAndUpdate', function(next) {
-//     console.log('pre save password: ' + this.password);
-//     if (this.isModified('password')) // If the pw has been modified, then encrypt it again
-//         this.password = Bcrypt.hashSync(this.password, 10);
-//     next();
-// });
 
 User.statics.findByUsername = function (user) {
     return this.find({username: user});

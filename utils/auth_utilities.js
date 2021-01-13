@@ -3,7 +3,7 @@ const User = require('../models/user');
 
 // GET USER BY NAME PARAMS for ACCOUNT SETTINGS
 const getUserByParam = function (req) {
-   console.log(req.params.username)
+  // console.log(req.params.username)
     return  User.findOne({ username: req.params.username });
 };
  
@@ -45,8 +45,8 @@ const findForResetPassword = function (req) {
 
 //For updating the new password
 const findForUpdatePassword = function (req) {
-    console.log("hit here")
-    console.log(req)
+    //console.log("hit here")
+    //console.log(req)
         return User.findOneAndUpdate({ 
             username: req.body.username,
             resetPasswordToken: req.body.resetPasswordToken,

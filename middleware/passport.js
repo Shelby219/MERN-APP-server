@@ -13,7 +13,7 @@ passport.serializeUser((user, done) => {
 
 //start with ID end up with user
 passport.deserializeUser((userId, done) => {
-    console.log("hit deserializeUser")
+    //console.log("hit deserializeUser")
     UserModel.findById(userId)
         .then((user) => done(null, user))
         .catch(done)
@@ -52,14 +52,6 @@ passport.use(new LocalStrategy(fields, verifyCallback))
 
 
 passport.use(new JwtStrategy(
-    // {
-    //     jwtFromRequest: (req) => {
-    //         if (req.session && req.session.jwt) {
-    //             return req.session.jwt;
-    //         }
-    //         return null;
-    //     },
-    //     secretOrKey: process.env.JWT_SECRET
     {
         jwtFromRequest: (req) => {
             let token = null;

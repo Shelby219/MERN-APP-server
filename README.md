@@ -1,12 +1,17 @@
-## MERN-server
+# fridgeMate
 
-|Shelby El-rassi|Adrienne Smith|
-|:-------------:|:-------------:|
-|[www.shelby-el-rassi.com](www.shelby-el-rassi.com)  |[adriennesmith-portfolio.netlify.app/](https://adriennesmith-portfolio.netlify.app/) |
-|[github.com/Shelby219](https://github.com/Shelby219)  |[github.com/aes89](https://github.com/aes89) |
+##### Created by:
+#### Adrienne Smith | [GitHub](https://github.com/aes89) | and Shelby El-rassi | [GitHub](https://github.com/Shelby219) |
+
+---
+### Back-end Repository
+---
+
+<div style="width:70%; margin: 0 auto;"><img src="./docs/home.png"/></div>
 
 ---
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f03a4191-5b3c-4ca3-98dc-37bc6c6758a2/deploy-status)](https://app.netlify.com/sites/fridgemate/deploys) 
 ##### Deployed App: https://fridgemate.netlify.app/
 
 ##### Documentation Repository: https://github.com/CA-MERN/MERN-Part-A-Docs
@@ -15,132 +20,212 @@
 
 ##### Server Repository: https://github.com/CA-MERN/MERN-server
 
+---
+
+### Purpose
+<details>
+<summary>Click to expand</summary>
+
+The purpose of this application is for users to be able to enter ingredients which are always on their grocery list/fridge with the intent to search for recipes made up from those ingredients. The idea for this web application stemmed from the situation of the first Australian lockdown of Covid19, in which stores sold out of a lot of popular and favourite grocery items of customers. An application such as this means users can input the ingredients they have currently at home and recipes including these ingredients will be displayed. Alongside this factor is the need for users to stick to a grocery budget, so they do not want to be constantly going to the store to get expensive ingredients. Also, the type of users using this app are ones that need recipe inspiration for their weekly meals, ones that search recipes based on dietary requirements and excluded ingredients, and also users that are new to the cooking scene and want to start with cooking by just utilising ingredients already at home. This app can help to minimise food waste by helping users to combine items they may not have made a meal with otherwise.
+
+The overall goal of this application is a search application based on user ingredient lists, with the ability to save those recipes, rate and review recipes. 
+
+</details>
 
 ---
 
-### Libraries & Dependencies
+### Features
+<details>
+<summary>Click to expand</summary>
+
+#### MVP Features
+
+* Users:
+    * Sign up
+    * Login
+    * Logout
+    * Edit account details in account settings.
+    * Upload profile image.
+    * Edit user preferences. 
+* Navigation Bar:
+    * When not signed in can navigate to Sign up/login pop out windows.
+    * When not signed in the other nav links forward to sign up/login pop out windows.
+    * When signed in can navigate to 'My Fridge'.
+    * When signed in can navigate to 'My Pantry Staples'.
+    * When signed in can navigate to 'My Preferences'.
+    * When signed in can click the Search Recipes button and will forward to browse recipe page.
+* Home Page:
+    * Random food joke displayed each refresh.
+    * Get Searching Today link with either returns recipe page or link to sign up.
+* My Fridge Page:
+    * Can add new ingredients.
+    * Can delete ingredients.
+    * Can clear whole fridge list.
+    * Predictive text on the ingredient input.
+* Pantry Staples Page:
+    * Starts off with default staples (like salt, pepper, olive oil, vinegar).
+    * Can add new staples.
+    * Can delete staples.
+    * Can clear whole staples list.
+    * Predictive text on the ingredient input.
+* Browse Recipe Search Page:
+    * View list of returned recipes based on the user's fridge and pantry contents.
+    * Save option under each recipe to save to user's recipe collection. 
+    * Title of the page is how many recipes the user can make.
+    * Each recipe you can see name, image, prep time.
+    * Each recipe you can see how many ingredients you have to make it e.g. "You have 4/8 ingredients".
+* Single Recipe page:
+    * The recipe information includes name, image, source, prep time, servings and cuisines, dish types and diets. 
+    * Ingredients are listed.
+    * Directions are listed.
+    * Button to save the recipe to user collection. 
+    * If the recipe is in the users saved collection display data from that, else call the food API.
+* Account Settings:
+    * User can update their profile picture, name, email and password. 
+    * Current data gets preloaded as placeholder.
+    * Save button then loads and alerts the user of saved. 
+* Preferences:
+    * The user can set diet and health preferences (via checkboxes) which will automatically be used to filter the recipes returned. 
+* Saved Recipes:
+    * Each recipe you can see name, image, category, prep time.
+    * Click on the recipe to go to single recipe page and display recipe data from saved data.
+   
+#### Future Features
+
+* Search History capture.
+* Oauth with sign up and login.
+* Recipes of the week on the home page.
+* Save recipes by different collections.
+* Categories for ingredients in Fridge.
+* User can rate a recipe.
+* User can write a review on a recipe (including picture).
+* Filter feature used to filter recipes, this include diet, health labels, cuisine and prep time. 
+* Filter buttons on saved recipe page at the top to show dishes based off Breakfast, lunch, dinner, snack.
+
+</details>
+
+---
+
+### Screen Shots
+<details>
+<summary>Click to expand</summary>
+
+![Screen Shots of Website ](./docs/screenshot1.png)
+![Screen Shots of Website ](./docs/screenshot2.png)
+![Screen Shots of Website ](./docs/screenshot3.png)
+![Screen Shots of Website ](./docs/screenshot4.png)
+![Screen Shots of Website ](./docs/screenshot5.png)
+![Screen Shots of Website ](./docs/screenshot6.png)
+![Screen Shots of Website ](./docs/screenshot7.png)
 
 
-#### Server
+</details>
 
-- "express": "^4.17.1"
+---
 
-- "mongoose": "^5.7.1",
+### Tech stack
+<details><summary>Click to expand</summary>
 
-- "mongoose-bcrypt": "^1.9.0"
+* **React JS** -
+* **Node JS** -
+* **HTML5**  -
+* **CSS3** -
+* **JavaScript** -
+* **AWS s3** - (Profile Image Upload)
+* **MongoDB** -
+* **Spoonacular API** -
+* **Heroku**  - (Deployment Server)
+* **Netlify** - (Deployment Client)
+* **GitHub** - (Version Control)
 
-- "express-session": "^1.17.1"
+</details>
 
-- "connect-mongo": "^3.2.0"
+---
 
-- "cors": "^2.8.5"
+### Libraries and Dependencies
 
-- "passport": "^0.4.1", "passport-jwt": "^4.0.0", "passport-local": "^1.0.0"
+<details>
+<summary>Click to expand</summary>
 
-- "dotenv": "^8.2.0"
+**Server**
 
-- "body-parser": "^1.19.0"
+* **express 4.17.1** - description
+* **mongoose 5.7.1** - description
+* **mongoose-bcrypt ^1.9.0** - description
+* **express-session 1.17.1** - description
+* **connect-mongo 3.2.0** - description
+* **cors 2.8.5** - description
+* **passport 0.4.1** - description
+* **passport-jwt  4.0.0** - description
+* **passport-local 1.0.0** - description
+* **dotenv 8.2.0** - description
+* **body-parser 1.19.0** - description
+* **cookie-parser 1.4.5** - description
+* **axios 0.21.1** - description
+* **aws-sdk ^2.805.0** - description
+* **multer 1.4.2** - description
+* **multer-s3 2.9.0** - description
+* **celebrate 13.0.4** - description
+* **express-validator 6.8.0** - description
+* **jsonwebtoken 8.5.1** - description
+* **nodemailer 6.4.17** - description
 
-- "cookie-parser": "^1.4.5"
+**Server Development** 
 
-- "axios": "^0.21.1"
-
-- "aws-sdk": "^2.805.0"
-
-- "multer": "^1.4.2"
-
-- "multer-s3": "^2.9.0"
-
-- "celebrate": "^13.0.4"
-
-- "express-validator": "^6.8.0"
-
-- "jsonwebtoken": "^8.5.1"
-
-- "nodemailer": "^6.4.17"
-
-#### Server Development 
-
-- "nodemon": "^1.19.2"
-
-- "mocha": "^6.2.0"
-
-- "expect": "^24.9.0" 
-
-- "nyc": "^15.1.0"
-
-- "supertest": "^6.0.1"
-
-
-#### Client
-
-- "react": "^17.0.1"
-
-- "react-dom": "^17.0.1"
-
-- "react-router-dom": "^5.2.0"
-
-- "react-scripts": "4.0.1"
-
-- "formik": "^2.2.5"
-
-- "history": "^5.0.0"
-
-- "axios": "^0.21.1"
-
-- "react-redux": "^7.2.2" , @reduxjs/toolkit,  "redux-thunk": "^2.3.0",
-
-- "react-helmet": "^6.1.0"
-
-- "react-modal": "^3.12.1"
-
-- "react-loading": "^2.0.3"
-
-- "react-reveal": "^1.2.2"
-
-- "react-toastify": "^6.2.0"
-
-- "react-spring": "^8.0.27"
-
-- "material-auto-rotating-carousel": "^3.0.2" & "react-swipeable-views": "^0.13.9"
-
-- material UI, "@material-ui/core": "^4.11.2", "@material-ui/icons": "^4.11.2", "@material-ui/lab": "^4.0.0-alpha.57"
-
--  "web-vitals": "^0.2.4"
-
-- "@testing-library/jest-dom": "^5.11.4",
-- "@testing-library/react": "^11.1.0",
-- "@testing-library/user-event": "^12.1.10",
-
-#### Client Development
-
-- "cypress": "^6.2.1"
+* **nodemon 1.19.2** - description
+* **mocha 6.2.0** - description
+* **expect 24.9.0** - description
+* **nyc 15.1.0** - description
+* **supertest 6.0.1** - description
 
 
+**Client**
 
+* **react 17.0.1** - description
+* **react-dom 17.0.1** - description
+* **react-router-dom 5.2.0** - description
+* **react-scripts 4.0.1** - description
+* **formik 2.2.5** - description
+* **history 5.0.0** - description
+* **axios 0.21.1** - description
+* **react-redux 7.2.2** - description
+* **@reduxjs/toolkit** - description
+* **redux-thunk 2.3.0** - description
+* **react-helmet 6.1.0** - description
+* **react-modal 3.12.1** - description
+* **react-loading 2.0.3** - description
+* **react-reveal 1.2.2** - description
+* **react-toastify 6.2.0** - description
+* **react-spring 8.0.27** - description
+* **material-auto-rotating-carousel 3.0.2** - description
+* **react-swipeable-view 0.13.9** - description
+* **material UI** - description
+* **@material-ui/core 4.11.2** - description
+* **@material-ui/icons 4.11.2** - description
+* **@material-ui/lab 4.0.0-alpha.57** - description
 
-- "@babel/core": "^7.12.9"
+* **@testing-library/jest-dom 5.11.4** - description
+* **@testing-library/react 11.1.0** - description
+* **@testing-library/user-event 12.1.10** - description
 
-- "@babel/preset-env": "^7.12.7"
+**Client Development**
 
-- "@babel/preset-react": "^7.12.7"
+* **cypress 6.2.1** - description
+* **@babel/core 7.12.9** - description
+* **@babel/preset-env 7.12.7** - description
+* **@babel/preset-react 7.12.7** - description
+* **babel-jest 26.6.3** - description
+* **identity-obj-proxy 3.0.0** - description
+* **jest-transform-stub 2.0.0** - description
 
-- "babel-jest": "^26.6.3"
-
-- "enzyme": "^3.11.0"
-
-- "enzyme-adapter-react-16": "^1.15.5"
-
-- "enzyme-to-json": "^3.6.1"
-
-- "identity-obj-proxy": "^3.0.0"
-
--  "jest-transform-stub": "^2.0.0"
-
+</details>
 
 ---
 
 ### API Endpoints
+
+<details>
+<summary>Click to expand</summary>
 
 | User | Ingredients | Preferences| Recipes| 
 |:---:|:---:|:---:|:---:|
@@ -154,6 +239,7 @@
 |PUT user/update-password|DELETE ingredients/:username/pantry/clear-all|||
 |POST user/:username/add-profile-picture||| |
 
+</details>
 
 ---
 
@@ -182,10 +268,8 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 16/12/2020 | FUNCTION -  queryEditor() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
 | 16/12/2020 | FUNCTION -  userQueryBuilder() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
 | 24/12/2020 | FUNCTION -  recipeIdGetter() | Console Test | First Tested via console with dummy data, before incorporating into Mocha Unit Testing|
+| Date | Feature | Test | Notes| 
 
-| Date | Feature | Test | Notes| 
-| Date | Feature | Test | Notes| 
-| Date | Feature | Test | Notes| 
 
 </details>
 
@@ -200,10 +284,28 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 08/12/2020 | Log in and Register Modals | Able to click on Log in or Register, modal appears. Able to click on Log in or Register within modal to switch forms. |
 | 24/12/2020 | User register | Manual Testing via the console checking if the redux state, and local storage was updated on register then login. |
 | 24/12/2020 | User login | Manual Testing via the console checking if the redux state, and local storage was updated on login. Additionally checking the JWT storage as cookie.|
+| 24/12/2020 | User Logout | Manual Testing via the console. |
 | 25/12/2020 | User Settings | Manual Testing via the console checking if the redux state, and local storage was updated on useEffect calling the DB get request and returning the user data.|
-| 25/12/2020 | User Settings Update | |
+| 25/12/2020 | User Settings Update | Manual Testing via the console. |
+| 28/12/2020 | Browse Recipe Page| Json File of test data used to load the page |
+| 28/12/2020 | Browse Recipe Page| Manual Testing via the console checking if the redux state, and local storage was updated. |
+| 06/01/2021 | Fridge Page| Manual Testing via the console. |
+| 06/01/2021 | Pantry Page| Manual Testing via the console. |
+| 06/01/2021 | Add New Fridge Ingredient | Manual Testing via the console.|
+| 06/01/2021 | Add New Pantry Ingredient | Manual Testing via the console.|
+| 06/01/2021 | Delete Fridge Ingredient | Manual Testing via the console.|
+| 06/01/2021 | Delete Pantry Ingredient | Manual Testing via the console.|
+| 06/01/2021 | Delete All Fridge Ingredients | Manual Testing via the console.|
+| 06/01/2021 | Delete All Pantry Ingredients | Manual Testing via the console.|
+| 11/01/2021 | Forgot Password | Test Account created to send forgot password request. |
+| 11/01/2021 | Reset Password | Manual Testing via the console. |
+| 11/01/2021 | Update Password | Manual Testing via the console. |
+| 07/01/2021 | Saved Recipe Page| Json File of test data used to load the page |
+| 12/01/2021 | Add Saved Recipe | Manual Testing via the console. |
+| 12/01/2021 | Delete Saved Recipe | Manual Testing via the console. |
 
 </details>
+
 ---
 
 ### Automated Testing Log - Development
@@ -249,7 +351,6 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 11/01/2020 | GET Reset Password with token | &cross; | Notes| 
 | 11/01/2020 | GET Reset Password with token- expired link| Passing | Notes| 
 | 11/01/2020 | PUT Reset Password in DB | &cross; | Notes| 
-| 11/01/2020 | Feature | &cross; | Notes| 
 
 #### Expect to Fail Tests
 
@@ -262,9 +363,6 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 22/12/2020 | GET Single Saved Recipes- Recipe ID not found  | Passing |  |
 | 11/01/2020 | POST Register Create- username already existing| Passing | Notes| 
 | 11/01/2020 | POST Register Create- if Error is thrown when creating user | Passing | Notes| 
-| 11/01/2020 | POST Forgot Password- if Error is thrown 500 | &cross; | Notes| 
-| 11/01/2020 | GET Reset Password with token- if Error is thrown 500 | &cross; | Notes| 
-| 11/01/2020 | PUT Reset Password in DB- if Error is thrown 500 | &cross; | Notes| 
 | 11/01/2020 | GET All Ingredients-Fridge- if Error is thrown 500 | Passing | Notes| 
 | 11/01/2020 | GET All Ingredients-Pantry- if Error is thrown 500 | Passing | Notes| 
 | 11/01/2020 | POST New Ingredient-Fridge-- if Error is thrown 500 | Passing | Notes| 
@@ -278,7 +376,9 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 11/01/2020 | GET A Recipe- if Error is thrown 500 | &cross; | Notes| 
 | 11/01/2020 | DELETE A Recipe- if Error is initially thrown | &cross; | Notes| 
 | 11/01/2020 | DELETE A Recipe- if Error is thrown 500 | &cross; | Notes| 
-
+| 11/01/2020 | POST Forgot Password- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | GET Reset Password with token- if Error is thrown 500 | &cross; | Notes| 
+| 11/01/2020 | PUT Reset Password in DB- if Error is thrown 500 | &cross; | Notes| 
 </details>
 
 #### Client
@@ -300,28 +400,33 @@ Our application has gone through comprehensive testing with Mocha for the Server
 <details>
 <summary>Click to expand</summary>
 
-| Date | Feature | Test | Notes |
-|:---:|:---:|:---:|:---:|
-| test | test | test |test |
+| Date | Feature | Test | Notes | Refactored |
+|:---:|:---:|:---:|:---:|:---:|
+|  |  |  | |  |
+
 
 </details>
 
 #### Client
 <details>
-<summary>Client- Click to expand</summary>
+<summary>Click to expand</summary>
 
-| Date | Feature | Test | Notes |
-|:---:|:---:|:---:|:---:|
-| test | test | test |test |
+| Date | Feature | Test | Notes | Refactored |
+|:---:|:---:|:---:|:---:|:---:|
+| 11/01/2020 | Register | Register an Account | Password validation too complex, simplify | &cross; |
+| 11/01/2020 | Home Page | Initial Application View | Onboarding needed for application explanation | &cross; |
+| 11/01/2020 | Home Page | Initial Application View | Onboarding needed for application explanation | &cross; |
+| 11/01/2020 | Fridge Page | Initial View | Description/prompt needed for adding ingredients | Yes |
+| 11/01/2020 | Pantry Page | Initial View | Description/prompt needed for adding Staples | Yes |
+| 11/01/2020 | Preferences Page | Initial View | Description/prompt needed for choosing preferences | Yes |
+| 11/01/2020 | Home | Initial View | Help button needed in navigation | Yes |
+| 11/01/2020 | Browse Recipes | Page Load | Additional loading time needed for recipes to return from DB | Yes |
+
 
 </details>
 
 ---
 
-### Planning & Project Management
-
-
----
 
 ### Planning & Project Management
 
@@ -338,7 +443,7 @@ As shown below we organised our planning based cards showing the rubric, testing
 
 We determined that setting weekly/fortnightly sprints was an ideal format for our project. We created a card in Trello that organised them by date and we were able to form checklists of what we wanted to have completed at the end of each sprint for the front-end and back-end. Whilst working we have a current doing card and then a completed card which we are able to distinguish each feature/component being worked on and what is completed. Additionally a card for revision proved helpful as we would have tasks completed, but they would in turn need revising/additional testing later on.
 
-<img src="./docs/trello/sprintplanning.png" alt="sprint planning" width="80%" />
+<img src="./docs/trello/sprintplanning.png" alt="sprint planning" width="60%" />
 
 In the initial planning stages we planned our Trello for the server/client based off features which would be the names of the branches. Our first feature for server/client was the user and during the first Sprint it was decided Shelby would complete the back-end code and testing and Adrienne would complete the front-end code and testing.  Each morning we begin with our own stand up in which we show what we have worked on, explained our code, listed any challenges and also any wins. Since we are working on back-end and front-end separate, this ensures we are both know what is happening on each feature. 
 
@@ -561,9 +666,16 @@ Additionally some other blockers, were ensuring there was enough time on the loa
 ###### REVIEWING TESTING
 
 Current sitting at 75% test coverage. 
-![Image of tests](./docs/testimage.png)
 ![Image of tests](./docs/testhtml.png)
 
-Following a review using Istanbul of the server side test coverage, it was determined at about another 20 tests, most of them testing for errors would need to be written to increase test coverage. 
+Following a review using Istanbul of the server side test coverage, it was determined additional tests would need to be written to increase test coverage, another 10 tests were put in place, most of which were testing for if errors occurred. This increased our back-end test coverage to approximately 75%.
+
+###### RECIPES
+
+During this final sprint the implementation of connecting the back-end to the front-end for browsing recipes, viewing saved recipes, adding, deleting and viewing a single recipe was completed. For the features such as user settings, a API call was done on initial page load due to the sensitive nature of the data, but for the lists of recipes, we wanted to utilise local storage to minimize database calls. In a production setting of the DB, at any time the recipes returned could be set up to 100 (depending on the limits set), so saving in local storage meant that the API calls would not need to be done each render. The API call gets made again if the User presses 'Search Again'. Even during production usage, our browse recipe data returned will be set at a reduced limit, due to a the payment tiers of the Spoonacular API call. 
+
+The users 'Saved Recipe' page was connected to the server next. Utlising the same listed recipe component to display the recipe cards the same as the search recipe page. Then connecting the back-end to the single recipe page next was trickier. This page is set up to display the ID in the URL parameters, however if the recipe is from the users DB it will be an ObjectID from MongoDB, and if the recipe is just being view from the search the ID will be the ID from Spoonacular API. The back-end determines if the ID is a Object and returns the data based off this check, either returning DB data or calling the Spoonacular API which the recipe ID. Both sets of Data are handled the same on the front end, since they both contain the same key properties for displaying. The code that took some time to implement correctly was storing the single recipe in Local Storage, then a checker which determines by ID from the URL if it is a Local, then if so display that data, before trying to call the DB. 
+
+Removals: From the saved recipe page, the feature of having categories for breakfast, lunch and dinner was removed due to the time frame and placed in nice to have for future. Additionally the major filter components for the browse recipe page was removed again due to the time frame, this is a large complex component/feature which requires the needed time and effort to implement correctly. 
 
 </details>
