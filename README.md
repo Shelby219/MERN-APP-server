@@ -34,7 +34,7 @@ The overall goal of this application is a search application based on user ingre
 
 ---
 
-### Current Features
+### Features
 <details>
 <summary>Click to expand</summary>
 
@@ -68,8 +68,9 @@ The overall goal of this application is a search application based on user ingre
     * Can delete staples.
     * Can clear whole staples list.
     * Predictive text on the ingredient input.
-* Returned Recipe Search Page:
+* Browse Recipe Search Page:
     * View list of returned recipes based on the user's fridge and pantry contents.
+    * Save option under each recipe to save to user's recipe collection. 
     * Title of the page is how many recipes the user can make.
     * Each recipe you can see name, image, prep time.
     * Each recipe you can see how many ingredients you have to make it e.g. "You have 4/8 ingredients".
@@ -90,15 +91,15 @@ The overall goal of this application is a search application based on user ingre
     * Click on the recipe to go to single recipe page and display recipe data from saved data.
    
 #### Future Features
+
 * Search History capture.
 * Oauth with sign up and login.
 * Recipes of the week on the home page.
-* Different collections for saved recipes.
+* Save recipes by different collections.
 * Categories for ingredients in Fridge.
 * User can rate a recipe.
-* User can write a review on a recipe (including picture).* Filter feature used to filter recipes, this include diet, health labels, cuisine and prep time. 
-* Save option under each recipe to save to user's recipe collection. 
-* If recipe in users saved collection, alert on screen (change button colour).
+* User can write a review on a recipe (including picture).
+* Filter feature used to filter recipes, this include diet, health labels, cuisine and prep time. 
 * Filter buttons on saved recipe page at the top to show dishes based off Breakfast, lunch, dinner, snack.
 
 </details>
@@ -119,50 +120,23 @@ The overall goal of this application is a search application based on user ingre
 
 
 </details>
+
 ---
 
 ### Tech stack
 <details><summary>Click to expand</summary>
 
-**Design and Planning**
-* Trello (Planning)
-* Miro (Wireframing)
-* xtensio (Personas)
-* Framer (Prototypes)
-* Lucid Chart (Diagramming)
-* Slack (Team Communication)
-
-**Frontend**
-* HTML5 
-* CSS3
-* React JS
-* JavaScript
-* JSX 
-* Material-UI
-* Axios (Http Requests)
-
-**Backend**
-* ExpressJS
-* Node JS
-* Passport (Authentication)
-* Passport-JWT (Json Web Token Auth)
-* Express Session (Session Tracking)
-* AWS s3 (Profile Image Upload)
-
-**Database**
-* MongoDB
-* Mongoose
-
-**Testing**
-* Cypress- Front-end
-* Supertest- (Server Testing)
-* SuperAgent (Server Testing)
-* Mocha- (Testing Framework)
-
-**Other**
-* Spoonacular API For recipes
-* Heroku - (Deployment Server)
-* Netlify- (Deployment Client)
+* **React JS** -
+* **Node JS** -
+* **HTML5**  -
+* **CSS3** -
+* **JavaScript** -
+* **AWS s3** - (Profile Image Upload)
+* **MongoDB** -
+* **Spoonacular API** -
+* **Heroku**  - (Deployment Server)
+* **Netlify** - (Deployment Client)
+* **GitHub** - (Version Control)
 
 </details>
 
