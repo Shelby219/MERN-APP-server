@@ -679,3 +679,14 @@ The users 'Saved Recipe' page was connected to the server next. Utlising the sam
 Removals: From the saved recipe page, the feature of having categories for breakfast, lunch and dinner was removed due to the time frame and placed in nice to have for future. Additionally the major filter components for the browse recipe page was removed again due to the time frame, this is a large complex component/feature which requires the needed time and effort to implement correctly. 
 
 </details>
+
+---
+
+### Pending Updates
+
+<details>
+<summary>Click to expand</summary>
+
+
+
+</details>

@@ -3,12 +3,9 @@ const {
 	getAllSavedRecipes,
 	getSingleRecipe,
 	addSavedRecipe,
-	deleteFromSavedRecipes
+	deleteFromSavedRecipes,
 } = require("../utils/recipe_utilities")
-const {
-	singleRecipeAPISearch,
-  } = require("../helpers/api_search_helpers.js")
-  
+
 //DISPLAY SEARCH RESULTS- based on API CALL
 const displayRecipes =  async function(req, res) {
 	try {
@@ -85,7 +82,7 @@ const removeSavedRecipes = function(req, res) {
 		res.send(req.error.message)
 	} else {
 		// execute the query 
-		deleteFromSavedRecipes(req.params.id).exec(err => {
+		deleteFromSavedRecipes(req.params.id).exec( (err) => {
 			if (err) {
 				res.status(500)
 				res.json({

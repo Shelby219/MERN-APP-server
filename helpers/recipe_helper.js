@@ -52,19 +52,20 @@ async function recipeIdGetter(recipesObject) {
     const idArray = []
     const filtered = []
 
-   await recipesObject.map(recipe => {
-    idArray.push(recipe.id)
-    filtered.push({
-      id: recipe.id,
-      usedIngred: recipe.usedIngredientCount, 
-      missedIngred: recipe.missedIngredientCount,
-      usedIngredItems: recipe.usedIngredients, 
-      missedIngredItems: recipe.missedIngredients
-      })
-    });
-    const newString = idArray.join(",")
+    await recipesObject.map(recipe => {
+        idArray.push(recipe.id)
+        filtered.push({
+        id: recipe.id,
+        usedIngred: recipe.usedIngredientCount, 
+        missedIngred: recipe.missedIngredientCount,
+        usedIngredItems: recipe.usedIngredients, 
+        missedIngredItems: recipe.missedIngredients
+        })
+        });
+
+     const newString = idArray.join(",")
       
-    const data = {ids: newString, usedAndMissedIng: filtered }
+     const data = {ids: newString, usedAndMissedIng: filtered }
    // console.log(data)
    return data
   }

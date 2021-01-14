@@ -29,7 +29,7 @@ const request = axios.create({
   
   const singleRecipeAPISearch = async function (recipeID) { 
     //return single recipe based on ID if user does not have it saved
-     let recipe = await request.get(`${recipeID}/information?includeNutrition=true&apiKey=${process.env.RECIPE_API_KEY}`)
+     let recipe = await request.get(`${recipeID}/information?includeNutrition=false&apiKey=${process.env.RECIPE_API_KEY}`)
      return recipe
   }
 
