@@ -678,6 +678,9 @@ The users 'Saved Recipe' page was connected to the server next. Utlising the sam
 
 Removals: From the saved recipe page, the feature of having categories for breakfast, lunch and dinner was removed due to the time frame and placed in nice to have for future. Additionally the major filter components for the browse recipe page was removed again due to the time frame, this is a large complex component/feature which requires the needed time and effort to implement correctly. 
 
+<img src="./docs/trello/sprint5-2.png" alt="sprint 5 card 2" width="80%" />
+<img src="./docs/trello/sprint5-3.png" alt="sprint 5 card 3" width="80%" />
+<img src="./docs/trello/sprint5-4.png" alt="sprint 5 card 4" width="80%" />
 </details>
 
 ---
