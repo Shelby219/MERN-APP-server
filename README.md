@@ -393,34 +393,52 @@ Our application has gone through comprehensive testing with Mocha for the Server
 </details>
 
 ---
-###  Testing  - Production
 
-#### Server
+###  User Testing  - Development
+
 
 <details>
 <summary>Click to expand</summary>
 
-| Date | Feature | Test | Notes | Refactored |
-|:---:|:---:|:---:|:---:|:---:|
-|  |  |  | |  |
+<br>
+
+#### Screen Recordings
+[Dev User Testing Video 1](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/user-test-dev-1.mp4)
+
+#### Test Notes
+
+| Date | Feature | Test | Notes | Refactored | Screen Record ? |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| 11/01/2020 | Register | Register an Account | Password validation too complex, simplify | &cross; | |
+| 11/01/2020 | Home Page | Initial Application View | Onboarding needed for application explanation | Yes | |
+| 11/01/2020 | Fridge Page | Initial View | Description/prompt needed for adding ingredients | Yes | |
+| 11/01/2020 | Pantry Page | Initial View | Description/prompt needed for adding Staples | Yes | |
+| 11/01/2020 | Preferences Page | Initial View | Description/prompt needed for choosing preferences | Yes | |
+| 11/01/2020 | Home | Initial View | Help button needed in navigation | Yes | |
+| 11/01/2020 | Browse Recipes | Page Load | Additional loading time needed for recipes to return from DB | Yes | |
+| 14/01/2020 | Add Fridge Ingredients | Component | Clear Autocomplete ingredient component after adding |  &cross; |Dev Test Record 1  |
+| 14/01/2020 | Add Pantry Staples | Component | Clear Autocomplete ingredient component after adding |  &cross; |Dev Test Record 1  |
+| 14/01/2020 | Pantry Page| Component | Error - filterpantry function not working , undefined |  &cross; | Dev Test Record 1 |
+| 14/01/2020 | Browse Recipe | Component | Loading animation applied to all browse recipe buttons |  &cross; | Dev Test Record 1  |
+| 14/01/2020 | Browse Page | Recipe Title | Recipe Title - room not large enough for longer recipe names |  &cross; | Dev Test Record 1  |
+| 14/01/2020 | Saved Recipe Page | Component | Need back to saved recipes button for smoother user experience  |  &cross; | Dev Test Record 1  |
+| 14/01/2020 | User Settings Page | Component | Add loading screen after update settings for smoother UX  |  Yes | Dev Test Record 1  |
+| 14/01/2020 | Login In Modal  | Modal | Add loading screen for after clicking login |  Yes | Dev Test Record 1  |
 
 
 </details>
 
-#### Client
+---
+
+###  User Testing   - Production
+
+
 <details>
 <summary>Click to expand</summary>
 
-| Date | Feature | Test | Notes | Refactored |
-|:---:|:---:|:---:|:---:|:---:|
-| 11/01/2020 | Register | Register an Account | Password validation too complex, simplify | &cross; |
-| 11/01/2020 | Home Page | Initial Application View | Onboarding needed for application explanation | &cross; |
-| 11/01/2020 | Home Page | Initial Application View | Onboarding needed for application explanation | &cross; |
-| 11/01/2020 | Fridge Page | Initial View | Description/prompt needed for adding ingredients | Yes |
-| 11/01/2020 | Pantry Page | Initial View | Description/prompt needed for adding Staples | Yes |
-| 11/01/2020 | Preferences Page | Initial View | Description/prompt needed for choosing preferences | Yes |
-| 11/01/2020 | Home | Initial View | Help button needed in navigation | Yes |
-| 11/01/2020 | Browse Recipes | Page Load | Additional loading time needed for recipes to return from DB | Yes |
+
+| Date | Feature | Test | Notes | Refactored | Screen Record ? |
+|:---:|:---:|:---:|:---:|:---:|:---:|
 
 
 </details>
