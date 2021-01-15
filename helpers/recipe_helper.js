@@ -72,63 +72,26 @@ async function recipeIdGetter(recipesObject) {
 }
 
 
-
-
-
-
-
-// let test = [{
-//    id: 1,
-//    vegetarian: false,
-//    vegan: false,
-//    glutenFree: true,
-//    dairyFree: false,
-//    veryHealthy: true,
-//    cheap: false,
-//    veryPopular: false,
-//    sustainable: false
-// },
-//    {
-//    id: 2,
-//    vegetarian: true,
-//    vegan: false,
-//    glutenFree: true,
-//    dairyFree: false,
-//    veryHealthy: false,
-//    cheap: false,
-//    veryPopular: false,
-//    sustainable: false
-// }]
-
-// async function recipeFilterFromPref(recipes, preferences) { 
-//     const filteredPerson = await recipes.filter(function(r) {
-//       r.vegetarian === preferences[vegetarian] ||
-//       r.vegan === preferences[vegan] ||
-//       r.glutenFree  === preferences[glutenFree] ||
-//       r.dairyFree === preferences[dairyFree] ||
-//       r.veryHealthy === preferences[veryHealthy] ||
-//       r.cheap === preferences[cheap] ||
-//       r.veryPopular === preferences[veryPopular] ||
-//       r.sustainable === preferences[sustainable] 
-//    });
-
-//    console.log(filteredPerson)
-// }
-
-// let testPref = {
-//     vegetarian: true,
-//     vegan: true,
-//     glutenFree: true,
-//     dairyFree: true,
-//     veryHealthy: true,
-//     cheap: true,
-//     veryPopular: true,
-//     sustainable: true,
-// }
-// recipeFilterFromPref(test, testPref) 
+function userPrefFilter (userPrefs, recipes) {
+    //let userPrefs = JSON.parse(getPref())
+    const myArrayFiltered = recipes.filter((r) => {
+    return r.vegetarian === userPrefs.vegetarian 
+       && r.vegan === userPrefs.vegan
+       && r.glutenFree === userPrefs.glutenFree
+       && r.dairyFree === userPrefs.dairyFree
+       && r.veryHealthy === userPrefs.veryHealthy
+       && r.cheap === userPrefs.cheap
+       && r.veryPopular === userPrefs.veryPopular
+       && r.sustainable === userPrefs.sustainable
+       ;
+   });
+   return myArrayFiltered
+   console.log("check userPref filter", myArrayFiltered)
+}
 
 
 module.exports = {
     userQueryBuilder,
-    recipeIdGetter
+    recipeIdGetter,
+    userPrefFilter
 }

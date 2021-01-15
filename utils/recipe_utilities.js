@@ -25,10 +25,6 @@ const returnRecipesToBrowse = async (req) => {
 };  
 
 
-const getUserForPrefFilter = async (req) => {
-    return  User.findOne({ username:  req.user.username })
-}
-
 const getAllSavedRecipes = function (req) {
  //return SavedRecipe.find({ username: 'testusername'})  //for testing purposes only
   return SavedRecipe.find({ username: req.user.username })
@@ -63,6 +59,5 @@ module.exports = {
   getAllSavedRecipes,
   getSingleRecipe,
   addSavedRecipe,
-  deleteFromSavedRecipes,
-  getUserForPrefFilter
+  deleteFromSavedRecipes
 }
