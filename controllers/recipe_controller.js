@@ -1,3 +1,4 @@
+const User = require('../models/user');
 const {
 	returnRecipesToBrowse,
 	getAllSavedRecipes,
@@ -5,14 +6,26 @@ const {
 	addSavedRecipe,
 	deleteFromSavedRecipes
 } = require("../utils/recipe_utilities")
+
 const {
-	singleRecipeAPISearch,
-  } = require("../helpers/api_search_helpers.js")
-  
+	userPrefFilter
+  } = require("../helpers/recipe_helper")
+
+
 //DISPLAY SEARCH RESULTS- based on API CALL
 const displayRecipes =  async function(req, res) {
 	try {
 		 let recipes = await returnRecipesToBrowse(req)
+		//  await User.findOne({ username:  req.user.username }, function (err, userInfo) {
+		// 		if (err) {
+		// 			console.log(err)
+		// 			//throw new Error ("Error getting user from DB")
+		// 		}
+		// 		return userInfo
+		// 	});
+				
+		// await userPrefFilter(userInfo.preferences, recipes)
+		
 		 res.status(200)
 		 res.json(recipes)
 		 console.log("recipe search returned")
@@ -21,9 +34,11 @@ const displayRecipes =  async function(req, res) {
             res.json({
              error: err.message
 		 })
-	     }
+	    }
 	}
 }
+
+
 
 //DISPLAY SINGLE RECIPE PAGE- based on either API call if it doesnt exist in user saved recipes
 const displaySingleRecipe =  function(req, res) {
@@ -85,7 +100,7 @@ const removeSavedRecipes = function(req, res) {
 		res.send(req.error.message)
 	} else {
 		// execute the query 
-		deleteFromSavedRecipes(req.params.id).exec(err => {
+		deleteFromSavedRecipes(req.params.id).exec( (err) => {
 			if (err) {
 				res.status(500)
 				res.json({

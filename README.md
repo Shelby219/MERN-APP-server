@@ -393,34 +393,52 @@ Our application has gone through comprehensive testing with Mocha for the Server
 </details>
 
 ---
-###  Testing  - Production
 
-#### Server
+###  User Testing  - Development
+
 
 <details>
 <summary>Click to expand</summary>
 
-| Date | Feature | Test | Notes | Refactored |
-|:---:|:---:|:---:|:---:|:---:|
-|  |  |  | |  |
+<br>
+
+#### Screen Recordings
+[Dev User Testing Video 1](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/user-test-dev-1.mp4)
+
+#### Test Notes
+
+| Date | Feature | Test | Notes | Refactored | Screen Record ? |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| 11/01/2020 | Register | Register an Account | Password validation too complex, simplify | &cross; | |
+| 11/01/2020 | Home Page | Initial Application View | Onboarding needed for application explanation | Yes | |
+| 11/01/2020 | Fridge Page | Initial View | Description/prompt needed for adding ingredients | Yes | |
+| 11/01/2020 | Pantry Page | Initial View | Description/prompt needed for adding Staples | Yes | |
+| 11/01/2020 | Preferences Page | Initial View | Description/prompt needed for choosing preferences | Yes | |
+| 11/01/2020 | Home | Initial View | Help button needed in navigation | Yes | |
+| 11/01/2020 | Browse Recipes | Page Load | Additional loading time needed for recipes to return from DB | Yes | |
+| 14/01/2020 | Add Fridge Ingredients | Component | Clear Autocomplete ingredient component after adding |  &cross; |Dev Test Record 1  |
+| 14/01/2020 | Add Pantry Staples | Component | Clear Autocomplete ingredient component after adding |  &cross; |Dev Test Record 1  |
+| 14/01/2020 | Pantry Page| Component | Error - filterpantry function not working , undefined |  &cross; | Dev Test Record 1 |
+| 14/01/2020 | Browse Recipe | Component | Loading animation applied to all browse recipe buttons |  &cross; | Dev Test Record 1  |
+| 14/01/2020 | Browse Page | Recipe Title | Recipe Title - room not large enough for longer recipe names |  &cross; | Dev Test Record 1  |
+| 14/01/2020 | Saved Recipe Page | Component | Need back to saved recipes button for smoother user experience  |  &cross; | Dev Test Record 1  |
+| 14/01/2020 | User Settings Page | Component | Add loading screen after update settings for smoother UX  |  Yes | Dev Test Record 1  |
+| 14/01/2020 | Login In Modal  | Modal | Add loading screen for after clicking login |  Yes | Dev Test Record 1  |
 
 
 </details>
 
-#### Client
+---
+
+###  User Testing   - Production
+
+
 <details>
 <summary>Click to expand</summary>
 
-| Date | Feature | Test | Notes | Refactored |
-|:---:|:---:|:---:|:---:|:---:|
-| 11/01/2020 | Register | Register an Account | Password validation too complex, simplify | &cross; |
-| 11/01/2020 | Home Page | Initial Application View | Onboarding needed for application explanation | &cross; |
-| 11/01/2020 | Home Page | Initial Application View | Onboarding needed for application explanation | &cross; |
-| 11/01/2020 | Fridge Page | Initial View | Description/prompt needed for adding ingredients | Yes |
-| 11/01/2020 | Pantry Page | Initial View | Description/prompt needed for adding Staples | Yes |
-| 11/01/2020 | Preferences Page | Initial View | Description/prompt needed for choosing preferences | Yes |
-| 11/01/2020 | Home | Initial View | Help button needed in navigation | Yes |
-| 11/01/2020 | Browse Recipes | Page Load | Additional loading time needed for recipes to return from DB | Yes |
+
+| Date | Feature | Test | Notes | Refactored | Screen Record ? |
+|:---:|:---:|:---:|:---:|:---:|:---:|
 
 
 </details>
@@ -677,5 +695,22 @@ During this final sprint the implementation of connecting the back-end to the fr
 The users 'Saved Recipe' page was connected to the server next. Utlising the same listed recipe component to display the recipe cards the same as the search recipe page. Then connecting the back-end to the single recipe page next was trickier. This page is set up to display the ID in the URL parameters, however if the recipe is from the users DB it will be an ObjectID from MongoDB, and if the recipe is just being view from the search the ID will be the ID from Spoonacular API. The back-end determines if the ID is a Object and returns the data based off this check, either returning DB data or calling the Spoonacular API which the recipe ID. Both sets of Data are handled the same on the front end, since they both contain the same key properties for displaying. The code that took some time to implement correctly was storing the single recipe in Local Storage, then a checker which determines by ID from the URL if it is a Local, then if so display that data, before trying to call the DB. 
 
 Removals: From the saved recipe page, the feature of having categories for breakfast, lunch and dinner was removed due to the time frame and placed in nice to have for future. Additionally the major filter components for the browse recipe page was removed again due to the time frame, this is a large complex component/feature which requires the needed time and effort to implement correctly. 
+
+The functionality which takes the users preferences and filters out recipes using these preferences was built, however not utlised as the API endpoint limits for spoonacular are limited due to the payment tier, so to call enough recipes to enabling filtering would be too much at this point. This function does sit on the client side, however future plans will put this functionality on the server side to save the data load being sent to the client. 
+
+
+<img src="./docs/trello/sprint5-2.png" alt="sprint 5 card 2" width="80%" />
+<img src="./docs/trello/sprint5-3.png" alt="sprint 5 card 3" width="80%" />
+<img src="./docs/trello/sprint5-4.png" alt="sprint 5 card 4" width="80%" />
+</details>
+
+---
+
+### Pending Updates
+
+<details>
+<summary>Click to expand</summary>
+
+
 
 </details>

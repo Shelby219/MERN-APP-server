@@ -463,7 +463,7 @@ function setUpRecipeData() {
   let date = Date.now();
   let testRecipe = {};
   testRecipe.username = 'testusername';
-  testRecipe._id = 3434;
+  testRecipe.recipeID = 3434;
   testRecipe.title = "Test Recipe Title";
   testRecipe.create_date = date;
   testRecipe.modified_date = date;

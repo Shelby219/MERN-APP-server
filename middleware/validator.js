@@ -1,6 +1,6 @@
 const { body, validationResult, param } = require('express-validator')
 const User = require('../models/user');
-
+const SavedRecipe = require('../models/recipe');
 const userValidationRules = () => {
     return [
         body('email').isEmail().normalizeEmail().withMessage('Must be a valid email format').custom(value => {
@@ -57,7 +57,24 @@ const recipeParamValidationRules = () => {
         param('id').exists().withMessage('Recipe ID Not Found'),
       ]
   }
-
+  
+const recipeSaveRules = () => {
+    return [
+      body('recipeID').custom(value => {
+        return new Promise((resolve, reject) => {
+          SavedRecipe.findOne({recipeID:value}, function(err, recipe){
+            if(err) {
+              reject(new Error('Server Error'))
+            }
+            if(Boolean(recipe)) {      
+              reject(new Error('You have already saved this recipe!'))
+            }
+            resolve(true)
+          });
+        });
+      }),
+      ]
+  }
   const validate = (req, res, next) => {
     const errors = validationResult(req)
     if (errors.isEmpty()) {
@@ -76,5 +93,6 @@ const recipeParamValidationRules = () => {
     accountSettingValidationRules,
     recipeParamValidationRules,
     usernameParamValidationRules,
+    recipeSaveRules
   }
 

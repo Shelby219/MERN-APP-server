@@ -1,7 +1,17 @@
 
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
 
 const ingredientJoiner = function (fridge, pantry) { 
     const ingredients = fridge.concat(pantry);
+   
+    shuffleArray(ingredients)
     return ingredients.join(",+")
 }
 
@@ -43,7 +53,7 @@ async function userQueryBuilder(returnUser) {
 
 async function recipeIdGetter(recipesObject) { 
     // if the object returned first value is recipes then the random recipe API query was called- so just return the data
-  
+   
     if (Object.keys(recipesObject)[0] === "recipes") {
            return recipesObject
     } else {
@@ -52,82 +62,46 @@ async function recipeIdGetter(recipesObject) {
     const idArray = []
     const filtered = []
 
-   await recipesObject.map(recipe => {
-    idArray.push(recipe.id)
-    filtered.push({
-      id: recipe.id,
-      usedIngred: recipe.usedIngredientCount, 
-      missedIngred: recipe.missedIngredientCount,
-      usedIngredItems: recipe.usedIngredients, 
-      missedIngredItems: recipe.missedIngredients
-      })
-    });
-    const newString = idArray.join(",")
+    await recipesObject.map(recipe => {
+        idArray.push(recipe.id)
+        filtered.push({
+        id: recipe.id,
+        usedIngred: recipe.usedIngredientCount, 
+        missedIngred: recipe.missedIngredientCount,
+        usedIngredItems: recipe.usedIngredients, 
+        missedIngredItems: recipe.missedIngredients
+        })
+        });
+
+     const newString = idArray.join(",")
       
-    const data = {ids: newString, usedAndMissedIng: filtered }
+     const data = {ids: newString, usedAndMissedIng: filtered }
    // console.log(data)
    return data
   }
 }
 
 
-
-
-
-
-
-// let test = [{
-//    id: 1,
-//    vegetarian: false,
-//    vegan: false,
-//    glutenFree: true,
-//    dairyFree: false,
-//    veryHealthy: true,
-//    cheap: false,
-//    veryPopular: false,
-//    sustainable: false
-// },
-//    {
-//    id: 2,
-//    vegetarian: true,
-//    vegan: false,
-//    glutenFree: true,
-//    dairyFree: false,
-//    veryHealthy: false,
-//    cheap: false,
-//    veryPopular: false,
-//    sustainable: false
-// }]
-
-// async function recipeFilterFromPref(recipes, preferences) { 
-//     const filteredPerson = await recipes.filter(function(r) {
-//       r.vegetarian === preferences[vegetarian] ||
-//       r.vegan === preferences[vegan] ||
-//       r.glutenFree  === preferences[glutenFree] ||
-//       r.dairyFree === preferences[dairyFree] ||
-//       r.veryHealthy === preferences[veryHealthy] ||
-//       r.cheap === preferences[cheap] ||
-//       r.veryPopular === preferences[veryPopular] ||
-//       r.sustainable === preferences[sustainable] 
-//    });
-
-//    console.log(filteredPerson)
-// }
-
-// let testPref = {
-//     vegetarian: true,
-//     vegan: true,
-//     glutenFree: true,
-//     dairyFree: true,
-//     veryHealthy: true,
-//     cheap: true,
-//     veryPopular: true,
-//     sustainable: true,
-// }
-// recipeFilterFromPref(test, testPref) 
+function userPrefFilter (userPrefs, recipes) {
+    //let userPrefs = JSON.parse(getPref())
+    const myArrayFiltered = recipes.filter((r) => {
+    return r.vegetarian === userPrefs.vegetarian 
+       && r.vegan === userPrefs.vegan
+       && r.glutenFree === userPrefs.glutenFree
+       && r.dairyFree === userPrefs.dairyFree
+       && r.veryHealthy === userPrefs.veryHealthy
+       && r.cheap === userPrefs.cheap
+       && r.veryPopular === userPrefs.veryPopular
+       && r.sustainable === userPrefs.sustainable
+       ;
+   });
+   return myArrayFiltered
+   console.log("check userPref filter", myArrayFiltered)
+}
 
 
 module.exports = {
     userQueryBuilder,
-    recipeIdGetter
+    recipeIdGetter,
+    userPrefFilter
 }
