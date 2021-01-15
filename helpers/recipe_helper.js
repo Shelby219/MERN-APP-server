@@ -1,7 +1,17 @@
 
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
 
 const ingredientJoiner = function (fridge, pantry) { 
     const ingredients = fridge.concat(pantry);
+   
+    shuffleArray(ingredients)
     return ingredients.join(",+")
 }
 
@@ -43,7 +53,7 @@ async function userQueryBuilder(returnUser) {
 
 async function recipeIdGetter(recipesObject) { 
     // if the object returned first value is recipes then the random recipe API query was called- so just return the data
-  
+   
     if (Object.keys(recipesObject)[0] === "recipes") {
            return recipesObject
     } else {
