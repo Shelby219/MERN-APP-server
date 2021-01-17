@@ -41,7 +41,6 @@ app.use(cors({
 }));
 
 
-
 //
 app.use(cookieParser());
 app.use(bodyParser.json())
@@ -68,9 +67,6 @@ app.use(session({
 }))
 
 
-
-
-
 // MONGODB
 const dbConn =  process.env.MONGODB_URI ||  'mongodb://localhost/recipe_app'
 mongoose.connect(dbConn, {
@@ -90,9 +86,7 @@ mongoose.connect(dbConn, {
 //PASSPORT   
 require("./middleware/passport");
 app.use(passport.initialize());
-app.use(passport.session());
-
-
+//app.use(passport.session());
 
 
 //ROUTES
