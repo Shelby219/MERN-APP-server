@@ -27,11 +27,10 @@ if(process.env.NODE_ENV !== 'production') {
 // CORS
 const whitelist = [
     'http://localhost:3000',
-    'https://fridge-mate.herokuapp.com/',
     'https://fridgemate.netlify.app/']
 app.use(cors({
     credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    //methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     origin: function (origin,callback) {
         // Check each url in whitelist and see if it includes the origin (instead of matching exact string)
         const whitelistIndex = whitelist.findIndex((url) => url.includes(origin))
@@ -40,15 +39,9 @@ app.use(cors({
     }
 }));
 
-//PRE FLIGHT ACROSS THE BOARD
-app.options('*', cors())
+// //PRE FLIGHT ACROSS THE BOARD
+// app.options('*', cors())
 
-// app.all('*', function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Methods", "OPTIONS,GET,HEAD,PUT,PATCH,POST,DELETE");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-//     next();
-// });
 
 //
 app.use(cookieParser());
@@ -68,7 +61,7 @@ app.use(session({
     cookie: {
         expires: 3600000,
         maxAge: 600000,
-        //secure: true,
+        secure: true,
         sameSite: 'none',
         httpOnly: false,
     },
