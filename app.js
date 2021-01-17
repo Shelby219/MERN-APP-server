@@ -40,12 +40,6 @@ app.use(cors({
 }));
 
 // //PRE FLIGHT ACROSS THE BOARD
-app.options('/user/login', cors())
-
-app.use(function(req, res, next) { //allow cross origin requests
-    res.header("Access-Control-Allow-Origin", "https://fridgemate.netlify.app/");
-    next();
-});
 
 //
 app.use(cookieParser());
@@ -68,6 +62,7 @@ app.use(session({
         secure: true,
         sameSite: 'none',
         httpOnly: false,
+        domain:  "https://fridgemate.netlify.app/",
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
