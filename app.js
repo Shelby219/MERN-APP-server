@@ -33,15 +33,15 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended:true   
 }));
-
+app.enable('trust proxy');
 app.use(session({
     secret: 'Secret of The Recipe App',
     resave: false,
     saveUninitialized: false,
     cookie: {
         maxAge: 600000,
+        secure: true,
         sameSite: 'none',
-         secure: true,
         httpOnly: false,
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
@@ -58,7 +58,7 @@ app.use(cors({
     origin: function (origin,callback) {
         // Check each url in whitelist and see if it includes the origin (instead of matching exact string)
         const whitelistIndex = whitelist.findIndex((url) => url.includes(origin))
-        //console.log("found whitelistIndex", whitelistIndex)
+        console.log("found whitelistIndex", whitelistIndex)
         callback(null,whitelistIndex > -1)
     }
 }));
