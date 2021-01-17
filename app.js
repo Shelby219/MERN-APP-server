@@ -23,35 +23,6 @@ if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-
-
-
-//app.use(cors());
-app.use(cookieParser());
-app.use(bodyParser.json())
-app.use(express.json());
-app.use(express.urlencoded({
-    extended:true   
-}));
-app.enable('trust proxy');
-app.use(session({
-    secret: 'Secret of The Recipe App',
-    resave: false,
-    saveUninitialized: false,
-    proxy: true,
-    cookie: {
-        maxAge: 600000,
-        secure: true,
-        sameSite: 'none',
-        httpOnly: false,
-    },
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
-}))
-
-require("./middleware/passport");
-app.use(passport.initialize());
-
-
 // Use cors
 const whitelist = ['http://localhost:3000','https://fridgemate.netlify.app']
 app.use(cors({
@@ -63,6 +34,32 @@ app.use(cors({
         callback(null,whitelistIndex > -1)
     }
 }));
+
+app.use(cookieParser());
+//app.use(bodyParser.json())
+app.use(express.json());
+app.use(express.urlencoded({
+    extended:true   
+}));
+
+app.enable('trust proxy');
+app.use(session({
+    secret: process.env.JWT_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    proxy: true,
+    cookie: {
+        expires: 3600000,
+        maxAge: 600000,
+        secure: true,
+        sameSite: 'none',
+        httpOnly: false,
+    },
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+}))
+
+require("./middleware/passport");
+app.use(passport.initialize());
 
 
 const dbConn =  process.env.MONGODB_URI ||  'mongodb://localhost/recipe_app'
