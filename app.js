@@ -30,6 +30,7 @@ const whitelist = [
     'https://fridgemate.netlify.app/']
 app.use(cors({
     credentials: true,
+    preflightContinue: true,
     //methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     origin: function (origin,callback) {
         // Check each url in whitelist and see if it includes the origin (instead of matching exact string)
