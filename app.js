@@ -38,6 +38,7 @@ app.use(session({
     secret: 'Secret of The Recipe App',
     resave: false,
     saveUninitialized: false,
+    proxy: true,
     cookie: {
         maxAge: 600000,
         secure: true,
@@ -52,7 +53,7 @@ app.use(passport.initialize());
 
 
 // Use cors
-const whitelist = ['http://localhost:3000','https://fridgemate.netlify.app/']
+const whitelist = ['http://localhost:3000','https://fridgemate.netlify.app']
 app.use(cors({
     credentials: true,
     origin: function (origin,callback) {
