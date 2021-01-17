@@ -24,9 +24,13 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 // Use cors
-const whitelist = ['http://localhost:3000','https://fridgemate.netlify.app']
+const whitelist = [
+    'http://localhost:3000',
+    'https://fridge-mate.herokuapp.com/',
+    'https://fridgemate.netlify.app/']
 app.use(cors({
     credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     origin: function (origin,callback) {
         // Check each url in whitelist and see if it includes the origin (instead of matching exact string)
         const whitelistIndex = whitelist.findIndex((url) => url.includes(origin))
@@ -35,7 +39,7 @@ app.use(cors({
     }
 }));
 
-app.use(cookieParser());
+
 //app.use(bodyParser.json())
 app.use(express.json());
 app.use(express.urlencoded({
@@ -57,10 +61,10 @@ app.use(session({
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
-
+app.use(cookieParser());
 require("./middleware/passport");
 app.use(passport.initialize());
-
+app.use(passport.session());
 
 const dbConn =  process.env.MONGODB_URI ||  'mongodb://localhost/recipe_app'
 mongoose.connect(dbConn, {
