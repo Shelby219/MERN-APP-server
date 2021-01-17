@@ -82,21 +82,23 @@ async function recipeIdGetter(recipesObject) {
 }
 
 
-function userPrefFilter (userPrefs, recipes) {
+async function userPrefFilter (userPrefs, recipes) {
     //let userPrefs = JSON.parse(getPref())
-    const myArrayFiltered = recipes.filter((r) => {
-    return r.vegetarian === userPrefs.vegetarian 
-       && r.vegan === userPrefs.vegan
-       && r.glutenFree === userPrefs.glutenFree
-       && r.dairyFree === userPrefs.dairyFree
-       && r.veryHealthy === userPrefs.veryHealthy
-       && r.cheap === userPrefs.cheap
-       && r.veryPopular === userPrefs.veryPopular
-       && r.sustainable === userPrefs.sustainable
+      //console.log("check",userPrefs, recipes)
+     const myArrayFiltered = await recipes.filter((r) => {
+       return  r.vegetarian === userPrefs.vegetarian 
+       || r.vegan === userPrefs.vegan
+       || r.glutenFree === userPrefs.glutenFree
+       || r.dairyFree === userPrefs.dairyFree
+       || r.veryHealthy === userPrefs.veryHealthy
+       || r.cheap === userPrefs.cheap
+       || r.veryPopular === userPrefs.veryPopular
+       || r.sustainable === userPrefs.sustainable
        ;
    });
-   return myArrayFiltered
-   console.log("check userPref filter", myArrayFiltered)
+   
+   //console.log("check userPref filter", myArrayFiltered)
+  return myArrayFiltered
 }
 
 

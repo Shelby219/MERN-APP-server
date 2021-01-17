@@ -16,19 +16,11 @@ const {
 const displayRecipes =  async function(req, res) {
 	try {
 		 let recipes = await returnRecipesToBrowse(req)
-		//  await User.findOne({ username:  req.user.username }, function (err, userInfo) {
-		// 		if (err) {
-		// 			console.log(err)
-		// 			//throw new Error ("Error getting user from DB")
-		// 		}
-		// 		return userInfo
-		// 	});
-				
-		// await userPrefFilter(userInfo.preferences, recipes)
-		
+		 let checkUser = await User.findOne({ username:  req.user.username }).exec()
+		 let filteredRecipes = await userPrefFilter(checkUser.preferences, recipes)
+		 console.log("check filter", filteredRecipes[0].title)
 		 res.status(200)
-		 res.json(recipes)
-		 console.log("recipe search returned")
+		 res.json(filteredRecipes)
 	} catch (err) {
 		 if (err) {res.status(500)
             res.json({
