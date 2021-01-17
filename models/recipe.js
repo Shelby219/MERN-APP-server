@@ -38,6 +38,14 @@ const SavedRecipe = new Schema({
     instructions: {
         type: Array
     },
+    vegetarian: {type: Boolean,default: false},
+    vegan: {type: Boolean,default: false},
+    glutenFree: {type: Boolean,default: false},
+    dairyFree: {type: Boolean,default: false},
+    veryHealthy: {type: Boolean,default: false},
+    cheap: {type: Boolean,default: false},
+    veryPopular: {type: Boolean,default: false},
+    sustainable: {type: Boolean,default: false},
     create_date: {
         type: Date, 
         required: true
