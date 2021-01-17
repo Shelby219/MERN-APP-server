@@ -86,7 +86,7 @@ mongoose.connect(dbConn, {
 //PASSPORT   
 require("./middleware/passport");
 app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.session());
 
 
 //ROUTES
