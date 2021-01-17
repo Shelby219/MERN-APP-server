@@ -44,19 +44,17 @@ function loginNew(req, res) {
 
 
 function loginCreate(req, res) {
-    console.log(req.headers)
+    //console.log(req.headers)
     const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
     res.cookie("jwt", token);
        
     res.status(200);
     res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
-    
  }
  
 
 //Account settings get ROUTE
 function editUser(req, res) {
-    
      getUserByParam(req).exec((err, user) => {
         if (err) {
             res.status(500);

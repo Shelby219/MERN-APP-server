@@ -432,7 +432,7 @@ Our application has gone through comprehensive testing with Mocha for the Server
 
 | Date | Feature | Test | Notes | Refactored | Screen Record ? |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-| 17/01/2020 | CORS | Modal | CORS error- has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. |  &cross; | n/a  |
+| 17/01/2020 | CORS | Modal | CORS error- has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. |  Yes- Procfile was missing | n/a  |
 
 </details>
 
