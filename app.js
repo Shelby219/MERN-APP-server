@@ -1,3 +1,7 @@
+// If we are not running in production, load our local .env
+if(process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser')
@@ -15,14 +19,10 @@ const prefRouter = require("./routes/pref_routes");
 const ingredientRouter = require("./routes/ingredients_routes");
 const recipeRouter = require("./routes/recipe_routes");
 
-const port = process.env.PORT || 3009;
+
 const app = express();
+const port = process.env.PORT || 3009;
 
-
-// If we are not running in production, load our local .env
-if(process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
-}
 
 
 // CORS
@@ -31,7 +31,6 @@ const whitelist = [
     'https://fridgemate.netlify.app/']
 app.use(cors({
     credentials: true,
-    preflightContinue: true,
     //methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     origin: function (origin,callback) {
         // Check each url in whitelist and see if it includes the origin (instead of matching exact string)
@@ -59,7 +58,7 @@ app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(express.json());
 app.use(express.urlencoded({
-    extended:true   
+    extended: false   
 }));
 
 
