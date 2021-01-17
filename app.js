@@ -30,6 +30,7 @@ const whitelist = [
     'https://fridgemate.netlify.app/']
 app.use(cors({
     credentials: true,
+    preflightContinue: true,
     //methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     origin: function (origin,callback) {
         // Check each url in whitelist and see if it includes the origin (instead of matching exact string)
@@ -40,12 +41,6 @@ app.use(cors({
 }));
 
 // //PRE FLIGHT ACROSS THE BOARD
-app.options('/user/login', cors())
-
-app.use(function(req, res, next) { //allow cross origin requests
-    res.header("Access-Control-Allow-Origin", "https://fridgemate.netlify.app/");
-    next();
-});
 
 //
 app.use(cookieParser());
@@ -68,6 +63,7 @@ app.use(session({
         secure: true,
         sameSite: 'none',
         httpOnly: false,
+        domain:  "https://fridgemate.netlify.app/",
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
