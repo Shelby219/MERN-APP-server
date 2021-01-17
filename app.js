@@ -1,11 +1,12 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const passport = require("passport")
-const cookieParser = require('cookie-parser')
+
 
 //ROUTES
 const authRouter = require("./routes/auth_routes");
@@ -40,7 +41,6 @@ app.use(cors({
     }
 }));
 
-// //PRE FLIGHT ACROSS THE BOARD
 
 //
 app.use(cookieParser());
@@ -63,7 +63,6 @@ app.use(session({
         secure: true,
         sameSite: 'none',
         httpOnly: false,
-        domain:  "https://fridgemate.netlify.app/",
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
