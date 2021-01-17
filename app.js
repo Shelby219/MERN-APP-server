@@ -7,8 +7,7 @@ const mongoose = require('mongoose');
 const passport = require("passport")
 const cookieParser = require('cookie-parser')
 
-//routes
-
+//ROUTES
 const authRouter = require("./routes/auth_routes");
 const pageRouter = require("./routes/page_routes");
 const prefRouter = require("./routes/pref_routes");
@@ -18,12 +17,14 @@ const recipeRouter = require("./routes/recipe_routes");
 const port = process.env.PORT || 3009;
 const app = express();
 
+
 // If we are not running in production, load our local .env
 if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-// Use cors
+
+// CORS
 const whitelist = [
     'http://localhost:3000',
     'https://fridge-mate.herokuapp.com/',
@@ -39,12 +40,14 @@ app.use(cors({
     }
 }));
 
+//
 app.use(cookieParser());
-//app.use(bodyParser.json())
+app.use(bodyParser.json())
 app.use(express.json());
 app.use(express.urlencoded({
     extended:true   
 }));
+
 
 app.enable('trust proxy');
 app.use(session({
@@ -63,10 +66,10 @@ app.use(session({
 }))
 
 
-require("./middleware/passport");
-app.use(passport.initialize());
-app.use(passport.session());
 
+
+
+// MONGODB
 const dbConn =  process.env.MONGODB_URI ||  'mongodb://localhost/recipe_app'
 mongoose.connect(dbConn, {
         useNewUrlParser: true,
@@ -82,12 +85,28 @@ mongoose.connect(dbConn, {
         }
     });
 
+//PASSPORT   
+require("./middleware/passport");
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
+    next();
+});
+
+
+//ROUTES
 app.use('/user', authRouter);
 app.use('/', pageRouter);
 app.use('/preferences', prefRouter);
 app.use('/ingredients', ingredientRouter);
 app.use('/recipes', recipeRouter);
 
+
+//PORT
 module.exports = app.listen(port, () => {
     console.log(`Blog express app listening on port ${port}`);
 });
