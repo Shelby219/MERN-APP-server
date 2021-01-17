@@ -7,7 +7,7 @@ const request = axios.create({
   
   const ingredientAPISearch = async function (ingredients) { 
     //INTIAL FIND BY INGREDIENT CALL
-    return await request.get(`findByIngredients?ingredients=${ingredients}&number=35&ranking=1&apiKey=${process.env.RECIPE_API_KEY}`)
+    return await request.get(`findByIngredients?ingredients=${ingredients}&number=15&ranking=1&apiKey=${process.env.RECIPE_API_KEY}`)
   }
   
   const randomRecipeAPISearch = async function () { 

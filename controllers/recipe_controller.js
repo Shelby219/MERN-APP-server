@@ -18,7 +18,7 @@ const displayRecipes =  async function(req, res) {
 		 let recipes = await returnRecipesToBrowse(req)
 		 let checkUser = await User.findOne({ username:  req.user.username }).exec()
 		 let filteredRecipes = await userPrefFilter(checkUser.preferences, recipes)
-		 //console.log("check filter", filteredRecipes[0].title)
+		 //console.log("check filter", filteredRecipes)
 		 res.status(200)
 		 res.json(filteredRecipes)
 	} catch (err) {

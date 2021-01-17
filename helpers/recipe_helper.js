@@ -9,7 +9,7 @@ function shuffleArray(array) {
 }
 
 const ingredientJoiner = function (fridge, pantry) { 
-    const ingredients = fridge.concat(pantry);
+    const ingredients = fridge/*.concat(pantry);*/
    
     shuffleArray(ingredients)
     return ingredients.join(",+")
