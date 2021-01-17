@@ -44,6 +44,7 @@ function loginNew(req, res) {
 
 
 function loginCreate(req, res) {
+    console.log(req.headers)
     const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
     res.cookie("jwt", token);
        

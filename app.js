@@ -40,6 +40,16 @@ app.use(cors({
     }
 }));
 
+//PRE FLIGHT ACROSS THE BOARD
+app.options('*', cors())
+
+// app.all('*', function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Methods", "OPTIONS,GET,HEAD,PUT,PATCH,POST,DELETE");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+//     next();
+// });
+
 //
 app.use(cookieParser());
 app.use(bodyParser.json())
@@ -91,11 +101,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.all('*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
-    next();
-});
 
 
 //ROUTES
