@@ -39,7 +39,7 @@ app.use(cors({
     }
 }));
 
-
+app.use(cookieParser());
 //app.use(bodyParser.json())
 app.use(express.json());
 app.use(express.urlencoded({
@@ -55,13 +55,14 @@ app.use(session({
     cookie: {
         expires: 3600000,
         maxAge: 600000,
-        secure: true,
+        //secure: true,
         sameSite: 'none',
         httpOnly: false,
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
-app.use(cookieParser());
+
+
 require("./middleware/passport");
 app.use(passport.initialize());
 app.use(passport.session());
