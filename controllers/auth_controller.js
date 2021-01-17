@@ -50,7 +50,7 @@ function loginCreate(req, res) {
        
     res.status(200);
     res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
-
+    
  }
  
 
