@@ -6,16 +6,19 @@ const SavedRecipe = new Schema({
         type: String,
         required: true
     },
-    _id : { type : Number, required : true },
+    recipeID : { type : Number, required : true },
     title: {
         type: String,
         required: true
     },
+    servings: {
+        type: Number
+    },
     readyInMinutes: {
         type: Number
     },
-    servings: {
-        type: Number
+    extendedIngredients: {
+        type: Array
     },
     sourceUrl: {
         type: String

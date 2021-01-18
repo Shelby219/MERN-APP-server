@@ -5,7 +5,7 @@
     "main": "app.js",
     "scripts": {
         "test": "mocha",
-        "test-coverage": "nyc --reporter=text mocha",
+        "cover": "nyc --reporter=html --reporter=text mocha --exit",
         "start": "nodemon app.js"
     },
     "author": "Adrienne and Shelby",
@@ -27,6 +27,8 @@
         "mongoose-bcrypt": "^1.9.0",
         "multer": "^1.4.2",
         "multer-s3": "^2.9.0",
+        "node-notifier": "^9.0.0",
+        "nodemailer": "^6.4.17",
         "passport": "^0.4.1",
         "passport-jwt": "^4.0.0",
         "passport-local": "^1.0.0"
@@ -37,10 +39,9 @@
         "mocha": "^6.2.0",
         "nodemon": "^1.19.2",
         "nyc": "^15.1.0",
-        "should": "^13.2.3",
         "supertest": "^6.0.1"
     },
     "engines": {
-        "node": "12.x"
+        "node": "10.x"
     }
 }

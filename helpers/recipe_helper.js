@@ -1,7 +1,17 @@
 
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
 
 const ingredientJoiner = function (fridge, pantry) { 
     const ingredients = fridge.concat(pantry);
+   
+    shuffleArray(ingredients)
     return ingredients.join(",+")
 }
 
@@ -17,17 +27,21 @@ function queryEditor(p, preferenceSeparator) {
 }
    
 async function userQueryBuilder(returnUser) {
+   // console.log(returnUser)
     if (returnUser) {
         let user = {
             fridge: returnUser.fridgeIngredients,
             pantry: returnUser.pantryIngredients,
-            diet: returnUser.dietPreferences,
-            health:returnUser.healthPreferences
+            //diet: returnUser.dietPreferences,
+            //health:returnUser.healthPreferences
+            pref: returnUser.preferences
         }
       let queryIng = await ingredientJoiner(user.fridge, user.pantry)
-      let queryHealth = await queryEditor(user.health,  preferenceSeparator)
-      let queryDiet = await queryEditor(user.diet,  preferenceSeparator)
-      let queryInfo = {ingredients: queryIng, health: queryHealth, diet: queryDiet}
+      let querypref = await queryEditor(user.pref,  preferenceSeparator)
+      //let queryHealth = await queryEditor(user.health,  preferenceSeparator)
+      //let queryDiet = await queryEditor(user.diet,  preferenceSeparator)
+      //let queryInfo = {ingredients: queryIng, health: queryHealth, diet: queryDiet}
+      let queryInfo = {ingredients: queryIng, pref: querypref }
       console.log(queryInfo)
       return queryInfo
 
@@ -39,79 +53,55 @@ async function userQueryBuilder(returnUser) {
 
 async function recipeIdGetter(recipesObject) { 
     // if the object returned first value is recipes then the random recipe API query was called- so just return the data
+   
     if (Object.keys(recipesObject)[0] === "recipes") {
            return recipesObject
     } else {
-
-    //before executing this do an if else to determine if random recipes were returned or not- if they were then just return recipes
+        //console.log(recipesObject)
+   
     const idArray = []
     const filtered = []
 
-   await recipesObject.map(recipe => {
-    idArray.push(recipe.id)
-    filtered.push({
-      id: recipe.id,
-      usedIngred: recipe.usedIngredientCount, 
-      missedIngred: recipe.missedIngredientCount
-      })
-    });
-    const newString = idArray.join(",")
+    await recipesObject.map(recipe => {
+        idArray.push(recipe.id)
+        filtered.push({
+        id: recipe.id,
+        usedIngred: recipe.usedIngredientCount, 
+        missedIngred: recipe.missedIngredientCount,
+        usedIngredItems: recipe.usedIngredients, 
+        missedIngredItems: recipe.missedIngredients
+        })
+        });
+
+     const newString = idArray.join(",")
       
-    const data = {ids: newString, usedAndMissedIng: filtered }
-    //console.log(data)
+     const data = {ids: newString, usedAndMissedIng: filtered }
+   // console.log(data)
    return data
   }
 }
 
 
-//TESTING
-
-// console.log(recipeIdGetter([
-//     {
-//       id: 1142012,
-//       title: 'Feta-Brined Roast Chicken',
-//       image: 'https://spoonacular.com/recipeImages/1142012-312x231.jpg',
-//       imageType: 'jpg',
-//       usedIngredientCount: 3,
-//       missedIngredientCount: 4,
-//       missedIngredients: [ [Object], [Object], [Object], [Object] ],
-//       usedIngredients: [ [Object], [Object], [Object] ],
-//       unusedIngredients: [ [Object] ],
-//       likes: 1
-//     },
-//     {
-//       id: 38606,
-//       title: 'Chicken Stewed In Garlic And Cinnamon',
-//       image: 'https://spoonacular.com/recipeImages/38606-312x231.jpg',
-//       imageType: 'jpg',
-//       usedIngredientCount: 2,
-//       missedIngredientCount: 5,
-//       missedIngredients: [ [Object], [Object], [Object], [Object], [Object] ],
-//       usedIngredients: [ [Object], [Object] ],
-//       unusedIngredients: [],
-//       likes: 19
-//     }
-//   ]))
-
-
-//This is for filtering based off preferences TBA
-function basedOnPreferenceExtractor(recipeDataArray) { 
-   let newArray = recipeDataArray.filter(function(r) {
-        return r.vegetarian === true ||
-        r.vegan === true ||
-        r.glutenFree=== true ||
-        r.dairyFree === true ||
-        r.veryHealthy === true ||
-        r.cheap === true ||
-        r.veryPopular === true ||
-        r.sustainable === true ||
-        r.lowFodmap === true 
+function userPrefFilter (userPrefs, recipes) {
+    //let userPrefs = JSON.parse(getPref())
+    const myArrayFiltered = recipes.filter((r) => {
+    return r.vegetarian === userPrefs.vegetarian 
+       && r.vegan === userPrefs.vegan
+       && r.glutenFree === userPrefs.glutenFree
+       && r.dairyFree === userPrefs.dairyFree
+       && r.veryHealthy === userPrefs.veryHealthy
+       && r.cheap === userPrefs.cheap
+       && r.veryPopular === userPrefs.veryPopular
+       && r.sustainable === userPrefs.sustainable
+       ;
    });
-   return newArray
+   return myArrayFiltered
+   console.log("check userPref filter", myArrayFiltered)
 }
+
 
 module.exports = {
     userQueryBuilder,
-    basedOnPreferenceExtractor,
-    recipeIdGetter
+    recipeIdGetter,
+    userPrefFilter
 }

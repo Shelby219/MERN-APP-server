@@ -1,3 +1,4 @@
+const User = require('../models/user');
 const {
 	returnRecipesToBrowse,
 	getAllSavedRecipes,
@@ -5,41 +6,56 @@ const {
 	addSavedRecipe,
 	deleteFromSavedRecipes
 } = require("../utils/recipe_utilities")
+
 const {
-	singleRecipeAPISearch,
-  } = require("../helpers/api_search_helpers.js")
-  
+	userPrefFilter
+  } = require("../helpers/recipe_helper")
+
+
 //DISPLAY SEARCH RESULTS- based on API CALL
 const displayRecipes =  async function(req, res) {
 	try {
 		 let recipes = await returnRecipesToBrowse(req)
+		//  await User.findOne({ username:  req.user.username }, function (err, userInfo) {
+		// 		if (err) {
+		// 			console.log(err)
+		// 			//throw new Error ("Error getting user from DB")
+		// 		}
+		// 		return userInfo
+		// 	});
+				
+		// await userPrefFilter(userInfo.preferences, recipes)
+		
 		 res.status(200)
 		 res.json(recipes)
-		console.log(recipes)
+		 console.log("recipe search returned")
 	} catch (err) {
 		 if (err) {res.status(500)
             res.json({
              error: err.message
 		 })
-	     }
+	    }
 	}
 }
 
+
+
 //DISPLAY SINGLE RECIPE PAGE- based on either API call if it doesnt exist in user saved recipes
 const displaySingleRecipe =  function(req, res) {
-	getSingleRecipe(req).then(async function(singleRecipe){
+	//console.log(req)
+	getSingleRecipe(req).then( function(singleRecipe){
+		//console.log(singleRecipe)
 		if (singleRecipe) {
-			//console.log(singleRecipe)
+			res.status(200)
 			res.send(singleRecipe)
 		} else {
-			console.log("hit here")
-		    let resp = await singleRecipeAPISearch(req.params.id)
-			//console.log(resp.data.title)
-			res.json(resp.data);
+			res.status(404)
+			res.json({
+				error: err.message
+			})
 		} 
 	}).catch(function(err){
 		if (err) {
-			//console.log(err);
 			res.status(500)
 			res.json({
 				error: err.message
@@ -64,11 +80,6 @@ const displayAllSavedRecipes = function(req, res) {
 
 
 const makeSavedRecipe = function (req, res) {
-	// Add date
-	const date = new Date()
-	req.body.modified_date = date
-	// add the username from req.user
-	req.body.username = req.user.username
 	//req.body.username = "testusername"  //THIS IS only for test purposes
 	addSavedRecipe(req).save((err, savedRecipe) => {
 		if (err) {
@@ -83,13 +94,13 @@ const makeSavedRecipe = function (req, res) {
 };
 
 const removeSavedRecipes = function(req, res) {
-    // Check for error from middleware
+	// Check for error from middleware
 	if (req.error) {
 		res.status(req.error.status)
 		res.send(req.error.message)
 	} else {
 		// execute the query 
-		deleteFromSavedRecipes(req.params.id).exec(err => {
+		deleteFromSavedRecipes(req.params.id).exec( (err) => {
 			if (err) {
 				res.status(500)
 				res.json({
@@ -97,6 +108,7 @@ const removeSavedRecipes = function(req, res) {
 				})
 			}
 			res.sendStatus(204)
+			console.log("success")
 		})
 	}
 };

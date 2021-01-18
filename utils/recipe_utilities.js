@@ -9,10 +9,11 @@ const {
   singleRecipeAPISearch,
   detailedRecipeAPISearch
 } = require("../helpers/api_search_helpers.js")
-
+const ObjectId = require('mongoose').Types.ObjectId;
 
 
 const returnRecipesToBrowse = async (req) => {
+  //console.log(req.user)
    const recipes = await User.findOne({ username: req.user.username })
     .then(recipes =>  userQueryBuilder(recipes))
     .then(queryItems =>  sanitizeDataForIngredientQuery(queryItems))
@@ -25,12 +26,18 @@ const returnRecipesToBrowse = async (req) => {
 
 
 const getAllSavedRecipes = function (req) {
- // return SavedRecipe.find({ username: 'testusername'})  //for testing purposes only
+ //return SavedRecipe.find({ username: 'testusername'})  //for testing purposes only
   return SavedRecipe.find({ username: req.user.username })
 }
 
-const getSingleRecipe =  function (req) {
-  return SavedRecipe.findById(req.params.id);
+const getSingleRecipe =  async function (req) {
+  if (ObjectId.isValid(req.params.id)){
+    return SavedRecipe.findById(req.params.id);
+  } else {
+    let resp = await singleRecipeAPISearch(req.params.id)
+    return resp.data
+  }
+  
 }
 
 const addSavedRecipe = function (req) {

@@ -7,10 +7,10 @@ const request = axios.create({
   
   const ingredientAPISearch = async function (ingredients) { 
     //INTIAL FIND BY INGREDIENT CALL
-    return await request.get(`findByIngredients?ingredients=${ingredients}&number=2&apiKey=${process.env.RECIPE_API_KEY}`)
+    return await request.get(`findByIngredients?ingredients=${ingredients}&number=5&ranking=1&apiKey=${process.env.RECIPE_API_KEY}`)
   }
   
-  const randomRecipeAPISearch = async function (ingredients) { 
+  const randomRecipeAPISearch = async function () { 
     //return random recipes if use has no ingredients
     return await request.get(`/random?number=2&apiKey=${process.env.RECIPE_API_KEY}`)
   }
@@ -18,18 +18,20 @@ const request = axios.create({
   const sanitizeDataForIngredientQuery = function(queryItems) {
       // If ingredients are empty
       if (queryItems.ingredients === "" || null || undefined) {
-        return randomRecipeAPISearch(queryItems.ingredients) 
+        console.log("random recipe search returned")
+        return randomRecipeAPISearch() 
         // then do an api call for random recipes display and put an alert like
         // We see you have no ingredients! Here are some recipes you can check out
       } else {
         //else do ingredient API search
+        console.log(" recipe search returned")
         return ingredientAPISearch(queryItems.ingredients)
       }
     }
   
   const singleRecipeAPISearch = async function (recipeID) { 
     //return single recipe based on ID if user does not have it saved
-     let recipe = await request.get(`${recipeID}/information?includeNutrition=true&apiKey=${process.env.RECIPE_API_KEY}`)
+     let recipe = await request.get(`${recipeID}/information?includeNutrition=false&apiKey=${process.env.RECIPE_API_KEY}`)
      return recipe
   }
 

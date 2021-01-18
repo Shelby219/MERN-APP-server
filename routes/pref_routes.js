@@ -11,14 +11,10 @@ const { editPref,
 
 
 //GET Route for Preferences Page
-router.get("/:username", passport.authenticate('jwt', {session: false}), usernameParamValidationRules (), validate, editPref)
+router.get("/:username",  passport.authenticate('jwt', {session: false}), usernameParamValidationRules (), validate, editPref)
 
 //PATCH Route for Updating the user via Preferences
 router.patch("/:username/edit", editPrefReq)
-
-
-//passport.authenticate('jwt', {session: false})
-
 
 
 
