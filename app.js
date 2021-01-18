@@ -66,7 +66,7 @@ const sessionConfig = {
     }),
   }
   // for production, cookie needs 2 more settings
-  if (process.env.ENVIRONMENT!=="development") {
+  if (process.env.NODE_ENV === "production") {
     sessionConfig.cookie.secure = true;
     sessionConfig.cookie.sameSite = "none";
   }
