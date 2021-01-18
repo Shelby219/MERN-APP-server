@@ -151,7 +151,7 @@ The overall goal of this application is a search application based on user ingre
 * **express 4.17.1** - Is a back end web application framework for Node.js designed for building web applications and APIs.
 * **mongoose 5.7.1** - Is an Object Data Modeling (ODM) library for MongoDB and Node. js. It manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB.
 * **mongoose-bcrypt ^1.9.0** - Is a package that will automatically encrypt the appropriate fields when a document is created or saved using the regular static and instance methods. With mongoose versions >= 4.1. 3, the plugin also provides automatic encryption when updates are performed using update queries.
-* **express-session 1.17.1** - description
+* **express-session 1.17.1** - Simple session middleware- Used to assign a unique session to each user on implementation. 
 * **connect-mongo 3.2.0** - description
 * **cors 2.8.5** - description
 * **passport 0.4.1** - description

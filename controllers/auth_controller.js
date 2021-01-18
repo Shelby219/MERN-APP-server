@@ -7,6 +7,7 @@ const {updateUser, getUserByParam, updateForForgotPassword, findForResetPassword
     findForUpdatePassword,
     insertPasswordToken} = require("../utils/auth_utilities")
 
+///JWT TOKEN CONFIG
 const configToken = {         
         maxAge: 600000,
         httpOnly: true,
@@ -26,10 +27,11 @@ const configToken = {
 // }
 
 
-function registerNew(req, res) {
-    res.send("This is register Page");
-}
+// function registerNew(req, res) {
+//     res.send("This is register Page");
+// }
 
+//REGISTER USER
 function registerCreate(req, res, next) { 
     const newUserHandler = (user) => {
         req.login(user, (err) => {
@@ -50,17 +52,20 @@ function registerCreate(req, res, next) {
             res.send(x))
 }
 
+//LOGOUT USER
 function logOut(req, res) {
     req.logout();
     res.cookie("jwt", null, { maxAge: -1 });
     res.sendStatus(200);
 }
 
-function loginNew(req, res) {
-    res.send("this is login new");
-}
+
+// function loginNew(req, res) {
+//     res.send("this is login new");
+// }
 
 
+//LOGIN USER
 function loginCreate(req, res) {
     const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
     res.cookie("jwt", token, configToken)
@@ -214,10 +219,10 @@ function sendResetPassword(req, res) {
 
 
 module.exports = {
-    registerNew,
+   //registerNew,
     registerCreate,
     logOut,
-    loginNew,
+    //loginNew,
     loginCreate,
     editUser,
     editUserReq,

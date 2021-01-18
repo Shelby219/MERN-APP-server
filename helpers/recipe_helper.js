@@ -1,4 +1,4 @@
-//shuffling all ingredients
+//SHUFFLING ALL INGREDIENTS
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -8,6 +8,7 @@ function shuffleArray(array) {
     }
 }
 
+//JOINING FRIDGE AND PANTRY INGREDIENTS 
 const ingredientJoiner = function (fridge, pantry) { 
     const ingredients = fridge/*.concat(pantry);*/ //Removed pantry for now
    
@@ -15,45 +16,42 @@ const ingredientJoiner = function (fridge, pantry) {
     return ingredients.join(",+")
 }
 
+//SEPARATING USER PREFERENCES
 const preferenceSeparator = function (preference) { 
     let result = Object.keys(preference).filter((key) => preference[key])
     return result
 }
-
+//
 function queryEditor(p, preferenceSeparator) { 
     let queryArray = preferenceSeparator(p)
     const newString = queryArray.join(",+")
     return newString
 }
-   
+
+//CALLING ABOVE FUNCTIONS TO BUILD A OBJECT WHICH GETS USED IN QUERY
 async function userQueryBuilder(returnUser) {
    // console.log(returnUser)
     if (returnUser) {
         let user = {
             fridge: returnUser.fridgeIngredients,
             pantry: returnUser.pantryIngredients,
-            //diet: returnUser.dietPreferences,
-            //health:returnUser.healthPreferences
+
             pref: returnUser.preferences
         }
       let queryIng = await ingredientJoiner(user.fridge, user.pantry)
       let querypref = await queryEditor(user.pref,  preferenceSeparator)
-      //let queryHealth = await queryEditor(user.health,  preferenceSeparator)
-      //let queryDiet = await queryEditor(user.diet,  preferenceSeparator)
-      //let queryInfo = {ingredients: queryIng, health: queryHealth, diet: queryDiet}
       let queryInfo = {ingredients: queryIng, pref: querypref }
       console.log(queryInfo)
       return queryInfo
 
     } else  {
         throw new Error("No User Returned")
-        //console.log("No User Returned")
     }
 };  
 
+//GETTING ALL IDS FROM RECIPE ARRAY OF OBJECTS TO USE IN BULK RECIPE SEARCH
 async function recipeIdGetter(recipesObject) { 
     // if the object returned first value is recipes then the random recipe API query was called- so just return the data
-   
     if (Object.keys(recipesObject)[0] === "recipes") {
            return recipesObject
     } else {
@@ -82,6 +80,7 @@ async function recipeIdGetter(recipesObject) {
 }
 
 
+//THIS IS FOR FILTERING SEARCHED RECIPES BY USER PREFERENCES
 async function userPrefFilter (userPrefs, recipes) {
     //let userPrefs = JSON.parse(getPref())
       //console.log("check",userPrefs, recipes)
@@ -97,7 +96,6 @@ async function userPrefFilter (userPrefs, recipes) {
        ;
    });
    
-   //console.log("check userPref filter", myArrayFiltered)
   return myArrayFiltered
 }
 

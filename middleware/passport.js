@@ -50,7 +50,7 @@ const fields = { usernameField: "email"}
 
 passport.use(new LocalStrategy(fields, verifyCallback))
 
-
+//VERIFYING JWT IN COOKIE
 passport.use(new JwtStrategy(
     {
         jwtFromRequest: (req) => {
