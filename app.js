@@ -50,12 +50,12 @@ app.use(express.urlencoded({
 }));
 
 
-app.enable('trust proxy');
+//app.enable('trust proxy');
 app.use(session({
     secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: false,
-    proxy: true,
+    //proxy: true,
     cookie: {
         maxAge: 600000,
         secure: true,
