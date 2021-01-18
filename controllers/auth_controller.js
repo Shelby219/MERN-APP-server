@@ -9,7 +9,6 @@ const {updateUser, getUserByParam, updateForForgotPassword, findForResetPassword
 
 ///JWT TOKEN CONFIG
 const configToken = {         
-        maxAge: 600000,
         httpOnly: true,
          }
 // if(process.env.NODE_ENV !== 'production') {
@@ -170,7 +169,6 @@ function forgotPassword (req, res) {
 function resetPassword (req, res) {
     findForResetPassword(req).then((user) => {
         if (user == null) {
-          //console.error('password reset link is invalid or has expired');
           res.status(403).send('password reset link is invalid or has expired');
         } else {
           res.status(200).send({

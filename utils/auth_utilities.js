@@ -34,6 +34,7 @@ const insertPasswordToken= function (user, token) {
           } );
 };
 
+
 //For checking password page get request
 const findForResetPassword = function (req) {
     return User.findOne({ 
@@ -45,8 +46,6 @@ const findForResetPassword = function (req) {
 
 //For updating the new password
 const findForUpdatePassword = function (req) {
-    //console.log("hit here")
-    //console.log(req)
         return User.findOneAndUpdate({ 
             username: req.body.username,
             resetPasswordToken: req.body.resetPasswordToken,

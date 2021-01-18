@@ -110,13 +110,22 @@ The overall goal of this application is a search application based on user ingre
 <details>
 <summary>Click to expand</summary>
 
-![Screen Shots of Website ](./docs/screenshot1.png)
-![Screen Shots of Website ](./docs/screenshot2.png)
-![Screen Shots of Website ](./docs/screenshot3.png)
-![Screen Shots of Website ](./docs/screenshot4.png)
-![Screen Shots of Website ](./docs/screenshot5.png)
-![Screen Shots of Website ](./docs/screenshot6.png)
-![Screen Shots of Website ](./docs/screenshot7.png)
+
+<img src="./docs/screenshots/screenshot1.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot2.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot3.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot4.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot5.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot6.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot7.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot8.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot9.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot10.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot11.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot12.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot13.png" alt="Screen Shots of Website" width="80%" />
+
+
 
 
 </details>
@@ -396,7 +405,9 @@ Our application has gone through comprehensive testing with Mocha for the Server
 <br>
 
 #### Screen Recordings
-[Dev User Testing Video 1](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/user-test-dev-1.mp4)
+[Dev User Testing Video 1- User](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/user-test-dev-1.mp4)
+
+[Dev User Testing Video 2 - Password Reset](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/dev-password-reset-.mp4)
 
 #### Test Notes
 
@@ -411,13 +422,14 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 11/01/2020 | Browse Recipes | Page Load | Additional loading time needed for recipes to return from DB | Yes | |
 | 14/01/2020 | Add Fridge Ingredients | Component | Clear Autocomplete ingredient component after adding |  &cross; |Dev Test Record 1  |
 | 14/01/2020 | Add Pantry Staples | Component | Clear Autocomplete ingredient component after adding |  &cross; |Dev Test Record 1  |
-| 14/01/2020 | Pantry Page| Component | Error - filterpantry function not working , undefined |  &cross; | Dev Test Record 1 |
+| 14/01/2020 | Pantry Page| Component | Error - filterpantry function not working , undefined |  Yes | Dev Test Record 1 |
 | 14/01/2020 | Browse Recipe | Component | Loading fridge animation applied to all browse recipe buttons |  &cross; | Dev Test Record 1  |
 | 14/01/2020 | Browse Page | Recipe Title | Recipe Title - room not large enough for longer recipe names |  Yes | Dev Test Record 1  |
 | 14/01/2020 | Saved Recipe Page | Component | Need back to saved recipes button for smoother user experience  |  Yes | Dev Test Record 1  |
 | 14/01/2020 | User Settings Page | Component | Add loading screen after update settings for smoother UX  |  Yes | Dev Test Record 1  |
 | 14/01/2020 | Login In Modal  | Modal | Add loading screen for after clicking login |  Yes | Dev Test Record 1  |
-| 17/01/2020 | CORS | Modal | CORS error with  |  &cross; | n/a  |
+| 18/01/2020 | Username | Nav | Username coming up on nav bar- causing issues with saving recipes  |  &cross; | Dev User Testing Video 2 - Password Reset |
+| 18/01/2020 | Single Recipe | Checker local storage | Property ID of Null coming up. |  &cross; |  |
 
 </details>
 
@@ -425,13 +437,14 @@ Our application has gone through comprehensive testing with Mocha for the Server
 
 ###  User Testing   - Production
 
+<details>
+<summary>Click to expand</summary>
+
+
 <br>
 
 #### Screen Recordings
 [Prod User Testing Video 1](https://github.com/CA-MERN/MERN-server/tree/main/docs/prodtestvideo/Production-test-1.mp4)
-
-<details>
-<summary>Click to expand</summary>
 
 
 | Date | Feature | Test | Notes | Refactored | Screen Record ? |
