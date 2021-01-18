@@ -58,8 +58,8 @@ app.use(session({
     //proxy: true,
     cookie: {
         maxAge: 600000,
-        secure: process.env.NODE_ENV == "production" ? true : false ,
-        sameSite: 'none',
+        //secure: process.env.NODE_ENV == "production" ? true : false ,
+        //sameSite: 'none',
         httpOnly: false,
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })

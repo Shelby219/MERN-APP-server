@@ -12,6 +12,7 @@ if(process.env.NODE_ENV !== 'production') {
     configToken = {
         maxAge: 10000,
         httpOnly: false,
+        
         }
 } else {
     configToken = {
@@ -66,7 +67,7 @@ function loginCreate(req, res) {
     res.status(200);
     res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
     res.send()
-    //console.log(res.cookies)
+    console.log(res)
     //console.log(req.session)
 }
  
