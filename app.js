@@ -66,7 +66,7 @@ app.use(session({
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-app.set('trust proxy', 1)
+
 // MONGODB
 const dbConn =  process.env.MONGODB_URI ||  'mongodb://localhost/recipe_app'
 mongoose.connect(dbConn, {

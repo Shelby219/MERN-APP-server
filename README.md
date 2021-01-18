@@ -425,6 +425,10 @@ Our application has gone through comprehensive testing with Mocha for the Server
 
 ###  User Testing   - Production
 
+<br>
+
+#### Screen Recordings
+[Prod User Testing Video 1](https://github.com/CA-MERN/MERN-server/tree/main/docs/prodtestvideo/Production-test-1.mp4)
 
 <details>
 <summary>Click to expand</summary>
@@ -432,7 +436,9 @@ Our application has gone through comprehensive testing with Mocha for the Server
 
 | Date | Feature | Test | Notes | Refactored | Screen Record ? |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-| 17/01/2020 | CORS | Modal | CORS error- has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. |  Yes- Procfile was missing | n/a  |
+| 17/01/2020 | CORS | App | CORS error- has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. |  Yes- Procfile was missing | n/a  |
+| 18/01/2020 | Cookies | App | Cookies are being sent from server, but browser is not holding them. |   &cross; |  Production user test video 1  |
+
 
 </details>
 
