@@ -57,6 +57,7 @@ const displaySingleRecipe =  function(req, res) {
 	})
 }
 
+//GET ALL SAVED RECIPES
 const displayAllSavedRecipes = function(req, res) {
     getAllSavedRecipes(req)
 		.exec((err, savedRecipes) => {
@@ -70,7 +71,7 @@ const displayAllSavedRecipes = function(req, res) {
 		})
 };
 
-
+//ADD TO SAVED RECIPES
 const makeSavedRecipe = function (req, res) {
 	//req.body.username = "testusername"  //THIS IS only for test purposes
 	addSavedRecipe(req).save((err, savedRecipe) => {
@@ -85,6 +86,7 @@ const makeSavedRecipe = function (req, res) {
 	})
 };
 
+//DELETE A SAVED RECIPE
 const removeSavedRecipes = function(req, res) {
 	// Check for error from middleware
 	if (req.error) {

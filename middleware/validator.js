@@ -1,6 +1,8 @@
 const { body, validationResult, param } = require('express-validator')
 const User = require('../models/user');
 const SavedRecipe = require('../models/recipe');
+
+//VALIDATION FOR USER REGISTRATION
 const userValidationRules = () => {
     return [
         body('email').isEmail().normalizeEmail().withMessage('Must be a valid email format').custom(value => {
@@ -37,7 +39,7 @@ const userValidationRules = () => {
       ]
   }
  
- 
+ //VALIDATION FOR ACCOUNTING SETTING UPDATE
 const accountSettingValidationRules = () => {
     return [
         body('email').isEmail().normalizeEmail().withMessage('Must be a valid email format'),
@@ -46,18 +48,22 @@ const accountSettingValidationRules = () => {
       ]
   }
 
+//VALIDATION FOR PARAMS 
 const usernameParamValidationRules = () => {
     return [
         param('username').exists().withMessage("Invalid request"),
       ]
   }
   
+//VALIDATION FOR RECIPE PARAMS
 const recipeParamValidationRules = () => {
     return [
         param('id').exists().withMessage('Recipe ID Not Found'),
       ]
   }
   
+
+//VALIDATION FOR SAVING A RECIPE
 const recipeSaveRules = () => {
     return [
       body('recipeID').custom(value => {
@@ -75,7 +81,8 @@ const recipeSaveRules = () => {
       }),
       ]
   }
-  const validate = (req, res, next) => {
+//VALIDATION ERRORS
+const validate = (req, res, next) => {
     const errors = validationResult(req)
     if (errors.isEmpty()) {
       return next()

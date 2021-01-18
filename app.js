@@ -50,7 +50,12 @@ app.use(express.urlencoded({
 }));
 
 app.set('trustproxy', true)
-//app.enable('trust proxy');
+
+if ( process.env.NODE_ENV  === "production" ) {
+    app.set('trust proxy', 1) // trust first proxy
+    
+  }
+
 app.use(session({
     secret: process.env.JWT_SECRET,
     resave: false,

@@ -110,13 +110,22 @@ The overall goal of this application is a search application based on user ingre
 <details>
 <summary>Click to expand</summary>
 
-![Screen Shots of Website ](./docs/screenshot1.png)
-![Screen Shots of Website ](./docs/screenshot2.png)
-![Screen Shots of Website ](./docs/screenshot3.png)
-![Screen Shots of Website ](./docs/screenshot4.png)
-![Screen Shots of Website ](./docs/screenshot5.png)
-![Screen Shots of Website ](./docs/screenshot6.png)
-![Screen Shots of Website ](./docs/screenshot7.png)
+
+<img src="./docs/screenshots/screenshot1.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot2.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot3.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot4.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot5.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot6.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot7.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot8.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot9.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot10.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot11.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot12.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot13.png" alt="Screen Shots of Website" width="80%" />
+
+
 
 
 </details>
@@ -151,37 +160,37 @@ The overall goal of this application is a search application based on user ingre
 * **express 4.17.1** - Is a back end web application framework for Node.js designed for building web applications and APIs.
 * **mongoose 5.7.1** - Is an Object Data Modeling (ODM) library for MongoDB and Node. js. It manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB.
 * **mongoose-bcrypt ^1.9.0** - Is a package that will automatically encrypt the appropriate fields when a document is created or saved using the regular static and instance methods. With mongoose versions >= 4.1. 3, the plugin also provides automatic encryption when updates are performed using update queries.
-* **express-session 1.17.1** - description
-* **connect-mongo 3.2.0** - description
-* **cors 2.8.5** - description
-* **passport 0.4.1** - description
-* **passport-jwt  4.0.0** - description
-* **passport-local 1.0.0** - description
-* **dotenv 8.2.0** - description
-* **body-parser 1.19.0** - description
-* **cookie-parser 1.4.5** - description
-* **axios 0.21.1** - description
-* **aws-sdk ^2.805.0** - description
-* **multer 1.4.2** - description
-* **multer-s3 2.9.0** - description
-* **celebrate 13.0.4** - description
-* **express-validator 6.8.0** - description
-* **jsonwebtoken 8.5.1** - description
-* **nodemailer 6.4.17** - description
+* **express-session 1.17.1** - Simple session middleware- Used to assign a unique session to each user on implementation. 
+* **connect-mongo 3.2.0** - User sessions created with express session can then be saved in DB. Removing expired sessions. 
+* **cors 2.8.5** - Is a middleware utilised cross origin resource sharing between the Express server and React client.
+* **passport 0.4.1** - Is a flexible and modular authentication middleware for Node. js that can be easily implemented in an Express-based web application using various strategies like using a username and password, Facebook, Twitter, and more.
+* **passport-jwt  4.0.0** - A Passport strategy for authenticating with a JSON Web Token. This module lets you authenticate endpoints using a JSON web token. This was utilised to verify our secure routes by passport checking if the JWT was present in the cookie. 
+* **passport-local 1.0.0** - Passport strategy for authenticating with a username and password. This module lets you authenticate using a username and password in your Node. js applications.
+* **dotenv 8.2.0** - Dotenv is a zero-dependency module that loads environment variables from a . env file into process. env .
+* **body-parser 1.19.0** - This npm extracts the entire body portion of an incoming request stream and exposes it on req.body.
+* **cookie-parser 1.4.5** - This npm parses the Cookie header and populates req.cookies with an object keyed by the cookie names.
+* **axios 0.21.1** - Is a promise-based HTTP client that supports an easy-to-use API and can be used in both the browser and Node. js.
+* **aws-sdk ^2.805.0** - Utilised to develop server-side web applications using Node, Node Modules, and the Node HTTP server. Allowing access AWS services directly from your RESTful applications using Node.js frameworks. This was implementing in our profile picture upload feature, using s3 to upload the file then extra the URL to save in mongoDB.
+* **multer 1.4.2** - Is a node. js middleware for handling multipart/form-data , which is primarily used for uploading files.
+* **multer-s3 2.9.0** - Streaming multer storage engine for AWS S3.
+* **celebrate 13.0.4** - Is an express middleware function that wraps the joi validation library. This allows you to use this middleware in any single route, or globally, and ensure that all of your inputs are correct before any handler function. This was utilised to verify our login. 
+* **express-validator 6.8.0** -Is a set of Express. js middleware that wraps validator. js , a library that provides validator and sanitizer functions. This was utilised to validation our register user input, account settings, params and recipes. 
+* **jsonwebtoken 8.5.1** - JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties. Utilised to create our JSON web tokens on register and login. 
+* **nodemailer 6.4.17** - Is a module for Node. js applications to allow simple mail sending. This was utilised for our forgot password feature. 
 
 **Server Development** 
 
-* **nodemon 1.19.2** - description
-* **mocha 6.2.0** - description
-* **expect 24.9.0** - description
-* **nyc 15.1.0** - description
-* **supertest 6.0.1** - description
+* **nodemon 1.19.2** - Is a tool that helps develop node. js based applications by automatically restarting the node application when file changes in the directory are detected. 
+* **mocha 6.2.0** - Is a JavaScript test framework running on Node. js and in the browser, making asynchronous testing simple. 
+* **expect 24.9.0** - This package exports the expect function used in Jest. This was utilised in our primary server side testing. 
+* **nyc 15.1.0** - Is Istanbul's state of the art command line interface. It was utilised to output our test coverage reports. 
+* **supertest 6.0.1** - HTTP assertions made easy via superagent which works with any testing framework to test HTTP assertions. This was used to test our all back end API routes. 
 
 
 **Client**
 
-* **react 17.0.1** - description
-* **react-dom 17.0.1** - description
+* **react 17.0.1** - An open-source, front end, JavaScript library for building user interfaces or UI components.
+* **react-dom 17.0.1** - This package serves as the entry point to the DOM and server renderers for React.
 * **react-router-dom 5.2.0** - description
 * **react-scripts 4.0.1** - description
 * **formik 2.2.5** - description
@@ -396,7 +405,9 @@ Our application has gone through comprehensive testing with Mocha for the Server
 <br>
 
 #### Screen Recordings
-[Dev User Testing Video 1](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/user-test-dev-1.mp4)
+[Dev User Testing Video 1- User](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/user-test-dev-1.mp4)
+
+[Dev User Testing Video 2 - Password Reset](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/dev-password-reset-.mp4)
 
 #### Test Notes
 
@@ -411,13 +422,14 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 11/01/2020 | Browse Recipes | Page Load | Additional loading time needed for recipes to return from DB | Yes | |
 | 14/01/2020 | Add Fridge Ingredients | Component | Clear Autocomplete ingredient component after adding |  &cross; |Dev Test Record 1  |
 | 14/01/2020 | Add Pantry Staples | Component | Clear Autocomplete ingredient component after adding |  &cross; |Dev Test Record 1  |
-| 14/01/2020 | Pantry Page| Component | Error - filterpantry function not working , undefined |  &cross; | Dev Test Record 1 |
+| 14/01/2020 | Pantry Page| Component | Error - filterpantry function not working , undefined |  Yes | Dev Test Record 1 |
 | 14/01/2020 | Browse Recipe | Component | Loading fridge animation applied to all browse recipe buttons |  &cross; | Dev Test Record 1  |
 | 14/01/2020 | Browse Page | Recipe Title | Recipe Title - room not large enough for longer recipe names |  Yes | Dev Test Record 1  |
 | 14/01/2020 | Saved Recipe Page | Component | Need back to saved recipes button for smoother user experience  |  Yes | Dev Test Record 1  |
 | 14/01/2020 | User Settings Page | Component | Add loading screen after update settings for smoother UX  |  Yes | Dev Test Record 1  |
 | 14/01/2020 | Login In Modal  | Modal | Add loading screen for after clicking login |  Yes | Dev Test Record 1  |
-| 17/01/2020 | CORS | Modal | CORS error with  |  &cross; | n/a  |
+| 18/01/2020 | Username | Nav | Username coming up on nav bar- causing issues with saving recipes  |  &cross; | Dev User Testing Video 2 - Password Reset |
+| 18/01/2020 | Single Recipe | Checker local storage | Property ID of Null coming up. |  &cross; |  |
 
 </details>
 
@@ -425,13 +437,14 @@ Our application has gone through comprehensive testing with Mocha for the Server
 
 ###  User Testing   - Production
 
+<details>
+<summary>Click to expand</summary>
+
+
 <br>
 
 #### Screen Recordings
 [Prod User Testing Video 1](https://github.com/CA-MERN/MERN-server/tree/main/docs/prodtestvideo/Production-test-1.mp4)
-
-<details>
-<summary>Click to expand</summary>
 
 
 | Date | Feature | Test | Notes | Refactored | Screen Record ? |

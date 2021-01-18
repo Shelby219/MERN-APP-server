@@ -57,9 +57,12 @@ router.get('/reset-password', resetPassword)
 //PUT route for update password from reset page
 router.put('/update-password', sendResetPassword)
 
+
 const upload = require("../middleware/profile_aws.js");
 const singleUpload = upload.any('image');
 
+
+//POST FOR UPLOADING PROFILE PICTURE
 router.post("/:username/add-profile-picture",  function (req, res) {
     const username = req.params.username;
     //console.log(username)
