@@ -1,7 +1,4 @@
-// If we are not running in production, load our local .env
-if(process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
-}
+
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser')
@@ -24,6 +21,11 @@ const app = express();
 const port = process.env.PORT || 3009;
 
 
+// If we are not running in production, load our local .env
+if(process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 
 // CORS
 const whitelist = [
@@ -42,6 +44,29 @@ app.use(cors({
 
 
 //
+
+
+// app.set('trustproxy', true)
+
+// if ( process.env.NODE_ENV  === "production" ) {
+//     app.set('trust proxy', 1) // trust first proxy
+    
+//   }
+
+app.use(session({
+    secret: 'Secret of The Recipe App',
+    resave: false,
+    saveUninitialized: false,
+    //proxy: true,
+    cookie: {
+        maxAge: 1800000,
+        secure: process.env.NODE_ENV == "production" ? true : false ,
+        sameSite: 'none',
+        httpOnly: false,
+    },
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+}))
+
 app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(express.json());
@@ -49,26 +74,11 @@ app.use(express.urlencoded({
     extended: true 
 }));
 
-app.set('trustproxy', true)
 
-if ( process.env.NODE_ENV  === "production" ) {
-    app.set('trust proxy', 1) // trust first proxy
-    
-  }
-
-app.use(session({
-    secret: process.env.JWT_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    //proxy: true,
-    cookie: {
-        maxAge: 600000,
-        secure: process.env.NODE_ENV == "production" ? true : false ,
-        sameSite: 'none',
-        httpOnly: false,
-    },
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
-}))
+//PASSPORT   
+require("./middleware/passport");
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // MONGODB
@@ -87,10 +97,6 @@ mongoose.connect(dbConn, {
         }
     });
 
-//PASSPORT   
-require("./middleware/passport");
-app.use(passport.initialize());
-app.use(passport.session());
 
 
 //ROUTES

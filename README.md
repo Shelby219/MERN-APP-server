@@ -193,24 +193,22 @@ The overall goal of this application is a search application based on user ingre
 * **react-dom 17.0.1** - This package serves as the entry point to the DOM and server renderers for React.
 * **react-router-dom 5.2.0** - description
 * **react-scripts 4.0.1** - description
-* **formik 2.2.5** - description
-* **history 5.0.0** - description
-* **axios 0.21.1** - description
-* **react-redux 7.2.2** - description
-* **@reduxjs/toolkit** - description
-* **redux-thunk 2.3.0** - description
-* **react-helmet 6.1.0** - description
-* **react-modal 3.12.1** - description
-* **react-loading 2.0.3** - description
-* **react-reveal 1.2.2** - description
-* **react-toastify 6.2.0** - description
-* **react-spring 8.0.27** - description
-* **material-auto-rotating-carousel 3.0.2** - description
-* **react-swipeable-view 0.13.9** - description
-* **material UI** - description
-* **@material-ui/core 4.11.2** - description
-* **@material-ui/icons 4.11.2** - description
-* **@material-ui/lab 4.0.0-alpha.57** - description
+* **formik 2.2.5** - Is a open source library for React it is declarative, intuitive and adoptable. Its key features are getting values in and out of form state, validation and error messages and handling form submission.This library was used for all our form inputs. 
+* **axios 0.21.1** - Is a promise-based HTTP client that supports an easy-to-use API and can be used in both the browser and Node. js.
+* **react-redux 7.2.2** - Is the official React binding for Redux. It lets your React components read data from a Redux store, and dispatch actions to the store to update data.
+* **@reduxjs/toolkit** - Is the official, opinionated, batteries-included toolset for efficient Redux development, intended to be the standard way to write Redux logic. It includes utility functions and several Redux add ons. 
+* **redux-thunk 2.3.0** - This middleware allows you to write action creators that return a function instead of an action. The inner function receives the store methods dispatch and getState as parameters.
+* **react-helmet 6.1.0** - Is simple component that makes it easy to manage and dynamically set what's in the document's head section. 
+* **react-modal 3.12.1** - A modal is a message box that is displayed on top of your screen that put an overlay on the screen; therefore, they take visual precedence over all the other elements. React modal allowed for easy implementation of message box modals which we used for login, register, forgot/reset password and a help box. 
+* **react-loading 2.0.3** - Easy to use loading animations for React projects using SVG animations. Utilised for our main loading screen. 
+* **react-reveal 1.2.2** - Is high performance animation library for React. It provides a simple way to add cool reveal-on-scroll animations to your React app. 
+* **react-toastify 6.2.0** - Allows for easy notification adding. Used for all our success and error notifications. 
+* **material-auto-rotating-carousel 3.0.2** - A package created using Material-UI to be a moving carousel. This was used for our introduction for new users. 
+* **react-swipeable-view 0.13.9** - This package was used in conjunction with material auto rotating carousel. 
+* **material UI** - Is the most popular React framework, it enables using React components faster development or building a custom design. 
+* **@material-ui/core 4.11.2** - Our main styling layout for done with Material UI grid and paper
+* **@material-ui/icons 4.11.2** - This package was used for various icons in our application. 
+* **@material-ui/lab 4.0.0-alpha.57** -This was used to import our 'Autocomplete' component which was very useful for our ingredient input. 
 
 * **@testing-library/jest-dom 5.11.4** - description
 * **@testing-library/react 11.1.0** - description
@@ -218,13 +216,21 @@ The overall goal of this application is a search application based on user ingre
 
 **Client Development**
 
-* **cypress 6.2.1** - description
+* **cypress 6.2.1** - Is a front end testing tool for end-to-end, integreation and unit tests.
 * **@babel/core 7.12.9** - description
 * **@babel/preset-env 7.12.7** - description
 * **@babel/preset-react 7.12.7** - description
 * **babel-jest 26.6.3** - description
 * **identity-obj-proxy 3.0.0** - description
 * **jest-transform-stub 2.0.0** - description
+
+**Other**
+
+* **Noun** - Icons/images which included the nav bar icons.
+* **pngtree.com** - Images of food on nav bar.
+* **pixabay.com** - Background images. 
+* **https://unsplash.com/** - Background images. 
+
 
 </details>
 
@@ -429,7 +435,7 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 14/01/2020 | User Settings Page | Component | Add loading screen after update settings for smoother UX  |  Yes | Dev Test Record 1  |
 | 14/01/2020 | Login In Modal  | Modal | Add loading screen for after clicking login |  Yes | Dev Test Record 1  |
 | 18/01/2020 | Username | Nav | Username coming up on nav bar- causing issues with saving recipes  |  Yes | Dev User Testing Video 2 - Password Reset |
-| 18/01/2020 | Single Recipe | Checker local storage | Property ID of Null coming up. |  &cross; |  |
+| 18/01/2020 | Single Recipe | Checker local storage | Property ID of Null coming up. |  Yes- refactored |  |
 
 </details>
 
