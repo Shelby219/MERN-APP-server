@@ -7,21 +7,23 @@ const {updateUser, getUserByParam, updateForForgotPassword, findForResetPassword
     findForUpdatePassword,
     insertPasswordToken} = require("../utils/auth_utilities")
 
-var configToken;
-if(process.env.NODE_ENV !== 'production') {
-    configToken = {
-        maxAge: 10000,
-        httpOnly: false,
-        
-        }
-} else {
-    configToken = {
+const configToken = {         
         maxAge: 600000,
-        //secure: true,
-        //sameSite: 'none',
         httpOnly: false,
-    }
-}
+         }
+// if(process.env.NODE_ENV !== 'production') {
+//     configToken = {
+//         maxAge: 10000,
+//         httpOnly: false,
+//         }
+// } else {
+//     configToken = {
+//         maxAge: 600000,
+//         //secure: true,
+//         //sameSite: 'none',
+//         httpOnly: false,
+//     }
+// }
 
 
 function registerNew(req, res) {
