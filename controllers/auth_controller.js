@@ -7,6 +7,20 @@ const {updateUser, getUserByParam, updateForForgotPassword, findForResetPassword
     findForUpdatePassword,
     insertPasswordToken} = require("../utils/auth_utilities")
 
+var configToken;
+if(process.env.NODE_ENV !== 'production') {
+    configToken = {
+            maxAge: 600000,
+        }
+} else {
+    configToken = {
+        maxAge: 600000,
+        secure: true,
+        sameSite: 'none',
+        httpOnly: false,
+    }
+}
+
 
 function registerNew(req, res) {
     res.send("This is register Page");
@@ -19,7 +33,7 @@ function registerCreate(req, res, next) {
             next(err)
         } else {
             const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
-            res.cookie("jwt", token);
+            res.cookie("jwt", token, configToken)
             res.send(user);
           }
         })
@@ -46,12 +60,12 @@ function loginNew(req, res) {
 function loginCreate(req, res) {
     //console.log(req.headers)
     const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
-    res.cookie("jwt", token);
+    res.cookie("jwt", token, configToken)
        
     res.status(200);
     res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
     console.log(res)
-
+    console.log(req.session)
 }
  
 
