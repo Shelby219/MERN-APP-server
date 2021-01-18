@@ -8,6 +8,7 @@ const {
 
 //GET ALL INGREDIENTS
 const getIngredients = function(req, res) {
+	//console.log(req.cookies)
 	  getAllIngredients(req)
 		.exec((err, items) => {
 			if (err) {
