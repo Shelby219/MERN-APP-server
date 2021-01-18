@@ -9,7 +9,7 @@ const {updateUser, getUserByParam, updateForForgotPassword, findForResetPassword
 
 const configToken = {         
         maxAge: 600000,
-        httpOnly: false,
+        httpOnly: true,
          }
 // if(process.env.NODE_ENV !== 'production') {
 //     configToken = {
@@ -62,7 +62,6 @@ function loginNew(req, res) {
 
 
 function loginCreate(req, res) {
-    //console.log(req.headers)
     const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
     res.cookie("jwt", token, configToken)
        
@@ -70,7 +69,6 @@ function loginCreate(req, res) {
     res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
     res.send()
     console.log(res)
-    //console.log(req.session)
 }
  
 
