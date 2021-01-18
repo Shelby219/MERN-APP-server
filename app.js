@@ -53,7 +53,7 @@ app.use(cors({
 
 // SESSION
 const sessionConfig = {
-    secret: process.env.JWT_SECRET,
+    secret: "Secret of The Recipe App",
     resave: false,
     saveUninitialized: false,
     proxy: true,
