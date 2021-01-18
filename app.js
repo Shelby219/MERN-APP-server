@@ -61,6 +61,7 @@ app.use(session({
         secure: true,
         sameSite: 'none',
         httpOnly: false,
+        domain: 'fridgemate.netlify.app' 
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
