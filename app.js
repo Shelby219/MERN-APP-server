@@ -26,6 +26,14 @@ if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+//
+app.use(cookieParser());
+//app.use(bodyParser.json())
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true 
+}));
+
 
 // CORS
 const whitelist = [
@@ -43,36 +51,28 @@ app.use(cors({
 }));
 
 
-//
-
-
-// app.set('trustproxy', true)
-
-// if ( process.env.NODE_ENV  === "production" ) {
-//     app.set('trust proxy', 1) // trust first proxy
-    
-//   }
-
-app.use(session({
-    secret: 'Secret of The Recipe App',
+// SESSION
+const sessionConfig = {
+    secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: false,
-    //proxy: true,
+    proxy: true,
     cookie: {
-        maxAge: 1800000,
-        secure: process.env.NODE_ENV == "production" ? true : false ,
-        sameSite: 'none',
-        httpOnly: false,
+      expires: 3600000,
+      httpOnly: false
     },
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
-}))
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+    }),
+  }
+  // for production, cookie needs 2 more settings
+  if (process.env.ENVIRONMENT!=="development") {
+    sessionConfig.cookie.secure = true;
+    sessionConfig.cookie.sameSite = "none";
+  }
+app.enable('trust proxy');
+app.use(session(sessionConfig));
 
-app.use(cookieParser());
-app.use(bodyParser.json())
-app.use(express.json());
-app.use(express.urlencoded({
-    extended: true 
-}));
 
 
 //PASSPORT   
