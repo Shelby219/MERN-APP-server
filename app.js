@@ -52,12 +52,11 @@ app.use(express.urlencoded({
 
 app.enable('trust proxy');
 app.use(session({
-    secret: "Secret of The Recipe App",
+    secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: false,
     proxy: true,
     cookie: {
-        expires: 3600000,
         maxAge: 600000,
         secure: true,
         sameSite: 'none',
@@ -86,7 +85,7 @@ mongoose.connect(dbConn, {
 //PASSPORT   
 require("./middleware/passport");
 app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.session());
 
 
 //ROUTES
