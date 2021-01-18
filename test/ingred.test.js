@@ -139,8 +139,7 @@ describe('POST /ingredients/:username/pantry/new', function() {
 
 
 //FAIL TESTS
-
- // FAIL TEST-GET ALL INGREDIENTS FOR FRIDGE 
+// FAIL TEST-GET ALL INGREDIENTS FOR FRIDGE 
 //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
   describe('FAIL TEST - GET /ingredients/:username/fridge', function() {
     it('Test get all ingredients on Fridge page with unknown user', async () => {
@@ -156,7 +155,6 @@ describe('POST /ingredients/:username/pantry/new', function() {
        })
     });
 
-
  //FAIL TEST- GET ALL INGREDIENTS FOR PANTRY 
   //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
   describe('FAIL TEST- GET /ingredients/:username/pantry', function() {
@@ -171,10 +169,6 @@ describe('POST /ingredients/:username/pantry/new', function() {
           })
        })
     });
-
-
-
-
 
 //FAIL TEST- POST new Fridge Item TEST
  describe('FAIL TEST- POST /ingredients/:username/fridge/new', function() {
@@ -210,7 +204,6 @@ describe('FAIL TEST- POST /ingredients/:username/pantry/new', function() {
      })
   });
 
-
 //FAIL TEST- DELETE  Fridge Item TEST
  describe('FAIL TEST- DELETE /ingredients/:username/fridge/delete', function() {
     it('Fail Test with bad data delete fridge item', async () => {
@@ -225,7 +218,6 @@ describe('FAIL TEST- POST /ingredients/:username/pantry/new', function() {
           })  
        })
     });
-
 
   //FAIL TEST- DELETE  Pantry Item TEST
   describe('FAIL TEST- DELETE /ingredients/:username/pantry/delete', function() {
@@ -243,11 +235,9 @@ describe('FAIL TEST- POST /ingredients/:username/pantry/new', function() {
     });
 
 
-
 //FAIL TEST - DELETE ALL Fridge Items TEST
  describe('FAIL TEST- DELETE /ingredients/:username/fridge/clear-all', function() {
   it('Fail Test with bad params delete all fridge items', async () => {
-
   await request(app)
       .delete("/ingredients/"+ "adsadsaf" + "/fridge/clear-all")
         .expect(500)
@@ -258,11 +248,9 @@ describe('FAIL TEST- POST /ingredients/:username/pantry/new', function() {
   });
 
 
-
 //FAIL TEST- DELETE ALL Pantry Items TEST
  describe('FAIL TEST- DELETE /ingredients/:username/pantry/clear-all', function() {
   it('Fail Test with bad params delete all pantry items', async () => {
-  
   await request(app)
       .delete("/ingredients/"+ "adasdasd" + "/pantry/clear-all")
         .expect(500) 

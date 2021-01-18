@@ -49,7 +49,7 @@ app.use(express.urlencoded({
     extended: true 
 }));
 
-
+app.set('trust proxy', 1);
 //app.enable('trust proxy');
 app.use(session({
     secret: process.env.JWT_SECRET,
@@ -58,7 +58,7 @@ app.use(session({
     //proxy: true,
     cookie: {
         maxAge: 600000,
-        secure: true,
+        secure: process.env.NODE_ENV == "production" ? true : false ,
         sameSite: 'none',
         httpOnly: false,
     },

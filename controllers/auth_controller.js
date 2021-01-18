@@ -10,13 +10,14 @@ const {updateUser, getUserByParam, updateForForgotPassword, findForResetPassword
 var configToken;
 if(process.env.NODE_ENV !== 'production') {
     configToken = {
-        maxAge: 600000
+        maxAge: 10000,
+        httpOnly: false,
         }
 } else {
     configToken = {
         maxAge: 600000,
-        secure: true,
-        sameSite: 'none',
+        //secure: true,
+        //sameSite: 'none',
         httpOnly: false,
     }
 }
@@ -64,9 +65,8 @@ function loginCreate(req, res) {
        
     res.status(200);
     res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
-    res.send()
-    console.log(res)
-    console.log(res.cookies)
+    //res.send()
+    //console.log(res.cookies)
     //console.log(req.session)
 }
  
