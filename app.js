@@ -52,7 +52,7 @@ app.use(express.urlencoded({
 
 app.enable('trust proxy');
 app.use(session({
-    secret: process.env.JWT_SECRET,
+    secret: "Secret of The Recipe App",
     resave: false,
     saveUninitialized: false,
     proxy: true,
