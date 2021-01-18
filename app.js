@@ -54,7 +54,7 @@ app.use(express.urlencoded({
 app.use(session({
     secret: process.env.JWT_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     proxy: true,
     cookie: {
         maxAge: 600000,
