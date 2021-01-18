@@ -50,18 +50,18 @@ app.use(express.urlencoded({
 }));
 
 
-app.enable('trust proxy');
+//app.enable('trust proxy');
 app.use(session({
     secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: false,
-    proxy: true,
+    //proxy: true,
     cookie: {
         maxAge: 600000,
         secure: true,
         sameSite: 'none',
         httpOnly: false,
-        domain: 'fridgemate.netlify.app' 
+       // domain: 'fridgemate.netlify.app' 
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
