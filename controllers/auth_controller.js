@@ -73,7 +73,7 @@ function loginCreate(req, res) {
     res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
     //res.send()
     console.log(res)
-    console.log(res.session)
+    //console.log(res.session)
 }
  
 
