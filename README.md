@@ -428,7 +428,7 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 14/01/2020 | Saved Recipe Page | Component | Need back to saved recipes button for smoother user experience  |  Yes | Dev Test Record 1  |
 | 14/01/2020 | User Settings Page | Component | Add loading screen after update settings for smoother UX  |  Yes | Dev Test Record 1  |
 | 14/01/2020 | Login In Modal  | Modal | Add loading screen for after clicking login |  Yes | Dev Test Record 1  |
-| 18/01/2020 | Username | Nav | Username coming up on nav bar- causing issues with saving recipes  |  &cross; | Dev User Testing Video 2 - Password Reset |
+| 18/01/2020 | Username | Nav | Username coming up on nav bar- causing issues with saving recipes  |  Yes | Dev User Testing Video 2 - Password Reset |
 | 18/01/2020 | Single Recipe | Checker local storage | Property ID of Null coming up. |  &cross; |  |
 
 </details>
