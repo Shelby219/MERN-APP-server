@@ -17,7 +17,7 @@ if(process.env.NODE_ENV !== 'production') {
         maxAge: 600000,
         secure: true,
         sameSite: 'none',
-        httpOnly: true,
+        httpOnly: false,
     }
 }
 
