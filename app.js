@@ -54,14 +54,14 @@ app.use(express.urlencoded({
 app.use(session({
     secret: process.env.JWT_SECRET,
     resave: false,
-    saveUninitialized: false,
-    //proxy: true,
+    saveUninitialized: true,
+    proxy: true,
     cookie: {
         maxAge: 600000,
         secure: true,
         sameSite: 'none',
         httpOnly: false,
-       // domain: 'fridgemate.netlify.app' 
+        domain: 'fridgemate.netlify.app' 
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
@@ -86,7 +86,7 @@ mongoose.connect(dbConn, {
 //PASSPORT   
 require("./middleware/passport");
 app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.session());
 
 
 //ROUTES
