@@ -318,6 +318,29 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 12/01/2021 | Add Saved Recipe | Manual Testing via the console. |
 | 12/01/2021 | Delete Saved Recipe | Manual Testing via the console. |
 
+| Sprint | Feature | Test |
+|:---:|:---:|:---:|
+| 1 | Register Form | Form is able to be typed into and returns input as an array |
+| 1 | Log In Form | Form is able to be typed into and returns input as an array |
+| 1 | Register Form | Register form returns errors when email format incorrect, when fields are blank after interacting with them, when password does not meet requirements and when the confirmed password does not match the password |
+| 1 | Log In Form | Log in form returns errors when email format incorrect, when fields are blank after interacting with them and when password does not meet requirements, however this error is generic |
+| 1 | User Settings Form | Form is able to be typed into and returns input as an array. Photo file is stored in browser but not state or database yet. |
+| 2 | Log In Modal | Can click on "log in", modal opens, modal closes when click "cancel" or click away from modal |
+| 2 | Register Modal | Can click on "register", modal opens, modal closes when click "cancel" or click away from modal |
+| 2 | Log In - Redux | When user logged in, username can be seen logged in console  |
+| 2 | Log Out - Redux | When user logged out, username can be seen logged in console as null |
+| 2 | Preferences | Radio buttons are able to be selected/deselected and submitted, returning input as an array |
+| 3 | Fridge | Form loads correctly, can type into field |
+| 3 | Pantry | Form loads correctly, can type into field |
+| 3 | Preferences | Form loads correctly, radio buttons can be selected/deselected, form can be submitted which returns an array |
+| 4 | Profile image | Image can be uploaded on user settings page, photo is displayed without manual refresh |
+| 4 | User Settings | User settings can be updated independently from the profile image  |
+| 4 | Pantry | Ingredients can be selected from the Autocomplete field which are displayed as tags within the field, and cannot be selected from the drop down a second time |
+| 4 | Fridge | Ingredients can be selected from the Autocomplete field which are displayed as tags within the field, and cannot be selected from the drop down a second time |
+| 4 | Pantry | test |
+| 4 | Pantry | test |
+| 4 | Pantry | test |
+
 </details>
 
 ---
@@ -394,9 +417,8 @@ Our application has gone through comprehensive testing with Mocha for the Server
 <details>
 <summary>Click to expand</summary>
 
-| Feature | Test |
-|:---:|:---:|
-| test | test |
+
+
 
 </details>
 
@@ -497,11 +519,29 @@ Initially we were going to switch front-end and back-end for each feature, but w
 <img src="./docs/trello/sprint1-2.png" alt="sprint 1 card 1" width="80%" />
 <img src="./docs/trello/sprint1-3.png" alt="sprint 1 card 1"  width="80%" />
 
-###### USER BRANCH
+###### USER-server
 
 At this start of this Sprint, Shelby set up the initial back-end server code and all the express/mongo/mongoose connections and tested it was all set up correctly. Then the first component worked on was the implementation of passport, passport-JWT and jsonwebtoken for user account and authorisation. The implementation of this involved using the express session to pass around the JWT. Alongside this was the initial user account routes , the setting up of the testing of these API end points was a steep initial learning curve. This began with researching testing frameworks in which Mocha along with super test was chosen. Shelby decided on constructing the tests with a description of each Http request eg. 'GET /ingredients/:username/fridge’. The get requests were test with expecting a 200 code back along with JSON content, the post/patch requests tested by sending dummy data through the test database and testing the response matching, and the delete requests were tested with a 204 response code. The biggest hurdles during the process were setting up the correct dummy data, the tear down data functions and deciding on the structure of the tests. 
 
 Some issues were the concern of updating the user via account settings page and then the whole data being overridden, however this issue was solved for the moment since the whole user model is being sent to the account settings page, so there for can be returned with the new data. However this solution is ok for the level the project is at now, for future scalabilty this would need to be altered.
+
+
+######  LOG IN AND REGISTER-client
+Initial forms for registering a user and logging in were written using Formik. Input could be "submitted" as an array, but this is not connected to anything yet.  
+Input validation was added to the forms regarding email format, password requirements and passwords matching for registration.
+
+######  USER SETTINGS-client
+The user settings form was written using the same Formik structure for the registration form to allow users to change their details e.g. password. 
+A section to upload a profile image was also added. This caused some difficulties as Formik does not support this function by default. 
+
+###### TESTING-client
+Basic snapshot tests of existing components were written using Jest and Enzyme.
+
+######  STRUCTURING-client
+Component file structure was refactored to have /src/components/componentName/index.js for renaming ease i refactoring needed.
+
+###### DIFFICULTIES-client
+Forgot to add node_modules to .gitignore.
 
 
 </details>
@@ -514,11 +554,11 @@ Some issues were the concern of updating the user via account settings page and 
 <img src="./docs/trello/sprint2-2.png" alt="sprint 2 card 1"  width="80%" />
 
 
-###### FRIDGE/PANTRY BRANCH
+###### FRIDGE/PANTRY-server
 
 During this sprint the CRUD for ingredients was implemented. Shelby managed to keep the codebase dry by not doing Fridge and Pantry CRUD, rather just implementing an Ingredient CRUD base and using conditionals checking the path name, which then determines which part of the user model gets updated. 
 
-###### USER BRANCH
+###### USER-server
 
 When implementing s3 and Multer for profile image upload, some blockers were incorrect set up of IAM policy, the use of .single with multer (use .any to ensure the image would upload.)
 
@@ -528,9 +568,27 @@ Started writing passing fail tests to test the end points when errors arise. Thi
 
 Current blockers are implementation of persisting cookies with mocha/supertest testing so tests can be run even with authenticated routes. eg. with the middleware of "passport.authenticate('jwt', {session: false})". Currently all  tests are based with this middleware not being implemented. Code that was tried includes, using superagent, setting headers, setting a beforeAll function of logging in the user and trying to manually set the cookies. The closest to success was using a beforeAll function of logging in the user, however accessing the cookies from that Http request response was not successful. This task will be moved to next sprint. 
 
-###### CLIENT
+###### STYLING-client
 
 Completed the initial styling for the home/nav/login/register to start the basis of styling, to enable easier implementation of the react client-side.
+
+######  REDUX-client
+
+Redux was added to the project to manage global state. Redux may not be required for a project of this size but gives room for the project to grow. Users logging in and out managed through Redux.
+
+######  LOG IN AND REGISTER-client
+
+Log in and Register forms were developed to be modals accessed from the nav bar. Modals were opened and closed through Redux state (i.e setModalOpen("register OR login OR null");).
+
+###### PREFERENCES-client
+
+The preferences form was started. There was some difficulty getting Formik to iterate over the preferences list (vegetarian, vegan, cheap etc) with a radio button and it was decided to build this as a usual <form>. 
+
+###### CYPRESS-client
+Initial tests written for logging in and registering a user.
+
+######  BLOCKERS-client
+- Difficulty getting Formik to iterate over options with radio buttons.
 
 
 </details>
@@ -544,7 +602,7 @@ Completed the initial styling for the home/nav/login/register to start the basis
 <img src="./docs/trello/sprint3-2.png" alt="sprint 3 card 1"  width="80%" />
 
 
-###### RECIPE BRANCH
+###### RECIPE-server
 
 Began Work on this feature branch on the server client. Initial routes set up. The biggest challenge was the code required for the process of getting the user data from the DB (being ingredients and preferences), error handling, sanitising the data (functions checking if null, processing booleans into an array then finally a string), then sending the correct data to the Spoonacular API calls. During the code process of the helper functions a lot of manual testing done via the console was done with some dummy data, to ensure that the JS functions were working as intended. Additionally testing Spoonacular API via postman was done to determine with Http request URLs were the right ones to use for this application. 
 
@@ -586,9 +644,26 @@ When implementing the main code for displaying recipes for browsing, it was disc
 
 To overcome the blocker of needing the information from the ingredient search query, but also the information from the get recipe bulk query, the used and missed ingredients were filtered out from the first lot of returned data, then passed onto the next function, so that after the bulk recipe query was returned the two objects could be joined and returned. 
 
-###### CLIENT
+###### END TO END CONNECTION
 
 The initial connecting of the front-end and back-end was started. This started a learning curve with how having the JWT in a cookie works. To begin with registering a user was connected, and logging in a user, this followed some blockers including the register user function on the back-end not signing a JWT, and on the front-end determining how to keep a user logged in. Local storage was implemented for this issue with the storage housing the username and at the moment the JWT (which is not necessary, but just in place for manual testing). Along with local storage is the state manager being redux. 
+
+######  FRIDGE PANTRY-client
+
+Started the fridge and pantry components using the AutoComplete component and JSON ingredient/pantry lists from Shelby. The forms were built using the Formik library. Some difficulties were found around structuring shared functions and what needed to be separated. 
+
+###### PREFERENCES-client
+
+The preferences form was completed and ready to be connected to the database. The form was built using Formik again but using radio buttons and iterating over a separated list of preferences (vegetarian, sustainable etc). There is still some repetition as the values need to be initialized in Formik so if the list was edited, the form would also need to be edited rather than just updating the list.
+
+###### LOG IN/OUT AND REGISTRATION-client
+
+The registration and log in forms were completed to a point where it could be connected with the database.
+Input validation/input errors were added to the user registration form. 
+
+###### Blockers
+- Adrienne had some difficulties properly adding .eslintcache to .gitignore and it had to be removed many, many times. 
+- Dev tools was not showing state so the Redux dev tools were added and configured within the project to work with the firefox browser. 
 
 </details>
 
@@ -602,7 +677,7 @@ The initial connecting of the front-end and back-end was started. This started a
 <img src="./docs/trello/sprint4-3.png" alt="sprint 4 card 3" width="80%" />
 <img src="./docs/trello/sprint4-4.png" alt="sprint 4 card 4"  width="80%" />
 
-###### STYLING
+###### STYLING-client
 
 Foundational styling was done as I went to ensure easy readability of the pages being worked on. This involved implementing a Grid layout from Material UI for styling. The main components used from Material UI include the autocomplete component, Grid, Paper and Buttons. Additional usage will be put in place once the final in depth styling is completed. 
 Initial set up React Toastify for Notifications was put in place for later use. 
@@ -612,7 +687,7 @@ Not found page was implementing and styled.
 
 Loading screen was implemented with React Loading to enable a loading time frame for browse recipes, fridge, pantry and eventually saved recipes. To ensure the data has loaded correctly. The initial of adding transitions and effects for better user experience was started. 
 
-###### BROWSE RECIPES
+###### BROWSE RECIPES-client
 
 Browse Recipe component was created and some test data was put in place via a JSON file to enable to initially styling of the recipe cards. Like the separate ingredient component, using a separate recipe card component means it can be reused when it comes to displaying the saved recipes pages. 
 
@@ -622,7 +697,7 @@ The next step is being able to refactor the code to allow for if the user was to
 
 Issue: check if the server code is working correctly with taking fridge and pantry ingredients for the recipe search.
 
-###### FRIDGE PANTRY
+###### FRIDGE PANTRY-client
 
 Adrienne implemented the foundational code for the fridge and pantry components and the functions for connecting to the back end, alongside was some great code for being able to save the state of multiple ingredients for adding to the DB. I just did some refactoring as instead of manually coding the add multiple ingredients, Material UI has this available in the autocomplete component. Additional I was able to incorporate the ingredient services methods.
 
@@ -637,7 +712,7 @@ to (...newItem)
 
 Then was the issue of duplicates being able to be added to the list. Adrienne is currently working on a fix for this issue, because as it stands you can add duplicates, but when you delete one, it deletes all as that is the server method of deleting. So to overcome this, a function for stopping duplicates is needed. 
 
-###### USER
+###### USER-server
 
 A blocker which was causing issues when finding by username and updating for settings and preferences, was this:
 
@@ -658,9 +733,9 @@ A major blocker was the user password being rehashed each log in/update. It was 
 
 Another issue was on initial login the users current profile image was not loaded until navigating to the settings page, this was due to the DB not loading the profile on initial home page render. This was fixed by doing a single DB call to get the profile image and save in redux so that it would load on first login. 
 
-###### INGREDIENTS
+###### INGREDIENTS-client
 
-A conditional was implementing that if no ingredients for fridge or pantry were present it would render a white space filler letting the user know that there are no ingredients present. 
+A conditional was implemented that if no ingredients for fridge or pantry were present it would render a white space filler letting the user know that there are no ingredients present. 
 
 ###### DEPLOYMENT
 
@@ -670,11 +745,11 @@ Server code was successfully deployed to Heroku. The client code however was dep
 
 A private route function was set up so that it could be utilised with any routes that require logging in. This then redirects the user to the home page. 
 
-###### HOME
+###### HOME-client
 
 A json file with random food jokes was created and utilised on the home page to display random food jokes. This was done as a JSON file to enable new jokes to be added later.
 
-###### RESET PASSWORD
+###### RESET PASSWORD-server/client
 
 For a fuller user experience, I implementing a reset password feature via nodemailer and a built in module in Node.js called crypto which will hash a unique token.
 This was implemented relatively quickly with an initial post route for clicking reset password, which opens a modal in React with a form which the user enters their email, then on submit it fires a function on the server which will check if the user is in the DB, sending back errors if not, then created a random token via crypto, then inserting this and a token expiring into the users document in MongoDB. Then via Nodemailer using a gmail accounted created for this application, it sends a basic template outlining the instructions for resetting their password with a link that will take the user to a reset password form. The get request for this form involves checking that the token in the link is in the users DB first before allowing the user to see the page. This subsequently the user can enter their new password in the form, which then submits a request to the DB to update the password, using the username, token and date less then expiring to ensure the correct user's password is updated. The main blockers during the process was determining the correct was the insert a field into a document, upsert was not working so after some research and trial and error the below was the correct code:
@@ -690,6 +765,22 @@ The strict: false allowed me to insert a field that was not in the current schem
 Additionally some other blockers, were ensuring there was enough time on the loading screen to make sure the server can fulfill the request, the function which sends the nodemailer can load slow at times, so ensuring there were enough seconds to allow for this was key. 
 
 
+###### PROFILE PHOTO-client
+Image upload added. Initially file upload was working but with bugs, and was initially included in the User Settings form. It was moved into it's own component to allow for separate updates to image and username, email and password respectively. 
+The photo upload was not displaying without manual refresh. This was resolved by adding the image to state via updateProfile to currentUserSettings.
+
+###### FRIDGE PANTRY-client
+Updates to ingredients list where when ingredient selected it is removed from the list, so it cannot be selected again. Input field still doesn't clear after adding ingredients though so they can be added again/duplicated.
+
+
+###### Blockers:
+
+- Password being hashed on hash.
+- Local storage holding JSON file, needed to pass string and then parse back our to JSON for render.
+- Cypress testing would interact with web pages but would not submit some forms or interact with the state of the application. Able to interact with database as would register user and log in, but not save that user to local state.
+- Clearing tags from Automcomplete Fridge and Pantry fields, still. 
+
+
 </details>
 
 
@@ -699,14 +790,24 @@ Additionally some other blockers, were ensuring there was enough time on the loa
 
 <img src="./docs/trello/sprint5-1.png" alt="sprint 5 card 1" width="80%" />
 
-###### REVIEWING TESTING
+
+##### TESTING-client
+Configured package cypress-and-jest coordinated code coverage reports. 
+Continued development of end-to-end testing for components. Able to set state manually using package cypress-localstorage-commands but having difficulty integrating state with database calls and changing state on return. Cypress-testing-library added 
+Revisited unit testing for front end with Jest. Previously written tests failing as components completed and refactored. All Jest tests failing. Time spent debugging, see blockers. To look into Storybook and Cypress Unit testing. 
+
+##### Blockers:
+Modules and Jest conflicting - Jest throwing errors on JS files with modules.css styling. 
+Difficulty getting MaterialUI Autocomplete to clear after adding ingredients resulting in duplicated on ingredients being added.
+
+###### REVIEWING TESTING-server
 
 Current sitting at 75% test coverage. 
 ![Image of tests](./docs/testhtml.png)
 
 Following a review using Istanbul of the server side test coverage, it was determined additional tests would need to be written to increase test coverage, another 10 tests were put in place, most of which were testing for if errors occurred. This increased our back-end test coverage to approximately 75%.
 
-###### RECIPES
+###### RECIPES-server/client
 
 During this final sprint the implementation of connecting the back-end to the front-end for browsing recipes, viewing saved recipes, adding, deleting and viewing a single recipe was completed. For the features such as user settings, a API call was done on initial page load due to the sensitive nature of the data, but for the lists of recipes, we wanted to utilise local storage to minimize database calls. In a production setting of the DB, at any time the recipes returned could be set up to 100 (depending on the limits set), so saving in local storage meant that the API calls would not need to be done each render. The API call gets made again if the User presses 'Search Again'. Even during production usage, our browse recipe data returned will be set at a reduced limit, due to a the payment tiers of the Spoonacular API call. 
 
@@ -720,6 +821,7 @@ The functionality which takes the users preferences and filters out recipes usin
 <img src="./docs/trello/sprint5-2.png" alt="sprint 5 card 2" width="80%" />
 <img src="./docs/trello/sprint5-3.png" alt="sprint 5 card 3" width="80%" />
 <img src="./docs/trello/sprint5-4.png" alt="sprint 5 card 4" width="80%" />
+
 </details>
 
 ---
