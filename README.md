@@ -668,7 +668,7 @@ Also see screen recordings in /docs/devtestvideo.
 | 5 | User settings | Form loads with previously entered username, email and fields for password displaying "password" and "retype password" and profile image upload form. |
 | 5 | User settings | All fields, must be entered to update any user setting, i.e. password cannot be updated without entering/changing username or email address. Note for future improvement. |
 | 5 | Profile image | Clicking "browse" opens file browser, file can be selected. Selecting incorrect format (e.g. word document) shows "oh no!" toast and does not give option to upload. |
-| 5 | Profile image | Clicking "browse" opens file browser, file can be selected. Selecting correct format (e.g. .jpeg) shows the image above the form and changes the nav image. Clicking upload displays confirmation toast. |
+| 5 | Profile image | Clicking "browse" opens file browser, file can be selected. Selecting correct format (e.g. .jpeg) shows the image above the form and changes the nav image on submit. Clicking upload displays confirmation toast. |
 | 5 | Profile image | Clicking "upload" with no image selected  displays "oh no!" toast. |
 | 5 | Profile image | Attempting to upload incorrect file type crashes DB. Added to future features list with priority. |
 | 5 | Fridge | Loads as expected with previously entered ingredients or blank form if none. |
@@ -770,56 +770,67 @@ Also see screen recordings in /docs/devtestvideo.
 <details>
 <summary>Click to expand</summary>
 
-Development testing was repeated on deployment. 
+####  Tests Expected to Pass
+| Framework | Feature | Test | Notes| 
+|:---:|:---:|:---:|:---:|
+| Cypress | Home page without user | Should have the right initial state |  Pass |
+| Cypress | Home page without user | Loads the home page |  Pass |
+| Cypress | Home page without user | Shows the nav |  Pass |
+| Cypress | Home page without user | Shows the nav |  Pass |
+| Cypress | Home page with user logged in | Logs in |  Pass |
+| Cypress | Home page with user logged in | Loads the home page |  Pass |
+| Cypress | Home page with user | Shows the nav |  Pass |
+| Cypress | Home page with user | Navigates to My Fridge |  Pass |
+| Cypress | Home page with user | Navigates to Pantry Staples |  Pass |
+| Cypress | Home page with user | Navigates to Saves Recipes |  Pass |
+| Cypress | Home page with user | Navigates to My Preferences |  Pass |
+| Cypress | Log in modal | Has the right initial state |  Pass |
+| Cypress | Log in modal | Closes login modal |  Pass |
+| Cypress | Browse Recipes | Should load browse |  Pass |
+| Cypress | Log in | Should have the right initial state |  Pass |
+| Cypress | Forgot Password Modal | Shows forgot password modal |  Pass |
+| Cypress | Forgot Password Modal | Closes forgot password modal |  Pass |
+| Cypress | Forgot Password Modal | Enters incorrect email format and gets an error |  Pass |
+| Cypress | Forgot Password Modal | Enters no email and gets an error |  Pass |
+| Cypress | Fridge | Logs in and loads home page with username in nav |  Pass |
+| Cypress | Fridge | Should have the right initial state |  Pass |
+| Cypress | Fridge | Loads the fridge page |  Pass |
+| Cypress | Fridge | Filters ingredients based on input |  Pass |
+| Cypress | Fridge | Should have the right initial state |  Pass |
+| Cypress | Help modal | pens and closes Help modal from home page when not logged in |  Pass |
+| Cypress | Logs in | Should have the right initial state |  Pass |
+| Cypress | Logs in | Should have the right initial state |  Pass |
+| Cypress | Logs in | Opens log in modal |  Pass |
+| Cypress | Logs in | Closes log in modal |  Pass |
+| Cypress | Logs in | Doesn't log in with incorrect credentials |  Pass |
+| Cypress | Logs in | Enters incorrect email format and no password and and gets an error |  Pass |
+| Cypress | Logs in | Logs in and logs out |  Pass |
+| Cypress | Preferences | Logs in and loads homepage with username in nav |  Pass |
+| Cypress | Preferences| Loads the preferences page |  Pass |
+| Cypress | Preferences | Shows preferences from state|  Pass |
+| Cypress | Preferences | Previous selections are loaded from state |  Pass |
+| Jest | Nav | Snapshot test |  Pass |
+| Jest | Footer | Snapshot test |  Pass |
+| Cypress | Register | Opens register modal |  Pass |
+| Cypress |Register | Closes register modal |  Pass |
+| Cypress |Register | Registers a user |  Pass |
+| Cypress |Register | Correct errors for incorrect input |  Pass |
 
-| Feature | Test |
-|:---:|:---:|
-| Home | Home page loads with appropriate components (nav, joke, home page, footer). |
-| Carousel | Carousel opens when "Where to start" clicked, slides display as expected.  |
-| Carousel | Carousel closes when user clicks away from modal, "Register" modal opens.  |
-| Carousel | Carousel closes when user clicks "Get started" in modal, however "Register" modal does not open. Persisting bug. |
-| Nav | Nav renders on wide home screen, is hidden on smaller screens. Comes into view on hover on top of page and menu icon.  |
-| Home - no user | All links redirect to home page excluding log in/register/where to start. |
-| Help | Help modal opens from link in nav. Closes when "back" clicked or clicks away from modal. |
-| Register | Register modal opens from nav link. Closes when "cancel" clicked or user clicks away from modal. |
-| Register | Changes to "Login" modal when "Have an account?" link clicked. |
-| Login | Login modal opens from nav link. Closes when "cancel" clicked or user clicks away from modal. |
-| Login | Changes to "Register" modal when "New?" link clicked. |
-| Register | New user can register from Register modal. Appropriate error messages displayed for incorrect or missing input (advises required format or "required" if empty after field is interacted with). |
-| Login | User can login from login modal. Appropriate error messages displayed for incorrect or missing input (advises required format or "required" if empty after field is interacted with). |
-| Register | Changes to "Login" modal when "Have an account?" link clicked. |
-| Home with user | Successful login and registration redirects to home page, "Yu are logged in!" toast displays. |
-| Nav with user | When user authenticated, "log in" and "register" links change to "log out". |
-| Logout | When "log out" clicked, user is redirected to home page, toast displays "come back soon!" and home pge returns to stat where links redirect to home page. |
-| Nav/Profile image | Users without an uploaded image display the default silhouette image, otherwise their uploaded image is displayed.  |
-| Nav/Profile image | Clicking the silhouette image links to user settings page. |
-| User settings | Form loads with previously entered username, email and fields for password displaying "password" and "retype password" and profile image upload form. |
-| User settings | All fields, must be entered to update any user setting, i.e. password cannot be updated without entering/changing username or email address. Note for future improvement. |
-| Profile image | Clicking "browse" opens file browser, file can be selected. Selecting incorrect format (e.g. word document) shows "oh no!" toast and does not give option to upload. |
-| Profile image | Clicking "browse" opens file browser, file can be selected. Selecting correct format (e.g. .jpeg) shows the image above the form and changes the nav image. Clicking upload displays confirmation toast. |
-| Profile image | Clicking "upload" with no image selected  displays "oh no!" toast. |
-| Profile image | Attempting to upload incorrect file type crashes DB. Added to future features list with priority. |
-| Fridge | Loads as expected with previously entered ingredients or blank form if none. |
-| Fridge | Can remove individual ingredients and all ingredients via empty fridge.  |
-| Fridge | "Browse Recipes" button works as expected - displays browse recipes section. |
-| Pantry | Loads as expected with previously entered staples or blank form if none. |
-| Pantry | Can remove individual ingredients and all ingredients via empty pantry.  |
-| Pantry | "Browse Recipes" button works as expected - displays browse recipes section. |
-| Autocomplete | Displays fridge or pantry lists on appropriate pages. |
-| Autocomplete | Selects ingredient from list and adds ingredient as a tag to autocomplete field. Ingredient cannot be selected from list again. |
-| Autocomplete | "Add Ingredients" clears tags and displays the ingredients individually in the fridge/pantry cutting board space. |
-| Autocomplete | Persisting bug - removing an individual ingredient or all ingredients returns them to the Autocomplete field. They can be entered multiple times using the "add ingredients" button.|
-| Autocomplete | Displays fridge or pantry lists on appropriate pages. Handled using server-side validation however not ideal UI. |
-| Autocomplete | Displays fridge or pantry lists on appropriate pages. |
-| Preferences | Loads as expected with previously entered preferences or blank form if none. |
-| Preferences | Preference options can be selected/deselected using check boxes. "Update Preferences" button displays "Preferences updated..." toast to confirm.  |
-| Browse Recipes | Loads as expected with suggested recipes if no ingredients etc entered, or suggested recipes matching entered ingredients/staples. |
-| Browse Recipes | Clicking "save recipe" shows "ou have saves this recipe!" toast, saving the same recipe displays "you have already saved this recipe" toast. |
-| Browse recipes | Persisting bug - sometimes "3/5" ingredients will display as "/NaN", possibly an API issue. Required further testing. |
-| Browse Recipes | Previously searches recipes will display on page after changing ingredients/staples, clicking "refresh search" button on browse recipes page will display new recipes. |
-| Saved Recipes | Loads as expected with previously saves recipes or "Looks like you have no recipes saved!"|
-| Saved Recipes | Clicking "remove recipe" on a saved recipe displays "removed from saved recipes" toast and recipe is no longer visible in component. |
-| Saved Recipes | Both "back to search" and "browse recipes" buttons return user to Browse Recipe page. |
+
+
+
+####  Tests Expected to Fail
+| Framework | Feature | Test | Notes| 
+|:---:|:---:|:---:|:---:|
+| Cypress | Home page without user | Should be logged in |  Fail |
+| Cypress | Home page with user logged in | Should not be logged in |  Fail |
+| Cypress | Fridge | Loads the preferences page (when navigating to fridge) |  Fail |
+| Cypress | Log in | Logs in and loads homepage with incorrect username in nav |  Fail |
+ | Cypress | Log in | Enters incorrect email format and password and and gets an error (incorrect error) |  Fail |
+ | Cypress |Register | Incorrect errors for incorrect input |  Fail |
+
+
+
 
 </details>
 
@@ -875,6 +886,58 @@ Development testing was repeated on deployment.
 
 <details>
 <summary>Click to expand</summary>
+
+Manual development testing was repeated on deployment and finalised on 19/01/2021. 
+
+| Feature | Test |
+|:---:|:---:|
+| Home | Home page loads with appropriate components (nav, joke, home page, footer). |
+| Carousel | Carousel opens when "Where to start" clicked, slides display as expected.  |
+| Carousel | Carousel closes when user clicks away from modal, "Register" modal opens.  |
+| Carousel | Carousel closes when user clicks "Get started" in modal, however "Register" modal does not open. Persisting bug. |
+| Nav | Nav renders on wide home screen, is hidden on smaller screens. Comes into view on hover on top of page and menu icon.  |
+| Home - no user | All links redirect to home page excluding log in/register/where to start. |
+| Help | Help modal opens from link in nav. Closes when "back" clicked or clicks away from modal. |
+| Register | Register modal opens from nav link. Closes when "cancel" clicked or user clicks away from modal. |
+| Register | Changes to "Login" modal when "Have an account?" link clicked. |
+| Login | Login modal opens from nav link. Closes when "cancel" clicked or user clicks away from modal. |
+| Login | Changes to "Register" modal when "New?" link clicked. |
+| Register | New user can register from Register modal. Appropriate error messages displayed for incorrect or missing input (advises required format or "required" if empty after field is interacted with). |
+| Login | User can login from login modal. Appropriate error messages displayed for incorrect or missing input (advises required format or "required" if empty after field is interacted with). |
+| Register | Changes to "Login" modal when "Have an account?" link clicked. |
+| Home with user | Successful login and registration redirects to home page, "Yu are logged in!" toast displays. |
+| Nav with user | When user authenticated, "log in" and "register" links change to "log out". |
+| Logout | When "log out" clicked, user is redirected to home page, toast displays "come back soon!" and home pge returns to stat where links redirect to home page. |
+| Nav/Profile image | Users without an uploaded image display the default silhouette image, otherwise their uploaded image is displayed.  |
+| Nav/Profile image | Clicking the silhouette image links to user settings page. |
+| User settings | Form loads with previously entered username, email and fields for password displaying "password" and "retype password" and profile image upload form. |
+| User settings | All fields, must be entered to update any user setting, i.e. password cannot be updated without entering/changing username or email address. Note for future improvement. |
+| Profile image | Clicking "browse" opens file browser, file can be selected. Selecting incorrect format (e.g. word document) shows "oh no!" toast and does not give option to upload.|
+| Profile image | Clicking "browse" opens file browser, file can be selected. Selecting correct format (e.g. .jpeg) shows the image above the form and changes the nav image on submit. Clicking upload displays confirmation toast. |
+| Profile image | Clicking "upload" with no image selected  displays "oh no!" toast. |
+| Profile image | Attempting to upload incorrect file type crashes DB. Added to future features list with priority. |
+| Fridge | Loads as expected with previously entered ingredients or blank form if none. |
+| Fridge | Can remove individual ingredients and all ingredients via empty fridge.  |
+| Fridge | "Browse Recipes" button works as expected - displays browse recipes section. |
+| Pantry | Loads as expected with previously entered staples or blank form if none. |
+| Pantry | Can remove individual ingredients and all ingredients via empty pantry.  |
+| Pantry | "Browse Recipes" button works as expected - displays browse recipes section. |
+| Autocomplete | Displays fridge or pantry lists on appropriate pages. |
+| Autocomplete | Selects ingredient from list and adds ingredient as a tag to autocomplete field. Ingredient cannot be selected from list again. |
+| Autocomplete | "Add Ingredients" clears tags and displays the ingredients individually in the fridge/pantry cutting board space. |
+| Autocomplete | Persisting bug - removing an individual ingredient or all ingredients returns them to the Autocomplete field. They can be entered multiple times using the "add ingredients" button.|
+| Autocomplete | Displays fridge or pantry lists on appropriate pages. Handled using server-side validation however not ideal UI. |
+| Autocomplete | Displays fridge or pantry lists on appropriate pages. |
+| Preferences | Loads as expected with previously entered preferences or blank form if none. |
+| Preferences | Preference options can be selected/deselected using check boxes. "Update Preferences" button displays "Preferences updated..." toast to confirm.  |
+| Browse Recipes | Loads as expected with suggested recipes if no ingredients etc entered, or suggested recipes matching entered ingredients/staples. |
+| Browse Recipes | Clicking "save recipe" shows "ou have saves this recipe!" toast, saving the same recipe displays "you have already saved this recipe" toast. |
+| Browse recipes | Persisting bug - sometimes "3/5" ingredients will display as "/NaN", possibly an API issue. Required further testing. |
+| Browse Recipes | Previously searches recipes will display on page after changing ingredients/staples, clicking "refresh search" button on browse recipes page will display new recipes. |
+| Saved Recipes | Loads as expected with previously saves recipes or "Looks like you have no recipes saved!"|
+| Saved Recipes | Clicking "remove recipe" on a saved recipe displays "removed from saved recipes" toast and recipe is no longer visible in component. |
+| Saved Recipes | Both "back to search" and "browse recipes" buttons return user to Browse Recipe page. |
+
 
 
 <br>
