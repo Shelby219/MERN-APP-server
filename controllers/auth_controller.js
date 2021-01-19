@@ -7,11 +7,30 @@ const {updateUser, getUserByParam, updateForForgotPassword, findForResetPassword
     findForUpdatePassword,
     insertPasswordToken} = require("../utils/auth_utilities")
 
+///JWT TOKEN CONFIG
+const configToken = {         
+        httpOnly: true,
+         }
+// if(process.env.NODE_ENV !== 'production') {
+//     configToken = {
+//         maxAge: 10000,
+//         httpOnly: false,
+//         }
+// } else {
+//     configToken = {
+//         maxAge: 600000,
+//         //secure: true,
+//         //sameSite: 'none',
+//         httpOnly: false,
+//     }
+// }
 
-function registerNew(req, res) {
-    res.send("This is register Page");
-}
 
+// function registerNew(req, res) {
+//     res.send("This is register Page");
+// }
+
+//REGISTER USER
 function registerCreate(req, res, next) { 
     const newUserHandler = (user) => {
         req.login(user, (err) => {
@@ -19,7 +38,7 @@ function registerCreate(req, res, next) {
             next(err)
         } else {
             const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
-            res.cookie("jwt", token);
+            res.cookie("jwt", token, configToken)
             res.send(user);
           }
         })
@@ -32,30 +51,33 @@ function registerCreate(req, res, next) {
             res.send(x))
 }
 
+//LOGOUT USER
 function logOut(req, res) {
     req.logout();
     res.cookie("jwt", null, { maxAge: -1 });
     res.sendStatus(200);
 }
 
-function loginNew(req, res) {
-    res.send("this is login new");
-}
+
+// function loginNew(req, res) {
+//     res.send("this is login new");
+// }
 
 
+//LOGIN USER
 function loginCreate(req, res) {
     const token = jwt.sign({ sub: req.user._id }, process.env.JWT_SECRET);
-    res.cookie("jwt", token);
+    res.cookie("jwt", token, configToken)
        
     res.status(200);
     res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
-
- }
+    res.send()
+    console.log(res)
+}
  
 
 //Account settings get ROUTE
 function editUser(req, res) {
-    
      getUserByParam(req).exec((err, user) => {
         if (err) {
             res.status(500);
@@ -147,7 +169,6 @@ function forgotPassword (req, res) {
 function resetPassword (req, res) {
     findForResetPassword(req).then((user) => {
         if (user == null) {
-          //console.error('password reset link is invalid or has expired');
           res.status(403).send('password reset link is invalid or has expired');
         } else {
           res.status(200).send({
@@ -196,10 +217,10 @@ function sendResetPassword(req, res) {
 
 
 module.exports = {
-    registerNew,
+   //registerNew,
     registerCreate,
     logOut,
-    loginNew,
+    //loginNew,
     loginCreate,
     editUser,
     editUserReq,

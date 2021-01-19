@@ -16,19 +16,11 @@ const {
 const displayRecipes =  async function(req, res) {
 	try {
 		 let recipes = await returnRecipesToBrowse(req)
-		//  await User.findOne({ username:  req.user.username }, function (err, userInfo) {
-		// 		if (err) {
-		// 			console.log(err)
-		// 			//throw new Error ("Error getting user from DB")
-		// 		}
-		// 		return userInfo
-		// 	});
-				
-		// await userPrefFilter(userInfo.preferences, recipes)
-		
+		 let checkUser = await User.findOne({ username:  req.user.username }).exec()
+		 let filteredRecipes = await userPrefFilter(checkUser.preferences, recipes)
+		 //console.log("check filter", filteredRecipes)
 		 res.status(200)
-		 res.json(recipes)
-		 console.log("recipe search returned")
+		 res.json(filteredRecipes)
 	} catch (err) {
 		 if (err) {res.status(500)
             res.json({
@@ -65,6 +57,7 @@ const displaySingleRecipe =  function(req, res) {
 	})
 }
 
+//GET ALL SAVED RECIPES
 const displayAllSavedRecipes = function(req, res) {
     getAllSavedRecipes(req)
 		.exec((err, savedRecipes) => {
@@ -78,7 +71,7 @@ const displayAllSavedRecipes = function(req, res) {
 		})
 };
 
-
+//ADD TO SAVED RECIPES
 const makeSavedRecipe = function (req, res) {
 	//req.body.username = "testusername"  //THIS IS only for test purposes
 	addSavedRecipe(req).save((err, savedRecipe) => {
@@ -93,6 +86,7 @@ const makeSavedRecipe = function (req, res) {
 	})
 };
 
+//DELETE A SAVED RECIPE
 const removeSavedRecipes = function(req, res) {
 	// Check for error from middleware
 	if (req.error) {

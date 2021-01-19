@@ -3,6 +3,7 @@ const request = require('supertest');
 const User = require('../models/user');
 const app = require('../app.js'); 
 
+
 //GET PREFERENCES PAGE
  //NEED TO UNCOMMENT- passport.authenticate('jwt', {session: false}) in routes to work
  describe('GET  /preferences/:username/', function() {
@@ -13,8 +14,6 @@ const app = require('../app.js');
           .expect(200)
           .then(async (response) => {
             let pref = await User.findOne({ email: 'tester@test.com' }).exec();
-            // Check the response
-            //console.log(response)
            // expect(user._id).toStrictEqual(pref.user)
 
           })
@@ -34,7 +33,6 @@ const app = require('../app.js');
           .expect(200)
           .then(async (response) => {
             let pref = await User.findOne({ email: 'tester@test.com' }).exec();
-            //expect(response.body.preferences.vegan).toBeTruthy()
             expect(pref.preferences.vegan).toBeTruthy()
           })
        })
@@ -58,11 +56,5 @@ describe('FAIL TEST- GET  /preferences/:username/', function() {
    });
 
 //FAIL TESTS
-//If edit pref get route errors 404
-
-//If edit pref post route errors 500
-
-
-
 
 

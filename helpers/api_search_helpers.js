@@ -1,20 +1,24 @@
 const axios = require('axios');
 
+//AXIOS CALL
 const request = axios.create({
     baseURL: 'https://api.spoonacular.com/recipes/',
     timeout: 5000
   });
   
+//API CALL FIND RECIPES BY INGREDIENTS
   const ingredientAPISearch = async function (ingredients) { 
     //INTIAL FIND BY INGREDIENT CALL
-    return await request.get(`findByIngredients?ingredients=${ingredients}&number=5&ranking=1&apiKey=${process.env.RECIPE_API_KEY}`)
+    return await request.get(`findByIngredients?ingredients=${ingredients}&number=15&ranking=1&apiKey=${process.env.RECIPE_API_KEY}`)
   }
   
+//API CALL RETURN SOME RANDOM RECIPES
   const randomRecipeAPISearch = async function () { 
     //return random recipes if use has no ingredients
-    return await request.get(`/random?number=2&apiKey=${process.env.RECIPE_API_KEY}`)
+    return await request.get(`/random?number=8&apiKey=${process.env.RECIPE_API_KEY}`)
   }
   
+//IF NO INGREDIENTS RETURN A RANDOM RECIPE CALL
   const sanitizeDataForIngredientQuery = function(queryItems) {
       // If ingredients are empty
       if (queryItems.ingredients === "" || null || undefined) {
@@ -29,6 +33,7 @@ const request = axios.create({
       }
     }
   
+  //SEARCH SINGLE RECIPE USING ID
   const singleRecipeAPISearch = async function (recipeID) { 
     //return single recipe based on ID if user does not have it saved
      let recipe = await request.get(`${recipeID}/information?includeNutrition=false&apiKey=${process.env.RECIPE_API_KEY}`)
@@ -36,17 +41,14 @@ const request = axios.create({
   }
 
 
-  //Utilmately returns the main recipe results to be displayed on the user browser
+  //USING DATA FROM INITIAL INGREDIENT SEARCH, SAVE THAT DATA AND CALL API AGAIN FOR DETAILS SEARCH AND COMBINE OBJECTS
   const detailedRecipeAPISearch = async function (data) { 
-    // if the object returned first value is recipes then the random recipe API query was called- so just return the data
-    //refactor to break the promise chain instead?
+  // if the object returned first value is recipes then the random recipe API query was called- so just return the data
     if (Object.keys(data)[0] === "recipes") {
       console.log("hit random recipe returned")
       return data.recipes
 
     } else {
-        console.log("hit here")
-        //console.log(data)
         let ingInfo = await data.usedAndMissedIng
         let recipeData = await request.get(`informationBulk?ids=${data.ids}&includeNutrition=true&apiKey=${process.env.RECIPE_API_KEY}`)
         //let recipes = await [ data.usedAndMissedIng, bulkRecipes = recipeData.data];
@@ -56,6 +58,7 @@ const request = axios.create({
       //console.log(arr3)
       return arr3
       }
+      
    //THIS ALSO WORKS
   //  const mergeById = (a1, a2) =>
   //   a1.map(itm => ({

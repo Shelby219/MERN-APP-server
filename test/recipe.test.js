@@ -5,7 +5,6 @@ const SavedRecipe = require('../models/recipe');
 const {
 	returnRecipesToBrowse
 } = require("../utils/recipe_utilities")
-const { basedOnPreferenceExtractor} = require('../helpers/recipe_helper')
 const app = require('../app.js'); 
 
 
@@ -18,8 +17,6 @@ describe('Recipe Utils Display Recipes- API Call Functions', () => {
             }
         };
         let recipes = await returnRecipesToBrowse(req)
-       // console.log(recipes.data[0])//this was due to change the result limit to 2 for testing only
-        //console.log(recipes)
         expect(recipes.length).toBe(2); //this was due to change the result limit to 2 for testing only
         expect(recipes).toBeTruthy()
     }).timeout(10000);
@@ -117,7 +114,6 @@ describe('POST /recipes/add', function() {
 
 
 //add validation
-
 //FAIL TEST
 //GET SINGLE RECIPE PAGE- IF NOT IN DB
 describe('FAIL TEST- GET /recipes/:id ', function() {
@@ -138,14 +134,4 @@ describe('FAIL TEST- GET /recipes/:id ', function() {
 
    //FAIL TESTS
 
-   //Display recipes try and catch
-
-   //If display single recipe catches error 500
-
-   //If display all recipes errors 500
-
-   //If saving a new recipe errors 500
-
-   //If removing saved recipe errors lime 87-90
-
-   //If removing saved recipe errors 500
+ 

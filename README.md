@@ -110,13 +110,22 @@ The overall goal of this application is a search application based on user ingre
 <details>
 <summary>Click to expand</summary>
 
-![Screen Shots of Website ](./docs/screenshot1.png)
-![Screen Shots of Website ](./docs/screenshot2.png)
-![Screen Shots of Website ](./docs/screenshot3.png)
-![Screen Shots of Website ](./docs/screenshot4.png)
-![Screen Shots of Website ](./docs/screenshot5.png)
-![Screen Shots of Website ](./docs/screenshot6.png)
-![Screen Shots of Website ](./docs/screenshot7.png)
+
+<img src="./docs/screenshots/screenshot1.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot2.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot3.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot4.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot5.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot6.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot7.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot8.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot9.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot10.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot11.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot12.png" alt="Screen Shots of Website" width="80%" />
+<img src="./docs/screenshots/screenshot13.png" alt="Screen Shots of Website" width="80%" />
+
+
 
 
 </details>
@@ -126,18 +135,17 @@ The overall goal of this application is a search application based on user ingre
 ### Tech stack
 <details><summary>Click to expand</summary>
 
-* **React JS** -
-* **Node JS** -
-* **HTML5**  -
-* **CSS3** -
-* **JavaScript** -
-* **AWS s3** - (Profile Image Upload)
-* **MongoDB** -
-* **Spoonacular API** -
-* **Heroku**  - (Deployment Server)
-* **Netlify** - (Deployment Client)
-* **GitHub** - (Version Control)
-
+* **React JS** - An open-source, front end, JavaScript library for building user interfaces or UI components.
+* **Node JS** - An open-source, cross-platform, back-end, asynchronous event-driven JavaScript runtime environment that executes JavaScript code outside a web browser.
+* **HTML5**  - A markup language used for structuring and presenting content.
+* **CSS3** - A style sheet language used for describing the presentation of a document
+* **CSS Modules** -A CSS Module is a CSS file in which all class names and animation names are scoped locally by default, class names become similar to JavaScript variables . A CSS Module goes into the compiler, and CSS comes out the other side.
+* **AWS s3** - Amazon S3 or Amazon Simple Storage Service is a service offered by Amazon Web Services that provides object storage through a web service interface. This was utilised in our profile image upload feature, in which the file is uploaded to S3 and then saved as a URL in MongoDb.
+* **MongoDB** - Is a cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
+* **Spoonacular API** - Recipe API that includes over 360,000 recipes as well as an open source recipe database.
+* **Heroku**  - Is a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud supporting several programming languages. This was used as our server deployment service.
+* **Netlify** - A powerful serverless platform with an intuitive git-based workflow. This was used as our client side deployment. 
+* **GitHub** - Is a provider of Internet hosting for software development and version control using Git and it was our Version Control Host. 
 </details>
 
 ---
@@ -149,40 +157,40 @@ The overall goal of this application is a search application based on user ingre
 
 **Server**
 
-* **express 4.17.1** - description
-* **mongoose 5.7.1** - description
-* **mongoose-bcrypt ^1.9.0** - description
-* **express-session 1.17.1** - description
-* **connect-mongo 3.2.0** - description
-* **cors 2.8.5** - description
-* **passport 0.4.1** - description
-* **passport-jwt  4.0.0** - description
-* **passport-local 1.0.0** - description
-* **dotenv 8.2.0** - description
-* **body-parser 1.19.0** - description
-* **cookie-parser 1.4.5** - description
-* **axios 0.21.1** - description
-* **aws-sdk ^2.805.0** - description
-* **multer 1.4.2** - description
-* **multer-s3 2.9.0** - description
-* **celebrate 13.0.4** - description
-* **express-validator 6.8.0** - description
-* **jsonwebtoken 8.5.1** - description
-* **nodemailer 6.4.17** - description
+* **express 4.17.1** - Is a back end web application framework for Node.js designed for building web applications and APIs.
+* **mongoose 5.7.1** - Is an Object Data Modeling (ODM) library for MongoDB and Node. js. It manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB.
+* **mongoose-bcrypt ^1.9.0** - Is a package that will automatically encrypt the appropriate fields when a document is created or saved using the regular static and instance methods. With mongoose versions >= 4.1. 3, the plugin also provides automatic encryption when updates are performed using update queries.
+* **express-session 1.17.1** - Simple session middleware- Used to assign a unique session to each user on implementation. 
+* **connect-mongo 3.2.0** - User sessions created with express session can then be saved in DB. Removing expired sessions. 
+* **cors 2.8.5** - Is a middleware utilised cross origin resource sharing between the Express server and React client.
+* **passport 0.4.1** - Is a flexible and modular authentication middleware for Node. js that can be easily implemented in an Express-based web application using various strategies like using a username and password, Facebook, Twitter, and more.
+* **passport-jwt  4.0.0** - A Passport strategy for authenticating with a JSON Web Token. This module lets you authenticate endpoints using a JSON web token. This was utilised to verify our secure routes by passport checking if the JWT was present in the cookie. 
+* **passport-local 1.0.0** - Passport strategy for authenticating with a username and password. This module lets you authenticate using a username and password in your Node. js applications.
+* **dotenv 8.2.0** - Dotenv is a zero-dependency module that loads environment variables from a . env file into process. env .
+* **body-parser 1.19.0** - This npm extracts the entire body portion of an incoming request stream and exposes it on req.body.
+* **cookie-parser 1.4.5** - This npm parses the Cookie header and populates req.cookies with an object keyed by the cookie names.
+* **axios 0.21.1** - Is a promise-based HTTP client that supports an easy-to-use API and can be used in both the browser and Node. js.
+* **aws-sdk ^2.805.0** - Utilised to develop server-side web applications using Node, Node Modules, and the Node HTTP server. Allowing access AWS services directly from your RESTful applications using Node.js frameworks. This was implementing in our profile picture upload feature, using s3 to upload the file then extra the URL to save in mongoDB.
+* **multer 1.4.2** - Is a node. js middleware for handling multipart/form-data , which is primarily used for uploading files.
+* **multer-s3 2.9.0** - Streaming multer storage engine for AWS S3.
+* **celebrate 13.0.4** - Is an express middleware function that wraps the joi validation library. This allows you to use this middleware in any single route, or globally, and ensure that all of your inputs are correct before any handler function. This was utilised to verify our login. 
+* **express-validator 6.8.0** -Is a set of Express. js middleware that wraps validator. js , a library that provides validator and sanitizer functions. This was utilised to validation our register user input, account settings, params and recipes. 
+* **jsonwebtoken 8.5.1** - JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties. Utilised to create our JSON web tokens on register and login. 
+* **nodemailer 6.4.17** - Is a module for Node. js applications to allow simple mail sending. This was utilised for our forgot password feature. 
 
 **Server Development** 
 
-* **nodemon 1.19.2** - description
-* **mocha 6.2.0** - description
-* **expect 24.9.0** - description
-* **nyc 15.1.0** - description
-* **supertest 6.0.1** - description
+* **nodemon 1.19.2** - Is a tool that helps develop node. js based applications by automatically restarting the node application when file changes in the directory are detected. 
+* **mocha 6.2.0** - Is a JavaScript test framework running on Node. js and in the browser, making asynchronous testing simple. 
+* **expect 24.9.0** - This package exports the expect function used in Jest. This was utilised in our primary server side testing. 
+* **nyc 15.1.0** - Is Istanbul's state of the art command line interface. It was utilised to output our test coverage reports. 
+* **supertest 6.0.1** - HTTP assertions made easy via superagent which works with any testing framework to test HTTP assertions. This was used to test our all back end API routes. 
 
 
 **Client**
 
-* **react 17.0.1** - description
-* **react-dom 17.0.1** - description
+* **react 17.0.1** - An open-source, front end, JavaScript library for building user interfaces or UI components.
+* **react-dom 17.0.1** - This package serves as the entry point to the DOM and server renderers for React.
 * **react-router-dom 5.2.0** - description
 * **react-scripts 4.0.1** - description
 * **formik 2.2.5** - description
@@ -347,9 +355,9 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 21/12/2020 | GET Single Saved Recipes if not in DB- use Spoonacular | Passing | Passes, but being able to test with this middleware (passport.authenticate('jwt', {session: false})) not in place && Double check this- async promise |
 | 22/12/2020 | POST Add new saved recipe | Passing | Line 74 of recipe controller allowed me to test using test user |
 | 22/12/2020 | DELETE A saved recipe | Passing |  |
+| 11/01/2020 | GET Reset Password with token- expired link| Passing | Notes| 
 | 11/01/2020 | POST Forgot Password | &cross; | Notes| 
 | 11/01/2020 | GET Reset Password with token | &cross; | Notes| 
-| 11/01/2020 | GET Reset Password with token- expired link| Passing | Notes| 
 | 11/01/2020 | PUT Reset Password in DB | &cross; | Notes| 
 
 #### Expect to Fail Tests
@@ -371,14 +379,8 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 11/01/2020 | DELETE A Ingredient-Pantry- if Error is thrown 500 | Passing | Notes| 
 | 11/01/2020 | DELETE All Ingredients-Pantry- if Error is thrown 500 | Passing | Notes| 
 | 11/01/2020 | DELETE All Ingredients-Fridge- if Error is thrown 500 | Passing | Notes| 
-| 11/01/2020 | GET Browse Recipes- if Error is thrown 500 | &cross; | Notes| 
-| 11/01/2020 | GET Saved Recipes- if Error is thrown 500 | &cross; | Notes| 
-| 11/01/2020 | GET A Recipe- if Error is thrown 500 | &cross; | Notes| 
-| 11/01/2020 | DELETE A Recipe- if Error is initially thrown | &cross; | Notes| 
-| 11/01/2020 | DELETE A Recipe- if Error is thrown 500 | &cross; | Notes| 
-| 11/01/2020 | POST Forgot Password- if Error is thrown 500 | &cross; | Notes| 
-| 11/01/2020 | GET Reset Password with token- if Error is thrown 500 | &cross; | Notes| 
-| 11/01/2020 | PUT Reset Password in DB- if Error is thrown 500 | &cross; | Notes| 
+
+
 </details>
 
 #### Client
@@ -403,7 +405,9 @@ Our application has gone through comprehensive testing with Mocha for the Server
 <br>
 
 #### Screen Recordings
-[Dev User Testing Video 1](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/user-test-dev-1.mp4)
+[Dev User Testing Video 1- User](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/user-test-dev-1.mp4)
+
+[Dev User Testing Video 2 - Password Reset](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/dev-password-reset-.mp4)
 
 #### Test Notes
 
@@ -418,13 +422,14 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 11/01/2020 | Browse Recipes | Page Load | Additional loading time needed for recipes to return from DB | Yes | |
 | 14/01/2020 | Add Fridge Ingredients | Component | Clear Autocomplete ingredient component after adding |  &cross; |Dev Test Record 1  |
 | 14/01/2020 | Add Pantry Staples | Component | Clear Autocomplete ingredient component after adding |  &cross; |Dev Test Record 1  |
-| 14/01/2020 | Pantry Page| Component | Error - filterpantry function not working , undefined |  &cross; | Dev Test Record 1 |
-| 14/01/2020 | Browse Recipe | Component | Loading animation applied to all browse recipe buttons |  &cross; | Dev Test Record 1  |
-| 14/01/2020 | Browse Page | Recipe Title | Recipe Title - room not large enough for longer recipe names |  &cross; | Dev Test Record 1  |
-| 14/01/2020 | Saved Recipe Page | Component | Need back to saved recipes button for smoother user experience  |  &cross; | Dev Test Record 1  |
+| 14/01/2020 | Pantry Page| Component | Error - filterpantry function not working , undefined |  Yes | Dev Test Record 1 |
+| 14/01/2020 | Browse Recipe | Component | Loading fridge animation applied to all browse recipe buttons |  &cross; | Dev Test Record 1  |
+| 14/01/2020 | Browse Page | Recipe Title | Recipe Title - room not large enough for longer recipe names |  Yes | Dev Test Record 1  |
+| 14/01/2020 | Saved Recipe Page | Component | Need back to saved recipes button for smoother user experience  |  Yes | Dev Test Record 1  |
 | 14/01/2020 | User Settings Page | Component | Add loading screen after update settings for smoother UX  |  Yes | Dev Test Record 1  |
 | 14/01/2020 | Login In Modal  | Modal | Add loading screen for after clicking login |  Yes | Dev Test Record 1  |
-
+| 18/01/2020 | Username | Nav | Username coming up on nav bar- causing issues with saving recipes  |  Yes | Dev User Testing Video 2 - Password Reset |
+| 18/01/2020 | Single Recipe | Checker local storage | Property ID of Null coming up. |  &cross; |  |
 
 </details>
 
@@ -432,13 +437,20 @@ Our application has gone through comprehensive testing with Mocha for the Server
 
 ###  User Testing   - Production
 
-
 <details>
 <summary>Click to expand</summary>
 
 
+<br>
+
+#### Screen Recordings
+[Prod User Testing Video 1](https://github.com/CA-MERN/MERN-server/tree/main/docs/prodtestvideo/Production-test-1.mp4)
+
+
 | Date | Feature | Test | Notes | Refactored | Screen Record ? |
 |:---:|:---:|:---:|:---:|:---:|:---:|
+| 17/01/2020 | CORS | App | CORS error- has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. |  Yes- Procfile was missing | n/a  |
+| 18/01/2020 | Cookies | App | Cookies are being sent from server, but browser is not holding them. |   &cross; |  Production user test video 1  |
 
 
 </details>
@@ -459,7 +471,7 @@ As shown below we organised our planning based cards showing the rubric, testing
 <img src="./docs/trello/firstplan-2.png" alt="initial planning"  width="500" height="400"/>
 
 
-We determined that setting weekly/fortnightly sprints was an ideal format for our project. We created a card in Trello that organised them by date and we were able to form checklists of what we wanted to have completed at the end of each sprint for the front-end and back-end. Whilst working we have a current doing card and then a completed card which we are able to distinguish each feature/component being worked on and what is completed. Additionally a card for revision proved helpful as we would have tasks completed, but they would in turn need revising/additional testing later on.
+We determined that setting weekly/fortnightly sprints was an ideal agile format for our project. We created a card in Trello that organised them by date and we were able to form checklists of what we wanted to have completed at the end of each sprint for the front-end and back-end. Whilst working we have a current doing card and then a completed card which we are able to distinguish each feature/component being worked on and what is completed. Additionally a card for revision proved helpful as we would have tasks completed, but they would in turn need revising/additional testing later on.
 
 <img src="./docs/trello/sprintplanning.png" alt="sprint planning" width="60%" />
 
@@ -692,11 +704,11 @@ Following a review using Istanbul of the server side test coverage, it was deter
 
 During this final sprint the implementation of connecting the back-end to the front-end for browsing recipes, viewing saved recipes, adding, deleting and viewing a single recipe was completed. For the features such as user settings, a API call was done on initial page load due to the sensitive nature of the data, but for the lists of recipes, we wanted to utilise local storage to minimize database calls. In a production setting of the DB, at any time the recipes returned could be set up to 100 (depending on the limits set), so saving in local storage meant that the API calls would not need to be done each render. The API call gets made again if the User presses 'Search Again'. Even during production usage, our browse recipe data returned will be set at a reduced limit, due to a the payment tiers of the Spoonacular API call. 
 
-The users 'Saved Recipe' page was connected to the server next. Utlising the same listed recipe component to display the recipe cards the same as the search recipe page. Then connecting the back-end to the single recipe page next was trickier. This page is set up to display the ID in the URL parameters, however if the recipe is from the users DB it will be an ObjectID from MongoDB, and if the recipe is just being view from the search the ID will be the ID from Spoonacular API. The back-end determines if the ID is a Object and returns the data based off this check, either returning DB data or calling the Spoonacular API which the recipe ID. Both sets of Data are handled the same on the front end, since they both contain the same key properties for displaying. The code that took some time to implement correctly was storing the single recipe in Local Storage, then a checker which determines by ID from the URL if it is a Local, then if so display that data, before trying to call the DB. 
+The users 'Saved Recipe' page was connected to the server next. Utilising the same listed recipe component to display the recipe cards the same as the search recipe page. Then connecting the back-end to the single recipe page next was trickier. This page is set up to display the ID in the URL parameters, however if the recipe is from the users DB it will be an ObjectID from MongoDB, and if the recipe is just being view from the search the ID will be the ID from Spoonacular API. The back-end determines if the ID is a Object and returns the data based off this check, either returning DB data or calling the Spoonacular API which the recipe ID. Both sets of Data are handled the same on the front end, since they both contain the same key properties for displaying. The code that took some time to implement correctly was storing the single recipe in Local Storage, then a checker which determines by ID from the URL if it is a Local, then if so display that data, before trying to call the DB. 
 
 Removals: From the saved recipe page, the feature of having categories for breakfast, lunch and dinner was removed due to the time frame and placed in nice to have for future. Additionally the major filter components for the browse recipe page was removed again due to the time frame, this is a large complex component/feature which requires the needed time and effort to implement correctly. 
 
-The functionality which takes the users preferences and filters out recipes using these preferences was built, however not utlised as the API endpoint limits for spoonacular are limited due to the payment tier, so to call enough recipes to enabling filtering would be too much at this point. This function does sit on the client side, however future plans will put this functionality on the server side to save the data load being sent to the client. 
+The functionality which takes the users preferences and filters out recipes using these preferences was built, and implemented int he server code. It searches the users DB and filters out any recipes that do not match the preferences. Additionally code was added that shows these preferences on the search page and recipe display page as little badges.
 
 
 <img src="./docs/trello/sprint5-2.png" alt="sprint 5 card 2" width="80%" />

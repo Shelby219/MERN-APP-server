@@ -1,29 +1,42 @@
+// If we are not running in production, load our local .env
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const mongoose = require("mongoose");
 const passport = require("passport");
-const cookieParser = require("cookie-parser");
 
-//routes
-
+//ROUTES
 const authRouter = require("./routes/auth_routes");
 const pageRouter = require("./routes/page_routes");
 const prefRouter = require("./routes/pref_routes");
 const ingredientRouter = require("./routes/ingredients_routes");
 const recipeRouter = require("./routes/recipe_routes");
 
-const port = process.env.PORT || 3009;
 const app = express();
+const port = process.env.PORT || 3009;
 
-// If we are not running in production, load our local .env
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
+// CORS
+const whitelist = ["http://localhost:3000", "https://fridgemate.netlify.app/"];
+app.use(
+  cors({
+    credentials: true,
+    //methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    origin: function (origin, callback) {
+      // Check each url in whitelist and see if it includes the origin (instead of matching exact string)
+      const whitelistIndex = whitelist.findIndex((url) => url.includes(origin));
+      console.log("found whitelistIndex", whitelistIndex);
+      callback(null, whitelistIndex > -1);
+    },
+  })
+);
 
-//app.use(cors());
+//
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.json());
@@ -33,35 +46,25 @@ app.use(
   })
 );
 
+app.set("trustproxy", true);
+
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1); // trust first proxy
+}
+
 app.use(
   session({
-    secret: "Secret of The Recipe App",
+    secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: false,
+    //proxy: true,
     cookie: {
       maxAge: 600000,
+      secure: process.env.NODE_ENV == "production" ? true : false,
       sameSite: "none",
-      // secure: true,
       httpOnly: false,
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
-  })
-);
-
-require("./middleware/passport");
-app.use(passport.initialize());
-
-// Use cors
-const whitelist = ["http://localhost:3000", "https://fridgemate.netlify.app/"];
-app.use(
-  cors({
-    credentials: true,
-    origin: function (origin, callback) {
-      // Check each url in whitelist and see if it includes the origin (instead of matching exact string)
-      const whitelistIndex = whitelist.findIndex((url) => url.includes(origin));
-      //console.log("found whitelistIndex", whitelistIndex)
-      callback(null, whitelistIndex > -1);
-    },
   })
 );
 
@@ -83,12 +86,19 @@ mongoose.connect(
   }
 );
 
+//PASSPORT
+require("./middleware/passport");
+app.use(passport.initialize());
+app.use(passport.session());
+
+//ROUTES
 app.use("/user", authRouter);
 app.use("/", pageRouter);
 app.use("/preferences", prefRouter);
 app.use("/ingredients", ingredientRouter);
 app.use("/recipes", recipeRouter);
 
+//PORT
 module.exports = app.listen(port, () => {
   console.log(`Recipe app listening on port ${port}`);
 });
