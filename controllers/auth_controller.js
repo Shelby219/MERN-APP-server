@@ -8,23 +8,18 @@ const {updateUser, getUserByParam, updateForForgotPassword, findForResetPassword
     insertPasswordToken} = require("../utils/auth_utilities")
 
 ///JWT TOKEN CONFIG
-const configToken = {         
+const configToken = {  
+       // Delete the cookie after 90 days
+        expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000 ),       
         httpOnly: true,
-         }
-// if(process.env.NODE_ENV !== 'production') {
-//     configToken = {
-//         maxAge: 10000,
-//         httpOnly: false,
-//         }
-// } else {
-//     configToken = {
-//         maxAge: 600000,
-//         //secure: true,
-//         //sameSite: 'none',
-//         httpOnly: false,
-//     }
-// }
+    }
 
+// In production, set the cookie's Secure flag 
+// to ensure the cookie is only sent over HTTPS
+if( process.env.NODE_ENV === 'production') {
+    configToken.secure = true;
+    configToken.sameSite = "none";
+}
 
 // function registerNew(req, res) {
 //     res.send("This is register Page");
@@ -70,10 +65,8 @@ function loginCreate(req, res) {
     res.cookie("jwt", token, configToken)
        
     res.status(200);
-    res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
-    //res.send()
+    res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID});
     console.log(res)
-    //console.log(res.session)
 }
  
 
