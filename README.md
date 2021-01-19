@@ -780,7 +780,7 @@ Our application has gone through comprehensive testing with Mocha for the Server
 
 [User Test Production 1](https://github.com/CA-MERN/MERN-server/tree/main/docs/prodtestvideo/Production-test-1.mp4)
 
-[User Test Production Full](https://github.com/CA-MERN/MERN-server/tree/main/docs/prodtestvideo/Production-test-2.mp4)
+[User Test Production Full](https://github.com/CA-MERN/MERN-server/tree/main/docs/prodtestvideo/main-prod-test.mp4)
 
 | Date | Feature | Test | Notes | Refactored | Screen Record ? |
 |:---:|:---:|:---:|:---:|:---:|:---:|
