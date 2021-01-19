@@ -9,13 +9,13 @@ const request = axios.create({
 //API CALL FIND RECIPES BY INGREDIENTS
   const ingredientAPISearch = async function (ingredients) { 
     //INTIAL FIND BY INGREDIENT CALL
-    return await request.get(`findByIngredients?ingredients=${ingredients}&number=15&ranking=1&apiKey=${process.env.RECIPE_API_KEY}`)
+    return await request.get(`findByIngredients?ingredients=${ingredients}&number=5&ranking=1&apiKey=${process.env.RECIPE_API_KEY}`)
   }
   
 //API CALL RETURN SOME RANDOM RECIPES
   const randomRecipeAPISearch = async function () { 
     //return random recipes if use has no ingredients
-    return await request.get(`/random?number=8&apiKey=${process.env.RECIPE_API_KEY}`)
+    return await request.get(`/random?number=5&apiKey=${process.env.RECIPE_API_KEY}`)
   }
   
 //IF NO INGREDIENTS RETURN A RANDOM RECIPE CALL

@@ -104,7 +104,288 @@ The overall goal of this application is a search application based on user ingre
 
 </details>
 
+
 ---
+
+### Target audience
+
+<details><summary>Click to expand</summary>
+
+**Key Demographics**
+* Gender: Anyone, predominantly women.
+* Age: 18-55.
+* Family status: Cooking for self, partner or dependents.
+* Profession: Students, professionals and homemakers.
+* Language: English.
+* Main interests: cooking, health, diet, low waste, saving money, trying new things.
+
+**Key Psychographics**
+* Dislikes repetitive meals, like variety and new options.
+* Dislikes spending lots of money on lots of ingredients and food waste.
+* Enjoys sharing and preparing meals.
+
+**Challenges**
+* Finds it difficult to create recipes.
+* Has a limited food budget or limited access to ingredients.
+* Has an interest in cooking but limitations (e.g. budget, dietary restrictions, skill).
+
+**Preferred Channels**
+* Follows celebrity chefs and food themed accounts on social media.
+* Searches for recipes/blogs on Google.
+
+**Preferred Content Types**
+* Articles.
+* Blog posts.
+* Social media posts.
+
+
+</details>
+
+---
+### Dataflow Diagram
+
+<details><summary>Click to expand</summary>
+
+[Click here to View on Lucid Chart](https://lucid.app/lucidchart/invitations/accept/63016e48-cfa5-489b-b7fc-e2e8c84311d2)
+
+
+![Dataflow-Diagram](./docs/diagrams/DFD.png)
+</details>
+
+---
+### Application Architecture Diagram
+
+<details><summary>Click to expand</summary>
+
+[Click here to View on Lucid Chart](https://lucid.app/lucidchart/invitations/accept/8e98769d-0f56-4e25-8b80-25d8c69c2047)
+
+![Application-Architecture-Diagram](./docs/diagrams/aad.png)
+</details>    
+
+---
+### User Stories
+
+
+#### Personas
+<details><summary>Click to expand</summary>
+
+![Sarah Persona](./docs/persons/sarah.png)
+![Wayne Persona](./docs/persons/wayne.png)
+![Liza Persona](./docs/persons/Eliza.png)
+![Bez Persona](./docs/persons/bez2.png)
+
+</details>
+
+#### Intial Draft Stories
+
+<details><summary>Click to expand</summary>
+
+* As a overall user:
+    * I can go to the home page sign up to create an account
+    * I can login
+    * I can navigate to my account settings and edit my account details
+    * I can navigate to the account settings and delete the account
+    * I can navigate to my dash and see what recipes I have interacted with (vote, save, reviewed) so I can quickly access/reaccess them later.
+    * I can navigate to my dash and see my current groceries organised by category
+    * I can navigate to my dashboard and see my current pantry staples
+    * I can navigate to main interface and see 'get searching today'!
+    * Once an initial search is done, I want see 'refresh again'
+    * From main interface  I can make a recipe search 
+    * From main interface I can navigate to my grocery lists
+    * From main interface I can navigate to my saved recipes
+    * I can add more groceries with predictive input
+    * I can delete groceries from my list
+    * I can clear all my grocery list
+    * I can clear all of my grocery list
+    * I can see my recipes returned search with them categories in breakfast, lunch and dinner
+    * I can further filter by diet (eg vegan) and prep time
+    * I can see my recipes returned via list with image, name, time and calories
+    * I can click go to recipe
+    * I can click a like heart on the recipe
+    * On a clicked recipe page I can click the save recipe button
+    * On a clicked recipe page I can view the whole recipe
+    * On a clicked recipe page I can rate the recipe
+
+</details>
+
+
+#### MVP
+ 
+<details><summary>Click to expand</summary>
+
+
+##### Overall User
+* As a overall user who is not logged in I can navigate to the home page and:
+    * click "Login/Sign Up" and get a pop up.
+    * click on any link and be prompted to log in/sign up with a popup. 
+
+* As a overall, logged in user I can navigate to the home page and:
+    * navigate to my <a href="#accsettings">account settings</a>.
+    * search recipes and be redirected to <a href="#searchresults">search results</a>. 
+
+* As a overall user I navigate to my <a id="accsettings">account settings and:</a>
+    * edit my account details.
+    * delete my account.
+
+* As an overall user I can see my side navigation on all pages and:
+    * navigate to <a href="#myfridge">My Fridge</a> page.
+    * navigate to <a href="#mypantry">My Pantry Staples</a> page.
+    * navigate to <a href="#mysaved">My Saved Recipes</a> page.
+    * search recipes and be redirected to <a href="#searchresults">search results</a>.
+    * navigate to the <a href="#mypreferences">My Preferences</a> page.
+    * click sign up if not logged in
+    * click login if not logged in
+    * click logout if logged in
+
+* As an overall user I can navigate to <a id="myfridge">My Fridge page</a> and:
+    * remove all items from my list with the "Empty My Fridge" button, which will confirm my choice.
+    * add ingredients to my list using predictive input.
+    * remove ingredients from my list.
+    * search for recipes by pressing the "search" button and be redirected to the <a href="#searchresults">results</a> page.
+  
+* As an overall user I can navigate to <a id="mypantry">My Pantry Staples page</a> and:
+    * add a pantry staple.
+    * delete a pantry staple.
+
+* As an overall user I can navigate to <a id="mysaved">My Saved Recipes page</a> and:
+    * view my saved recipes with their name, category and preparation time.
+    * delete a saved recipe
+    * navigate to a <a href="#single">single recipe's</a> page.
+
+* As an overall user, when redirected to the <a id="searchresults">search result</a> page I can:
+    * view returned results with their name, category and preparation time.
+    * navigate to a <a href="#single">single recipe's</a> page.
+    * filter results with the filter button, returning a pop up with filter choices.
+    * click save recipe
+    
+* As an overall user I can navigate to a <a id="single">single recipe page</a> and:
+    * view full details of a recipe including original web address, average user rating, category, preparation time, servings, calories, ingredients, link to full directions and photo.
+    * navigate to the original web address.
+    * view how many ingredients I have and how many are required (ie "You have 7/10 required ingredients").
+
+* As an overall user I can navigate to <a id="mypreferences">My Preferences page</a> and:
+    * enter/update preferred dietary requirements (e.g. vegetarian).
+    * enter/update preferred dietary restrictions (e.g. no nuts).
+
+##### Sarah 
+* As a mother and busy worker…
+    * I would like to have a tool where I can utilise my current groceries to the fullest.
+    * I would like to find some recipe variety for my family.
+    * I would like to be able to filter via prep time in case I want a quick and easy recipe.
+    * I would like a tool that is simple and easy to use.
+    * I would like to see my saved recipes so I can use them another time if I like them.
+    * I would like to filter via gluten free due to my child’s allergies.
+    * I would like to see the nutrient values in the recipes as I am health conscious.
+
+##### Wayne 
+* As a full-time worker and novice chef...
+    * I would like to view times on recipes when deciding what to try to cook.
+    * I would like a simple interface without confusing options.
+    * I would like the app to remember my items so I do not need to repeatedly enter staples.
+    * I would like to see how many ingredients are missing when selecting a recipe.
+    
+##### Eliza 
+* As a student and vegetarian…
+    * I would like to have a tool to find recipe inspiration with my favourite ingredients.
+    * I would also like a tool to find vegetarian dishes with alternatives to my favourite ingredients.
+    * I would like to be able to filter recipes based on my dietary needs as a vegetarian.
+  
+##### Bez 
+* As a chef with an egg surplus, an interest in learning different ways to cook them and some extra time for cooking...
+    * I would like to save recipes for later.
+    * I would like to see how many more ingredients I need without reading the whole recipe.
+    * I would like to filter searches by how long a recipe takes, for when I have more/less time.
+
+
+</details>
+
+
+#### Nice to have Extra Features
+ 
+<details><summary>Click to expand</summary>
+
+* As a overall user who is not logged in I can navigate to the home page and:
+    * login/sign up using Google Oauth.
+
+* As a overall user I can navigate to home page and:
+    * View some highlighted recipes of the week.
+
+* As an overall user, when redirected to the <a id="searchresults">search result</a> page I can:
+    * view returned results as above along with average star rating. 
+    * Click save recipe and be prompted to save to a collection.
+
+* As an overall user I can navigate to <a id="mysaved">My Saved Recipes page</a> and:
+    * View my recipe collections
+    * Create a new collection
+    * Edit a collection
+    * Delete a collection
+
+* As an overall user I can navigate to <a id="myfridge">My Fridge page</a> and:
+    * View all my ingredients by category
+  
+* As an overall user I can navigate to a <a id="single">single recipe page</a> and:
+    * view recipe as above, along with the average star rating.
+    * view written all written reviews at bottom of recipe.
+    * Click review recipe, and pop out window comes up to write a review and add a star rating. 
+    
+</details>
+
+---
+### Design Planning
+
+#### Mood Board
+
+<details><summary>Click to expand</summary>
+
+![Mood board](./docs/diagrams/moodboard.png)
+
+</details>
+
+#### Wireframes
+
+<details><summary>Click to expand</summary>
+
+[Click here to View on Miro](https://miro.com/app/board/o9J_led5nw4=/)
+
+#### Mobile
+![Mobile Wireframe 1](./docs/wireframes/v1/mobilewv1.jpg)    
+#### Tablet
+![Tablet Wireframe 1](./docs/wireframes/v1/tablet.jpg)
+#### Desktop
+![Desktop Wireframe 1](./docs/wireframes/v1/desktop.jpg)
+#### Nav and Footer
+![Nav and Footer](./docs/wireframes/v1/nav_footer.jpg)
+#### Pop Out Windows
+![Pop Out Windows](./docs/wireframes/v1/pop_out.jpg)
+
+</details>
+        
+
+#### Prototypes
+
+<details><summary>Click to expand</summary>
+
+[Click here to View on Framer](https://framer.com/projects/Mockups-Prototypes--gQTgOBRzoQePnxdnXfiq-51eZf)
+
+#### Pages
+![Home](./docs/prototypes/home.png)
+![Fridge](./docs/prototypes/fridge.png)
+![pantry](./docs/prototypes/pantry.png)    
+![pantry-fridge-no-items](./docs/prototypes/pantryfridgenoitems.png)  
+![browse](./docs/prototypes/browse.png)   
+![saved-recipes](./docs/prototypes/saved-recipes.png)  
+![single-recipes](./docs/prototypes/single-recipe.png)  
+![preferences](./docs/prototypes/pref.png)  
+![settings](./docs/prototypes/settings.png)  
+![pop-outs](./docs/prototypes/pop-outs.png)  
+![404](./docs/prototypes/404.png)  
+
+#### How They Link
+![linking](./docs/prototypes/linking.png)  
+
+</details>
+
+----
 
 ### Screen Shots
 <details>
@@ -135,17 +416,40 @@ The overall goal of this application is a search application based on user ingre
 ### Tech stack
 <details><summary>Click to expand</summary>
 
-* **React JS** - An open-source, front end, JavaScript library for building user interfaces or UI components.
-* **Node JS** - An open-source, cross-platform, back-end, asynchronous event-driven JavaScript runtime environment that executes JavaScript code outside a web browser.
+**Design and Planning**
+* Trello (Planning)
+* Miro (Wireframing)
+* xtensio (Personas)
+* Framer (Prototypes)
+* Lucid Chart (Diagramming)
+* Slack (Team Communication)
+
+**Frontend**
 * **HTML5**  - A markup language used for structuring and presenting content.
 * **CSS3** - A style sheet language used for describing the presentation of a document
 * **CSS Modules** -A CSS Module is a CSS file in which all class names and animation names are scoped locally by default, class names become similar to JavaScript variables . A CSS Module goes into the compiler, and CSS comes out the other side.
+* **React JS** - An open-source, front end, JavaScript library for building user interfaces or UI components.
+* **JavaScript**  -
+
+**Backend**
+* **Node JS** - An open-source, cross-platform, back-end, asynchronous event-driven JavaScript runtime environment that executes JavaScript code outside a web browser.
 * **AWS s3** - Amazon S3 or Amazon Simple Storage Service is a service offered by Amazon Web Services that provides object storage through a web service interface. This was utilised in our profile image upload feature, in which the file is uploaded to S3 and then saved as a URL in MongoDb.
+
+**Database**
 * **MongoDB** - Is a cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
+
+
+**Other**
 * **Spoonacular API** - Recipe API that includes over 360,000 recipes as well as an open source recipe database.
 * **Heroku**  - Is a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud supporting several programming languages. This was used as our server deployment service.
 * **Netlify** - A powerful serverless platform with an intuitive git-based workflow. This was used as our client side deployment. 
 * **GitHub** - Is a provider of Internet hosting for software development and version control using Git and it was our Version Control Host. 
+* **thenounproject.com** - Icons/images which included the nav bar icons.
+* **pngtree.com** - Images of food on nav bar.
+* **pixabay.com** - Background images. 
+* **https://unsplash.com/** - Background images. 
+
+
 </details>
 
 ---
@@ -193,24 +497,22 @@ The overall goal of this application is a search application based on user ingre
 * **react-dom 17.0.1** - This package serves as the entry point to the DOM and server renderers for React.
 * **react-router-dom 5.2.0** - description
 * **react-scripts 4.0.1** - description
-* **formik 2.2.5** - description
-* **history 5.0.0** - description
-* **axios 0.21.1** - description
-* **react-redux 7.2.2** - description
-* **@reduxjs/toolkit** - description
-* **redux-thunk 2.3.0** - description
-* **react-helmet 6.1.0** - description
-* **react-modal 3.12.1** - description
-* **react-loading 2.0.3** - description
-* **react-reveal 1.2.2** - description
-* **react-toastify 6.2.0** - description
-* **react-spring 8.0.27** - description
-* **material-auto-rotating-carousel 3.0.2** - description
-* **react-swipeable-view 0.13.9** - description
-* **material UI** - description
-* **@material-ui/core 4.11.2** - description
-* **@material-ui/icons 4.11.2** - description
-* **@material-ui/lab 4.0.0-alpha.57** - description
+* **formik 2.2.5** - Is a open source library for React it is declarative, intuitive and adoptable. Its key features are getting values in and out of form state, validation and error messages and handling form submission.This library was used for all our form inputs. 
+* **axios 0.21.1** - Is a promise-based HTTP client that supports an easy-to-use API and can be used in both the browser and Node. js.
+* **react-redux 7.2.2** - Is the official React binding for Redux. It lets your React components read data from a Redux store, and dispatch actions to the store to update data.
+* **@reduxjs/toolkit** - Is the official, opinionated, batteries-included toolset for efficient Redux development, intended to be the standard way to write Redux logic. It includes utility functions and several Redux add ons. 
+* **redux-thunk 2.3.0** - This middleware allows you to write action creators that return a function instead of an action. The inner function receives the store methods dispatch and getState as parameters.
+* **react-helmet 6.1.0** - Is simple component that makes it easy to manage and dynamically set what's in the document's head section. 
+* **react-modal 3.12.1** - A modal is a message box that is displayed on top of your screen that put an overlay on the screen; therefore, they take visual precedence over all the other elements. React modal allowed for easy implementation of message box modals which we used for login, register, forgot/reset password and a help box. 
+* **react-loading 2.0.3** - Easy to use loading animations for React projects using SVG animations. Utilised for our main loading screen. 
+* **react-reveal 1.2.2** - Is high performance animation library for React. It provides a simple way to add cool reveal-on-scroll animations to your React app. 
+* **react-toastify 6.2.0** - Allows for easy notification adding. Used for all our success and error notifications. 
+* **material-auto-rotating-carousel 3.0.2** - A package created using Material-UI to be a moving carousel. This was used for our introduction for new users. 
+* **react-swipeable-view 0.13.9** - This package was used in conjunction with material auto rotating carousel. 
+* **material UI** - Is the most popular React framework, it enables using React components faster development or building a custom design. 
+* **@material-ui/core 4.11.2** - Our main styling layout for done with Material UI grid and paper
+* **@material-ui/icons 4.11.2** - This package was used for various icons in our application. 
+* **@material-ui/lab 4.0.0-alpha.57** -This was used to import our 'Autocomplete' component which was very useful for our ingredient input. 
 
 * **@testing-library/jest-dom 5.11.4** - description
 * **@testing-library/react 11.1.0** - description
@@ -218,13 +520,15 @@ The overall goal of this application is a search application based on user ingre
 
 **Client Development**
 
-* **cypress 6.2.1** - description
+* **cypress 6.2.1** - Is a front end testing tool for end-to-end, integreation and unit tests.
 * **@babel/core 7.12.9** - description
 * **@babel/preset-env 7.12.7** - description
 * **@babel/preset-react 7.12.7** - description
 * **babel-jest 26.6.3** - description
 * **identity-obj-proxy 3.0.0** - description
 * **jest-transform-stub 2.0.0** - description
+
+
 
 </details>
 
@@ -312,6 +616,29 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 12/01/2021 | Add Saved Recipe | Manual Testing via the console. |
 | 12/01/2021 | Delete Saved Recipe | Manual Testing via the console. |
 
+| Sprint | Feature | Test |
+|:---:|:---:|:---:|
+| 1 | Register Form | Form is able to be typed into and returns input as an array |
+| 1 | Log In Form | Form is able to be typed into and returns input as an array |
+| 1 | Register Form | Register form returns errors when email format incorrect, when fields are blank after interacting with them, when password does not meet requirements and when the confirmed password does not match the password |
+| 1 | Log In Form | Log in form returns errors when email format incorrect, when fields are blank after interacting with them and when password does not meet requirements, however this error is generic |
+| 1 | User Settings Form | Form is able to be typed into and returns input as an array. Photo file is stored in browser but not state or database yet. |
+| 2 | Log In Modal | Can click on "log in", modal opens, modal closes when click "cancel" or click away from modal |
+| 2 | Register Modal | Can click on "register", modal opens, modal closes when click "cancel" or click away from modal |
+| 2 | Log In - Redux | When user logged in, username can be seen logged in console  |
+| 2 | Log Out - Redux | When user logged out, username can be seen logged in console as null |
+| 2 | Preferences | Radio buttons are able to be selected/deselected and submitted, returning input as an array |
+| 3 | Fridge | Form loads correctly, can type into field |
+| 3 | Pantry | Form loads correctly, can type into field |
+| 3 | Preferences | Form loads correctly, radio buttons can be selected/deselected, form can be submitted which returns an array |
+| 4 | Profile image | Image can be uploaded on user settings page, photo is displayed without manual refresh |
+| 4 | User Settings | User settings can be updated independently from the profile image  |
+| 4 | Pantry | Ingredients can be selected from the Autocomplete field which are displayed as tags within the field, and cannot be selected from the drop down a second time |
+| 4 | Fridge | Ingredients can be selected from the Autocomplete field which are displayed as tags within the field, and cannot be selected from the drop down a second time |
+| 4 | Pantry | test |
+| 4 | Pantry | test |
+| 4 | Pantry | test |
+
 </details>
 
 ---
@@ -388,9 +715,8 @@ Our application has gone through comprehensive testing with Mocha for the Server
 <details>
 <summary>Click to expand</summary>
 
-| Feature | Test |
-|:---:|:---:|
-| test | test |
+
+
 
 </details>
 
@@ -405,9 +731,16 @@ Our application has gone through comprehensive testing with Mocha for the Server
 <br>
 
 #### Screen Recordings
-[Dev User Testing Video 1- User](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/user-test-dev-1.mp4)
+[User Test 1](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/user-test-dev-1.mp4)
 
-[Dev User Testing Video 2 - Password Reset](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/dev-password-reset-.mp4)
+[User Test- Reset Password](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/dev-password-reset-.mp4)
+
+[User Desktop](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/full-dev-test.mp4)
+
+[User Mobile](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/phone-overview.mp4)
+
+[User Tablet](https://github.com/CA-MERN/MERN-server/tree/main/docs/devtestvideo/tablet-overview.mp4)
+
 
 #### Test Notes
 
@@ -420,16 +753,16 @@ Our application has gone through comprehensive testing with Mocha for the Server
 | 11/01/2020 | Preferences Page | Initial View | Description/prompt needed for choosing preferences | Yes | |
 | 11/01/2020 | Home | Initial View | Help button needed in navigation | Yes | |
 | 11/01/2020 | Browse Recipes | Page Load | Additional loading time needed for recipes to return from DB | Yes | |
-| 14/01/2020 | Add Fridge Ingredients | Component | Clear Autocomplete ingredient component after adding |  &cross; |Dev Test Record 1  |
-| 14/01/2020 | Add Pantry Staples | Component | Clear Autocomplete ingredient component after adding |  &cross; |Dev Test Record 1  |
-| 14/01/2020 | Pantry Page| Component | Error - filterpantry function not working , undefined |  Yes | Dev Test Record 1 |
-| 14/01/2020 | Browse Recipe | Component | Loading fridge animation applied to all browse recipe buttons |  &cross; | Dev Test Record 1  |
-| 14/01/2020 | Browse Page | Recipe Title | Recipe Title - room not large enough for longer recipe names |  Yes | Dev Test Record 1  |
-| 14/01/2020 | Saved Recipe Page | Component | Need back to saved recipes button for smoother user experience  |  Yes | Dev Test Record 1  |
-| 14/01/2020 | User Settings Page | Component | Add loading screen after update settings for smoother UX  |  Yes | Dev Test Record 1  |
-| 14/01/2020 | Login In Modal  | Modal | Add loading screen for after clicking login |  Yes | Dev Test Record 1  |
-| 18/01/2020 | Username | Nav | Username coming up on nav bar- causing issues with saving recipes  |  Yes | Dev User Testing Video 2 - Password Reset |
-| 18/01/2020 | Single Recipe | Checker local storage | Property ID of Null coming up. |  &cross; |  |
+| 14/01/2020 | Add Fridge Ingredients | Component | Clear Autocomplete ingredient component after adding |  Yes | User Test 1  |
+| 14/01/2020 | Add Pantry Staples | Component | Clear Autocomplete ingredient component after adding |  Yes | User Test 1 |
+| 14/01/2020 | Pantry Page| Component | Error - filterpantry function not working , undefined |  Yes | User Test 1 |
+| 14/01/2020 | Browse Recipe | Component | Loading fridge animation applied to all browse recipe buttons |  &cross; | User Test 1 |
+| 14/01/2020 | Browse Page | Recipe Title | Recipe Title - room not large enough for longer recipe names |  Yes | User Test 1  |
+| 14/01/2020 | Saved Recipe Page | Component | Need back to saved recipes button for smoother user experience  |  Yes | User Test 1 |
+| 14/01/2020 | User Settings Page | Component | Add loading screen after update settings for smoother UX  |  Yes | User Test 1 |
+| 14/01/2020 | Login In Modal  | Modal | Add loading screen for after clicking login |  Yes | User Test 1  |
+| 18/01/2020 | Username | Nav | Username coming up on nav bar- causing issues with saving recipes  |  Yes | User Test- Reset Password |
+| 18/01/2020 | Single Recipe | Checker local storage | Property ID of Null coming up. |  Yes- refactored |  |
 
 </details>
 
@@ -444,8 +777,10 @@ Our application has gone through comprehensive testing with Mocha for the Server
 <br>
 
 #### Screen Recordings
-[Prod User Testing Video 1](https://github.com/CA-MERN/MERN-server/tree/main/docs/prodtestvideo/Production-test-1.mp4)
 
+[User Test Production 1](https://github.com/CA-MERN/MERN-server/tree/main/docs/prodtestvideo/Production-test-1.mp4)
+
+[User Test Production Full](https://github.com/CA-MERN/MERN-server/tree/main/docs/prodtestvideo/main-prod-test.mp4)
 
 | Date | Feature | Test | Notes | Refactored | Screen Record ? |
 |:---:|:---:|:---:|:---:|:---:|:---:|
@@ -491,11 +826,29 @@ Initially we were going to switch front-end and back-end for each feature, but w
 <img src="./docs/trello/sprint1-2.png" alt="sprint 1 card 1" width="80%" />
 <img src="./docs/trello/sprint1-3.png" alt="sprint 1 card 1"  width="80%" />
 
-###### USER BRANCH
+###### USER-server
 
 At this start of this Sprint, Shelby set up the initial back-end server code and all the express/mongo/mongoose connections and tested it was all set up correctly. Then the first component worked on was the implementation of passport, passport-JWT and jsonwebtoken for user account and authorisation. The implementation of this involved using the express session to pass around the JWT. Alongside this was the initial user account routes , the setting up of the testing of these API end points was a steep initial learning curve. This began with researching testing frameworks in which Mocha along with super test was chosen. Shelby decided on constructing the tests with a description of each Http request eg. 'GET /ingredients/:username/fridge’. The get requests were test with expecting a 200 code back along with JSON content, the post/patch requests tested by sending dummy data through the test database and testing the response matching, and the delete requests were tested with a 204 response code. The biggest hurdles during the process were setting up the correct dummy data, the tear down data functions and deciding on the structure of the tests. 
 
 Some issues were the concern of updating the user via account settings page and then the whole data being overridden, however this issue was solved for the moment since the whole user model is being sent to the account settings page, so there for can be returned with the new data. However this solution is ok for the level the project is at now, for future scalabilty this would need to be altered.
+
+
+######  LOG IN AND REGISTER-client
+Initial forms for registering a user and logging in were written using Formik. Input could be "submitted" as an array, but this is not connected to anything yet.  
+Input validation was added to the forms regarding email format, password requirements and passwords matching for registration.
+
+######  USER SETTINGS-client
+The user settings form was written using the same Formik structure for the registration form to allow users to change their details e.g. password. 
+A section to upload a profile image was also added. This caused some difficulties as Formik does not support this function by default. 
+
+###### TESTING-client
+Basic snapshot tests of existing components were written using Jest and Enzyme.
+
+######  STRUCTURING-client
+Component file structure was refactored to have /src/components/componentName/index.js for renaming ease i refactoring needed.
+
+###### DIFFICULTIES-client
+Forgot to add node_modules to .gitignore.
 
 
 </details>
@@ -508,11 +861,11 @@ Some issues were the concern of updating the user via account settings page and 
 <img src="./docs/trello/sprint2-2.png" alt="sprint 2 card 1"  width="80%" />
 
 
-###### FRIDGE/PANTRY BRANCH
+###### FRIDGE/PANTRY-server
 
 During this sprint the CRUD for ingredients was implemented. Shelby managed to keep the codebase dry by not doing Fridge and Pantry CRUD, rather just implementing an Ingredient CRUD base and using conditionals checking the path name, which then determines which part of the user model gets updated. 
 
-###### USER BRANCH
+###### USER-server
 
 When implementing s3 and Multer for profile image upload, some blockers were incorrect set up of IAM policy, the use of .single with multer (use .any to ensure the image would upload.)
 
@@ -522,9 +875,27 @@ Started writing passing fail tests to test the end points when errors arise. Thi
 
 Current blockers are implementation of persisting cookies with mocha/supertest testing so tests can be run even with authenticated routes. eg. with the middleware of "passport.authenticate('jwt', {session: false})". Currently all  tests are based with this middleware not being implemented. Code that was tried includes, using superagent, setting headers, setting a beforeAll function of logging in the user and trying to manually set the cookies. The closest to success was using a beforeAll function of logging in the user, however accessing the cookies from that Http request response was not successful. This task will be moved to next sprint. 
 
-###### CLIENT
+###### STYLING-client
 
 Completed the initial styling for the home/nav/login/register to start the basis of styling, to enable easier implementation of the react client-side.
+
+######  REDUX-client
+
+Redux was added to the project to manage global state. Redux may not be required for a project of this size but gives room for the project to grow. Users logging in and out managed through Redux.
+
+######  LOG IN AND REGISTER-client
+
+Log in and Register forms were developed to be modals accessed from the nav bar. Modals were opened and closed through Redux state (i.e setModalOpen("register OR login OR null");).
+
+###### PREFERENCES-client
+
+The preferences form was started. There was some difficulty getting Formik to iterate over the preferences list (vegetarian, vegan, cheap etc) with a radio button and it was decided to build this as a usual <form>. 
+
+###### CYPRESS-client
+Initial tests written for logging in and registering a user.
+
+######  BLOCKERS-client
+- Difficulty getting Formik to iterate over options with radio buttons.
 
 
 </details>
@@ -538,7 +909,7 @@ Completed the initial styling for the home/nav/login/register to start the basis
 <img src="./docs/trello/sprint3-2.png" alt="sprint 3 card 1"  width="80%" />
 
 
-###### RECIPE BRANCH
+###### RECIPE-server
 
 Began Work on this feature branch on the server client. Initial routes set up. The biggest challenge was the code required for the process of getting the user data from the DB (being ingredients and preferences), error handling, sanitising the data (functions checking if null, processing booleans into an array then finally a string), then sending the correct data to the Spoonacular API calls. During the code process of the helper functions a lot of manual testing done via the console was done with some dummy data, to ensure that the JS functions were working as intended. Additionally testing Spoonacular API via postman was done to determine with Http request URLs were the right ones to use for this application. 
 
@@ -580,9 +951,26 @@ When implementing the main code for displaying recipes for browsing, it was disc
 
 To overcome the blocker of needing the information from the ingredient search query, but also the information from the get recipe bulk query, the used and missed ingredients were filtered out from the first lot of returned data, then passed onto the next function, so that after the bulk recipe query was returned the two objects could be joined and returned. 
 
-###### CLIENT
+###### END TO END CONNECTION
 
 The initial connecting of the front-end and back-end was started. This started a learning curve with how having the JWT in a cookie works. To begin with registering a user was connected, and logging in a user, this followed some blockers including the register user function on the back-end not signing a JWT, and on the front-end determining how to keep a user logged in. Local storage was implemented for this issue with the storage housing the username and at the moment the JWT (which is not necessary, but just in place for manual testing). Along with local storage is the state manager being redux. 
+
+######  FRIDGE PANTRY-client
+
+Started the fridge and pantry components using the AutoComplete component and JSON ingredient/pantry lists from Shelby. The forms were built using the Formik library. Some difficulties were found around structuring shared functions and what needed to be separated. 
+
+###### PREFERENCES-client
+
+The preferences form was completed and ready to be connected to the database. The form was built using Formik again but using radio buttons and iterating over a separated list of preferences (vegetarian, sustainable etc). There is still some repetition as the values need to be initialized in Formik so if the list was edited, the form would also need to be edited rather than just updating the list.
+
+###### LOG IN/OUT AND REGISTRATION-client
+
+The registration and log in forms were completed to a point where it could be connected with the database.
+Input validation/input errors were added to the user registration form. 
+
+###### Blockers
+- Adrienne had some difficulties properly adding .eslintcache to .gitignore and it had to be removed many, many times. 
+- Dev tools was not showing state so the Redux dev tools were added and configured within the project to work with the firefox browser. 
 
 </details>
 
@@ -596,7 +984,7 @@ The initial connecting of the front-end and back-end was started. This started a
 <img src="./docs/trello/sprint4-3.png" alt="sprint 4 card 3" width="80%" />
 <img src="./docs/trello/sprint4-4.png" alt="sprint 4 card 4"  width="80%" />
 
-###### STYLING
+###### STYLING-client
 
 Foundational styling was done as I went to ensure easy readability of the pages being worked on. This involved implementing a Grid layout from Material UI for styling. The main components used from Material UI include the autocomplete component, Grid, Paper and Buttons. Additional usage will be put in place once the final in depth styling is completed. 
 Initial set up React Toastify for Notifications was put in place for later use. 
@@ -606,7 +994,7 @@ Not found page was implementing and styled.
 
 Loading screen was implemented with React Loading to enable a loading time frame for browse recipes, fridge, pantry and eventually saved recipes. To ensure the data has loaded correctly. The initial of adding transitions and effects for better user experience was started. 
 
-###### BROWSE RECIPES
+###### BROWSE RECIPES-client
 
 Browse Recipe component was created and some test data was put in place via a JSON file to enable to initially styling of the recipe cards. Like the separate ingredient component, using a separate recipe card component means it can be reused when it comes to displaying the saved recipes pages. 
 
@@ -616,7 +1004,7 @@ The next step is being able to refactor the code to allow for if the user was to
 
 Issue: check if the server code is working correctly with taking fridge and pantry ingredients for the recipe search.
 
-###### FRIDGE PANTRY
+###### FRIDGE PANTRY-client
 
 Adrienne implemented the foundational code for the fridge and pantry components and the functions for connecting to the back end, alongside was some great code for being able to save the state of multiple ingredients for adding to the DB. I just did some refactoring as instead of manually coding the add multiple ingredients, Material UI has this available in the autocomplete component. Additional I was able to incorporate the ingredient services methods.
 
@@ -631,7 +1019,7 @@ to (...newItem)
 
 Then was the issue of duplicates being able to be added to the list. Adrienne is currently working on a fix for this issue, because as it stands you can add duplicates, but when you delete one, it deletes all as that is the server method of deleting. So to overcome this, a function for stopping duplicates is needed. 
 
-###### USER
+###### USER-server
 
 A blocker which was causing issues when finding by username and updating for settings and preferences, was this:
 
@@ -652,9 +1040,9 @@ A major blocker was the user password being rehashed each log in/update. It was 
 
 Another issue was on initial login the users current profile image was not loaded until navigating to the settings page, this was due to the DB not loading the profile on initial home page render. This was fixed by doing a single DB call to get the profile image and save in redux so that it would load on first login. 
 
-###### INGREDIENTS
+###### INGREDIENTS-client
 
-A conditional was implementing that if no ingredients for fridge or pantry were present it would render a white space filler letting the user know that there are no ingredients present. 
+A conditional was implemented that if no ingredients for fridge or pantry were present it would render a white space filler letting the user know that there are no ingredients present. 
 
 ###### DEPLOYMENT
 
@@ -664,11 +1052,11 @@ Server code was successfully deployed to Heroku. The client code however was dep
 
 A private route function was set up so that it could be utilised with any routes that require logging in. This then redirects the user to the home page. 
 
-###### HOME
+###### HOME-client
 
 A json file with random food jokes was created and utilised on the home page to display random food jokes. This was done as a JSON file to enable new jokes to be added later.
 
-###### RESET PASSWORD
+###### RESET PASSWORD-server/client
 
 For a fuller user experience, I implementing a reset password feature via nodemailer and a built in module in Node.js called crypto which will hash a unique token.
 This was implemented relatively quickly with an initial post route for clicking reset password, which opens a modal in React with a form which the user enters their email, then on submit it fires a function on the server which will check if the user is in the DB, sending back errors if not, then created a random token via crypto, then inserting this and a token expiring into the users document in MongoDB. Then via Nodemailer using a gmail accounted created for this application, it sends a basic template outlining the instructions for resetting their password with a link that will take the user to a reset password form. The get request for this form involves checking that the token in the link is in the users DB first before allowing the user to see the page. This subsequently the user can enter their new password in the form, which then submits a request to the DB to update the password, using the username, token and date less then expiring to ensure the correct user's password is updated. The main blockers during the process was determining the correct was the insert a field into a document, upsert was not working so after some research and trial and error the below was the correct code:
@@ -684,6 +1072,22 @@ The strict: false allowed me to insert a field that was not in the current schem
 Additionally some other blockers, were ensuring there was enough time on the loading screen to make sure the server can fulfill the request, the function which sends the nodemailer can load slow at times, so ensuring there were enough seconds to allow for this was key. 
 
 
+###### PROFILE PHOTO-client
+Image upload added. Initially file upload was working but with bugs, and was initially included in the User Settings form. It was moved into it's own component to allow for separate updates to image and username, email and password respectively. 
+The photo upload was not displaying without manual refresh. This was resolved by adding the image to state via updateProfile to currentUserSettings.
+
+###### FRIDGE PANTRY-client
+Updates to ingredients list where when ingredient selected it is removed from the list, so it cannot be selected again. Input field still doesn't clear after adding ingredients though so they can be added again/duplicated.
+
+
+###### Blockers:
+
+- Password being hashed on hash.
+- Local storage holding JSON file, needed to pass string and then parse back our to JSON for render.
+- Cypress testing would interact with web pages but would not submit some forms or interact with the state of the application. Able to interact with database as would register user and log in, but not save that user to local state.
+- Clearing tags from Automcomplete Fridge and Pantry fields, still. 
+
+
 </details>
 
 
@@ -693,14 +1097,24 @@ Additionally some other blockers, were ensuring there was enough time on the loa
 
 <img src="./docs/trello/sprint5-1.png" alt="sprint 5 card 1" width="80%" />
 
-###### REVIEWING TESTING
+
+##### TESTING-client
+Configured package cypress-and-jest coordinated code coverage reports. 
+Continued development of end-to-end testing for components. Able to set state manually using package cypress-localstorage-commands but having difficulty integrating state with database calls and changing state on return. Cypress-testing-library added 
+Revisited unit testing for front end with Jest. Previously written tests failing as components completed and refactored. All Jest tests failing. Time spent debugging, see blockers. To look into Storybook and Cypress Unit testing. 
+
+##### Blockers:
+Modules and Jest conflicting - Jest throwing errors on JS files with modules.css styling. 
+Difficulty getting MaterialUI Autocomplete to clear after adding ingredients resulting in duplicated on ingredients being added.
+
+###### REVIEWING TESTING-server
 
 Current sitting at 75% test coverage. 
 ![Image of tests](./docs/testhtml.png)
 
 Following a review using Istanbul of the server side test coverage, it was determined additional tests would need to be written to increase test coverage, another 10 tests were put in place, most of which were testing for if errors occurred. This increased our back-end test coverage to approximately 75%.
 
-###### RECIPES
+###### RECIPES-server/client
 
 During this final sprint the implementation of connecting the back-end to the front-end for browsing recipes, viewing saved recipes, adding, deleting and viewing a single recipe was completed. For the features such as user settings, a API call was done on initial page load due to the sensitive nature of the data, but for the lists of recipes, we wanted to utilise local storage to minimize database calls. In a production setting of the DB, at any time the recipes returned could be set up to 100 (depending on the limits set), so saving in local storage meant that the API calls would not need to be done each render. The API call gets made again if the User presses 'Search Again'. Even during production usage, our browse recipe data returned will be set at a reduced limit, due to a the payment tiers of the Spoonacular API call. 
 
@@ -714,6 +1128,7 @@ The functionality which takes the users preferences and filters out recipes usin
 <img src="./docs/trello/sprint5-2.png" alt="sprint 5 card 2" width="80%" />
 <img src="./docs/trello/sprint5-3.png" alt="sprint 5 card 3" width="80%" />
 <img src="./docs/trello/sprint5-4.png" alt="sprint 5 card 4" width="80%" />
+
 </details>
 
 ---

@@ -1,7 +1,3 @@
-// If we are not running in production, load our local .env
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -21,6 +17,21 @@ const recipeRouter = require("./routes/recipe_routes");
 const app = express();
 const port = process.env.PORT || 3009;
 
+// If we are not running in production, load our local .env
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
+//
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
 // CORS
 const whitelist = ["http://localhost:3000", "https://fridgemate.netlify.app/"];
 app.use(
@@ -36,38 +47,34 @@ app.use(
   })
 );
 
-//
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-
-app.set("trustproxy", true);
-
+// SESSION
+const sessionConfig = {
+  secret: "Secret of The Recipe App",
+  resave: false,
+  saveUninitialized: false,
+  proxy: true,
+  cookie: {
+    expires: 3600000,
+    httpOnly: false,
+  },
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+  }),
+};
+// for production, cookie needs 2 more settings
 if (process.env.NODE_ENV === "production") {
-  app.set("trust proxy", 1); // trust first proxy
+  sessionConfig.cookie.secure = true;
+  sessionConfig.cookie.sameSite = "none";
 }
+app.enable("trust proxy");
+app.use(session(sessionConfig));
 
-app.use(
-  session({
-    secret: process.env.JWT_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    //proxy: true,
-    cookie: {
-      maxAge: 600000,
-      secure: process.env.NODE_ENV == "production" ? true : false,
-      sameSite: "none",
-      httpOnly: false,
-    },
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
-  })
-);
+//PASSPORT
+require("./middleware/passport");
+app.use(passport.initialize());
+app.use(passport.session());
 
+// MONGODB
 const dbConn = process.env.MONGODB_URI || "mongodb://localhost/recipe_app";
 mongoose.connect(
   dbConn,
@@ -85,11 +92,6 @@ mongoose.connect(
     }
   }
 );
-
-//PASSPORT
-require("./middleware/passport");
-app.use(passport.initialize());
-app.use(passport.session());
 
 //ROUTES
 app.use("/user", authRouter);

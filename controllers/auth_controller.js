@@ -8,23 +8,18 @@ const {updateUser, getUserByParam, updateForForgotPassword, findForResetPassword
     insertPasswordToken} = require("../utils/auth_utilities")
 
 ///JWT TOKEN CONFIG
-const configToken = {         
+const configToken = {  
+       // Delete the cookie after 90 days
+        expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000 ),       
         httpOnly: true,
-         }
-// if(process.env.NODE_ENV !== 'production') {
-//     configToken = {
-//         maxAge: 10000,
-//         httpOnly: false,
-//         }
-// } else {
-//     configToken = {
-//         maxAge: 600000,
-//         //secure: true,
-//         //sameSite: 'none',
-//         httpOnly: false,
-//     }
-// }
+    }
 
+// In production, set the cookie's Secure flag 
+// to ensure the cookie is only sent over HTTPS
+if( process.env.NODE_ENV === 'production') {
+    configToken.secure = true;
+    configToken.sameSite = "none";
+}
 
 // function registerNew(req, res) {
 //     res.send("This is register Page");
@@ -70,8 +65,7 @@ function loginCreate(req, res) {
     res.cookie("jwt", token, configToken)
        
     res.status(200);
-    res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID, cookie: req.cookies});
-    res.send()
+    res.json({profile: req.user.profile, user: req.user.username, sessionID: req.sessionID});
     console.log(res)
 }
  
@@ -140,6 +134,13 @@ function forgotPassword (req, res) {
               },
             });
 
+            if( process.env.NODE_ENV === 'production') {
+                "https://fridgemate.netlify.app/"
+            }
+            
+           let url = process.env.NODE_ENV === 'production' ? "https://fridgemate.netlify.app/" : "http://localhost:3000/"
+
+
           const mailOptions = {
               from: 'fridgemate2020@gmail.com',
               to: `${user.email}`,
@@ -147,7 +148,7 @@ function forgotPassword (req, res) {
               text:
                 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n'
                 + 'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n'
-                + `http://localhost:3000/user/reset-password/${token}\n\n`
+                +  `${url}user/reset-password/${token}\n\n`  
                 + 'If you did not request this, please ignore this email and your password will remain unchanged.\n',
             };
 
