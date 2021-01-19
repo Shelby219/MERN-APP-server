@@ -11,7 +11,6 @@ function shuffleArray(array) {
 //JOINING FRIDGE AND PANTRY INGREDIENTS 
 const ingredientJoiner = function (fridge, pantry) { 
     const ingredients = fridge/*.concat(pantry);*/ //Removed pantry for now
-   
     shuffleArray(ingredients)
     return ingredients.join(",+")
 }
@@ -21,6 +20,7 @@ const preferenceSeparator = function (preference) {
     let result = Object.keys(preference).filter((key) => preference[key])
     return result
 }
+
 //
 function queryEditor(p, preferenceSeparator) { 
     let queryArray = preferenceSeparator(p)
